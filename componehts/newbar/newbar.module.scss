@@ -1,0 +1,79 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    src: url(../../styles/popins/Poppins-Regular.ttf);
+    // src: url(../../styles/popins//Poppins-Regular.ttf);
+    // src: url(../../popins/Poppins-Regular.ttf)
+}
+
+.newbar_list {
+    display: flex;
+    justify-content: end;
+    padding: 20px 0px 20px 30px;
+
+}
+
+.bodar_botuum {
+    border-bottom: 1px solid #E0E0E0;
+    // padding: 0px 60px 0px 60px;
+}
+
+.cantenar_list {
+    border-bottom: 1px solid #E0E0E0;
+    padding: 0px 60px 0px 60px;
+}
+
+.logotis {
+    padding: 20px 0px 20px 0px;
+}
+.cantenar_list_caps{
+    padding: 0px 80px !important;
+}
+.btn_avtar_list {
+    background-color: #DDF9EA !important;
+    color: #009947 !important;
+}
+
+.user_list p {
+    font-size: 18px;
+    color: #4F4F4F;
+    padding: 6px 0px 0px 7px;
+}
+
+.alt_list_ikon {
+    color: black !important;
+}
+
+.cantenar_list_caps {
+    padding: 0px 40px 0px 40px;
+    background-color: white;
+
+}
+
+.btn_pages {
+    font-family: Poppins-400 !important;
+    color: #4F4F4F !important;
+    font-size: 18px !important;
+    text-transform: capitalize !important;
+}
+.btn_pages:hover{
+    background: #DDF9EA !important;
+    color: #009947;
+}
+
+@media only screen and (max-width: 450px) {
+    .cantenar_list_caps {
+        padding: 0px 10px 0px 10px;
+    }
+
+    .menu_icom {
+        // display: flex;
+        // justify-content: end;
+        // text-align: end;
+        padding: 0px 0px 0px 80px;
+    }
+
+    .newbar_list {
+        padding: 20px 0px 20px 10px;
+    }
+}

@@ -1,0 +1,72 @@
+/* .cantenar_list{
+  padding:.0px 60px 60px 60px;
+} */
+.Header_camponat{
+  padding: 0px 80px;
+  background: #FFFFFF !important;
+}
+  .bac_divhomeadv{
+      background-color:#F5F5F5 !important;
+      padding: 100px 0px 0px 0px;
+      /* background-image: url('../public/'); */
+      background-image: url("../public/Rectangle 12 (1).png");
+      background-repeat: no-repeat;
+      /* // background-color: white !important;
+      // background-image: url('../Rectangle 12 (1).png');
+      // background-image: url('../public/Ellipse 14.png') !important;
+      // background-repeat:;
+      // background-size: 70%; */
+  }
+  /* // .bac_divhomeadv{
+  //    
+  // }
+  // .Header_btn{
+  //     padding: 10px 0px 10px 0px;
+  // } */
+  
+@media only screen and (max-width: 900px) {
+  .dasnod_camponat{
+    padding: 0px 30px 0px 30px;
+  }
+  .singlistpsdii{
+    padding: 30px 90px 30px 90px !important;
+  }
+  .dasnod_camponat3{
+    padding: 30px 30px 0px 30px;
+  }
+  .userinput{
+    padding: 0px 20px;
+  }
+  .passoutinput{
+    /* padding: 10px 20px !important; */
+    margin: 20px 20px 0px 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .dasnod_camponat{
+    padding: 0px 30px 0px 30px;
+  }
+  .singlistpsdii{
+    padding: 30px !important;
+  }
+  .dasnod_camponat3{
+    padding: 30px 30px 0px 30px;
+  }
+  .userinput{
+    padding: 0px 20px;
+  }
+  .passoutinput{
+    /* padding: 10px 20px !important; */
+    margin: 20px 20px 0px 20px;
+  }
+}
+
+/* @media only screen and (max-width: 820px) {
+  .dasnod_camponat{
+    padding: 0px 40px 0px 40px;
+  }
+  .dasnod_camponat3{
+    padding: 40px 40px 0px 40px;
+  }
+} */

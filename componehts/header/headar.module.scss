@@ -1,0 +1,56 @@
+@font-face {
+    font-family: Poppins-400;
+    src: url(../../styles/popins//Poppins-Regular.ttf);
+}
+
+.btnlogin {
+    font-family: Poppins-400 !important;
+    background-color: #fff !important;
+    color: black !important;
+    // font-family: 'Poppins';
+    font-style: normal;
+    text-transform: capitalize !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    line-height: 27px !important;
+}
+
+.btnsingup {
+    font-family: Poppins-400 !important;
+    background-color: #fff !important;
+    color: black !important;
+    max-width: 100px;
+    font-family: 'Poppins';
+    text-transform: capitalize !important;
+
+    font-weight: 500;
+    font-size: 18px !important;
+    line-height: 27px;
+}
+.btn_meaincom{
+    display: flex;
+    justify-content: end;
+    // display={"flex"} justifyContent={'end'}
+    padding: 16px 0px 0px 0px;
+}
+.line_btn{
+    padding: 8px 0px 0px 0px;
+}
+
+.logotis {
+
+    padding: 8px 0px 8px 0px;
+}
+
+@media only screen and (max-width: 450px) {
+    .logotis {
+        padding: 0px 0px 0px 20px;
+    }
+    .btn_meaincom{
+        padding: 6px 0px 0px 0px;
+    }
+    // .btn_meaincom{
+    //     display: flex;
+    //     justify-content: end;
+    // }
+}

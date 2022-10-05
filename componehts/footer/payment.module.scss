@@ -1,0 +1,90 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    src: url(../../styles/popins//Poppins-Regular.ttf);
+    // src: url(../../popins/Poppins-Regular.ttf)
+}
+
+$colorlist: #009947;
+
+.affordable_text {
+    padding: 177px 0px 0px 79px;
+    background-image: url('../../public/Ellipse 16.png'), url('../../public/Ellipse 18 (1).png'), url('../../public/Ellipse 17 (2).png');
+    background-repeat: no-repeat;
+
+    p {
+        font-family: Poppins-400;
+        font-size: 43px;
+        color: #4F4F4F;
+        font-weight: bold;
+    }
+}
+
+.box_com_mobali {
+    margin: 100px 60px 0px 0px;
+    border: 1px solid #4F4F4F;
+    border-radius: 40px;
+    // display: flex;
+}
+
+.box_maen_peg {
+    display: flex;
+
+    .disple_divlist {
+        display: flex;
+    }
+
+    .ikon_r {
+        color: $colorlist ;
+        padding: 20px 10px 0px 41px;
+    }
+
+    .payment_rupe p {
+        font-family: Poppins-400;
+        font-size: 62px;
+        color: #009947;
+        font-weight: bold;
+    }
+
+    .intraday_text p {
+        font-family: Poppins-400;
+        font-weight: 500;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333333;
+    }
+
+    .all_list p {
+        font-family: Poppins-400;
+        font-size: 16px;
+        color: #4F4F4F;
+        max-width: 288px;
+    }
+
+    .group_div {
+        padding: 40px 60px 60px 60px;
+    }
+
+    .line_box {
+        padding: 61px 0px 0px 0px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .box_com_mobali {
+        margin: 60px 10px 0px 10px;
+    }
+
+    .affordable_text {
+        padding: 30px 0px 0px 60px;
+    }
+}
+@media only screen and (max-width: 820px) {
+    .box_com_mobali {
+        margin: 60px 10px 0px 10px;
+    }
+
+    .affordable_text {
+        padding: 30px 0px 0px 60px;
+    }
+}

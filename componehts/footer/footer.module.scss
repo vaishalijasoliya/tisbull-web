@@ -1,0 +1,48 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    font-family: Poppins-600;
+    src: url(../../styles/popins//Poppins-Regular.ttf);
+    // src: url(../../popins/Poppins-Regular.ttf)
+}
+
+$textcolor: #009947;
+
+.open_list {
+    padding: 100px 0px 20px 0px;
+p{
+    font-family: Poppins-400;
+    font-size: 42px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #333333;
+    text-align: center;
+
+    samp {
+        color: #009947;
+    }
+}
+}
+.peregaraf_listdata p {
+    font-family: Poppins-400;
+    font-size: 22px;
+    color: #4F4F4F;
+    text-align: center;
+
+}
+.maen_btnlist{
+    text-align: center;
+    padding: 40px 0px 60px 6px;
+.footer_btn {
+    font-family: Poppins-400;
+    background: #009947 !important;
+    border-radius: 40px;
+    color: white;
+    text-transform: capitalize;
+    width: 220px;
+    height: 52px;
+    font-size: 22px;
+}
+
+
+}

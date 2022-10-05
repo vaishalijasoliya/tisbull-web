@@ -1,0 +1,83 @@
+@font-face {
+    font-family: Poppins-400;
+    font-family: Poppins-600;
+    src: url(../../styles/popins//Poppins-Regular.ttf);
+}
+
+.heding_advauto p {
+    font-family: Poppins-400;
+    font-size: 38px;
+    color: #4F4F4F;
+    text-align: center;
+}
+.heding_advauto2 p {
+    font-family: Poppins-400;
+    font-size: 38px;
+    color: #4F4F4F;
+    padding: 0px 0px 0px 50px;
+    // text-align: center;
+}
+.heding_providing2{
+    display: flex;
+    justify-content: left;
+    padding: 0px 0px 0px 50px;
+    
+    p {
+        font-family: Poppins-400;
+        font-size: 17px;
+        text-align: center;
+        color: #4F4F4F;
+        max-width: 334px;
+    }
+    }
+
+.heding_providing{
+display: flex;
+justify-content: center;
+
+
+p {
+    font-family: Poppins-400;
+    font-size: 17px;
+    text-align: center;
+    color: #4F4F4F;
+    max-width: 334px;
+}
+}
+.logotis {
+    text-align: center;
+}
+.logotis2{
+    text-align: left;
+    padding: 0px 0px 0px 90px;
+}
+
+.bgcolor_peg {
+    background-image: url('../../public/Ellipse 13 (2).png'),url('../../public/Ellipse 15 (2).png'),url('../../public/Ellipse 14 (2).png') !important;
+    background-repeat: no-repeat;
+    background-size: 65%;
+}
+.bgcolor_peg2{
+    background-image:url('../../public/Ellipse 19 (1).png'),url('../../public/Ellipse 21.png'),url('../../public/Ellipse 20.png') !important;
+// display: flex;
+// justify-content: center;
+    background-repeat: no-repeat;
+    background-size:100%;
+   
+}
+.maen_geidsty2{
+    background-image: url('../../public/Rectangle 14 (1).png');
+    background-repeat: no-repeat;
+}
+.maen_geidsty {
+    background-image: url('../../public/Rectangle 13 (1).png');
+    background-repeat: no-repeat;
+    text-align: center;
+}
+@media only screen and (max-width: 450px) {
+    .bgcolor_peg2 img{
+        width: 200px;
+        justify-content: end;
+        display: flex;
+    }
+}

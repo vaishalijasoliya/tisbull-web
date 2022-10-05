@@ -1,0 +1,238 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    font-family: Poppins-600;
+    src: url(../../styles/popins/Poppins-Regular.ttf);
+}
+
+$colorup: #FF9FA2;
+.listnjhahjhb{
+}
+.box_paymenat {
+    background: #E6AA36;
+    border: 1px solid #F0F0F0;
+    box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    height: 125px;
+}
+.boxred
+{
+    background: #DDF9EA;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Poppins-400;
+// padding: 5px ;
+// padding: 1px 9px;
+text-align: center;
+color: #009947;
+}
+#bpoxtabal{
+    width: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    // margin: 0px 0px 0px 5px;
+}
+.doopuparr{
+    margin-top: 2px;
+}
+.boxgeerin{
+    background: rgba(255, 227, 218, 0.6);
+border-radius: 5px;
+}
+.box_paymenat2 {
+    background: #36A6E6;
+    border: 1px solid #F0F0F0;
+    box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    height: 125px;
+}
+
+.box_paymenat3 {
+    background: $colorup;
+    border: 1px solid #F0F0F0;
+    box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    height: 125px;
+}
+
+.div_box1img {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 0px 37px;
+
+    p {
+        font-family: Poppins-600;
+        color: white;
+        font-size: 34px;
+        width: 100%;
+    }
+}
+
+.total_list {
+    padding: 27px 0px 3px 37px;
+
+    p {
+        font-family: Poppins-400;
+        font-size: 18px;
+        font-weight: bold;
+        color: #FFFFFF;
+    }
+}
+
+// .cantenar_pading {
+//     padding: 60px 0px 0px 0px;
+// }
+
+.log_imglock {
+    padding: 0px 20px 0px 0px;
+}
+
+.box_cast_list {
+    background: #FFFFFF;
+    border: 1px solid #F0F0F0;
+    box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.03);
+    border-radius: 20px;
+}
+
+.box_palas {
+    width: 12px;
+    height: 12px;
+    background: #009947;
+    border-radius: 2px;
+    margin: 3px 0px 0px 0px;
+}
+
+.box_palas2 {
+    width: 12px;
+    height: 12px;
+    background: $colorup;
+    border-radius: 2px;
+    margin: 3px 0px 0px 0px;
+}
+
+.log_color_red {
+    display: flex;
+
+    padding: 0px 17px 0px 0px;
+
+    p {
+        font-family: Poppins-400;
+        font-size: 12px;
+        color: #000000;
+        padding: 0px 0px 0px 7px;
+    }
+}
+
+.disple_box {
+    display: flex;
+    justify-content: end;
+    padding: 20px 40px 0px 10px;
+    // background-image: url(../../../public/);
+}
+
+.loss_aaro {
+    display: flex;
+    align-items: center;
+
+    svg {
+        color: #E31E24;
+    }
+}
+
+.listheding {
+    background: #FFFFFF;
+    border: 1px solid #F0F0F0;
+    box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.03);
+    border-radius: 20px;
+    padding: 20px 30px;
+}
+
+.hedingtotal {
+    font-family: Poppins-400;
+    font-size: 14px;
+    color: #BDBDBD;
+}
+
+.list_nabarar {
+    font-family: Poppins-400 !important;
+    font-size: 30px !important;
+    font-weight: bold !important;
+    color: #333333 !important;
+}
+
+.inkamlist {
+    font-family: Poppins-400 !important;
+    color: #E31E24 !important;
+    font-size: 16px !important;
+}
+
+.iconrupe {
+    font-size: 20px;
+    padding: 2px 5px 0px 0px;
+}
+
+.from_typolast {
+    font-family: Poppins-400;
+    font-size: 16px;
+    color: #BDBDBD;
+}
+
+.bodar_bottm {
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.table_lidt {
+    overflow-x: auto;
+    max-height: 416px;
+    margin: 27px 0px 0px 0px;
+    background-color: #FFFFFF;
+    box-shadow: none;
+}
+
+.table_lidt22 {
+    th {
+        font-family: Poppins-400 !important;
+        border-bottom: none;
+        font-size: 16px !important;
+        color: #BDBDBD !important;
+    }
+
+    td {
+        font-family: Poppins-400 !important;
+        border-bottom: none;
+        font-size: 16px !important;
+        color: #333333 !important;
+    }
+}
+
+// .list_doun {
+//     background-color: rgba(255, 227, 218, 0.6) !important;
+//     border-radius: 5px;
+//     font-size: 14px;
+//     color: #E31E24;
+//     font-family: Poppins-400;
+//     font-size: 14px;
+// }
+
+.list_doun2 {
+    background-color: #DDF9EA !important;
+    border-radius: 5px;
+    font-size: 14px !important;
+    color: #009947 !important;
+    font-weight: bold !important;
+    font-family: Poppins-400 !important;
+    // font-size: 14px;
+}
+.list_doun {
+    background-color: rgba(255, 227, 218, 0.6) !important;
+    border-radius: 5px;
+    font-size: 14px !important;
+    color: #E31E24 !important;
+    font-weight: bold !important;
+    font-family: Poppins-400 !important;
+    // font-size: 14px;
+}
+.rupe_up {
+    font-size: 15px;
+}

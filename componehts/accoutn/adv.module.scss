@@ -1,0 +1,74 @@
+@font-face {
+    font-family: Poppins-400;
+    src: url(./popins/Poppins-Regular.ttf)
+}
+
+$primary_1: #36E586;
+
+.Avatar_user {
+    background-color:  #FFB097;
+    width: 40px;
+}
+.Avatar_user2 {
+    background-color:  #36A6E6;
+    width: 40px;
+}
+.Avatar_user2 img {
+    width: 60%;
+    height: 62%;
+}
+
+.Avatar_user img {
+    width: 46%;
+    height: 62%;
+}
+
+.box_2div {
+    width: 370px;
+    height: 283px;
+    border: 1px ;
+    background: rgba(217, 217, 217, 0.12);
+    backdrop-filter: blur(200px);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.peregarf_maen p {
+    
+    font-family: Poppins-400;
+    font-style: normal;
+    // font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    color: #4F4F4F;
+}
+
+.peregarf_no2 p {
+    padding: 10px 0px 0px 0px;
+    font-family: Poppins-400;
+    font-style: normal;
+    // font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #4F4F4F;
+    max-width: 307px;
+}
+
+.Avatar_userlistbox {
+    padding: 70px 0px 0px 0px;
+}
+.new_listoeregsrsf p{
+    font-family: Poppins-400;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 60px;
+    color: #4F4F4F;
+    max-width: 322px;
+}
+.new_listoeregsrsf{
+    padding: 66px 0px 0px 0px;
+}
+.new_listoeregsrsf samp{
+    color: $primary_1;
+}

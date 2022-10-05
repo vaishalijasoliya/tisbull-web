@@ -1,0 +1,39 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    src: url(../../styles/popins//Poppins-Regular.ttf);
+    // src: url(../../popins/Poppins-Regular.ttf)
+}
+
+.searchbtn {
+    width: 320px;
+    box-sizing: border-box;
+    height: 56px;
+    border: 1px solid #F0F0F0;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #F9F9F9;
+    background-image: url(../../public/Search.svg);
+    background-position: 18px 50%;
+    background-repeat: no-repeat;
+    padding: 18px 0px 18px 56px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    cursor: text;
+    box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.02);
+}
+
+.addbtnkk {
+    font-family: Poppins-400 !important;
+    background: #009947 !important;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    color: #FFFFFF !important;
+    padding: 14px 27px !important;
+    text-transform: capitalize !important;
+}
+.batntextend{
+    display: flex;
+    justify-content: end;
+}
