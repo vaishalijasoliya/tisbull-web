@@ -1,0 +1,167 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    src: url(../../styles/popins/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: roboto-400;
+    src: url(../../styles/Roboto/Roboto-Regular.ttf);
+}
+
+.inputoplist {
+    display: flex;
+    padding: 25px 0px 0px 50px;
+}
+
+.pohelistmenu {
+    display: flex;
+    padding: 20px 0px 0px 50px;
+
+}
+.futtorlist{
+    display: flex;
+    padding: 20px 0px 0px 50px;
+}
+
+// .boxeditpro {
+.cantenar_list {
+    display: flex !important;
+    width: 100% !important;
+
+    // margin: 60px;
+    .formedit {
+        background: #FFFFFF;
+        box-shadow: 0px 2px 20px rgba(27, 29, 46, 0.18);
+        border-radius: 20px;
+        padding: 60px;
+        width: 100%;
+        margin: 60px;
+    }
+
+    .hedingdiv {
+        display: flex;
+    }
+
+    .personmenu p {
+        font-size: 30px;
+        font-family: Poppins-400;
+
+        color: #000000;
+    }
+
+    .uplodimgp p {
+        font-family: roboto-400;
+
+        color: #858789;
+        font-size: 14px;
+
+    }
+
+    .donebtn {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 50%;
+
+        button {
+            color: #009947;
+            text-transform: capitalize !important;
+            font-size: 18px;
+            font-family: roboto-400;
+            font-weight: bold;
+        }
+    }
+
+    .avtaruplo {
+        border: 2px solid #009947;
+        width: 94px;
+        height: 96px;
+    }
+
+    .listmenuuppohot {
+        display: flex;
+        justify-content: center;
+        padding-top: 20px;
+    }
+
+    .iconbtnop {
+        position: relative;
+        right: 33px;
+        top: 26px;
+    }
+
+    // .imputname {
+    //     display: flex;
+    // }
+
+    .leballiss {
+        padding: 3px 0px;
+        font-size: 18px;
+        color: #333333;
+        font-family: roboto-400;
+    }
+
+    .inputnamelist {
+        width: 85%;
+
+        div {
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+            border-radius: 5px;
+            color: #393030;
+            font-size: 14px;
+            font-family: roboto-400;
+        }
+
+    }
+
+    .emailinput {
+        width: 85%;
+
+        div {
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+            border-radius: 5px;
+            color: #393030;
+            font-size: 14px;
+            font-family: roboto-400;
+        }
+    }
+
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 324px;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+
+    .dataeinput {
+
+        width: 85%;
+
+        div {
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+
+        svg {
+            color: #009947 !important;
+        }
+
+    }
+    .slaydarinput{
+        width: 85%;
+        div{
+        height: 46px;
+        display: flex;
+    align-items: center;
+        }
+    }
+    .otperr{
+        color: red;
+    }
+}

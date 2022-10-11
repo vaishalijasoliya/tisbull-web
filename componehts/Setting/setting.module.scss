@@ -1,0 +1,137 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    src: url(../../styles/popins/Poppins-Regular.ttf);
+    // src: url(../../styles/popins//Poppins-Regular.ttf);
+    // src: url(../../popins/Poppins-Regular.ttf)
+}
+
+// .cantenar_list100{
+//     height: 100vh;
+// }
+
+.listseting {
+    // background: linear-gradient(180deg, #053159 0%, rgba(14, 26, 37, 0.71) 100%);
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.18);
+    border-radius: 0px;
+    // height: 100vh;
+    height: 100vh;
+    padding: 0px 10px;
+}
+
+// .megolist{
+//     display: none;
+// }
+.listcomhed {
+    background: #053159!important;
+    // max-width: 0px 0px 10px 0px;
+    // background: #405E7A !important;
+    border-radius: 20px !important;
+
+    p {
+        font-family: Poppins-400 !important;
+        display: flex;
+        font-size: 16px !important;
+
+    }
+
+    .settingfast {
+        // margin-bottom: 10px;
+        min-height: 46px !important;
+        background: #405E7A !important;
+        border-radius: 25px !important;
+        color: #FFFFFF !important;
+    }
+
+    svg {
+        color: #FFFFFF !important;
+    }
+
+    .personicon {
+        margin: 0px 20px 0px 0px;
+    }
+
+    // height: 46px;
+}
+
+.imgboxse {
+    display: flex;
+    justify-content: center;
+    padding: 40px 10px 40px 0px;
+}
+
+.personlist {
+    height: 46px;
+    width: 96%;
+    font-family: Poppins-400 !important;
+    font-size: 16px !important;
+    color: #FFFFFF !important;
+    margin: 0px 0px 10px 12px !important;
+    text-transform: capitalize !important;
+    background: #405E7A !important;
+    border-radius: 20px !important;
+}
+
+.personlist2 {
+    margin-bottom: 10px !important;
+    height: 46px;
+    width: 96%;
+    font-family: Poppins-400 !important;
+    font-size: 16px !important;
+    color: #FFFFFF !important;
+    margin: 0px 0px 0px 20px !important;
+    text-transform: capitalize !important;
+    border-radius: 20px !important;
+}
+
+.arronewbar {
+    font-size: 15px !important;
+    margin: 0px 0px 0px 17px;
+}
+
+.arronewbar2 {
+    font-size: 15px !important;
+    margin: 0px 0px 0px 48px;
+}
+
+.jjperuser {
+    margin: 0px 10px 0px 7px;
+}
+
+.accontbtn {
+    button {
+        padding: 0px 17px;
+margin-bottom: 10px;
+        border-radius: 20px !important;
+        // padding: 0px 10px;
+        display: flex;
+        align-items: center;
+        // background-color: red;
+        width: 100%;
+        justify-content: space-between;
+        height: 46px;
+        color: white !important;
+        text-transform: capitalize !important;
+    }
+
+    p {
+        padding: 0px 0px 0px 10px;
+        font-family: Poppins-400 !important;
+        font-size: 16px !important;
+    }
+
+    
+}
+
+
+
+.pandicon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // width: 35%;
+}
+.listnumlook{
+    display: flex;
+    align-items: center;
+}

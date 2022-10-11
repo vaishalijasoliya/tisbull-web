@@ -21,7 +21,7 @@
     // margin-top: 50px;
     margin: 0px 0px 0px 40px;
     // margin: 60px 0px 30px 80px;
-    padding: 77px 60px 69px 60px !important;
+    padding: 77px 60px 69px 60px;
 }
 
 .boxsinglist2 {
@@ -46,6 +46,7 @@
     // margin: 60px 0px 30px 80px;
     padding: 120px 60px 200px 60px;
 }
+
 .boxsinglist44 {
     background: rgba(0, 153, 71, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.25);
@@ -57,6 +58,7 @@
     // margin: 60px 0px 30px 80px;
     padding: 170px 60px 110px 60px;
 }
+
 .boxsinglist33 {
     background: rgba(0, 153, 71, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.25);
@@ -68,12 +70,15 @@
     // margin: 60px 0px 30px 80px;
     padding: 180px 60px 150px 60px;
 }
+
 .submitbyn {
     padding: 50px 0px 0px 0px;
 }
+
 .submitbyn31 {
     padding: 10px 0px 0px 0px;
 }
+
 .listdataform {
     padding: 60px 0px 0px 0px !important;
 }
@@ -144,8 +149,10 @@
         color: #000000;
     }
 }
+
 .welcamrlist36 {
-padding-top: 30px;
+    padding-top: 30px;
+
     // padding: 80px 0px 20px 40px;
     p {
         font-family: Poppins-400;
@@ -153,21 +160,26 @@ padding-top: 30px;
         color: #000000;
     }
 }
-.optreset{
+
+.optreset {
     display: flex;
     padding: 50px 0px 0px 0px;
-    p{
+
+    p {
         font-family: roboto-400 !important;
 
         color: #4F4F4F !important;
         font-size: 14px !important;
     }
-    a{
+
+    a {
         text-decoration: none;
-    cursor: pointer;
+        cursor: pointer;
     }
+
     // justify-content: center;
 }
+
 .pleslist {
     padding: 15px 0px;
 
@@ -180,7 +192,7 @@ padding-top: 30px;
 }
 
 .pleslist3 {
-    padding: 30px 0px 0px 0px;
+    padding: 30px 0px 15px 0px;
 
     p {
         font-family: roboto-400 !important;
@@ -189,6 +201,7 @@ padding-top: 30px;
         color: #878787;
     }
 }
+
 .pleslist44 {
     padding: 30px 0px 20px 0px;
 
@@ -199,6 +212,7 @@ padding-top: 30px;
         color: #878787;
     }
 }
+
 .pleslist33 {
     padding: 0px 0px 20px 0px;
 
@@ -209,6 +223,7 @@ padding-top: 30px;
         color: #878787;
     }
 }
+
 .pleslist2 {
     padding: 8px 0px;
 
@@ -249,23 +264,27 @@ padding-top: 30px;
     font-size: 14px !important;
     font-family: roboto-400 !important;
 }
+
 .leballist44 {
     padding: 10px 0px 10px 0px !important;
     color: #333333 !important;
     font-size: 14px !important;
     font-family: roboto-400 !important;
 }
+
 .leballist33 {
     padding: 10px 0px 10px 0px !important;
     color: #333333 !important;
     font-size: 14px !important;
     font-family: roboto-400 !important;
 }
-.otperr{
+
+.otperr {
     color: red;
     font-size: 14px !important;
     font-family: roboto-400 !important;
 }
+
 .leballist2 {
     padding: 4px 0px 4px 0px !important;
     color: #333333 !important;
@@ -429,7 +448,7 @@ padding-top: 30px;
     color: #4F4F4F !important;
     font-size: 18px !important;
     text-transform: capitalize !important;
-    padding: 5px;
+    // padding: 5px;
     border-radius: 0px !important;
 }
 
@@ -472,10 +491,12 @@ padding-top: 30px;
 
     // padding:3px;
 }
-.otpinput{
+
+.otpinput {
     padding: 0px 0px 0px 3px;
 }
-.leballist36{
+
+.leballist36 {
     padding: 10px 0px 10px 0px !important;
     color: #333333 !important;
     font-size: 14px !important;
@@ -483,22 +504,150 @@ padding-top: 30px;
     // padding: 10px 0px 10px 0px;
 }
 
+.bakimginpos {
+    display: none;
+}
+
+@media only screen and (max-width: 900px) {
+    .cantenar_pegsingcantenar {
+        background-image: none !important;
+    }
+
+    .cantenar_pegsingcantenar3 {
+        background-image: none !important;
+    }
+
+    .boxsinglist {
+        margin: 30px;
+        padding: 30px 40px 30px 40px;
+    }
+
+    .borderimline {
+        padding: 20px 0px 0px 0px;
+    }
+
+    .optreset {
+        justify-content: center;
+    }
+
+    .boxsinglist33 {
+        margin: 30px;
+        text-align: center;
+        padding: 60px 90px 60px 90px;
+    }
+
+    .fargotpasslist {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center;
+    }
+
+    .borderimline {
+        display: flex;
+        justify-content: center;
+    }
+
+    .listdataform {
+        padding: 30px 0px 0px 0px !important;
+    }
+
+    .menu_icom {
+        display: flex !important;
+        justify-content: end !important;
+        // padding: 0px 25px 0px 0px !important;
+    }
+.boxsinglist44{
+    margin: 30px !important;
+}
+    .bakimginpos {
+        display: block;
+    }
+
+    // .pegsingcantenar3{
+    //     background-image: none !important;
+    // }
+    .maenloginpegimg {
+        width: 100% !important;
+    }
+}
+
 @media only screen and (max-width: 500px) {
-    .forgotlistmenu{
-        padding: 0px 0px 0px 20px;
+    .forgotlistmenu {
+        padding: 0px 0px 0px 60px;
     }
-    .boxsinglist{
+
+    .maenloginpegimg {
+        width: 100% !important;
+    }
+
+    .bakimginpos {
+        display: block;
+    }
+
+    .boxsinglist44 {
+        margin: 20px !important;
+        padding: 100px 30px 100px 30px;
+
+    }
+
+    .boxsinglist {
         margin: 0px;
+        padding: 30px !important;
     }
+
+    .cantenar_list_caps {
+        padding: 0px 0px 0px 40px !important;
+    }
+
+    .borderimline {
+        padding: 20px 0px 0px 0px;
+    }
+
+    .singbodar {
+        text-align: center;
+        padding: 0px;
+    }
+
+    .welcamrlist {
+        padding-top: 40px;
+    }
+
+    .menu_icom {
+        display: flex !important;
+        justify-content: end !important;
+        padding: 0px 25px 0px 0px !important;
+    }
+
+    .listdataform {
+        padding: 30px 0px 0px 0px !important;
+    }
+
+    .cantenar_pegsingcantenar {
+        background-image: none;
+    }
+
     .cantenar_list_caps {
         padding: 0px 10px 0px 10px;
     }
 
-    .menu_icom {
-        // display: flex;
-        // justify-content: end;
-        // text-align: end;
-        padding: 0px 0px 0px 80px;
+    .optreset {
+        padding: 25px 0px 0px 0px;
+    }
+
+    .boxsinglist3 {
+        margin: 0px;
+        padding: 30px;
+    }
+
+    .boxsinglist33 {
+        margin: 0px;
+        padding: 100px 30px 100px 30px;
+    }
+
+    .otpinput33 input {
+        width: 58px;
+        height: 58px;
+        margin: 0px 0px 0px 13px;
     }
 
     .newbar_list {

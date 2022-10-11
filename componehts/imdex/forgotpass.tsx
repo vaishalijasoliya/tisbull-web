@@ -89,11 +89,11 @@ const Home = (props) => {
                 // elistdata
                 // props.save_user_data({ user: data });
                 toast.success("otp is sent successfully")
-                console.log(formik.values.email,'emaillist');
-                
+                console.log(formik.values.email, 'emaillist');
+
                 router.push({
                     pathname: './otp',
-                    query: {  email:formik.values.email}
+                    query: { email: formik.values.email }
                 });
                 // router.push{('./otp'
                 // query: { mobile: }
@@ -176,7 +176,9 @@ const Home = (props) => {
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar3}>
-
+            <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
+                <img  width={360} className={styles.maenloginpegimg} src='../../Group 109.svg' />
+            </Grid>
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
                 <div className={styles.baglistee}></div>
                 <Box className={styles.boxsinglist3}>
@@ -213,9 +215,7 @@ const Home = (props) => {
                     </div>
                 </Box>
             </Grid>
-            <Grid item md={7} sm={12} xs={12} className={styles.bakimginpos}>
-                {/* <img className={styles.maenloginpegimg} src='../../Group 109.svg' /> */}
-            </Grid>
+
         </Grid>
 
     )

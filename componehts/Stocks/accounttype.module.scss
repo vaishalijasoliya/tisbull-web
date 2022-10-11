@@ -4,15 +4,33 @@
     src: url(../../styles/popins//Poppins-Regular.ttf);
     // src: url(../../popins/Poppins-Regular.ttf)
 }
+.tablelist th span{
+    color: #333333 !important;
+    font-family: Poppins-400;
+    font-size: 14px;
+}
+.tablelist td {
+    font-family: Poppins-400;
+    font-size: 14px;
+    color: #333333;
 
+}
+.accolistp {
+    font-family: Poppins-400 !important;
+    font-size: 30px !important;
+color: #000000;
+}
+.btnsaveic svg{
+    color:#BDBDBD;
+}
 .searchbtn {
     width: 320px;
     box-sizing: border-box;
-    height: 56px;
-    border: 1px solid #F0F0F0;
+    height: 50px;
+    border: 1px solid #C4C4C4;
     border-radius: 10px;
     font-size: 16px;
-    background-color: #F9F9F9;
+    background-color: #FFFFFF;
     background-image: url(../../public/Search.svg);
     background-position: 18px 50%;
     background-repeat: no-repeat;
@@ -22,8 +40,27 @@
     cursor: text;
     box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.02);
 }
-
+.devatdar{
+    padding: 0px 30px !important;
+}
+.cantenar_list{
+    // padding: 0px 120px;
+    border: 1px solid #D8D7D7;
+}
+.padimgtebal{
+    padding: 30px 0px 25px 80px;
+}
+.padimgtebal2{
+    padding: 0px 0px 30px 80px;
+}
+.padimgtebal3{
+    padding: 0px 80px 0px 0px;
+}
+.cantenartebal{
+    padding: 0px 80px;
+}
 .addbtnkk {
+    height: 46px;
     font-family: Poppins-400 !important;
     background: #009947 !important;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.12) !important;
@@ -36,4 +73,5 @@
 .batntextend{
     display: flex;
     justify-content: end;
+    padding: 30px 80px 0px 0px;
 }

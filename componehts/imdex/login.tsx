@@ -84,7 +84,7 @@ const Home = (props) => {
     props.props.loaderRef(true)
     var data = await ApiServices.PostApiCall(ApiEndpoint.LOGIN_USER, JSON.stringify(body), headers);
     props.props.loaderRef(false)
-    console.log(data.token, 'listdata');
+    console.log(data, 'listdata');
     if (!!data) {
       if (data.status == true) {
         data.token = data.token
@@ -170,7 +170,9 @@ const Home = (props) => {
   return (
     
     <Grid container className={styles.cantenar_pegsingcantenar}>
-   
+     <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
+        <img width={360} className={styles.maenloginpegimg} src='../../Group 109.svg' />
+      </Grid>
       <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
         <div className={styles.baglistee}></div>
         <Box className={styles.boxsinglist}>
@@ -290,9 +292,7 @@ const Home = (props) => {
           </div>
         </Box>
       </Grid>
-      <Grid item md={7} sm={12} xs={12} className={styles.bakimginpos}>
-        {/* <img className={styles.maenloginpegimg} src='../../Group 109.svg' /> */}
-      </Grid>
+    
     </Grid>
 
   )

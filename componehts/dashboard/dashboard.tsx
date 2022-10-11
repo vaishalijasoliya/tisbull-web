@@ -71,14 +71,6 @@ const main = (props) => {
             "Content-Type": "application/json",
             "x-access-token": props.props.profile.token
         }
-        // console.log(props.props.profile, 'headers');
-        // var body = {
-        //     // "id_review": id,
-        //     // "review_status": status
-        // }
-        // console.log(body, 'body');
-
-
         props.props.loaderRef(true)
         //  const data = await ApiServices.GetApiCall(ApiEndpoint.USER_COUNT_LIST, headers);
 

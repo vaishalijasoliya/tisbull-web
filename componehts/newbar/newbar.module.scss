@@ -6,10 +6,25 @@
     // src: url(../../popins/Poppins-Regular.ttf)
 }
 
+.btnicon2 {
+    display: flex;
+
+    button {
+        min-width: 40px;
+        min-height: 40px;
+        color: #444444;
+        margin: 0px 10px 0px 0px;
+    }
+
+    button:hover {
+        // background-color: n;
+    }
+}
+
 .newbar_list {
     display: flex;
     justify-content: end;
-    padding: 20px 0px 20px 30px;
+    padding: 20px 0px 20px 0px;
 
 }
 
@@ -26,12 +41,181 @@
 .logotis {
     padding: 20px 0px 20px 0px;
 }
-.cantenar_list_caps{
-    padding: 0px 80px !important;
-}
+
+// .cantenar_list_caps{
+//     padding: 0px 80px !important;
+// }
 .btn_avtar_list {
     background-color: #DDF9EA !important;
     color: #009947 !important;
+}
+
+.btnnevlist {
+    font-family: Poppins-400;
+    color: #333333 !important;
+    text-transform: capitalize !important;
+    font-size: 15px !important;
+
+}
+
+.listbtmnuu {
+    padding: 0px 15px;
+}
+
+.listaddacc {
+    button {
+        height: 50px;
+        text-transform: capitalize !important;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 100%;
+        font-family: Poppins-400;
+        // text-align: left;
+        font-size: 16px;
+        color: #333333;
+
+        svg {
+            margin: 0px 15px 0px 0px;
+            color: #BDBDBD;
+        }
+    }
+}
+
+.settinglist {
+    button {
+        height: 50px;
+        text-transform: capitalize !important;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 100%;
+        font-family: Poppins-400;
+        // text-align: left;
+        font-size: 16px;
+        color: #333333;
+
+        svg {
+            margin: 0px 15px 0px 0px;
+            color: #BDBDBD;
+        }
+    }
+
+}
+
+.listmeuend {
+    display: flex;
+}
+
+.menulistbtn {
+    padding: 0px 0px 0px 43px;
+    display: flex;
+    align-items: center;
+
+}
+
+.loglist {
+    button {
+        height: 50px;
+        text-transform: capitalize !important;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 100%;
+        font-family: Poppins-400;
+        // text-align: left;
+        font-size: 16px;
+        color: #333333;
+
+        svg {
+            margin: 0px 15px 0px 0px;
+            color: #BDBDBD;
+        }
+
+        // span{
+
+        // }
+    }
+
+}
+
+// .massscolor{ 
+//     span{
+//     // margin: 9px 6px 0px 0px;
+//     background-color: #E31E24 !important;
+//     }
+// }
+.massscolor2  span{
+    // .clrred2 span {
+    // color: white !important;
+    margin: 6px 6px 0px 0px;
+    background-color: #E31E24 !important;
+    width: 10px;
+    height: 10px;    line-height: 0px !important;
+    // }
+
+}
+
+.listboxmass{
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    // button {
+    //     background-color: white !important;
+        min-width: 40px !important;
+        // height: 40px;
+  
+    // }
+}
+.devatdar{
+    padding: 10px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.38);
+}
+.ivonhestri {
+    background-color: white !important;
+
+    color: #4285F4 !important;
+}
+
+.loglistyy {
+    display: flex;
+    align-items: center;
+    font-family: Poppins-400;
+    color: #4285F4 !important;
+    text-transform: capitalize !important;
+    font-size: 15px !important;
+    min-width: 30px !important;
+    padding: 0 !important;
+}
+
+.loglistyy2 {
+    padding: 0 !important;
+    font-family: Poppins-400;
+    color: #E31E24 !important;
+    text-transform: capitalize !important;
+
+    min-width: 40px !important;
+    svg{
+        font-size: 25px !important;
+    }
+}
+
+.btnnevlist p {
+    padding: 0px 15px;
+}
+
+.listtype p {
+    font-family: Poppins-400;
+    font-size: 12px !important;
+    color: #858789 !important;
+}
+
+.idname p {
+    font-family: Poppins-400;
+    font-size: 15px !important;
+    // color: #858789;
+    color: #333333 !important;
+
 }
 
 .user_list p {
@@ -42,38 +226,128 @@
 
 .alt_list_ikon {
     color: black !important;
+    min-width: 20px !important;
 }
 
 .cantenar_list_caps {
-    padding: 0px 40px 0px 40px;
+    max-width: 100% !important;
+    padding: 0px 30px 0px 80px !important;
     background-color: white;
+    height: 90px;
+    // display: flex;
+    // align-items: center;
+}
 
+.ntnlistmenu {
+    padding: 100px 15px 0px 15px;
+}
+
+.menunewbarlist {
+    background: linear-gradient(180deg, #053159 0%, rgba(14, 26, 37, 0.71) 100%);
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.18);
+    border-radius: 0px;
+    height: 100vh;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.18);
+    color: white !important;
+    text-align: center;
+}
+
+.calsslistbag {
+    // background: #405E7A;
+    border-radius: 25px;
+    // background: linear-gradient(180deg, #053159 0%, rgba(14, 26, 37, 0.71) 100%);
 }
 
 .btn_pages {
+    display: flex !important;
     font-family: Poppins-400 !important;
     color: #4F4F4F !important;
+    border: none !important;
     font-size: 18px !important;
+    margin: 0px 25px 0px 0px !important;
     text-transform: capitalize !important;
 }
-.btn_pages:hover{
-    background: #DDF9EA !important;
+
+.btn_pages2 {
+    display: flex !important;
+    justify-content: left !important;
+    font-size: 16px !important;
+    color: #FFFFFF !important;
+    font-family: Poppins-400 !important;
+    text-transform: capitalize !important;
+    width: 100%;
+    text-align: left;
+}
+
+.btn_pages22 {
+    display: flex !important;
+    // justify-content: ;
+    justify-content: space-between !important;
+    font-size: 16px !important;
+    color: #FFFFFF !important;
+    font-family: Poppins-400 !important;
+    text-transform: capitalize !important;
+    width: 100%;
+    text-align: left;
+
+    svg {
+        font-size: 18px;
+    }
+}
+
+.btn_pages2:hover {
+    background: #405E7A !important;
+    border-radius: 25px 25px 25px 25px !important;
+}
+
+.btn_pages:hover {
+    border-bottom: 2px solid #009947 !important;
     color: #009947;
+    border-radius: 0 !important;
+}
+
+.listmenuoncc {
+    display: none !important;
+}
+
+.dispeldell {
+    display: flex !important;
 }
 
 @media only screen and (max-width: 450px) {
+    .btnicon2 {
+        display: none;
+    }
+
+    .menu_icom {
+        display: none !important;
+    }
+
+    .listmenuoncc {
+        display: block !important;
+    }
+
     .cantenar_list_caps {
         padding: 0px 10px 0px 10px;
+    }
+
+    .cantenar_list_caps {
+        padding: 0px 5px 0px 5px !important;
+    }
+
+    .btnicon2 button {
+        min-width: 32px;
+        margin: 0;
     }
 
     .menu_icom {
         // display: flex;
         // justify-content: end;
         // text-align: end;
-        padding: 0px 0px 0px 80px;
+        padding: 3px 0px 0px 78px !important;
     }
 
     .newbar_list {
-        padding: 20px 0px 20px 10px;
+        padding: 20px 0px 20px 0px;
     }
 }

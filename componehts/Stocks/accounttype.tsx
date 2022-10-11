@@ -1,7 +1,7 @@
 import styles from './accounttype.module.scss'
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { Box, Button, Typography } from '@mui/material';
+import { Avatar, Box, Button, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,6 +12,10 @@ import React, { useState } from "react";
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import moment from 'moment'
+import Divider from '@mui/material/Divider';
+
+import TablePagination from '@mui/material/TablePagination';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
@@ -64,21 +68,21 @@ function createData(
     };
 }
 
-const rows = [
-    createData('Cupcake', 'uqwdgasd', 'hyggg', 3.7, 67, 4.3, '01-10-2022', 'Active'),
-    // createData('Donut', 452, 25.0, 51, 4.9),
-    // createData('Eclair', 262, 16.0, 24, 6.0),
-    // createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    // createData('Gingerbread', 356, 16.0, 49, 3.9),
-    // createData('Honeycomb', 408, 3.2, 87, 6.5),
-    // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    // createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    // createData('KitKat', 518, 26.0, 65, 7.0),
-    // createData('Lollipop', 392, 0.2, 98, 0.0),
-    // createData('Marshmallow', 318, 0, 81, 2.0),
-    // createData('Nougat', 360, 19.0, 9, 37.0),
-    // createData('Oreo', 437, 18.0, 63, 4.0),
-];
+// const rows = [
+//     createData('Cupcake', 'uqwdgasd', 'hyggg', 3.7, 67, 4.3, '01-10-2022', 'Active'),
+//     // createData('Donut', 452, 25.0, 51, 4.9),
+//     // createData('Eclair', 262, 16.0, 24, 6.0),
+//     // createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//     // createData('Gingerbread', 356, 16.0, 49, 3.9),
+//     // createData('Honeycomb', 408, 3.2, 87, 6.5),
+//     // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//     // createData('Jelly Bean', 375, 0.0, 94, 0.0),
+//     // createData('KitKat', 518, 26.0, 65, 7.0),
+//     // createData('Lollipop', 392, 0.2, 98, 0.0),
+//     // createData('Marshmallow', 318, 0, 81, 2.0),
+//     // createData('Nougat', 360, 19.0, 9, 37.0),
+//     // createData('Oreo', 437, 18.0, 63, 4.0),
+// ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -136,7 +140,7 @@ const headCells: readonly HeadCell[] = [
         id: 'Environments',
         numeric: true,
         disablePadding: false,
-        label: 'Environments',
+        label: 'User ID',
     },
     {
         id: 'Consumer Key',
@@ -150,23 +154,23 @@ const headCells: readonly HeadCell[] = [
         disablePadding: false,
         label: 'Consumer Secret',
     },
+    // {
+    //     id: 'User ID',
+    //     numeric: true,
+    //     disablePadding: false,
+    //     label: 'User ID',
+    // },
+    // {
+    //     id: 'Created',
+    //     numeric: true,
+    //     disablePadding: false,
+    //     label: 'Consumer Secret',
+    // },
     {
-        id: 'User ID',
+        id: 'Last Login',
         numeric: true,
         disablePadding: false,
-        label: 'User ID',
-    },
-    {
-        id: 'Created',
-        numeric: true,
-        disablePadding: false,
-        label: 'Created',
-    },
-    {
-        id: 'Update',
-        numeric: true,
-        disablePadding: false,
-        label: 'Update',
+        label: 'Last Login',
     },
     {
         id: 'Action',
@@ -240,10 +244,16 @@ const ResponsiveAppBar = (props) => {
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
-    const [page, setPage] = React.useState(0);
+    // const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [datatebal, setDatatebal] = React.useState([]);
     const [dense, setDense] = React.useState(false);
+    const [page, setPage] = React.useState(0);
+
+
+    const handlePageChange = (event, newPage) => {
+        setPage(newPage);
+    };
 
     const accounttype = async () => {
 
@@ -272,17 +282,18 @@ const ResponsiveAppBar = (props) => {
                     const element = data.data[index];
                     const object = {
                         id: element.id,
+                        logoUrl: element.logoUrl,
                         password: element.password,
-                        type: element.type,
-                        Environments: element.env,
+                        // type: element.type,
+                        user_id: element.user_id,
                         consumer_key: element.consumer_key,
                         consumer_secret: element.consumer_secret,
                         id_user: element.id_user,
                         zerodha_token_update: element.zerodha_token_update
                     }
-                    console.log(element.password, 'password');
+                    console.log(element, 'password');
 
-                    accoyty.push(object)
+                    accoyty.push(JSON.parse(JSON.stringify(object)))
                 }
                 setDatatebal(accoyty)
             }
@@ -291,14 +302,22 @@ const ResponsiveAppBar = (props) => {
 
     // let inloglist=datatebal.zerodha_token_update
 
-    console.log(datatebal, 'datatebal');
+    console.log(datatebal.logoUrl, 'datatebal');
 
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
             accounttype()
         }
     }, [])
-   
+
+    // const handleRequestSort = (
+    //     event: React.MouseEvent<unknown>,
+    //     property: keyof Data,
+    // ) => {
+    //     const isAsc = orderBy === property && order === 'asc';
+    //     setOrder(isAsc ? 'desc' : 'asc');
+    //     setOrderBy(property);
+    // };
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
         property: keyof Data,
@@ -307,16 +326,21 @@ const ResponsiveAppBar = (props) => {
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
-
-    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
     };
 
+
+
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDense(event.target.checked);
+    };
     const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected: readonly string[] = [];
@@ -337,30 +361,90 @@ const ResponsiveAppBar = (props) => {
         setSelected(newSelected);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
-
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebal.length) : 0;
+    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.checked) {
+            const newSelected = datatebal.map((n) => n.name);
+            setSelected(newSelected);
+            return;
+        }
+        setSelected([]);
     };
+
+    // const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    //     const selectedIndex = selected.indexOf(name);
+    //     let newSelected: readonly string[] = [];
+
+    //     if (selectedIndex === -1) {
+    //         newSelected = newSelected.concat(selected, name);
+    //     } else if (selectedIndex === 0) {
+    //         newSelected = newSelected.concat(selected.slice(1));
+    //     } else if (selectedIndex === selected.length - 1) {
+    //         newSelected = newSelected.concat(selected.slice(0, -1));
+    //     } else if (selectedIndex > 0) {
+    //         newSelected = newSelected.concat(
+    //             selected.slice(0, selectedIndex),
+    //             selected.slice(selectedIndex + 1),
+    //         );
+    //     }
+
+    //     setSelected(newSelected);
+    // };
+
+    // const handleChangePage = (event: unknown, newPage: number) => {
+    //     setPage(newPage);
+    // };
+
+    // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setRowsPerPage(parseInt(event.target.value, 10));
+    //     setPage(0);
+    // };
+
+    // const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setDense(event.target.checked);
+    // };
+
+    // const isSelected = (name: string) => selected.indexOf(name) !== -1;
+
+    // Avoid a layout jump when reaching the last page with empty rows.
+    // const emptyRows =
+    //     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    // const handleChange = (event, newValue) => {
+    //     setValue(newValue);
+    // };
+    // const handleChangeRowsPerPage = (event = React.ChangeEvent) => {
+    //     setRowsPerPage(+event.target.value);
+    //     setPage(0);
+    //   };
+    //   const handleRequestSort = (event, property) => {
+    //     const isAsc = orderBy === property && order === 'asc';
+    //     setOrder(isAsc ? 'desc' : 'asc');
+    //     setOrderBy(property);
+    //   };
+    //   const handleChangeDense = (event) => {
+    //     setDense(event.target.checked);
+    //   };
     return (
         <Grid container className={styles.cantenar_list}>
-            <Grid item sm={12} md={6} xs={12}>
+            {/* <Divider className={styles.devatdar}/> */}
+            <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal}>
+
+                <Typography className={styles.accolistp}>
+                    Account
+                </Typography>
+            </Grid>
+            <Grid item md={6} sm={12} xs={12} className={styles.batntextend}>
+                <div>
+                    <Button className={styles.addbtnkk}>
+                        Create account
+                    </Button>
+                </div>
+            </Grid>
+            <Grid item sm={12} md={6} xs={12} className={styles.padimgtebal2}>
                 <div>
                     <Box className={styles.boxreting} display={'flex'}>
 
@@ -384,18 +468,15 @@ const ResponsiveAppBar = (props) => {
                     </Box>
                 </div>
             </Grid>
-            <Grid item md={6} sm={12} xs={12} className={styles.batntextend}>
-                <div>
-                    <Button className={styles.addbtnkk}>
-                        Add New Account
-                    </Button>
-                </div>
+            <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'}>
+                <Button className={styles.btnsaveic}><SaveAltIcon /></Button>
+                <Button><img src='../../Vector (3).svg' /></Button>
             </Grid>
             <Grid item md={12} sm={12} xs={12} >
                 <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
                     <Paper sx={{ width: '100%', mb: 2 }}>
                         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-                        <TableContainer>
+                        <TableContainer className={styles.cantenartebal}>
                             <Table
                                 className={styles.tablelist}
                                 sx={{ minWidth: 750 }}
@@ -408,7 +489,7 @@ const ResponsiveAppBar = (props) => {
                                     orderBy={orderBy}
                                     onSelectAllClick={handleSelectAllClick}
                                     onRequestSort={handleRequestSort}
-                                    rowCount={rows.length}
+                                    rowCount={datatebal.length}
                                 />
                                 <TableBody>
                                     {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -416,7 +497,7 @@ const ResponsiveAppBar = (props) => {
                                     {stableSort(datatebal, getComparator(order, orderBy))
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .map((row, index) => {
-                                            const isItemSelected = isSelected(datatebal.type);
+                                            const isItemSelected = isSelected(row.type);
                                             const labelId = `enhanced-table-checkbox-${index}`;
 
                                             return (
@@ -446,21 +527,23 @@ const ResponsiveAppBar = (props) => {
                                                         padding="none"
                                                     >
                                                         {/* <div> */}
-                                                        {row.type}
+                                                        <Avatar src={row.logoUrl} />
+                                                        {/* {row.type} */}
                                                         {/* </div> */}
                                                         {/* <div className={styles.nselist}><Typography>{row.NSE}</Typography></div> */}
                                                     </TableCell>
                                                     <TableCell
                                                     // align="right"
-                                                    >{row.Environments}</TableCell>
-                                                    <TableCell >{row.consumer_key.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_key.length-10)}</TableCell>
-                                                    <TableCell >{row.consumer_secret.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_secret.length-10)  }</TableCell>
-                                                    <TableCell >{row.id_user}</TableCell>
-                                                    <TableCell >
+                                                    >{row.user_id}</TableCell>
+                                                    <TableCell >{row.consumer_key.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_key.length - 10)}</TableCell>
+                                                    <TableCell >{row.consumer_secret.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_secret.length - 10)}</TableCell>
+                                                    {/* <TableCell >{row.id_user}</TableCell> */}
+                                                    {/* <TableCell >
                                                         {row.password}
-                                                    </TableCell>
+                                                    </TableCell> */}
                                                     <TableCell>
-                                                        {row.zerodha_token_update}
+                                                        <Button><img src='../../History.svg' /></Button>
+                                                        {/* {row.zerodha_token_update} */}
                                                     </TableCell>
                                                     {/* <TableCell> */}
                                                     {/* <Button className={styles.listststu}>{row.Status}</Button></TableCell> */}
@@ -485,7 +568,17 @@ const ResponsiveAppBar = (props) => {
                                     )}
                                 </TableBody>
                             </Table>
+                           
                         </TableContainer>
+                        {/* <TablePagination
+                            component="div"
+                            //   count={datatebal.length}
+                            //   onPageChange={handlePageChange}
+                            //   onRowsPerPageChange={handleLimitChange}
+                            //   page={page}
+                            //   rowsPerPage={limit}
+                            rowsPerPageOptions={[5, 10, 25]}
+                        /> */}
                     </Paper>
                 </Box>
             </Grid>

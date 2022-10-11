@@ -377,7 +377,7 @@ const ResponsiveAppBar = (props) => {
 
     // let inloglist=datatebal.zerodha_token_update
 
-    console.log(data.totalProfit, 'datatebalpettan');
+    console.log(data.exchange, 'datatebalpettan');
 
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {

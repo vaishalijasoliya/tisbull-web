@@ -13,6 +13,8 @@ export default {
     USER_FORGOT_PASSWORD:Constants.BASE_API_URL+'user/forgotPassword',
     USER_VERIFYOTP:Constants.BASE_API_URL+'user/verifyOtp',
     USER_CRETENEWPASSWORD:Constants.BASE_API_URL+'user/createNewPassword',
+    USER_EDIT:Constants.BASE_API_URL+'user/edit',
+    // USER_ACCOUNT_LIST:Constants.BASE_API_URL+'account/list',
     // LIST_SUPPORT_TICKET: Constants.BASE_API_URL + 'admin/tickit/list',
     // UPDATE_TICKET: Constants.BASE_API_URL + 'admin/tickit/update',
     // // MESSAGE_READ: Constants.BASE_API_URL + 'admin/message/read',
