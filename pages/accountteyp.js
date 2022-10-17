@@ -7,12 +7,12 @@ import Accounttype from '../componehts/Stocks/accounttype';
 const ResponsiveAppBar = (props) => {
   console.log(props,'vir');
   return (
-    <Grid container className={styles.cantenar_list}>
+    <Grid container className={styles.cantenar_list88}>
       <Grid item sm={12} md={12} xs={12}>
         <Newbar />
         {/* <Home /> */}
-        <div className={styles.dasnod_camponat2}>
-        <Accounttype  props={props}/>
+        <div className={styles.dasnod_camponat266}>
+        <Accounttype className={styles.accolistmenu}  props={props}/>
         </div>
       </Grid>
     </Grid>

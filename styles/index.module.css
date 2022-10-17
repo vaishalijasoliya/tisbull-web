@@ -1,26 +1,61 @@
-/* .cantenar_list{
-  padding:.0px 60px 60px 60px;
-} */
-/* .cantenar_list{
-  padding: 30px;
-} */
+
+.listmenustrok{
+  margin: 60px 120px!important;
+}
+.dasnod_camponat3{
+  
+
+}
 .Header_camponat{
   padding: 0px 80px;
   background: #FFFFFF !important;
 }
+.bac_divhomeadv{
+  /* .listmenucantr { */
+    /* height: 100vh; */
+    /* background-image: url('../public/baghome.png'); */
+    /* background-size: cover; */
+     background-image: url('../public/Ellipse 13 (2).png'),url('../public/Ellipse 15 (2).png'),url('../public/Ellipse 14 (2).png') !important;
+    background-repeat: no-repeat;
+     /* background-size: 65%; */
+}
+/* } */
+/* }
   .bac_divhomeadv{
       background-color:#F5F5F5 !important;
       padding: 100px 0px 0px 0px;
       /* background-image: url('../public/'); */
-      background-image: url("../public/Rectangle 12 (1).png");
+      /* background-image: url("../public/Rectangle 12 (1).png");
       background-repeat: no-repeat;
-  }
+  }  */
   .newbarend{
     background: linear-gradient(180deg, #053159 0%, rgba(14, 26, 37, 0.71) 100%) !important;
     /* height: 100vh !important; */
   }
 .dasnod_camponat2{
   padding: 60px 0px;
+}
+.dasnod_camponat266{
+
+  padding: 60px 60px;
+}
+.dasnod_camponat2663{
+  padding: 120px 120px;
+}
+.accolistmenu{
+  padding: 60px;
+}
+.cantenar_list88{
+  background-image: url('../public/background.png'); 
+  background-repeat: no-repeat !important;
+  background-size: cover;
+  /* background-position: 0px 50px; */
+  /* background-size: 100% 100%; */
+}
+.cantenar_list883{
+  background-image: url('../public/background.png'); 
+  background-repeat: no-repeat !important;
+  background-size: cover;
 }
 .cantenar_list36{
   background-image: url('../public/background.png'); 

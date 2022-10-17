@@ -50,14 +50,47 @@ const Home = (props) => {
     const [showLoginButton, setLoginButton] = useState(true);
     const [showLogoutButton, setLogoutButton] = useState(false);
     const [elistdata, setElistdata] = useState([])
-    const loginHandler = (res) => {
-
+    const loginHandler = async (res) => {
+        console.log(res.Ca, 'my res');
+        var body = {
+          social_id: res.Ca
+        }
+        var headers = {
+          'Content-Type': 'application/json',
+        };
+        props.props.loaderRef(true)
+        var data = await ApiServices.PostApiCall(ApiEndpoint.SOCIAL_LOGIN, JSON.stringify(body), headers);
+        props.props.loaderRef(false)
+        
+        console.log(data, 'datafvbfgv');
+        if (!!data) {
+          
+          if (data.status == true) {
+            props.save_user_data({ user: data, });
+            router.push('/dashboard')
+          } else {
+            if (data.status == false && data.message == 'Social id not found!') {
+              // props.save_user_data({ user: "" });
+              router.push('/sing')
+            }
+          }
+        } else {
+          toast.error('Something went wrong.');
+        }
         console.log("res",);
         console.log("this is my")
         setLoginButton(false);
         setElistdata(res.profileObj)
         setLogoutButton(true);
-    };
+      };
+    // const loginHandler = (res) => {
+
+    //     console.log("res",);
+    //     console.log("this is my")
+    //     setLoginButton(false);
+    //     setElistdata(res.profileObj)
+    //     setLogoutButton(true);
+    // };
     const failureHandler = (res) => {
         console.log("login failed", res);
     };

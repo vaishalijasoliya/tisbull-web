@@ -5,7 +5,7 @@ import styles from './Stocks.module.scss'
 import Grid from '@mui/material/Grid';
 // import Newbar from '../componehts/newbar/newbar';
 // import Stocks from '../componehts/Stocks/Stocks';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, TableFooter, useTheme } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import SouthIcon from '@mui/icons-material/South';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -16,6 +16,7 @@ import TabList from '@mui/lab/TabList';
 import Tab from '@mui/material/Tab';
 // import * as React from 'react';
 import { alpha } from '@mui/material/styles';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 // import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,25 +27,54 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
+import CloseIcon from '@mui/icons-material/Close';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 // import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import moment from 'moment'
+import PropTypes from "prop-types";
+import Menu from '@mui/material/Menu';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import MenuList from '@mui/material/MenuList';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Touchable from 'rc-touchable';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Popper from '@mui/material/Popper';
+import Grow from '@mui/material/Grow';
+import InputLabel from '@mui/material/InputLabel';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import { Types } from '../../constants/actionTypes'
 import { connect } from 'react-redux';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
+// import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CardTravelIcon from '@mui/icons-material/CardTravel';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+
 import { shouldDisplay } from "rsuite/esm/Picker";
 import { setDate } from "rsuite/esm/utils/dateUtils";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import { BUILD_MANIFEST } from "next/dist/shared/lib/constants";
 const tabtheme = createTheme({
     palette: {
         primary: {
@@ -112,7 +142,77 @@ const rows = [
     // createData('Nougat', 360, 19.0, 9, 37.0),
     // createData('Oreo', 437, 18.0, 63, 4.0),
 ];
+function TablePaginationActions(props: {
+    count: any;
+    page: any;
+    rowsPerPage: any;
+    onPageChange: any;
+}) {
+    const theme = useTheme();
+    const { count, page, rowsPerPage, onPageChange } = props;
 
+    const handleFirstPageButtonClick = (event: any) => {
+        onPageChange(event, 0);
+    };
+
+    const handleBackButtonClick = (event: any) => {
+        onPageChange(event, page - 1);
+    };
+
+    const handleNextButtonClick = (event: any) => {
+        onPageChange(event, page + 1);
+    };
+
+    const handleLastPageButtonClick = (event: any) => {
+        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+    };
+    return (
+        <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+            <IconButton
+                onClick={handleFirstPageButtonClick}
+                disabled={page === 0}
+                aria-label="first page"
+            >
+                {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
+            </IconButton>
+            <IconButton
+                onClick={handleBackButtonClick}
+                disabled={page === 0}
+                aria-label="previous page"
+            >
+                {theme.direction === "rtl" ? (
+                    <KeyboardArrowRight />
+                ) : (
+                    <KeyboardArrowLeft />
+                )}
+            </IconButton>
+            <IconButton
+                onClick={handleNextButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="next page"
+            >
+                {theme.direction === "rtl" ? (
+                    <KeyboardArrowLeft />
+                ) : (
+                    <KeyboardArrowRight />
+                )}
+            </IconButton>
+            <IconButton
+                onClick={handleLastPageButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="last page"
+            >
+                {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
+            </IconButton>
+        </Box>
+    );
+}
+TablePaginationActions.propTypes = {
+    count: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired,
+    page: PropTypes.number.isRequired,
+    rowsPerPage: PropTypes.number.isRequired,
+};
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -195,12 +295,12 @@ const headCells: readonly HeadCell[] = [
         disablePadding: false,
         label: 'Created',
     },
-    {
-        id: 'Status',
-        numeric: true,
-        disablePadding: false,
-        label: 'Status',
-    },
+    // {
+    //     id: 'Status',
+    //     numeric: true,
+    //     disablePadding: false,
+    //     label: 'Status',
+    // },
     {
         id: 'Action',
         numeric: true,
@@ -247,18 +347,18 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
-                        <TableSortLabel
+                        {/* <TableSortLabel
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : 'asc'}
                             onClick={createSortHandler(headCell.id)}
-                        >
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </Box>
-                            ) : null}
-                        </TableSortLabel>
+                        > */}
+                        {headCell.label}
+                        {orderBy === headCell.id ? (
+                            <Box component="span" sx={visuallyHidden}>
+                                {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                            </Box>
+                        ) : null}
+                        {/* </TableSortLabel> */}
                     </TableCell>
                 ))}
             </TableRow>
@@ -270,55 +370,55 @@ interface EnhancedTableToolbarProps {
     numSelected: number;
 }
 
-//   const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-//     const { numSelected } = props;
+const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
+    const { numSelected } = props;
 
-//     return (
-//       <Toolbar
-//         sx={{
-//           pl: { sm: 2 },
-//           pr: { xs: 1, sm: 1 },
-//           ...(numSelected > 0 && {
-//             bgcolor: (theme) =>
-//               alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-//           }),
-//         }}
-//       >
-//         {numSelected > 0 ? (
-//           <Typography
-//             sx={{ flex: '1 1 100%' }}
-//             color="inherit"
-//             variant="subtitle1"
-//             component="div"
-//           >
-//             {numSelected} selected
-//           </Typography>
-//         ) : (
-//           <Typography
-//             sx={{ flex: '1 1 100%' }}
-//             variant="h6"
-//             id="tableTitle"
-//             component="div"
-//           >
-//             Nutrition
-//           </Typography>
-//         )}
-//         {numSelected > 0 ? (
-//           <Tooltip title="Delete">
-//             <IconButton>
-//               <DeleteIcon />
-//             </IconButton>
-//           </Tooltip>
-//         ) : (
-//           <Tooltip title="Filter list">
-//             <IconButton>
-//               <FilterListIcon />
-//             </IconButton>
-//           </Tooltip>
-//         )}
-//       </Toolbar>
-//     );
-//   };
+    return (
+        <Toolbar
+            sx={{
+                pl: { sm: 2 },
+                pr: { xs: 1, sm: 1 },
+                ...(numSelected > 0 && {
+                    bgcolor: (theme) =>
+                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                }),
+            }}
+        >
+            {numSelected > 0 ? (
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    color="inherit"
+                    variant="subtitle1"
+                    component="div"
+                >
+                    {numSelected} selected
+                </Typography>
+            ) : (
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    variant="h6"
+                    id="tableTitle"
+                    component="div"
+                >
+                    Nutrition
+                </Typography>
+            )}
+            {numSelected > 0 ? (
+                <Tooltip title="Delete">
+                    <IconButton>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
+            ) : (
+                <Tooltip title="Filter list">
+                    <IconButton>
+                        <FilterListIcon />
+                    </IconButton>
+                </Tooltip>
+            )}
+        </Toolbar>
+    );
+};
 
 const ResponsiveAppBar = (props) => {
     const [value, setValue] = React.useState('1');
@@ -330,15 +430,59 @@ const ResponsiveAppBar = (props) => {
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [datatebalpettan, setDatatebalpettan] = React.useState([]);
-    const [data,setData] = React.useState([]);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [data, setData] = React.useState([]);
+    const [datalist, setDatalist] = React.useState([]);
+    const [datasars, setDatasars] = React.useState([]);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [age, setAge] = React.useState('');
+    const [com, setCom] = React.useState(false);
+    var handleClickOpenCom = (myprops) => {
+        setCom(true);
+        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
+        // myprops = { advertiseMent }
+    };
+    const handleCloseCom = () => {
+        setCom(false);
+    }
+    const handlePageChange = (event, newPage) => {
+        setPage(newPage);
+    };
+    const handleChangesalyadar = (event: SelectChangeEvent) => {
+        setAge(event.target.value);
+    };
+
+    const open = Boolean(anchorEl);
+    const menulist = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    function handleListKeyDown(event: React.KeyboardEvent) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setOpen(false);
+        } else if (event.key === 'Escape') {
+            setOpen(false);
+        }
+    }
+    //   const prevOpen = React.useRef(open);
+    const prevOpen = React.useRef(open);
+    React.useEffect(() => {
+        if (prevOpen.current === true && open === false) {
+            // anchorRef.current!.focus();
+        }
+
+        prevOpen.current = open;
+    }, [open]);
     const patternlist = async () => {
 
         var headers = {
             "Content-Type": "application/json",
             "x-access-token": props.props.profile.token
         }
-        
+
         props.props.loaderRef(true)
         var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
 
@@ -346,34 +490,39 @@ const ResponsiveAppBar = (props) => {
         props.props.loaderRef(false)
         console.log(data, 'datalist');
 
-    if (!!data) {
-        if (data.status == true && data.data.length > 0) {
-            const accoyty = [];
-            const datalist = [];
-            for (let index = 0; index < data.data.length; index++) {
-                const element = data.data[index];
-                const object = {
-                    id: element.id_account,
-                    script: element.script,
-                    exchange: element.exchange,
-                    type_pattern: element.type_pattern,
-                    investment: element.investment,
-                    profit: element.profit,
-                    stock: element.stock,
-                    created_at: element.created_at,
-                    status: element.status
+        if (!!data) {
+            if (data.status == true && data.data.length > 0) {
+                const accoyty = [];
+                const datalist = [];
+                const datalogo = []
+                const listdata = []
+                for (let index = 0; index < data.data.length; index++) {
+                    const element = data.data[index];
+                    const object = {
+                        id: element.id_account,
+                        script: element.script,
+                        exchange: element.exchange,
+                        type_pattern: element.type_pattern,
+                        investment: element.investment,
+                        profit: element.profit,
+                        stock: element.stock,
+                        created_at: element.created_at,
+                        status: element.status
+                    }
+                    listdata.push(JSON.parse(JSON.stringify(object)))
+                    datalogo.push(JSON.parse(JSON.stringify(object.status)))
+                    datalist.push(JSON.parse(JSON.stringify(object)))
+                    accoyty.push(JSON.parse(JSON.stringify(object)))
+                    // csvall.push(objectcsv)
                 }
-                console.log(object, 'password');
-                datalist.push(JSON.parse(JSON.stringify(object)))
-                accoyty.push(JSON.parse(JSON.stringify(object)))
-                // csvall.push(objectcsv)
+                setDatasars(listdata)
+                setDatalist(datalogo)
+                setDatatebalpettan(accoyty)
+                setData(data)
             }
-            setDatatebalpettan(accoyty)
-            setData(data)
+
         }
-       
     }
-}
 
     // let inloglist=datatebal.zerodha_token_update
 
@@ -384,6 +533,7 @@ const ResponsiveAppBar = (props) => {
             patternlist()
         }
     }, [])
+    console.log(datalist, 'stock');
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -445,146 +595,138 @@ const ResponsiveAppBar = (props) => {
         setValue(newValue);
     };
     return (
-        <Grid container spacing={0} className={styles.cantenar_list}>
-            <Grid item sm={12} md={3} xs={12}>
-                <Box className={styles.boxlist1}>
-                    <div>
-                        <Avatar className={styles.actarlis}>
-                            <CardTravelIcon />
-                        </Avatar>
-                    </div>
-                    <div>
-                        <Typography className={styles.totallist}>
-                            Total Investments
-                        </Typography>
-                        <Typography className={styles.totallist2}>
-                            {data.total}
-                        </Typography>
-                    </div>
-                </Box>
-            </Grid>
-            <Grid item sm={12} md={3} xs={12}>
-                <Box className={styles.boxlist1}>
-                    <div>
-                        <Avatar className={styles.actarlis}>
-                         
-                              {/* {data.todayProfit ==0  ?
-                                
-                                '':
-                                ''
-                            } */}
-                               {data.todayProfit >= 0 ?
-                                
-                                <NorthIcon className={styles.listarrored2} />:
-                                <SouthIcon className={styles.listarrored} /> 
-                            }
-                        </Avatar>
-                    </div>
-                    <div>
-                        <Typography className={styles.totallist}>
-                            Total Profit
-                        </Typography>
-                        <Typography className={styles.totallist2}>
-                            {data.todayProfit}
-                        </Typography>
-                    </div>
-                </Box>
-            </Grid>
-            <Grid item sm={12} md={3} xs={12}>
-                <Box className={styles.boxlist1}>
-                    <div>
-                        <Avatar className={styles.actarlis}>
-                            {data.totalProfit >=0 ?
-                                 
-                                <NorthIcon className={styles.listarrored2} />:
-                                <SouthIcon className={styles.listarrored} />
-                            }
-                             {/* {data.totalProfit ==0 ?
-                                 
-                                 <NorthIcon className={styles.listarrored2} />:
-                                 <SouthIcon className={styles.listarrored} />
-                             } */}
-                        </Avatar>
-                    </div>
-                    <div>
-                        <Typography className={styles.totallist}>
-                            Today’s Profit
-                        </Typography>
-                        <Typography className={styles.totallist2}>
-                            {data.totalProfit}
-                        </Typography>
-                    </div>
-                </Box>
-            </Grid>
-            <Grid item md={3} sm={0} xs={0}></Grid>
+        <Grid container spacing={0} className={styles.cantenar_list57}>
+
             <Grid item md={12} sm={12} xs={12} className={styles.boxteballist}>
                 {/* <Box> */}
-                <div className={styles.listmeniom}>
-                    <Grid item md={4}>
-                        <Box className={styles.boxreting} display={'flex'}>
 
-                            <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
-                            // onChange={(e) => {
-                            //   setPage(0)
-                            //   var value = e.target.value
-                            //   if (typeof value !== 'object') {
-                            //     if (!value || value == '') {
-                            //       setCustomer(customerList);
-                            //     } else {
-                            //       var filteredData = customerList.filter((item) => {
-                            //         let searchValue = item.Name.toLowerCase();
-                            //         return searchValue.includes(value.toString().toLowerCase())
-                            //       })
-                            //       setCustomer(filteredData);
-                            //     }
-                            //   }
-                            // }} 
-                            />
-                        </Box>
+                <div className={styles.listmeniom}>
+                    <Grid item md={3} sm={12} xs={12}>
+                        <div className={styles.patterndiv}>
+                            <Typography>Pattern</Typography>
+                        </div>
                     </Grid>
-                    <Grid item md={2}>
-                        <Button className={styles.filterlist}>
-                            <Typography>
-                                Filter
-                            </Typography>
-                            <ExpandMoreIcon />
-                        </Button>
-                    </Grid>
-                    <Grid md={6} display={'flex'} justifyContent={'end'}>
+                    <Grid md={9} sm={12} xs={12} display={'flex'} justifyContent={'end'}>
                         <Button className={styles.cerbatn}>
-                            Create New Patterm
+                            <img src="../../Vector (5).svg" />
                         </Button>
                     </Grid>
                 </div>
-                <Grid item md={12}>
-                    <Box >
-                        <ThemeProvider theme={tabtheme}>
-                            <TabContext value={value}  >
+                <div className={styles.inputlistm}>
+                    <Grid item md={12} sm={12} xs={12}>
+                        <Box className={styles.boxreting} display={'flex'}>
 
-                                <TabList onChange={handleChange} aria-label="lab API tabs example"
-                                    value={value}
-                                    theme={tabtheme}
-
-                                    // textColor="#318D8C"
-                                    // indicatorColor="#8E8E8E"
-                                    // onChange={handleChange}
-                                    TabIndicatorProps={{
-                                        style: {
-                                            borderRadius: '3px',
-                                            border: '1px solid #009947',
-                                            textColor: '#009947',
-                                            backgroundColor: "#009947",
+                            <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
+                                onChange={(e) => {
+                                    //   setPage(0)
+                                    var value = e.target.value
+                                    if (typeof value !== 'object') {
+                                        if (!value || value == '') {
+                                            setDatatebalpettan(datasars);
+                                        } else {
+                                            var filteredData = datasars.filter((item) => {
+                                                let searchValue = item.script.toLowerCase();
+                                                return searchValue.includes(value.toString().toLowerCase())
+                                            })
+                                            setDatatebalpettan(filteredData);
                                         }
-                                    }}
-                                    aria-label="secondary tabs example" className={styles.maenteb}>
-                                    <Tab label="All" className={styles.nametabs1} value="1" />
-                                    <Tab label="Basic Pattern" className={styles.nametabs1} value="2" />
-                                    <Tab label="Custom Pattern" className={styles.nametabs1} value="3" />
-                                </TabList>
-                            </TabContext>
-                        </ThemeProvider>
-                    </Box>
-                </Grid>
+                                    }
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                    <Grid item md={12} display={'flex'} justifyContent={'end'}>
+                        {/* <Paper>
+        <MenuList>
+          <MenuItem>Profile</MenuItem>
+          <MenuItem>My account</MenuItem>
+          <MenuItem>Logout</MenuItem>
+        </MenuList>
+      </Paper> */}
+                        <Button className={styles.filterlist} onClick={menulist}
+                        >
+                            <Typography>
+                                Filter
+                            </Typography>
+                            <FilterListIcon />
+                        </Button>
+                        <Menu
+                            className={styles.menufiltarbtn}
+                            anchorEl={anchorEl}
+                            id="account-menu"
+                            open={open}
+                            onClose={handleClose}
+                            // onClick={handleClose}
+                            PaperProps={{
+                                elevation: 0,
+                                sx: {
+                                    overflow: 'visible',
+                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                    mt: 1.5,
+                                    '& .MuiAvatar-root': {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                    },
+                                    '&:before': {
+                                        content: '""',
+                                        display: 'block',
+                                        position: 'absolute',
+                                        top: 0,
+                                        right: 14,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: 'background.paper',
+                                        transform: 'translateY(-50%) rotate(45deg)',
+                                        zIndex: 0,
+                                    },
+                                },
+                            }}
+                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                        >
+                            <div className={styles.filtarlist}>
+                                <div><Typography>Pattern</Typography></div>
+                                <div className={styles.listbtnsot}>
+                                    <Button className={styles.censbatnsot} onClick={handleClose}>Cancel</Button>
+                                    <Button className={styles.savebatnsot}>Save</Button></div>
+                            </div>
+                            <Divider></Divider>
+                            <div>
+                                <div className={styles.typetext}><Typography>Type</Typography></div>
+                                <div>
+                                    <Button className={styles.nonelistbtn}>None</Button>
+                                    <Button className={styles.Basiclistbtn}>Basic</Button>
+                                    <Button className={styles.Customlistbtn}>Custom</Button>
+                                </div>
+                            </div>
+                            <div className={styles.maendivselect}>
+                                <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
+
+                                <Select
+                                    className={styles.listsekater}
+                                    value={age}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    inputProps={{ 'aria-label': 'Without label' }}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+
+                            </div>
+                            <Divider className={styles.divaydarten}></Divider>
+                            <div className={styles.divlistsivijan}></div>
+                        </Menu>
+                    </Grid>
+                </div>
+
+
                 <Grid>
                     <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
                         <Paper sx={{ width: '100%', mb: 2 }}>
@@ -605,12 +747,11 @@ const ResponsiveAppBar = (props) => {
                                         rowCount={datatebalpettan.length}
                                     />
                                     <TableBody>
-                                        {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
                                         {stableSort(datatebalpettan, getComparator(order, orderBy))
                                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                             .map((row, index) => {
-                                                const isItemSelected = isSelected(row.datatebalpettan);
+                                                const isItemSelected = isSelected(row.id);
+                                                // const isItemSelected = isSelected(row.id_account);
                                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                                 return (
@@ -625,11 +766,10 @@ const ResponsiveAppBar = (props) => {
                                                     >
                                                         <TableCell padding="checkbox">
                                                             <Checkbox
-                                                                onClick={(event) => handleClick(event, row.id)}
-                                                                color="primary"
                                                                 checked={isItemSelected}
+                                                                onClick={(event) => handleClick(event, row.id)}
                                                                 inputProps={{
-                                                                    'aria-labelledby': labelId,
+                                                                    "aria-labelledby": labelId,
                                                                 }}
                                                             />
                                                         </TableCell>
@@ -638,12 +778,20 @@ const ResponsiveAppBar = (props) => {
                                                             id={labelId}
                                                             scope="row"
                                                             padding="none"
-                                                        ><div>
-                                                                {row.script}
+                                                        >
+                                                            <div className={styles.typefild}>
+                                                                <div>
+                                                                    {row.status == 'pause' ? <Avatar className={styles.avtarlistyes}>
+                                                                        <img src="../../Vector (10).svg" />
+
+                                                                    </Avatar> : row.status == 'active' ? <Avatar className={styles.avtarlistyes2}>  <img src="../../Vector (12).svg" /></Avatar> : row.status == 'exit' ? <Avatar className={styles.avtarlistyes3}>  <img src="../../Vector (11).svg" /></Avatar> : ''}
+                                                                </div><div className={styles.listperegaf}>
+                                                                    {row.script}
+
+                                                                    <div className={styles.nselist}><Typography>{row.exchange}</Typography></div></div>
                                                             </div>
-                                                            <div className={styles.nselist}><Typography>{row.exchange}</Typography></div>
                                                         </TableCell>
-                                                      
+
                                                         <TableCell
                                                         // align="right"
                                                         >{row.type_pattern}</TableCell>
@@ -652,15 +800,64 @@ const ResponsiveAppBar = (props) => {
                                                         <TableCell >{row.stock}</TableCell>
                                                         <TableCell >
                                                             <Typography className={styles.dateone}>{
-                                                                moment(row.created_at).format("DD-MM-YYYY")
+                                                                moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
                                                             } </Typography></TableCell>
-
-                                                        <TableCell><Button className={styles.listststu}>{row.status}</Button></TableCell>
+                                                        {/* 
+                                                        <TableCell>
+                                                          
+                                            
+                                                        </TableCell> */}
 
                                                         <TableCell >
-                                                            <Button>
 
-                                                                <MoreVertIcon />                                                        </Button>
+                                                            <div className={styles.listtebal}>
+                                                                <Button className={styles.viwebtnmm}> <img height={18} src="../../edit_square.svg" /></Button>
+
+                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3}>
+                                                                    {/* <Touchable>dilet</Touchable> */}
+                                                                    {row.status == 'active' ? <PauseCircleOutlineIcon /> : <PlayCircleOutlineIcon />}
+                                                                </Button>}
+                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={handleClickOpenCom}><DeleteOutlineIcon /></Button>}
+                                                            </div>
+                                                            <div>
+                                                            <Dialog open={com} onClose={handleCloseCom}
+                                                                className={styles.borderredayasfor}
+                                                                style={{
+                                                                    // borderRadius: '30px'
+                                                                }}
+                                                                // fullWidth
+                                                                maxWidth="sm"
+                                                            >
+                                                              
+                                                                <div>
+                                                                    <DialogContent className={styles.popupcantenar}>
+                                                                        <Box>
+                                                                            <div>  <CloseIcon /></div>
+                                                                            <div className={styles.delehedar}>
+                                                                            <Typography>Delete Successful</Typography>
+                                                                        </div>
+                                                                        <div>
+                                                                            <img src="../../Group 47124.svg" />
+                                                                        </div>
+                                                                            <Divider>
+
+                                                                            </Divider>
+                                                                            <div className={styles.accoparegarf}>
+                                                                                <Typography>Are you sure you want to delete
+                                                                                    this account?</Typography>
+                                                                            </div>
+                                                                            <Divider>
+
+                                                                            </Divider>
+                                                                            <div><Button className={styles.cancelbtn}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2}>Delete</Button></div>
+                                                                        </Box>
+                                                                        {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                    </DialogContent>
+                                                                </div>
+                                                            </Dialog>
+                                                        </div>
+                                                      
+
                                                         </TableCell>
 
                                                     </TableRow>
@@ -676,6 +873,26 @@ const ResponsiveAppBar = (props) => {
                                             </TableRow>
                                         )}
                                     </TableBody>
+                                    <TableFooter>
+                                        <TableRow >
+                                            <TablePagination
+                                                className={styles.tablePagination}
+                                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                                                count={datatebalpettan.length}
+                                                rowsPerPage={rowsPerPage}
+                                                page={page}
+                                                SelectProps={{
+                                                    inputProps: {
+                                                        "aria-label": "rows per page",
+                                                    },
+                                                    native: false,
+                                                }}
+                                                onPageChange={handleChangePage}
+                                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                                ActionsComponent={TablePaginationActions}
+                                            />
+                                        </TableRow>
+                                    </TableFooter>
                                 </Table>
                             </TableContainer>
                             {/* <TablePagination

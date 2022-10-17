@@ -14,6 +14,10 @@ export default {
     USER_VERIFYOTP:Constants.BASE_API_URL+'user/verifyOtp',
     USER_CRETENEWPASSWORD:Constants.BASE_API_URL+'user/createNewPassword',
     USER_EDIT:Constants.BASE_API_URL+'user/edit',
+    USERCHANGEPASS:Constants.BASE_API_URL+'user/changepassword',
+    ACCOUNT_VIEW : Constants.BASE_API_URL+'account/view',
+    GET_PROFILE : Constants.BASE_API_URL + 'user/getprofile',
+    ADD_ACCOUNT :Constants.BASE_API_URL+'account/add'
     // USER_ACCOUNT_LIST:Constants.BASE_API_URL+'account/list',
     // LIST_SUPPORT_TICKET: Constants.BASE_API_URL + 'admin/tickit/list',
     // UPDATE_TICKET: Constants.BASE_API_URL + 'admin/tickit/update',

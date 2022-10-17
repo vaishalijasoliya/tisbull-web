@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Stocks from '../componehts/Stocks/Stocks';
 const ResponsiveAppBar = (props) => {
   return (
-    <Grid container className={styles.cantenar_list}>
+    <Grid container className={styles.cantenar_list265}>
       <Grid item sm={12} md={12} xs={12}>
         <Newbar />
         {/* <Home /> */}

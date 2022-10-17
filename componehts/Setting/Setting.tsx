@@ -41,12 +41,12 @@ export default function Home() {
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Button className={styles.personlist}><PersonOutlineIcon  className={styles.jjperuser}/>Personal Informations <ArrowForwardIosIcon  className={styles.arronewbar}/></Button>
-                                    <Button className={styles.personlist2}><HttpsIcon className={styles.jjperuser}/>Change Password <ArrowForwardIosIcon className={styles.arronewbar2}/></Button>
+                                    <Button className={styles.personlist2} href='./ChangePassedit'><HttpsIcon className={styles.jjperuser} />Change Password <ArrowForwardIosIcon className={styles.arronewbar2}/></Button>
                                 </AccordionDetails>
                             </Accordion>
                         </div>
                         <div className={styles.accontbtn}> 
-                            <Button><div className={styles.pandicon}><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
+                            <Button><div className={styles.pandicon} href='./accountteyp'><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                         </div>
                         <div className={styles.accontbtn}> 
                             <Button><div className={styles.pandicon}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>

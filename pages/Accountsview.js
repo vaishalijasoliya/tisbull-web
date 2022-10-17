@@ -2,7 +2,7 @@
 // import Image from 'next/image'
 import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
-import ChangePassedit from '../componehts/ChangePassedit/ChangePassedit';
+import Accountsadd from '../componehts/Accountsview/Accountsview';
 import Newbar from '../componehts/newbar/newbar';
 import Setting from '../componehts/Setting/Setting';
 // import { connect } from 'react-redux';
@@ -24,7 +24,7 @@ const ResponsiveAppBar = (props) => {
                 {/* </div> */}
             </Grid>
             <Grid item sm={12} md={9} xs={12}>
-                <ChangePassedit props={props}/>
+                <Accountsadd props={props}/>
             </Grid>
             {/* <Newbar />
         <div className={styles.dasnod_camponat}>

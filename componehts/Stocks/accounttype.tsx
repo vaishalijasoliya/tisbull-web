@@ -13,12 +13,17 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import moment from 'moment'
 import Divider from '@mui/material/Divider';
-
+import CsvDownloader from 'react-csv-downloader';
+import { CSVLink, CSVDownload } from 'react-csv';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
 import TablePagination from '@mui/material/TablePagination';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogContent from '@mui/material/DialogContent';
 import { Types } from '../../constants/actionTypes'
 // import { connect } from 'react-redux';
 import ApiServices from '../../config/ApiServices';
@@ -240,17 +245,35 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 interface EnhancedTableToolbarProps {
     numSelected: number;
 }
+const csvData = [
+    ['firstname', 'lastname', 'email'],
+    ['John', 'Doe', 'john.doe@xyz.com'],
+    ['Jane', 'Doe', 'jane.doe@xyz.com']
+];
 const ResponsiveAppBar = (props) => {
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
     // const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [com, setCom] = React.useState(false);
     const [datatebal, setDatatebal] = React.useState([]);
     const [dense, setDense] = React.useState(false);
     const [page, setPage] = React.useState(0);
-
-
+    const [teballist, setTeballist] = React.useState([])
+    const openlightbox = (index) => {
+        console.log(index);
+        setCurrentIndex(index);
+        setopen(true);
+    };
+    var handleClickOpenCom = (myprops) => {
+        setCom(true);
+        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
+        // myprops = { advertiseMent }
+    };
+    const handleCloseCom = () => {
+        setCom(false);
+    }
     const handlePageChange = (event, newPage) => {
         setPage(newPage);
     };
@@ -296,6 +319,7 @@ const ResponsiveAppBar = (props) => {
                     accoyty.push(JSON.parse(JSON.stringify(object)))
                 }
                 setDatatebal(accoyty)
+                setTeballist(accoyty)
             }
         }
     }
@@ -375,61 +399,8 @@ const ResponsiveAppBar = (props) => {
         setSelected([]);
     };
 
-    // const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    //     const selectedIndex = selected.indexOf(name);
-    //     let newSelected: readonly string[] = [];
-
-    //     if (selectedIndex === -1) {
-    //         newSelected = newSelected.concat(selected, name);
-    //     } else if (selectedIndex === 0) {
-    //         newSelected = newSelected.concat(selected.slice(1));
-    //     } else if (selectedIndex === selected.length - 1) {
-    //         newSelected = newSelected.concat(selected.slice(0, -1));
-    //     } else if (selectedIndex > 0) {
-    //         newSelected = newSelected.concat(
-    //             selected.slice(0, selectedIndex),
-    //             selected.slice(selectedIndex + 1),
-    //         );
-    //     }
-
-    //     setSelected(newSelected);
-    // };
-
-    // const handleChangePage = (event: unknown, newPage: number) => {
-    //     setPage(newPage);
-    // };
-
-    // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setRowsPerPage(parseInt(event.target.value, 10));
-    //     setPage(0);
-    // };
-
-    // const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setDense(event.target.checked);
-    // };
-
-    // const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
-    // Avoid a layout jump when reaching the last page with empty rows.
-    // const emptyRows =
-    //     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-    // const handleChange = (event, newValue) => {
-    //     setValue(newValue);
-    // };
-    // const handleChangeRowsPerPage = (event = React.ChangeEvent) => {
-    //     setRowsPerPage(+event.target.value);
-    //     setPage(0);
-    //   };
-    //   const handleRequestSort = (event, property) => {
-    //     const isAsc = orderBy === property && order === 'asc';
-    //     setOrder(isAsc ? 'desc' : 'asc');
-    //     setOrderBy(property);
-    //   };
-    //   const handleChangeDense = (event) => {
-    //     setDense(event.target.checked);
-    //   };
     return (
-        <Grid container className={styles.cantenar_list}>
+        <Grid container className={styles.cantenar_list22}>
             {/* <Divider className={styles.devatdar}/> */}
             <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal}>
 
@@ -449,27 +420,38 @@ const ResponsiveAppBar = (props) => {
                     <Box className={styles.boxreting} display={'flex'}>
 
                         <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
-                        // onChange={(e) => {
-                        //   setPage(0)
-                        //   var value = e.target.value
-                        //   if (typeof value !== 'object') {
-                        //     if (!value || value == '') {
-                        //       setCustomer(customerList);
-                        //     } else {
-                        //       var filteredData = customerList.filter((item) => {
-                        //         let searchValue = item.Name.toLowerCase();
-                        //         return searchValue.includes(value.toString().toLowerCase())
-                        //       })
-                        //       setCustomer(filteredData);
-                        //     }
-                        //   }
-                        // }} 
+                            onChange={(e) => {
+                                setPage(0)
+                                var value = e.target.value
+                                if (typeof value !== 'object') {
+                                    if (!value || value == '') {
+                                        setDatatebal(teballist);
+                                    } else {
+                                        var filteredData = teballist.filter((item) => {
+                                            let searchValue = item.user_id.toLowerCase();
+                                            return searchValue.includes(value.toString().toLowerCase())
+                                        })
+                                        setDatatebal(filteredData);
+                                    }
+                                }
+                            }}
                         />
                     </Box>
                 </div>
             </Grid>
-            <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'}>
-                <Button className={styles.btnsaveic}><SaveAltIcon /></Button>
+
+            <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
+                {/* <CsvDownloader data={list}> */}
+                <CSVLink className={styles.btnsaveic} data={datatebal} filename={"account.csv"}> <SaveAltIcon /></CSVLink>
+                {/* <Button className={styles.btnsaveic}>  */}
+
+
+                {/* <CSVDownload  filename={"user.csv"} clssName={styles.csvlinkfor}> */}
+
+
+                {/* </CSVDownload> */}
+                {/* </Button> */}
+                {/* </CsvDownloader> */}
                 <Button><img src='../../Vector (3).svg' /></Button>
             </Grid>
             <Grid item md={12} sm={12} xs={12} >
@@ -487,7 +469,7 @@ const ResponsiveAppBar = (props) => {
                                     numSelected={selected.length}
                                     order={order}
                                     orderBy={orderBy}
-                                    onSelectAllClick={handleSelectAllClick}
+                                    // onSelectAllClick={handleSelectAllClick}
                                     onRequestSort={handleRequestSort}
                                     rowCount={datatebal.length}
                                 />
@@ -507,12 +489,12 @@ const ResponsiveAppBar = (props) => {
                                                     role="checkbox"
                                                     aria-checked={isItemSelected}
                                                     tabIndex={-1}
-                                                    key={row.type}
+                                                    key={row.id}
                                                     selected={isItemSelected}
                                                 >
                                                     <TableCell padding="checkbox">
                                                         <Checkbox
-                                                            onClick={(event) => handleClick(event, row.type)}
+                                                            onClick={(event) => handleClick(event, row.id)}
                                                             color="primary"
                                                             checked={isItemSelected}
                                                             inputProps={{
@@ -549,9 +531,41 @@ const ResponsiveAppBar = (props) => {
                                                     {/* <Button className={styles.listststu}>{row.Status}</Button></TableCell> */}
 
                                                     <TableCell >
-                                                        <Button>
+                                                        <Button className={styles.menu2btn} onClick={handleClickOpenCom}>
 
-                                                            <MoreVertIcon />                                                        </Button>
+                                                            <MoreVertIcon />
+                                                        </Button>
+                                                        <div>
+                                                            <Dialog open={com} onClose={handleCloseCom}
+                                                                className={styles.borderredayasfor}
+                                                                style={{
+                                                                    // borderRadius: '30px'
+                                                                }}
+                                                                // fullWidth
+                                                                maxWidth="sm"
+                                                            >
+                                                                <div>
+                                                                    <DialogContent className={styles.popupcantenar}>
+                                                                        <Box><div className={styles.delehedar}>
+                                                                            <Typography>Delete Account</Typography>
+                                                                        </div>
+                                                                            <Divider>
+
+                                                                            </Divider>
+                                                                            <div className={styles.accoparegarf}>
+                                                                                <Typography>Are you sure you want to delete
+                                                                                    this account?</Typography>
+                                                                            </div>
+                                                                            <Divider>
+
+                                                                            </Divider>
+                                                                            <div><Button className={styles.cancelbtn}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2}>Delete</Button></div>
+                                                                        </Box>
+                                                                        {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                    </DialogContent>
+                                                                </div>
+                                                            </Dialog>
+                                                        </div>
                                                     </TableCell>
 
                                                 </TableRow>
@@ -568,7 +582,7 @@ const ResponsiveAppBar = (props) => {
                                     )}
                                 </TableBody>
                             </Table>
-                           
+
                         </TableContainer>
                         {/* <TablePagination
                             component="div"

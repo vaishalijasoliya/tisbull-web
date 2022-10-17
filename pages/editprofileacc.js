@@ -11,6 +11,7 @@ import Setting from '../componehts/Setting/Setting';
 
 import Dashboard from '../componehts/dashboard/dashboard';
 const ResponsiveAppBar = (props) => {
+    // console.log(props.props,'propscom');
     // const router = useRouter();
     // console.log(router.query.email,'router.query.email');
     return (

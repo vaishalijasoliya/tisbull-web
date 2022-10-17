@@ -133,7 +133,7 @@
         width: 100%;
 
         input {
-            width: 324px;
+            width: 310px;
             height: 46px;
             background: rgba(229, 229, 229, 0.35);
         }
@@ -163,5 +163,29 @@
     }
     .otperr{
         color: red;
+    }
+}
+@media only screen and (max-width: 500px) 
+{
+    .inputoplist {
+        // display: flex;
+        padding: 25px 0px 0px 0px;
+    }
+    
+    .pohelistmenu {
+        // display: flex;
+        padding: 20px 0px 0px 0px;
+    
+    }
+    .futtorlist{
+        // display: flex;
+        padding: 20px 0px 0px 0px;
+    }
+    .formedit{
+        margin: 20px !important;
+        padding: 20px !important;
+    }
+    .poneinput input{
+        width: 100px !important;
     }
 }

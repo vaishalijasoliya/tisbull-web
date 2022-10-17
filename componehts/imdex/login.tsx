@@ -39,7 +39,6 @@ const Home = (props) => {
 
   console.log(ApiEndpoint, "ApiEndpoint");
 
-  console.log(props, "props");
 
   const [showPassword, setShowPassword] = useState(false)
   const [showPasswordicon, setShowPasswordicon] = useState("yes")
@@ -49,8 +48,33 @@ const Home = (props) => {
   const [showLoginButton, setLoginButton] = useState(true);
   const [showLogoutButton, setLogoutButton] = useState(false);
   const [elistdata, setElistdata] = useState([])
-  const loginHandler = (res) => {
-
+  const loginHandler = async (res) => {
+    console.log(res.Ca, 'my res');
+    var body = {
+      social_id: res.Ca
+    }
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    props.props.loaderRef(true)
+    var data = await ApiServices.PostApiCall(ApiEndpoint.SOCIAL_LOGIN, JSON.stringify(body), headers);
+    props.props.loaderRef(false)
+    
+    console.log(data, 'datafvbfgv');
+    if (!!data) {
+      
+      if (data.status == true) {
+        props.save_user_data({ user: data, });
+        router.push('/dashboard')
+      } else {
+        if (data.status == false && data.message == 'Social id not found!') {
+          // props.save_user_data({ user: "" });
+          router.push('/sing')
+        }
+      }
+    } else {
+      toast.error('Something went wrong.');
+    }
     console.log("res",);
     console.log("this is my")
     setLoginButton(false);
@@ -84,7 +108,7 @@ const Home = (props) => {
     props.props.loaderRef(true)
     var data = await ApiServices.PostApiCall(ApiEndpoint.LOGIN_USER, JSON.stringify(body), headers);
     props.props.loaderRef(false)
-    console.log(data, 'listdata');
+    console.log(data.userData.id, 'listdata');
     if (!!data) {
       if (data.status == true) {
         data.token = data.token
@@ -168,9 +192,9 @@ const Home = (props) => {
     event.preventDefault();
   };
   return (
-    
+
     <Grid container className={styles.cantenar_pegsingcantenar}>
-     <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
+      <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
         <img width={360} className={styles.maenloginpegimg} src='../../Group 109.svg' />
       </Grid>
       <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
@@ -284,15 +308,15 @@ const Home = (props) => {
           </div>
           <div className={styles.alreadylist}>
             <Typography>
-            Don't have an account?           </Typography>
+              Don't have an account?           </Typography>
             <a href='./sing'>Sign Up</a>
             <Typography>
-            for free
+              for free
             </Typography>
           </div>
         </Box>
       </Grid>
-    
+
     </Grid>
 
   )

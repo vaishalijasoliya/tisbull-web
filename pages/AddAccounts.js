@@ -2,21 +2,17 @@ import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 
-import Newbar from './newbar';
-import Dashboard from '../componehts/dashboard/dashboard';
+import Newbar from '../componehts/newbar/newbar';
+import AddAccounts from '../componehts/AddAccounts/AddAccounts';
 const ResponsiveAppBar = (props) => {
   console.log(props,'vir');
   return (
-    <Grid container className={styles.cantenar_list}>
-    {/* <Grid md={12} sm={11} xs={12} >
-    </Grid> */}
+    <Grid container className={styles.cantenar_list883}>
       <Grid item sm={12} md={12} xs={12}>
-      <Newbar props={props}/>
-
-        {/* <Newbar /> */}
+        <Newbar />
         {/* <Home /> */}
-        <div className={styles.dasnod_camponat2}>
-        <Dashboard  props={props}/>
+        <div className={styles.dasnod_camponat2663}>
+        <AddAccounts className={styles.accolistmenu}  props={props}/>
         </div>
       </Grid>
     </Grid>

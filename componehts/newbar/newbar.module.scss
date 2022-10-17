@@ -12,8 +12,16 @@
     button {
         min-width: 40px;
         min-height: 40px;
-        color: #444444;
+
         margin: 0px 10px 0px 0px;
+    }
+
+    a {
+        min-width: 40px;
+        min-height: 40px;
+
+        margin: 0px 10px 0px 0px;
+        color: #444444 !important;
     }
 
     button:hover {
@@ -145,32 +153,35 @@
 //     background-color: #E31E24 !important;
 //     }
 // }
-.massscolor2  span{
+.massscolor2 span {
     // .clrred2 span {
     // color: white !important;
     margin: 6px 6px 0px 0px;
     background-color: #E31E24 !important;
     width: 10px;
-    height: 10px;    line-height: 0px !important;
+    height: 10px;
+    line-height: 0px !important;
     // }
 
 }
 
-.listboxmass{
+.listboxmass {
     padding: 0 !important;
     display: flex;
     align-items: center;
     // button {
     //     background-color: white !important;
-        min-width: 40px !important;
-        // height: 40px;
-  
+    min-width: 40px !important;
+    // height: 40px;
+
     // }
 }
-.devatdar{
+
+.devatdar {
     padding: 10px 0px;
     border: 1px solid rgba(0, 0, 0, 0.38);
 }
+
 .ivonhestri {
     background-color: white !important;
 
@@ -195,7 +206,8 @@
     text-transform: capitalize !important;
 
     min-width: 40px !important;
-    svg{
+
+    svg {
         font-size: 25px !important;
     }
 }

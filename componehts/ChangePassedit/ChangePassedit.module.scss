@@ -1,0 +1,163 @@
+@font-face {
+    font-family: Poppins-500;
+    font-family: Poppins-400;
+    src: url(../../styles/popins/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: roboto-400;
+    src: url(../../styles/Roboto/Roboto-Regular.ttf);
+}
+
+.formcenjpasss {
+    margin: 60px 60px 60px 60px;
+    width: 100%;
+    display: flex;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.18);
+    border-radius: 20px;
+}
+
+.cantenar_list {
+    // margin: 60px;
+
+
+    .cengpass {
+        padding: 40px 0px 40px 30px;
+    }
+    .cengpass2 {
+        padding:50px 0px 40px 40px;
+    }
+    .hedingdiv {
+        display: flex;
+
+        .personmenu2 {
+
+            p {
+                font-size: 30px;
+                color: #000000;
+                font-family: Poppins-400;
+            }
+        }
+
+    }
+
+    .donebtn2 {
+        // width: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        padding: 0px 0px 0px 23px;
+
+        // width: 80%;
+        button {
+            font-size: 18px;
+            text-transform: capitalize;
+            font-family: Poppins-400;
+            font-weight: bold;
+            color: #009947;
+        }
+    }
+
+    .donebtn22 {
+        width: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        padding: 0px 0px 0px 23px;
+
+        // width: 80%;
+        button {
+            font-size: 18px;
+            text-transform: capitalize;
+            font-family: Poppins-400;
+            font-weight: bold;
+            color: #009947;
+        }
+    }
+    .uplodimgp2 {
+        p {
+            font-size: 14px;
+            font-family: roboto-400;
+
+            color: #BDBDBD;
+        }
+    }
+.personmenu23{
+    p{
+        font-family: Poppins-400;
+        color: #000000;
+font-size: 30px;
+    }
+}
+    .personmenu2 {
+        padding: 10px 0px 10px 0px;
+    }
+
+    .leballist44 {
+        padding: 40px 0px 9px 0px;
+        font-family: roboto-400;
+
+        color: #333333;
+        font-size: 18px;
+    }
+    .leballist443 {
+        padding:25px 0px 9px 0px;
+        font-family: roboto-400;
+
+        color: #333333;
+        font-size: 18px;
+    }
+    .avatarbank{
+        display: flex;
+        justify-content: center;
+        padding: 50px 30px 0px 0px;
+        // text-align: center;
+        // width: 100%;
+    }
+    .avatarbank2{
+        width: 90px;
+        height: 90px;
+    }
+    .userinput {
+        width: 82%;
+
+        div {
+            height: 46px;
+        }
+input{
+    background: rgba(229, 229, 229, 0.35) !important;
+    border-radius: 5px;
+}
+        // height: 46px;
+        fieldset {
+            background: rgba(229, 229, 229, 0.35) !important;
+            border-radius: 5px;
+            // height: 46px;
+        }
+
+    }
+
+    .menolistlogo {
+        position: relative;
+        right: 50px;
+        top: 5px;
+        // top: 290px;
+        // right: 30px;
+    }
+
+    .menolistlogo {
+        color: #000000;
+        min-width: 30px;
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+    .formcenjpasss {
+        margin: 20px;
+        // text-align: center;
+        display: block;
+    }
+
+}

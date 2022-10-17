@@ -4,7 +4,7 @@ import styles from './editprofileacc.module.scss'
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@material-ui/core';
 import { Avatar, Button } from '@mui/material';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from '@mui/material/TextField';
 // import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
@@ -23,6 +23,7 @@ import ApiEndpoint from '../../config/ApiEndpoint';
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
@@ -42,21 +43,59 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const ResponsiveAppBar = (props) => {
+    // console.log(, "listmenu");
     const [phonedata, setPhonedata] = useState('')
     const [gender, setGender] = useState('')
     const [image, setImage] = useState(null);
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [age, setAge] = React.useState('');
+    const [isoutField, setIsOutField] = useState(false);
+
+
     console.log(age, 'listage');
+    useEffect(() => {
+        setData(props.profile.userData.id)
+        // if (!!props.router && !!props.router.query && !!props.router.query.data) {
+        //     setData(JSON.parse(props.router.query.data).id)
+        // }
+    }, [])
+
+    const setData = async (userId) => {
+        var obj = {
+            "id_user": userId
+        }
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        props.props.loaderRef(true)
+        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.GET_PROFILE, JSON.stringify(obj), headers)
+        props.props.loaderRef(false)
+        console.log(patternDelete.data.profileUrl, 'patternDelete.data.birth_date');
+
+        if (!!patternDelete && patternDelete.status == true) {
+            
+            formik.setFieldValue('username', patternDelete.data.name);
+            formik.setFieldValue('email', patternDelete.data.email)
+            formik.setFieldValue('phone', patternDelete.data.phone_no)
+            formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("MM/DD/YYYY"))
+            formik.setFieldValue('Address', patternDelete.data.address)
+            formik.setFieldValue('Gender', patternDelete.data.gender)
+            setPhonedata(patternDelete.data.phone_no)
+            setAge(patternDelete.data.gender)
+        } else {
+            toast.error('Something went wrong.')
+        }
+    }
 
     const onLoginPress = async () => {
         var body = {
             'name': formik.values.username,
             'email': formik.values.email,
-            'phone_no':phonedata ,
+            'phone_no': phonedata,
             'birth_date': formik.values.date,
-            'address':formik.values.Address,
-            'gender':age,
+            'address': formik.values.Address,
+            'gender': age,
             // 'listemail':
         }
         console.log(body, 'body');
@@ -65,13 +104,13 @@ const ResponsiveAppBar = (props) => {
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
-        console.log( props.profile.token,'TOKAN');
+        console.log(props.profile.token, 'TOKAN');
 
         props.props.loaderRef(true)
         var data = await ApiServices.PostApiCall(ApiEndpoint.USER_EDIT, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        console.log(data,'DATA');
-        
+        console.log(data, 'DATA');
+
         console.log(data, 'listdata');
         if (!!data) {
             if (data.status == true) {
@@ -80,25 +119,34 @@ const ResponsiveAppBar = (props) => {
                 props.save_user_data({ user: data });
                 toast.success("Successfully Updated Personal Information")
                 // router.push('./dashboard')
-            } 
+            }
             else {
                 // setErrorShow(true)
                 toast.error(data.message)
             }
-        } 
+        }
         // else {
         //     toast.error('Something went wrong.')
         // }
     }
-
+    const edituser = () => {
+        if (phonedata.length < 8) {
+            setIsOutField(true)
+        }
+        else {
+            onLoginPress()
+        }
+    }
     const handleChange = (event: SelectChangeEvent) => {
         setAge(event.target.value as string);
     };
     console.log(createObjectURL, 'createObjectURL');
-    const handlePinChange = moNumber => {
-        setPhonedata(moNumber);
+    // const handlePinChange = moNumber => {
+    //     setPhonedata(moNumber);
+    // };
+    const handlePinChange = phonedata => {
+        setPhonedata(phonedata);
     };
-
     const uploadToClient = (event) => {
         if (event.target.files && event.target.files[0]) {
             const i = event.target.files[0];
@@ -168,7 +216,7 @@ const ResponsiveAppBar = (props) => {
     return (
         <Grid container className={styles.cantenar_list}>
             <form onSubmit={formik.handleSubmit} className={styles.formedit}>
-                <Grid item md={12}>
+                <Grid item md={12} sm={12} >
 
                     <div className={styles.hedingdiv}>
                         <div>
@@ -176,11 +224,11 @@ const ResponsiveAppBar = (props) => {
                             {/* */}
                             <div className={styles.uplodimgp}><Typography>Update your photo and personal detalis here.</Typography></div>
                         </div>
-                        <div className={styles.donebtn}><Button type='submit' onClick={onLoginPress}>Done</Button></div>
+                        <div className={styles.donebtn}><Button type='submit' onClick={edituser}>Done</Button></div>
                     </div>
                 </Grid>
                 {/* <form> */}
-                <Grid item md={12}>
+                <Grid item md={12} sm={12} xs={12}>
                     <div className={styles.listmenuuppohot}>
                         <Avatar src={createObjectURL} className={styles.avtaruplo} />
                         <IconButton className={styles.iconbtnop} color="primary" aria-label="upload picture" component="label">
@@ -194,7 +242,7 @@ const ResponsiveAppBar = (props) => {
                     </div>
                 </Grid>
                 <div className={styles.inputoplist}>
-                    <Grid item md={6}>
+                    <Grid item md={6} sm={12} xs={12}>
                         {/* <div className={styles.imputname}> */}
                         {/* <div> */}
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Name</InputLabel>
@@ -211,7 +259,7 @@ const ResponsiveAppBar = (props) => {
                         ></TextField>
                         {/* </div> */}
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item md={6} sm={12} xs={12}>
                         {/* <div> */}
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Email</InputLabel>
                         <TextField
@@ -230,14 +278,14 @@ const ResponsiveAppBar = (props) => {
                 <div className={styles.pohelistmenu}>
                     <Grid item md={6}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Phone no.</InputLabel>
-                      <PhoneInput
+                        <PhoneInput
                             className={styles.poneinput}
                             country={'us'}
-                            
+
                             value={phonedata}
-                            onChange={setPhonedata}
+                            onChange={handlePinChange}
                         />
-                                    {phonedata.length == 12 ? '': <span className={styles.otperr}>Please Enter Valid Mobile-Number</span> }
+                        {isoutField == true ? <span className={styles.otperr}>Please Enter Valid Mobile-Number</span> : ''}
                     </Grid>
                     <Grid item md={6}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Date of Birth</InputLabel>
@@ -247,18 +295,18 @@ const ResponsiveAppBar = (props) => {
                             helperText={formik.touched.date && formik.errors.date}
                             name="date"
                             // className={styles.emailinput}
-                            placeholder='Enter name '
+                            // placeholder='Enter name '
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
                             value={formik.values.date}
                             id="date"
                             // label="Birthday"
                             type="date"
-                            defaultValue="MM/DD/YYYY"
-                            // className={classes.textField}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
+                        // defaultValue="MM/DD/YYYY"
+                        // className={classes.textField}
+                        // InputLabelProps={{
+                        //     shrink: true,
+                        // }}
                         />
                     </Grid>
                 </div>
@@ -296,6 +344,7 @@ const ResponsiveAppBar = (props) => {
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={age}
+                                // defaultValue={'NDFVDFV'}
                                 //   label="Age"
                                 // error={Boolean(formik.touched.Gender && formik.errors.Gender)}
                                 // helperText={formik.touched.Gender && formik.errors.Gender}
@@ -313,7 +362,7 @@ const ResponsiveAppBar = (props) => {
                             </Select>
                         </FormControl>
                         {age == '' ? <div><span className={styles.otperr}>Please Enter Valid Gender
-</span></div>: ""}
+                        </span></div> : ""}
                         {/* </Box> */}
                     </Grid>
                 </div>
@@ -321,14 +370,14 @@ const ResponsiveAppBar = (props) => {
         </Grid>
     )
 }
- const mapStateToProps = (state) => ({
-   profile: state.user.profile
- });
+const mapStateToProps = (state) => ({
+    profile: state.user.profile
+});
 
- const mapDispatchToProps = (dispatch) => ({
-   save_user_data: (data) =>
-      dispatch({ type: Types.LOGIN, payload: data }),
- });
+const mapDispatchToProps = (dispatch) => ({
+    save_user_data: (data) =>
+        dispatch({ type: Types.LOGIN, payload: data }),
+});
 
- export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
 // export default ResponsiveAppBar;

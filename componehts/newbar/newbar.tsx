@@ -25,6 +25,8 @@ import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from '@mui/material/AccordionSummary';
+import { toast } from 'react-toastify';
+
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { connect } from 'react-redux';
@@ -99,9 +101,26 @@ const ResponsiveAppBar = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [data, setData] = React.useState([]);
   const [datalist, setDatalist] = React.useState([]);
+  const [advertiseMent, setAdvertisement] = React.useState("")
+  const [com, setCom] = React.useState(false);
 
-
-
+  var handleClickOpenCom = (myprops) => {
+    setCom(true);
+    // console.log(advertiseMent, startDate, endDate, image, 'hello data')
+    myprops = { advertiseMent }
+  };
+  var handleClickOpenCom = (myprops) => {
+    setCom(true);
+    // console.log(advertiseMent, startDate, endDate, image, 'hello data')
+    myprops = { advertiseMent }
+  };
+  const handleCloseCom = () => {
+    setCom(false);
+  };
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+  var currentPath = router.pathname
   const chartloginuser = async () => {
 
     // console.log(id, 'id')
@@ -115,7 +134,7 @@ const ResponsiveAppBar = (props) => {
     // props.loaderRef(true)
     //  const data = await ApiServices.GetApiCall(ApiEndpoint.USER_COUNT_LIST, headers);
 
-    var data = await ApiServices.GetApiCall(ApiEndpoint.USER_ACCOUNT_LIST, headers)
+    var data = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
     // props.loaderRef(false)
     // console.log(data, 'mydataLIST');
 
@@ -155,10 +174,11 @@ const ResponsiveAppBar = (props) => {
     }
   }
 
+  console.log(data, 'virang33');
 
 
   // console.log(props.props.profile, 'myyyydata')
-  console.log(data.user_id, 'virang33');
+
 
 
   React.useEffect(() => {
@@ -468,7 +488,7 @@ const ResponsiveAppBar = (props) => {
                 FO
               </Button> */}
             </Box>
-            <div className={styles.btnicon2}  ><Button><SettingsIcon /></Button>
+            <div className={styles.btnicon2} ><Button href='./editprofileacc'><SettingsIcon /></Button>
               <Button><NotificationsNoneIcon /></Button></div>
             {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
             <Box sx={{ flexGrow: 0 }}>
@@ -509,44 +529,49 @@ const ResponsiveAppBar = (props) => {
                 {/* {settings.map((setting) => ( */}
                 {/* <MenuItem onClick={handleCloseUserMenu}> */}
                 <div className={styles.listmeuend}>
-                <div>
-                  <Button className={styles.btnnevlist} onClick={handleCloseUserMenu}>
-                    <div><Avatar></Avatar></div>
-                    <div><div className={styles.idname}><Typography>AL26011995</Typography></div><div className={styles.listtype}><Typography>Zerodha</Typography></div></div>
-                
-                  </Button>
+                  <div>
+                    <Button className={styles.btnnevlist} onClick={handleCloseUserMenu}>
+                      <div><Avatar></Avatar></div>
+                      <div><div className={styles.idname}><Typography>AL26011995</Typography></div><div className={styles.listtype}><Typography>Zerodha</Typography></div></div>
+
+                    </Button>
                   </div>
                   <div className={styles.menulistbtn}>
-                  <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
-                    <img width={21} height={21} src='../../History.svg' />
-                    {/* <Box className={styles.massscolor} sx={{ color: 'action.active' }}> */}
+                    <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
+                      <img width={21} height={21} src='../../History.svg' />
+                      {/* <Box className={styles.massscolor} sx={{ color: 'action.active' }}> */}
                       {/* <Badge color="secondary" className={styles.massscolor2} variant="dot" > */}
                       {/* <Box>
                         <AccessTimeIcon className={styles.ivonhestri}/>       */}
-                        {/* </Box> */}
-                        {/* </Badge> */}
-                    {/* </Box> */}
+                      {/* </Box> */}
+                      {/* </Badge> */}
+                      {/* </Box> */}
                     </Button>
-                    <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg'  /></Button>
-                    <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg '/></Button>
-                    </div>
-                    </div>
-                    <Divider className={styles.devatdar}/>
-                    <div className={styles.listbtmnuu}>
-                    <div className={styles.listaddacc}>
-                      <Button><PersonAddIcon />Add account</Button>
-                     
-                    </div>
-                    <div className={styles.settinglist}>
+                    <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
+                    <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
+                  </div>
+                </div>
+                <Divider className={styles.devatdar} />
+                <div className={styles.listbtmnuu}>
+                  <div className={styles.listaddacc}>
+                    <Button><PersonAddIcon />Add account</Button>
+
+                  </div>
+                  <div className={styles.settinglist}>
                     <Button><SettingsIcon />Settings</Button>
-                    </div>
-                    <div className={styles.loglist}>
-                      <Button>
-                        <LogoutIcon />Logout
-                      </Button>
-                    </div>
-                    </div>
-                  {/* <Typography textAlign="center">{setting}</Typography> */}
+                  </div>
+                  <div className={styles.loglist}>
+                    <Button onClick={() => {
+                      var profile = "";
+                      props.save_user_data({ user: "" });
+                      router.push("/");
+                      toast.success("Logout Successfully!");
+                    }} >
+                      <LogoutIcon />Logout
+                    </Button>
+                  </div>
+                </div>
+                {/* <Typography textAlign="center">{setting}</Typography> */}
                 {/* </MenuItem> */}
                 {/* ))} */}
               </Menu>

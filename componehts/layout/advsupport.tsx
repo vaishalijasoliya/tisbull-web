@@ -7,10 +7,10 @@ const main = (props) => {
   return (
     <>
 
-      <Grid container>
+      <Grid container className={styles.listmenucantr}>
         <Grid item sm={0} md={5} xs={0} className={styles.bgcolor_peg}>
           <div>
-            {/* <img  src='../../Ellipse 13 (2).png'></img> */}
+            <img  src='../../Ellipse 13 (2).png'></img>
           </div>
         </Grid>
         <Grid item sm={12} md={7} xs={12} className={styles.maen_geidsty} >
@@ -50,7 +50,7 @@ const main = (props) => {
         </Grid>
         <Grid item sm={0} md={3} xs={0} className={styles.bgcolor_peg2} >
           <div >
-            {/* <img src='../../Ellipse 19 (1).png'></img> */}
+            <img src='../../Ellipse 19 (1).png'></img>
           </div>
         </Grid>
       </Grid>
