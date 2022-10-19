@@ -12,7 +12,7 @@
     button {
         min-width: 40px;
         min-height: 40px;
-
+        color: #444444 !important;
         margin: 0px 10px 0px 0px;
     }
 
@@ -219,6 +219,7 @@
 .listtype p {
     font-family: Poppins-400;
     font-size: 12px !important;
+    text-align: justify;
     color: #858789 !important;
 }
 
@@ -319,6 +320,8 @@
 }
 
 .listmenuoncc {
+    color: black !important;
+    margin: 20px 0px 0px 0px !important;
     display: none !important;
 }
 
@@ -326,6 +329,21 @@
     display: flex !important;
 }
 
+@media only screen and (max-width: 880px) {
+    .menu_icom {
+        display: none !important;
+    }
+    .btnicon2 {
+        display: none;
+    }
+
+    .listmenuoncc {
+        display: block !important;
+    }
+    // .menu_icom {
+    //     display: none !important;
+    // }
+}
 @media only screen and (max-width: 450px) {
     .btnicon2 {
         display: none;

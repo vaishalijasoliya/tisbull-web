@@ -69,6 +69,14 @@
   /* padding: 30px; */
 }
 @media only screen and (max-width: 900px) {
+  .newbarend{
+
+    background: none !important;
+    /* div{ */
+      display: flex;
+      justify-content: end;
+    /* } */
+  }
   .dasnod_camponat{
     padding: 0px 30px 0px 30px;
   }
@@ -89,6 +97,14 @@
 }
 
 @media only screen and (max-width: 500px) {
+  .newbarend{
+    display: flex;
+    justify-content: end;
+    background: none !important;
+  }
+  .dasnod_camponat266{
+    padding: 20px !important;
+  }
   .dasnod_camponat{
     padding: 0px 30px 0px 30px;
   }

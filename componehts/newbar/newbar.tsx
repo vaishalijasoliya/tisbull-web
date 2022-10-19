@@ -56,6 +56,30 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 const pages = ['Dashboard', 'Account', 'Equity', 'Currency', 'FO'];
 const settings = [];
 
+type Order = 'asc' | 'desc';
+
+// function getComparator<Key extends keyof any>(
+//   order: Order,
+//   orderBy: Key,
+// ): (
+//   a: { [key in Key]: number | string },
+//   b: { [key in Key]: number | string },
+// ) => number {
+//   return order === 'desc'
+//       ? (a, b) => descendingComparator(a, b, orderBy)
+//       : (a, b) => -descendingComparator(a, b, orderBy);
+// }
+function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
+  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -92,7 +116,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const ResponsiveAppBar = (props) => {
-  // console.log(props.props.loaderRef, 'propsmenu');
+  console.log(props.props, 'propsmenu');
 
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -101,6 +125,8 @@ const ResponsiveAppBar = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [data, setData] = React.useState([]);
   const [datalist, setDatalist] = React.useState([]);
+  const [datalistlogin, setDatalistlogin] = React.useState([]);
+
   const [advertiseMent, setAdvertisement] = React.useState("")
   const [com, setCom] = React.useState(false);
 
@@ -136,7 +162,7 @@ const ResponsiveAppBar = (props) => {
 
     var data = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
     // props.loaderRef(false)
-    // console.log(data, 'mydataLIST');
+    // console.log(datadd, 'mydataLIST');
 
     if (!!data) {
       if (data.status == true && data.data.length > 0) {
@@ -144,6 +170,7 @@ const ResponsiveAppBar = (props) => {
         const csvall = [];
         for (let index = 0; index < data.data.length; index++) {
           const element = data.data[index];
+          console.log(element.loginUrl, 'password514');
           // for (let index = 0; index < data.length; index++) {
           //   const element = data[index];
           //   for (let index = 0; index < data.profitChart.length; index++) {
@@ -152,29 +179,33 @@ const ResponsiveAppBar = (props) => {
           //     date.push(elementlist)
           //     arr.push(element)
           // }
-          // const object = {
-          //     id: element.user_id,
-          //     type:element.type,
-          //     loginUrl:element.loginUrl,
-          //     // password: element.password,
-          //     // type: element.type,
-          //     // Environments: element.env,
-          //     // consumer_key: element.consumer_key,
-          //     // consumer_secret: element.consumer_secret,
-          //     // id_user: element.id_user,
-          //     // zerodha_token_update: element.zerodha_token_update
-          //   }
-          // console.log(element.password, 'password');
-          accoyty.push(element)
+          const object = {
+            id: element.user_id,
+            type: element.type,
+            loginUrl: element.loginUrl,
+            // password: element.password,
+            // type: element.type,
+            // Environments: element.env,
+            // consumer_key: element.consumer_key,
+            // consumer_secret: element.consumer_secret,
+            // id_user: element.id_user,
+            // zerodha_token_update: element.zerodha_token_update
+          }
+          console.log(object.loginUrl, 'object');
+
+          accoyty.push(JSON.parse(JSON.stringify(object)))
+          // csvall.push(JSON.parse(JSON.stringify (element.loginUrl)))
           // accoyty.push(object)
+
         }
 
+        setDatalistlogin(csvall)
         setData(accoyty)
       }
     }
   }
 
-  console.log(data, 'virang33');
+  console.log(data.loginUrl, 'virang33');
 
 
   // console.log(props.props.profile, 'myyyydata')
@@ -266,7 +297,8 @@ const ResponsiveAppBar = (props) => {
           Dashboard
         </Button>
         <Button
-          onClick={(() => { router.push('./home') })}
+         onClick={(() => { router.push('./accountteyp') })}
+         
           className={styles.btn_pages2}
           // key={page}
           // onClick={handleCloseNavMenu}
@@ -275,9 +307,10 @@ const ResponsiveAppBar = (props) => {
           Account
         </Button>
         <Button
+         onClick={(() => { router.push('./home') })}
           className={styles.btn_pages2}
           // key={page}
-          onClick={handleCloseNavMenu}
+          // onClick={handleCloseNavMenu}
           sx={{ my: 2, display: 'block' }}
         >
           Pattern
@@ -315,7 +348,7 @@ const ResponsiveAppBar = (props) => {
         <Button
           className={styles.btn_pages2}
           // key={page}
-          onClick={handleCloseNavMenu}
+          onClick={(() => { router.push('./editprofileacc') })}
           sx={{ my: 2, display: 'block' }}
         >
           settings
@@ -402,7 +435,7 @@ const ResponsiveAppBar = (props) => {
             </Box>
             <div>
               <div>
-                {(['left'] as const).map((anchor) => (
+               {(['left'] as const).map((anchor) => (
                   <React.Fragment key={anchor}>
                     <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
                     <SwipeableDrawer
@@ -412,11 +445,11 @@ const ResponsiveAppBar = (props) => {
                       onClose={toggleDrawer(anchor, false)}
                       onOpen={toggleDrawer(anchor, true)}
                     >
-                      {/* lkhhhh */}
-                      {list(anchor)}
+                      {/* //  lkhhhh */} 
+                       {list(anchor)}
                     </SwipeableDrawer>
                   </React.Fragment>
-                ))}
+                ))} 
               </div>
             </div>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -431,7 +464,7 @@ const ResponsiveAppBar = (props) => {
                 Dashboard
               </Button>
               <Button
-                onClick={(() => { router.push('./home') })}
+                onClick={(() => { router.push('./accountteyp') })}
                 className={styles.btn_pages}
                 // key={page}
                 // onClick={handleCloseNavMenu}
@@ -440,9 +473,10 @@ const ResponsiveAppBar = (props) => {
                 Account
               </Button>
               <Button
+                onClick={(() => { router.push('./home') })}
                 className={styles.btn_pages}
                 // key={page}
-                onClick={handleCloseNavMenu}
+                // onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
               >
                 Pattern
@@ -488,7 +522,7 @@ const ResponsiveAppBar = (props) => {
                 FO
               </Button> */}
             </Box>
-            <div className={styles.btnicon2} ><Button href='./editprofileacc'><SettingsIcon /></Button>
+            <div className={styles.btnicon2} ><Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon /></Button>
               <Button><NotificationsNoneIcon /></Button></div>
             {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
             <Box sx={{ flexGrow: 0 }}>
@@ -530,13 +564,21 @@ const ResponsiveAppBar = (props) => {
                 {/* <MenuItem onClick={handleCloseUserMenu}> */}
                 <div className={styles.listmeuend}>
                   <div>
-                    <Button className={styles.btnnevlist} onClick={handleCloseUserMenu}>
-                      <div><Avatar></Avatar></div>
-                      <div><div className={styles.idname}><Typography>AL26011995</Typography></div><div className={styles.listtype}><Typography>Zerodha</Typography></div></div>
-
-                    </Button>
+                    {data.map((row) => (
+                      <div>
+                        <Button className={styles.btnnevlist} onClick={handleCloseUserMenu}>
+                          <div>        
+                            {/* <img src={row.loginUrl}  /> */}
+                            <Avatar src={row.logoUrl} /> 
+                          </div>
+                          <div><div className={styles.idname}><Typography>{row.id}</Typography></div><div className={styles.listtype}><Typography>{row.type}</Typography></div></div>
+                          {console.log(row.loginUrl, 'row.loginUrl')}
+                        </Button>
+                      </div>
+                    ))}
                   </div>
                   <div className={styles.menulistbtn}>
+
                     <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
                       <img width={21} height={21} src='../../History.svg' />
                       {/* <Box className={styles.massscolor} sx={{ color: 'action.active' }}> */}
@@ -554,11 +596,11 @@ const ResponsiveAppBar = (props) => {
                 <Divider className={styles.devatdar} />
                 <div className={styles.listbtmnuu}>
                   <div className={styles.listaddacc}>
-                    <Button><PersonAddIcon />Add account</Button>
+                    <Button onClick={(() => { router.push('./AddAccounts') })}><PersonAddIcon />Add account</Button>
 
                   </div>
                   <div className={styles.settinglist}>
-                    <Button><SettingsIcon />Settings</Button>
+                    <Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon />Settings</Button>
                   </div>
                   <div className={styles.loglist}>
                     <Button onClick={() => {
@@ -592,4 +634,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
-// export default ResponsiveAppBar;
+// export default ResponsiveAppBar

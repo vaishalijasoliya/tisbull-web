@@ -437,14 +437,33 @@ const ResponsiveAppBar = (props) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [age, setAge] = React.useState('');
     const [com, setCom] = React.useState(false);
+    const[play,setPlay] =React.useState(false);
+    const[pause,setPause] =React.useState(false)
     var handleClickOpenCom = (myprops) => {
         setCom(true);
+        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
+        // myprops = { advertiseMent }
+    };
+    var handleClickOpenComplay = (myprops) => {
+        setPlay(true);
+        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
+        // myprops = { advertiseMent }
+    };
+    var handleClickOpenCompause = (myprops) => {
+        setPause(true);
         // console.log(advertiseMent, startDate, endDate, image, 'hello data')
         // myprops = { advertiseMent }
     };
     const handleCloseCom = () => {
         setCom(false);
     }
+    const handleCloseCompause = () => {
+        setPause(false);
+    }
+    const handleCloseComplay = () => {
+        setPlay(false);
+    }
+    
     const handlePageChange = (event, newPage) => {
         setPage(newPage);
     };
@@ -526,7 +545,7 @@ const ResponsiveAppBar = (props) => {
 
     // let inloglist=datatebal.zerodha_token_update
 
-    console.log(data.exchange, 'datatebalpettan');
+    console.log(age, 'datatebalpettan');
 
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
@@ -601,12 +620,12 @@ const ResponsiveAppBar = (props) => {
                 {/* <Box> */}
 
                 <div className={styles.listmeniom}>
-                    <Grid item md={3} sm={12} xs={12}>
+                    <Grid item md={3} sm={6} xs={6}>
                         <div className={styles.patterndiv}>
                             <Typography>Pattern</Typography>
                         </div>
                     </Grid>
-                    <Grid md={9} sm={12} xs={12} display={'flex'} justifyContent={'end'}>
+                    <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
                         <Button className={styles.cerbatn}>
                             <img src="../../Vector (5).svg" />
                         </Button>
@@ -714,7 +733,7 @@ const ResponsiveAppBar = (props) => {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={'Ten'}>Ten</MenuItem>
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                 </Select>
@@ -796,7 +815,10 @@ const ResponsiveAppBar = (props) => {
                                                         // align="right"
                                                         >{row.type_pattern}</TableCell>
                                                         <TableCell >{row.investment}</TableCell>
-                                                        <TableCell >{row.profit}</TableCell>
+                                                        <TableCell className={row.profit <=0 ? styles.maynascall:styles.palscalls}>
+                                                            {row.profit}
+                                                            {/* 100 */}
+                                                            </TableCell>
                                                         <TableCell >{row.stock}</TableCell>
                                                         <TableCell >
                                                             <Typography className={styles.dateone}>{
@@ -813,14 +835,15 @@ const ResponsiveAppBar = (props) => {
                                                             <div className={styles.listtebal}>
                                                                 <Button className={styles.viwebtnmm}> <img height={18} src="../../edit_square.svg" /></Button>
 
-                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3}>
+                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={row.status == 'active' ? handleClickOpenCompause: handleClickOpenComplay}>
+                                                                {/* <PauseCircleOutlineIcon /> */}
                                                                     {/* <Touchable>dilet</Touchable> */}
-                                                                    {row.status == 'active' ? <PauseCircleOutlineIcon /> : <PlayCircleOutlineIcon />}
-                                                                </Button>}
+                                                                    {row.status == 'active' ? <PauseCircleOutlineIcon  className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani}/>}
+                                                               </Button>}
                                                                 {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={handleClickOpenCom}><DeleteOutlineIcon /></Button>}
                                                             </div>
                                                             <div>
-                                                            <Dialog open={com} onClose={handleCloseCom}
+                                                            <Dialog open={com}  onClose={handleCloseCom}
                                                                 className={styles.borderredayasfor}
                                                                 style={{
                                                                     // borderRadius: '30px'
@@ -828,36 +851,121 @@ const ResponsiveAppBar = (props) => {
                                                                 // fullWidth
                                                                 maxWidth="sm"
                                                             >
-                                                              
+                                                                     <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
                                                                 <div>
                                                                     <DialogContent className={styles.popupcantenar}>
-                                                                        <Box>
-                                                                            <div>  <CloseIcon /></div>
+                                                                        <Box className={styles.lisrmaenbox}>
+                                                                     
                                                                             <div className={styles.delehedar}>
                                                                             <Typography>Delete Successful</Typography>
                                                                         </div>
-                                                                        <div>
+                                                                        <div className={styles.listimgyes}>
                                                                             <img src="../../Group 47124.svg" />
                                                                         </div>
-                                                                            <Divider>
-
-                                                                            </Divider>
-                                                                            <div className={styles.accoparegarf}>
-                                                                                <Typography>Are you sure you want to delete
-                                                                                    this account?</Typography>
-                                                                            </div>
-                                                                            <Divider>
-
-                                                                            </Divider>
-                                                                            <div><Button className={styles.cancelbtn}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2}>Delete</Button></div>
+                                                                           <Box className={styles.listboxiduser}>
+                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel>
+                                                                           <div className={styles.maendividuser}>
+                                                                           <div className={styles.odarlistop}>
+                                                               
+                                                                           <Typography>jhgsadgds</Typography>
+                                                                           
+                                                                           <Typography>jhgsadgds</Typography>
+                                                                          
+                                                                           <Typography>jhgsadgds</Typography>
+                                                                          
+                                                                           </div>
+                                                                           <div className={styles.odarlistop}>
+                                                               
+                                                                           <Typography>jhgsadgds</Typography>
+                                                                           
+                                                                           <Typography>jhgsadgds</Typography>
+                                                                          
+                                                                           <Typography>jhgsadgds</Typography>
+                                                                          
+                                                                           </div>
+                                                                           </div>
+                                                                           </Box>
+                                                                            <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
                                                                         </Box>
                                                                         {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                     </DialogContent>
                                                                 </div>
                                                             </Dialog>
                                                         </div>
-                                                      
-
+                                                        <div>
+                                                            <Dialog open={play}  onClose={handleCloseComplay}
+                                                                className={styles.borderredayasfor}
+                                                                style={{
+                                                                    // borderRadius: '30px'
+                                                                }}
+                                                                // fullWidth
+                                                                maxWidth="sm"
+                                                            >
+                                                                     <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                <div>
+                                                                    <DialogContent className={styles.popupcantenar}>
+                                                                        <Box className={styles.lisrmaenbox}>
+                                                                     
+                                                                            <div className={styles.delehedar}>
+                                                                            <Typography>Play Pattern</Typography>
+                                                                        </div>
+                                                                        <div className={styles.listimgyes}>
+                                                                            <img src="../../Group 47124 (1).svg" />
+                                                                        </div>
+                                                                           {/* <Box className={styles.listboxiduser}>
+                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                           <div className={styles.paregarafnsg}>
+                                                                         <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                         </div>
+                                                                         <div className={styles.pustlebal}>
+                                                                            <Typography>Pause with </Typography>
+                                                                         </div>
+                                                                         <div className={styles.btn_all_buy}><Button value={'All'}>All</Button><Button value={'Buy'}>Buy</Button><Button  value={'Sell'}>Sell</Button></div>
+                                                                           {/* </Box> */}
+                                                                            <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn}>Confirm</Button></div>
+                                                                        </Box>
+                                                                        {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                    </DialogContent>
+                                                                </div>
+                                                            </Dialog>
+                                                        </div>
+                                                        <div>
+                                                            <Dialog open={pause}  onClose={handleCloseCompause}
+                                                                className={styles.borderredayasfor}
+                                                                style={{
+                                                                    // borderRadius: '30px'
+                                                                }}
+                                                                // fullWidth
+                                                                maxWidth="sm"
+                                                            >
+                                                                     <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                <div>
+                                                                    <DialogContent className={styles.popupcantenar}>
+                                                                        <Box className={styles.lisrmaenbox}>
+                                                                     
+                                                                            <div className={styles.delehedar}>
+                                                                            <Typography>Play Pattern</Typography>
+                                                                        </div>
+                                                                        <div className={styles.listimgyes}>
+                                                                            <img src="../../Group 47124 (2).svg" />
+                                                                        </div>
+                                                                           {/* <Box className={styles.listboxiduser}>
+                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                           <div className={styles.paregarafnsg}>
+                                                                         <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                         </div>
+                                                                         <div className={styles.pustlebal}>
+                                                                            <Typography>Pause with </Typography>
+                                                                         </div>
+                                                                         <div className={styles.btn_all_buy}><Button>All</Button><Button>Buy</Button><Button>Sell</Button></div>
+                                                                           {/* </Box> */}
+                                                                            <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn}>Confirm</Button></div>
+                                                                        </Box>
+                                                                        {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                    </DialogContent>
+                                                                </div>
+                                                            </Dialog>
+                                                        </div>
                                                         </TableCell>
 
                                                     </TableRow>
@@ -912,7 +1020,7 @@ const ResponsiveAppBar = (props) => {
                     </Box>
                 </Grid>
             </Grid>
-        </Grid>
+         </Grid>
     )
 }
 // export default ResponsiveAppBar;

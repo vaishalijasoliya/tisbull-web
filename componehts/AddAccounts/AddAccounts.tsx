@@ -188,7 +188,7 @@ export default function Home(props) {
                 <InputLabel className={styles.leballist}>Account Type </InputLabel>
                 <Divider className={styles.divaydaravta}></Divider>
                 <div className={styles.listdataaaco}>
-                    <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha}></Avatar></div>
+                    <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group.svg'></Avatar></div>
                     <div className={styles.listhedingbnk}>
                         <Typography >ZERODHA </Typography>
                         <div className={styles.listapichek}>
@@ -216,7 +216,7 @@ export default function Home(props) {
                 {/* <InputLabel className={styles.leballist}>Account Type </InputLabel> */}
                 <Divider className={styles.divaydaravta}></Divider>
                 <div className={styles.listdataaaco}>
-                    <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha}></Avatar></div>
+                    <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group (1).svg'></Avatar></div>
                     <div className={styles.listhedingbnk}>
                         <Typography >Kotak Securities  </Typography>
                         <div className={styles.listapichek}>

@@ -12,7 +12,7 @@ const ResponsiveAppBar = (props) => {
       <Grid item sm={12} md={12} xs={12}>
         <Newbar />
         {/* <Home /> */}
-        <div className={styles.dasnod_camponat3}>
+        <div className={styles.dasnod_camponat366}>
         <Stocks  props={props}/>
         </div>
       </Grid>

@@ -1,7 +1,7 @@
 import styles from './accounttype.module.scss'
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { Avatar, Box, Button, Typography } from '@mui/material';
+// import { Avatar, Box, Button, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -19,6 +19,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import TablePagination from '@mui/material/TablePagination';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import { Avatar,Box, Button, Typography, TableFooter, useTheme } from '@mui/material';
+import PropTypes from "prop-types";
+import IconButton from '@mui/material/IconButton';
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
@@ -133,6 +140,77 @@ interface HeadCell {
     label: string;
     numeric: boolean;
 }
+function TablePaginationActions(props: {
+    count: any;
+    page: any;
+    rowsPerPage: any;
+    onPageChange: any;
+}) {
+    const theme = useTheme();
+    const { count, page, rowsPerPage, onPageChange } = props;
+
+    const handleFirstPageButtonClick = (event: any) => {
+        onPageChange(event, 0);
+    };
+
+    const handleBackButtonClick = (event: any) => {
+        onPageChange(event, page - 1);
+    };
+
+    const handleNextButtonClick = (event: any) => {
+        onPageChange(event, page + 1);
+    };
+
+    const handleLastPageButtonClick = (event: any) => {
+        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+    };
+    return (
+        <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+            <IconButton
+                onClick={handleFirstPageButtonClick}
+                disabled={page === 0}
+                aria-label="first page"
+            >
+                {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
+            </IconButton>
+            <IconButton
+                onClick={handleBackButtonClick}
+                disabled={page === 0}
+                aria-label="previous page"
+            >
+                {theme.direction === "rtl" ? (
+                    <KeyboardArrowRight />
+                ) : (
+                    <KeyboardArrowLeft />
+                )}
+            </IconButton>
+            <IconButton
+                onClick={handleNextButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="next page"
+            >
+                {theme.direction === "rtl" ? (
+                    <KeyboardArrowLeft />
+                ) : (
+                    <KeyboardArrowRight />
+                )}
+            </IconButton>
+            <IconButton
+                onClick={handleLastPageButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="last page"
+            >
+                {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
+            </IconButton>
+        </Box>
+    );
+}
+TablePaginationActions.propTypes = {
+    count: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired,
+    page: PropTypes.number.isRequired,
+    rowsPerPage: PropTypes.number.isRequired,
+};
 
 const headCells: readonly HeadCell[] = [
     {
@@ -255,7 +333,7 @@ const ResponsiveAppBar = (props) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
     // const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [com, setCom] = React.useState(false);
     const [datatebal, setDatatebal] = React.useState([]);
     const [dense, setDense] = React.useState(false);
@@ -295,7 +373,7 @@ const ResponsiveAppBar = (props) => {
 
         // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        console.log(data, 'data');
+        console.log(props.props.profile.token, 'datadfsf');
 
         if (!!data) {
             if (data.status == true && data.data.length > 0) {
@@ -326,7 +404,7 @@ const ResponsiveAppBar = (props) => {
 
     // let inloglist=datatebal.zerodha_token_update
 
-    console.log(datatebal.logoUrl, 'datatebal');
+    console.log(datatebal, 'datatebal');
 
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
@@ -581,6 +659,26 @@ const ResponsiveAppBar = (props) => {
                                         </TableRow>
                                     )}
                                 </TableBody>
+                                <TableFooter>
+                                        <TableRow >
+                                            <TablePagination
+                                                className={styles.tablePagination}
+                                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                                                count={datatebal.length}
+                                                rowsPerPage={rowsPerPage}
+                                                page={page}
+                                                SelectProps={{
+                                                    inputProps: {
+                                                        "aria-label": "rows per page",
+                                                    },
+                                                    native: false,
+                                                }}
+                                                onPageChange={handleChangePage}
+                                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                                ActionsComponent={TablePaginationActions}
+                                            />
+                                        </TableRow>
+                                    </TableFooter>
                             </Table>
 
                         </TableContainer>

@@ -70,10 +70,29 @@ p {
     background-repeat: no-repeat;
     text-align: center;
 }
+@media only screen and (max-width: 900px) {
+    .bgcolor_peg2 img{
+        width: 200px;
+        justify-content: end;
+        display: flex;
+    }
+    .bgcolor_peg{
+        display: none;
+    }
+    .bgcolor_peg2{
+        display: none;
+    }
+}
 @media only screen and (max-width: 450px) {
     .bgcolor_peg2 img{
         width: 200px;
         justify-content: end;
         display: flex;
+    }
+    .bgcolor_peg{
+        display: none;
+    }
+    .bgcolor_peg2{
+        display: none;
     }
 }

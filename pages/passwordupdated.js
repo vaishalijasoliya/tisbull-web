@@ -16,7 +16,7 @@ const ResponsiveAppBar = (props) => {
     <Grid container className={styles.cantenar_list}>
       <Grid item sm={12} md={12} xs={12}>
       <Nevbarlogin />
-      <div className={styles.singlistpsdii}>
+      <div >
       <Passwordupdated  props={props} userid={router.query.id_user}/>
       </div>
         {/* <Newbar />

@@ -276,7 +276,7 @@ const ResponsiveAppBar = (props) => {
                     </Grid>
                 </div>
                 <div className={styles.pohelistmenu}>
-                    <Grid item md={6}>
+                    <Grid item md={6} sm={12} xs={12}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Phone no.</InputLabel>
                         <PhoneInput
                             className={styles.poneinput}
@@ -287,7 +287,7 @@ const ResponsiveAppBar = (props) => {
                         />
                         {isoutField == true ? <span className={styles.otperr}>Please Enter Valid Mobile-Number</span> : ''}
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item md={6} sm={12} xs={12}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Date of Birth</InputLabel>
                         <TextField
                             className={styles.dataeinput}
@@ -311,7 +311,7 @@ const ResponsiveAppBar = (props) => {
                     </Grid>
                 </div>
                 <div className={styles.futtorlist}>
-                    <Grid item md={6}>
+                    <Grid item md={6} sm={12} xs={12}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Address</InputLabel>
                         <TextField
                             className={styles.dataeinput}
@@ -334,7 +334,7 @@ const ResponsiveAppBar = (props) => {
                         // }}
                         />
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item md={6} sm={12} xs={12}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Gender</InputLabel>
                         {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                         {/* <Box sx={{ minWidth: 120 }}> */}

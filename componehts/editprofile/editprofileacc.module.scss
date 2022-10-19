@@ -165,19 +165,40 @@
         color: red;
     }
 }
-@media only screen and (max-width: 500px) 
+@media only screen and (max-width: 900px) 
 {
+    .poneinput input{
+width: 335px !important;
+    }
+    .inputnamelist{
+        width: 90% !important;
+    }
+    .emailinput{
+        width: 90% !important;
+    }
+    .dataeinput{
+        width: 90% !important;
+    }
+    .slaydarinput{
+        width: 90% !important;
+    }
     .inputoplist {
+        // display: block;
         // display: flex;
         padding: 25px 0px 0px 0px;
+        input{
+            width: 100%;
+        }
     }
     
     .pohelistmenu {
+        // display: block;
         // display: flex;
         padding: 20px 0px 0px 0px;
     
     }
     .futtorlist{
+        // display: block;
         // display: flex;
         padding: 20px 0px 0px 0px;
     }
@@ -185,7 +206,52 @@
         margin: 20px !important;
         padding: 20px !important;
     }
-    .poneinput input{
+    .poneinput {
+        width: 100px !important;
+    }
+}
+@media only screen and (max-width: 500px) 
+{
+    .inputoplist{
+
+    }
+    .inputnamelist{
+        width: 100% !important;
+    }
+    .emailinput{
+        width: 100% !important;
+    }
+    .dataeinput{
+        width: 100% !important;
+    }
+    .slaydarinput{
+        width: 100% !important;
+    }
+    .inputoplist {
+        display: block;
+        // display: flex;
+        padding: 25px 0px 0px 0px;
+        input{
+            width: 100%;
+        }
+    }
+    
+    .pohelistmenu {
+        display: block;
+        // display: flex;
+        padding: 20px 0px 0px 0px;
+    
+    }
+    .futtorlist{
+        display: block;
+        // display: flex;
+        padding: 20px 0px 0px 0px;
+    }
+    .formedit{
+        margin: 20px !important;
+        padding: 20px !important;
+    }
+    .poneinput {
         width: 100px !important;
     }
 }

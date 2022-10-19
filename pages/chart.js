@@ -3,16 +3,16 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 
 import Newbar from '../componehts/newbar/newbar';
-import AddAccounts from '../componehts/AddAccounts/AddAccounts';
+import Chart from '../componehts/chart/chart';
 const ResponsiveAppBar = (props) => {
   console.log(props,'vir');
   return (
     <Grid container className={styles.cantenar_list883}>
       <Grid item sm={12} md={12} xs={12}>
-        <Newbar props={props}/>
+        <Newbar />
         {/* <Home /> */}
         <div className={styles.dasnod_camponat2663}>
-        <AddAccounts className={styles.accolistmenu}  props={props}/>
+        <Chart className={styles.accolistmenu}  props={props}/>
         </div>
       </Grid>
     </Grid>

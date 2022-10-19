@@ -9,60 +9,217 @@
     font-family: roboto-400;
     src: url(../../styles/Roboto/Roboto-Regular.ttf);
 }
-.viwebtnmm3{
+
+@font-face {
+    font-family: roboto-600;
+    src: url(../../styles/Roboto/Roboto-Bold.ttf);
+}
+
+// .linelinjk{
+//     border: 1px solid rgba(70, 117, 220, 0.2);
+// transform: rotate(90deg);
+// height: 20px;
+// }
+.btn_all_buy {
+    padding: 10px 0px 0px 28px;
+
+    button {
+        margin: 0px 0px 0px 10px;
+        border: 1px solid #053159;
+        border-radius: 20px;
+        color: #053159;
+        font-size: 11px;
+        font-family: roboto-400;
+        text-transform: capitalize;
+        height: 25px;
+
+    }
+
+    button:hover {
+        background: #053159;
+        color: white;
+    }
+}
+
+.cofimbatn {
+    color: #E31E24 !important;
+
+}
+
+.pustlebal {
+    padding: 20px 0px 0px 37px;
+
+    p {
+        font-family: roboto-600;
+
+        color: #333333;
+        font-size: 15px;
+    }
+}
+
+.paregarafnsg {
+    padding: 20px 40px 0px 40px;
+
+    p {
+        font-size: 16px;
+        font-family: Poppins-400;
+        max-width: 300px;
+
+        color: #333333;
+    }
+}
+
+.borderredayasfor {
+    div {
+        div {
+            // background: #FFFFFF;
+            // box-shadow: 0px 0px 22px rgba(0, 0, 0, 0.1);
+            border-radius: 20px !important;
+            // width: 203px;
+        }
+    }
+
+    // 
+}
+
+.cancelbtnlog {
+    padding-top: 20px;
+    text-align: center;
+
+    button {
+        margin: 0px 15px 0px 15px;
+        font-family: Poppins-400;
+        text-transform: capitalize !important;
+        font-size: 20px;
+        // line-height: 22px;
+        // text-align: center;
+        color: #4285F4;
+    }
+}
+
+.leballist {
+    padding: 10px 0px 0px 25px !important;
+    font-size: 12px !important;
+    font-family: roboto-400 !important;
+    color: #858789 !important;
+}
+
+.maendividuser {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 25px 15px 25px;
+}
+
+.listboxiduser {
+
+    // display: flex;
+    background: rgba(0, 153, 71, 0.17);
+    opacity: 0.8;
+    width: 312px;
+    margin: 20px 40px 0px 40px;
+    // filter: blur(1px);
+    border-radius: 20px;
+}
+
+.listimgyes {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.colosbatnlist {
+    display: flex;
+    justify-content: end;
+    margin: 10px 10px 0px 0px;
+
+    svg {
+        color: #009947;
+        font-weight: bold;
+        // font-size: 27px;
+    }
+}
+
+.delehedar {
+    p {
+        font-size: 24px;
+        font-family: roboto-400;
+        text-align: center;
+
+        color: #333333;
+    }
+}
+
+.play_btnmani {
+    color: #FBB03B !important;
+}
+
+.play_btnmani2 {
+    color: #053159 !important;
+}
+
+.viwebtnmm3 {
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.07) !important;
     border-radius: 2px !important;
     height: 30px;
     min-width: 20px !important;
     margin-left: 10px !important;
-    svg{
-        color: #053159 !important;
-    }
+
+    // svg {
+
+    // }
 }
-.typefild{
+
+.typefild {
     display: flex;
     padding: 0px 0px 0px 30px;
 }
-.listperegaf{
+
+.listperegaf {
     padding: 0px 0px 0px 15px;
 }
-.avtarlistyes{
+
+.avtarlistyes {
     background: #F59606 !important;
     height: 30px !important;
     width: 30px !important;
 }
-.avtarlistyes2{
+
+.avtarlistyes2 {
     background: #009947 !important;
     height: 30px !important;
     width: 30px !important;
 }
-.avtarlistyes3{
+
+.avtarlistyes3 {
     background: #E31E24 !important;
     height: 30px !important;
     width: 30px !important;
 }
-.viwebtnmm{
+
+.viwebtnmm {
     background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.07) !important;
-border-radius: 2px !important;
-height: 30px;
-min-width: 45px !important;
-margin-left: 10px !important;
+    border: 1px solid rgba(0, 0, 0, 0.07) !important;
+    border-radius: 2px !important;
+    height: 30px;
+    min-width: 45px !important;
+    margin-left: 10px !important;
 }
-.viwebtnmm23{
+
+.viwebtnmm23 {
     margin-left: 10px !important;
     padding-top: 2px;
-    // background: #d5c2c2;
+    background: #f5f2f2;
     border: 1px solid rgba(0, 0, 0, 0.07) !important;
     border-radius: 2px !important;
     height: 30px;
     width: 42px !important;
-    svg{
-        color: #053159 !important;
+
+    svg {
+        color: #FBB03B !important;
     }
 }
-.viwebtnmm2{
+
+.viwebtnmm2 {
     margin-left: 10px !important;
     padding-top: 2px;
     // background: #d5c2c2;
@@ -70,27 +227,39 @@ margin-left: 10px !important;
     border-radius: 2px !important;
     height: 30px;
     min-width: 21px !important;
-    svg{
-        color: #E31E24 !important;
-    }
-}
-.viwebtnmm234{
-    margin-left: 10px;
-    padding-top: 2px;
-    // background: #d5c2c2;
-    border: 1px solid rgba(0, 0, 0, 0.07) !important;
-    border-radius: 2px !important;
-    height: 30px;
-    width: 42px !important;
-    svg{
+
+    svg {
         color: #E31E24 !important;
     }
 }
 
-.listtebal{
+.maynascall {
+    color: red !important;
+}
+
+.palscalls {
+    color: #009947 !important;
+}
+
+.viwebtnmm234 {
+    margin-left: 10px;
+    padding-top: 2px;
+    background: #f5f2f2;
+    border: 1px solid rgba(0, 0, 0, 0.07) !important;
+    border-radius: 2px !important;
+    height: 30px;
+    width: 42px !important;
+
+    svg {
+        color: #E31E24 !important;
+    }
+}
+
+.listtebal {
     display: flex;
     justify-content: center;
 }
+
 .menufiltarbtn {
     div {
         border-radius: 15px !important;
@@ -161,10 +330,14 @@ margin-left: 10px !important;
     border-radius: 20px !important;
     margin-left: 9px !important;
 }
-.Customlistbtn:hover,.nonelistbtn:hover,.Basiclistbtn:hover{
+
+.Customlistbtn:hover,
+.nonelistbtn:hover,
+.Basiclistbtn:hover {
     background: #06335C !important;
     color: white !important;
 }
+
 .patternlebal {
     font-size: 14px !important;
     font-family: roboto-400 !important;
@@ -203,8 +376,9 @@ margin-left: 10px !important;
 }
 
 .boxteballist {
-
     margin: 60px 90px !important;
+
+
 }
 
 .patterndiv {
@@ -233,6 +407,7 @@ margin-left: 10px !important;
     background-image: url('../../public/Background (1).png') !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
+    // margin: 60px 90px !important;
     // background: #FFFFFF;
     // box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.1);
 }
@@ -436,9 +611,20 @@ margin-left: 10px !important;
         margin-top: 50px;
     }
 }
+@media only screen and (max-width: 880px) {
 
+.boxteballist{
+    margin: 50px 0px 50px 0px !important;
+}
+}
 @media only screen and (max-width: 450px) {
-    .listmeniom {
-        display: block;
+    .boxteballist {
+        margin: 20px 0px 20px 0px !important;
     }
+.inputlistm{
+    display: block;
+}
+    // .listmeniom {
+    //     display: block !important;
+    // }
 }

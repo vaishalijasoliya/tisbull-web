@@ -11,9 +11,9 @@ import Setting from '../componehts/Setting/Setting';
 
 import Dashboard from '../componehts/dashboard/dashboard';
 const ResponsiveAppBar = (props) => {
-    // console.log(props.props,'propscom');
+    console.log(props.props,'propscom');
     // const router = useRouter();
-    // console.log(router.query.email,'router.query.email');
+    // console.log(query.email,'router.query.email');
     return (
         <Grid container className={styles.cantenar_list36}>
             <Grid item sm={12} md={12} xs={12}>
