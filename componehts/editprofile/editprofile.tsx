@@ -54,7 +54,7 @@ const ResponsiveAppBar = (props) => {
 
     console.log(age, 'listage');
     useEffect(() => {
-        setData(props.profile.userData.id)
+        setData(props.profile.userData)
         // if (!!props.router && !!props.router.query && !!props.router.query.data) {
         //     setData(JSON.parse(props.router.query.data).id)
         // }
@@ -71,7 +71,7 @@ const ResponsiveAppBar = (props) => {
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.GET_PROFILE, JSON.stringify(obj), headers)
         props.props.loaderRef(false)
-        console.log(patternDelete.data.profileUrl, 'patternDelete.data.birth_date');
+        console.log(patternDelete.profileUrl, 'patternDelete.data.birth_date');
 
         if (!!patternDelete && patternDelete.status == true) {
             
@@ -287,7 +287,7 @@ const ResponsiveAppBar = (props) => {
                         />
                         {isoutField == true ? <span className={styles.otperr}>Please Enter Valid Mobile-Number</span> : ''}
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item md={6} className={styles.mar_1} style={{width: "50%"}}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Date of Birth</InputLabel>
                         <TextField
                             className={styles.dataeinput}

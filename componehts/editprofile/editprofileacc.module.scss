@@ -19,7 +19,8 @@
     padding: 20px 0px 0px 50px;
 
 }
-.futtorlist{
+
+.futtorlist {
     display: flex;
     padding: 20px 0px 0px 50px;
 }
@@ -153,39 +154,51 @@
         }
 
     }
-    .slaydarinput{
+
+    .slaydarinput {
         width: 85%;
-        div{
-        height: 46px;
-        display: flex;
-    align-items: center;
+
+        div {
+            height: 46px;
+            display: flex;
+            align-items: center;
         }
     }
-    .otperr{
+
+    .otperr {
         color: red;
     }
 }
-@media only screen and (max-width: 500px) 
-{
+
+@media only screen and (max-width: 1000px) {
+    .mar_1 {
+        margin-left: 45px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
     .inputoplist {
         // display: flex;
         padding: 25px 0px 0px 0px;
     }
-    
+
     .pohelistmenu {
         // display: flex;
         padding: 20px 0px 0px 0px;
-    
+
     }
-    .futtorlist{
+
+    .futtorlist {
         // display: flex;
         padding: 20px 0px 0px 0px;
     }
-    .formedit{
+
+    .formedit {
         margin: 20px !important;
         padding: 20px !important;
     }
-    .poneinput input{
+
+    .poneinput input {
         width: 100px !important;
     }
 }
