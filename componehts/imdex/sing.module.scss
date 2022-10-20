@@ -12,7 +12,6 @@
     //  src: url(../../popins/Poppins-Regular.ttf)
 }
 
-
 .boxsinglist {
     background: rgba(0, 153, 71, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.25);
@@ -87,16 +86,15 @@
     display: flex;
     justify-content: end;
     padding: 20px 0px 20px 30px;
-
 }
 
 .bodar_botuum {
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid #e0e0e0;
     // padding: 0px 60px 0px 60px;
 }
 
 .cantenar_list {
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid #e0e0e0;
     padding: 0px 60px 0px 60px;
 }
 
@@ -105,13 +103,13 @@
 }
 
 .btn_avtar_list {
-    background-color: #DDF9EA !important;
+    background-color: #ddf9ea !important;
     color: #009947 !important;
 }
 
 .user_list p {
     font-size: 18px;
-    color: #4F4F4F;
+    color: #4f4f4f;
     padding: 6px 0px 0px 7px;
 }
 
@@ -122,12 +120,11 @@
 .cantenar_list_caps {
     padding: 0px 50px 0px 80px !important;
     background-color: white;
-
 }
 
 .btn_pages {
     font-family: roboto-400 !important;
-    color: #FFFFFF !important;
+    color: #ffffff !important;
     font-size: 18px !important;
     text-transform: capitalize !important;
     background: #009947 !important;
@@ -168,7 +165,7 @@
     p {
         font-family: roboto-400 !important;
 
-        color: #4F4F4F !important;
+        color: #4f4f4f !important;
         font-size: 14px !important;
     }
 
@@ -246,7 +243,7 @@
     // input{
     // height: 41px !important;
     // }
-    background: #FFFFFF !important;
+    background: #ffffff !important;
 
     input {
         font-family: roboto-400 !important;
@@ -294,7 +291,7 @@
 
 .passoutinput {
     width: 100%;
-    background: #FFFFFF !important;
+    background: #ffffff !important;
 
     input {
         font-family: roboto-400 !important;
@@ -311,7 +308,7 @@
     align-items: center;
 
     p {
-        color: #4F4F4F;
+        color: #4f4f4f;
         font-size: 12px;
         font-family: roboto-400 !important;
     }
@@ -324,10 +321,10 @@
 }
 
 .forgotlistmenu {
-    padding: 0px 0px 0px 130px;
+    padding: 0px 0px 0px 103px;
 
     a {
-        color: #4F4F4F !important;
+        color: #4f4f4f !important;
         text-decoration: none !important;
         font-size: 12px;
         font-family: roboto-400 !important;
@@ -341,7 +338,7 @@
     height: 56px !important;
     text-transform: capitalize !important;
     font-size: 20px !important;
-    color: #FFFFFF !important;
+    color: #ffffff !important;
     font-family: roboto-400 !important;
     margin-top: 8px;
 }
@@ -382,7 +379,6 @@
 
     div {
         background: rgba(0, 153, 71, 0.04) !important;
-
     }
 }
 
@@ -398,7 +394,7 @@
     padding-top: 80px;
 
     p {
-        color: #4F4F4F;
+        color: #4f4f4f;
         font-size: 14px;
         font-family: roboto-400 !important;
     }
@@ -416,7 +412,7 @@
     padding-top: 45px;
 
     p {
-        color: #4F4F4F;
+        color: #4f4f4f;
         font-size: 14px;
         font-family: roboto-400 !important;
     }
@@ -429,23 +425,21 @@
 }
 
 .cantenar_pegsingcantenar3 {
-    background-image: url('../../public/baklongin.png');
+    background-image: url("../../public/baklongin.png");
     background-repeat: no-repeat;
     background-position: center;
     background-position: -52px -105px;
-
 }
 
 .cantenar_pegsingcantenar {
-    background-image: url('../../public/baklongin.png');
+    background-image: url("../../public/baklongin.png");
     background-repeat: no-repeat;
     background-position: center;
-
 }
 
 .btn_pages2 {
     font-family: Poppins-400;
-    color: #4F4F4F !important;
+    color: #4f4f4f !important;
     font-size: 18px !important;
     text-transform: capitalize !important;
     // padding: 5px;
@@ -453,7 +447,6 @@
 }
 
 .btn_pages2:hover {
-
     border-bottom: 2px solid #009947 !important;
     font-size: 18px !important;
     color: #009947 !important;
@@ -471,9 +464,11 @@
     font-size: 14px !important;
     font-family: roboto-400 !important;
     text-transform: capitalize !important;
-    color: #4F4F4F !important;
+    color: #4f4f4f !important;
 }
-
+.pleslist_1{
+    font-size: 16px !important;
+}
 .batnbacklist {
     text-align: center;
     padding-top: 30px;
@@ -482,8 +477,8 @@
 .otpinput33 input {
     width: 68px;
     height: 69px;
-    background: #FFFFFF;
-    border: 1px solid #C4C4C4;
+    background: #ffffff;
+    border: 1px solid #c4c4c4;
     border-radius: 12px;
     margin: 0px 0px 0px 15px;
     font-size: 25px;
@@ -506,6 +501,154 @@
 
 .bakimginpos {
     display: none;
+}
+
+.welcamrlist1 {
+    font-size: 30px;
+}
+
+.wid_1 {
+    width: 50%;
+}
+
+@media only screen and (max-width: 1283px) {
+    .cantenar_pegsingcantenar {
+        background-size: 1300px 1000px !important;
+    }
+
+    .forgotlistmenu {
+        padding: 0px 0px 0px 78px;
+        width: 50%;
+    }
+    .bodarleft {
+        width: 78px;
+    }
+    .pleslist{
+        font-size: 16px !important;
+    }
+}
+
+@media only screen and (max-width: 1210px) {
+    .cantenar_pegsingcantenar {
+        background-size: 1158px 1057px !important;
+    }
+
+    .forgotlistmenu {
+        padding: 0px 0px 0px 60px;
+        width: 50%;
+    }
+
+    .bodarleft {
+        width: 78px;
+    }
+
+    .listinlog2 {
+        width: 23%;
+    }
+}
+
+@media only screen and (max-width: 1178px) {
+    .cantenar_pegsingcantenar {
+        background-size: 1158px 1057px !important;
+    }
+
+    .forgotlistmenu {
+        padding: 0px 0px 0px 60px;
+        width: 50%;
+    }
+
+    .bodarleft {
+        width: 78px;
+    }
+
+    .listinlog2 {
+        width: 30%;
+        padding: 0px 0px 0px 30px;
+    }
+}
+
+@media only screen and (max-width: 1108px) {
+    .cantenar_pegsingcantenar {
+        background-size: 1075px 1021px !important;
+    }
+
+    .forgotlistmenu {
+        padding: 0px 0px 0px 53px;
+        width: 50%;
+    }
+
+    .bodarleft {
+        width: 70px;
+    }
+
+    .singbodar {
+        font-size: 12px !important;
+    }
+
+    .borderimline {
+        padding: 20px 0px 0px 28px;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    .cantenar_pegsingcantenar {
+        background-size: 975px 1095px !important;
+    }
+
+    .welcamrlist1 {
+        font-size: 27px !important;
+    }
+
+    .boxsinglist2 {
+        padding: 30px 53px 30px 60px;
+    }
+
+    .forgotlistmenu {
+        padding: 0px 0px 0px 49px;
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1056px) {
+    .cantenar_pegsingcantenar {
+        background-size: 975px 1008px !important;
+    }
+
+    .forgotlistmenu {
+        padding: 0px 0px 0px 40px;
+        width: 50%;
+    }
+
+    .wid_1 {
+        width: 53%;
+    }
+
+    .bodarleft {
+        width: 65px;
+    }
+
+    .borderimline {
+        padding: 20px 0px 0px 18px;
+    }
+}
+
+@media only screen and (max-width: 1010px) {
+    .cantenar_pegsingcantenar {
+        background-size: 975px 1008px !important;
+    }
+
+    .forgotlistmenu {
+        padding: 0px 0px 0px 22px;
+        width: 50%;
+    }
+
+    .wid_1 {
+        width: 62%;
+    }
+
+    .borderimline {
+        padding: 20px 0px 0px 18px;
+    }
 }
 
 @media only screen and (max-width: 900px) {
@@ -556,9 +699,11 @@
         justify-content: end !important;
         // padding: 0px 25px 0px 0px !important;
     }
-.boxsinglist44{
-    margin: 30px !important;
-}
+
+    .boxsinglist44 {
+        margin: 30px !important;
+    }
+
     .bakimginpos {
         display: block;
     }
@@ -568,6 +713,16 @@
     // }
     .maenloginpegimg {
         width: 100% !important;
+    }
+
+    .boxsinglist2 {
+        width: 500px;
+    }
+}
+
+@media only screen and (max-width:544px) {
+    .boxsinglist2 {
+        width: 455px;
     }
 }
 
@@ -584,10 +739,13 @@
         display: block;
     }
 
+    .boxsinglist2 {
+        margin: 0 !important;
+    }
+
     .boxsinglist44 {
         margin: 20px !important;
         padding: 100px 30px 100px 30px;
-
     }
 
     .boxsinglist {
@@ -652,5 +810,35 @@
 
     .newbar_list {
         padding: 20px 0px 20px 10px;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .boxsinglist2{
+        width: 419px;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .boxsinglist2{
+        width: 338px !important;
+    }
+    .forgotlistmenu{
+        padding: 0px 0px 0px 34px !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .boxsinglist2{
+        width: 312px !important;
+    }
+}
+
+@media only screen and (max-width: 337px) {
+    .boxsinglist2{
+        width: 297px  !important;
+    }
+    .welcamrlist1{
+        font-size: 18px !important;
     }
 }

@@ -13,20 +13,20 @@ const ResponsiveAppBar = (props) => {
         <Newbar />
         {/* <Home /> */}
         <div className={styles.dasnod_camponat3}>
-        <Stocks  props={props}/>
+          <Stocks props={props} />
         </div>
       </Grid>
     </Grid>
   )
 }
- const mapStateToProps = (state) => ({
-   profile: state.user.profile
- });
+const mapStateToProps = (state) => ({
+  profile: state.user.profile
+});
 
- const mapDispatchToProps = (dispatch) => ({
-   save_user_data: (data) =>
-      dispatch({ type: Types.LOGIN, payload: data }),
- });
+const mapDispatchToProps = (dispatch) => ({
+  save_user_data: (data) =>
+    dispatch({ type: Types.LOGIN, payload: data }),
+});
 
- export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
 // export default ResponsiveAppBar;

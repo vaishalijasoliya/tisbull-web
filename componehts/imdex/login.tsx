@@ -202,7 +202,7 @@ const Home = (props) => {
         <Box className={styles.boxsinglist}>
 
           <div className={styles.welcamrlist}><Typography>Welcome back</Typography></div>
-          <div className={styles.pleslist}><Typography>Welcome back! Please enter your detalis.</Typography></div>
+          <div className={styles.pleslist}><Typography className={styles.pleslist_1}>Welcome back! Please enter your detalis.</Typography></div>
           <form onSubmit={formik.handleSubmit}>
             <InputLabel className={styles.leballist}>Email</InputLabel>
             <TextField
@@ -309,7 +309,7 @@ const Home = (props) => {
           <div className={styles.alreadylist}>
             <Typography>
               Don't have an account?           </Typography>
-            <a href='./sing'>Sign Up</a>
+            <a href='./sing' style={{padding:'0 5px 0 5px'}}>Sign Up</a>
             <Typography>
               for free
             </Typography>

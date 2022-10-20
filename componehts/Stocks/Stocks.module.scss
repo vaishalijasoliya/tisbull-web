@@ -9,48 +9,57 @@
     font-family: roboto-400;
     src: url(../../styles/Roboto/Roboto-Regular.ttf);
 }
-.viwebtnmm3{
+
+.viwebtnmm3 {
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.07) !important;
     border-radius: 2px !important;
     height: 30px;
     min-width: 20px !important;
     margin-left: 10px !important;
-    svg{
+
+    svg {
         color: #053159 !important;
     }
 }
-.typefild{
+
+.typefild {
     display: flex;
     padding: 0px 0px 0px 30px;
 }
-.listperegaf{
+
+.listperegaf {
     padding: 0px 0px 0px 15px;
 }
-.avtarlistyes{
+
+.avtarlistyes {
     background: #F59606 !important;
     height: 30px !important;
     width: 30px !important;
 }
-.avtarlistyes2{
+
+.avtarlistyes2 {
     background: #009947 !important;
     height: 30px !important;
     width: 30px !important;
 }
-.avtarlistyes3{
+
+.avtarlistyes3 {
     background: #E31E24 !important;
     height: 30px !important;
     width: 30px !important;
 }
-.viwebtnmm{
+
+.viwebtnmm {
     background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.07) !important;
-border-radius: 2px !important;
-height: 30px;
-min-width: 45px !important;
-margin-left: 10px !important;
+    border: 1px solid rgba(0, 0, 0, 0.07) !important;
+    border-radius: 2px !important;
+    height: 30px;
+    min-width: 45px !important;
+    margin-left: 10px !important;
 }
-.viwebtnmm23{
+
+.viwebtnmm23 {
     margin-left: 10px !important;
     padding-top: 2px;
     // background: #d5c2c2;
@@ -58,11 +67,13 @@ margin-left: 10px !important;
     border-radius: 2px !important;
     height: 30px;
     width: 42px !important;
-    svg{
+
+    svg {
         color: #053159 !important;
     }
 }
-.viwebtnmm2{
+
+.viwebtnmm2 {
     margin-left: 10px !important;
     padding-top: 2px;
     // background: #d5c2c2;
@@ -70,11 +81,13 @@ margin-left: 10px !important;
     border-radius: 2px !important;
     height: 30px;
     min-width: 21px !important;
-    svg{
+
+    svg {
         color: #E31E24 !important;
     }
 }
-.viwebtnmm234{
+
+.viwebtnmm234 {
     margin-left: 10px;
     padding-top: 2px;
     // background: #d5c2c2;
@@ -82,15 +95,17 @@ margin-left: 10px !important;
     border-radius: 2px !important;
     height: 30px;
     width: 42px !important;
-    svg{
+
+    svg {
         color: #E31E24 !important;
     }
 }
 
-.listtebal{
+.listtebal {
     display: flex;
     justify-content: center;
 }
+
 .menufiltarbtn {
     div {
         border-radius: 15px !important;
@@ -161,10 +176,14 @@ margin-left: 10px !important;
     border-radius: 20px !important;
     margin-left: 9px !important;
 }
-.Customlistbtn:hover,.nonelistbtn:hover,.Basiclistbtn:hover{
+
+.Customlistbtn:hover,
+.nonelistbtn:hover,
+.Basiclistbtn:hover {
     background: #06335C !important;
     color: white !important;
 }
+
 .patternlebal {
     font-size: 14px !important;
     font-family: roboto-400 !important;
@@ -204,7 +223,7 @@ margin-left: 10px !important;
 
 .boxteballist {
 
-    margin: 60px 90px !important;
+    margin: 60px 60px !important;
 }
 
 .patterndiv {
@@ -290,6 +309,7 @@ margin-left: 10px !important;
     border-radius: 10px;
     // display: flex;
     align-items: center;
+    width: 80%;
     // margin-left: 30px !important;
     // margin-top: 30px !important;
 
@@ -437,7 +457,34 @@ margin-left: 10px !important;
     }
 }
 
+
+@media only screen and (max-width: 772px) {
+    .cantenar_list57{
+        background-size: 100% 100%;
+        justify-content: center;
+    }
+    .boxteballis{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 698px) {
+    .cantenar_list57{
+        background-size: 100% 100%;
+        justify-content: center;
+    }
+    .boxteballis{
+        width: 80%;
+    }
+    .inputlistm{
+        flex-direction: column;
+    }
+    .mar_1{
+        margin-top: 40px !important;
+    }
+}
 @media only screen and (max-width: 450px) {
+
     .listmeniom {
         display: block;
     }

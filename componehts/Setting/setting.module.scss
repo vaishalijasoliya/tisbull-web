@@ -23,7 +23,7 @@
 //     display: none;
 // }
 .listcomhed {
-    background: #053159!important;
+    background: #053159 !important;
     // max-width: 0px 0px 10px 0px;
     // background: #405E7A !important;
     border-radius: 20px !important;
@@ -83,14 +83,17 @@
     text-transform: capitalize !important;
     border-radius: 20px !important;
 }
-.personlist2:hover{
+
+.personlist2:hover {
     background: #405E7A !important;
 
 }
-.accontbtn button:hover{
+
+.accontbtn button:hover {
     background: #405E7A !important;
 
 }
+
 .arronewbar {
     font-size: 15px !important;
     margin: 0px 0px 0px 17px;
@@ -108,7 +111,7 @@
 .accontbtn {
     button {
         padding: 0px 17px;
-margin-bottom: 10px;
+        margin-bottom: 10px;
         border-radius: 20px !important;
         // padding: 0px 10px;
         display: flex;
@@ -127,7 +130,7 @@ margin-bottom: 10px;
         font-size: 16px !important;
     }
 
-    
+
 }
 
 
@@ -138,7 +141,8 @@ margin-bottom: 10px;
     justify-content: space-between;
     // width: 35%;
 }
-.listnumlook{
+
+.listnumlook {
     display: flex;
     align-items: center;
 }

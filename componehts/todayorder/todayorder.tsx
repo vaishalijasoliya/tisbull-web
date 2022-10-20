@@ -1,8 +1,10 @@
 import style from "./todayorder.module.scss";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
-
 
 export default function TodayOrder() {
   return (
@@ -29,7 +31,6 @@ export default function TodayOrder() {
             </Box>
           </Box>
         </Box>
-        
       </Grid>
     </Grid>
   );
