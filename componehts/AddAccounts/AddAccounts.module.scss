@@ -43,7 +43,7 @@ font-size: 30px;
     color: #333333 !important;
     font-size: 15px !important;
     font-family: roboto-400 !important;
-    padding: 30px 0px 10px 0px !important;
+    padding: 30px 0px 8px 0px !important;
 }
 .listdataaaco{
     display: flex;
@@ -135,5 +135,81 @@ font-family: roboto-400 !important;
         color: #4285F4;
         text-decoration: none;
         font-family: roboto-400 !important;
+    }
+}
+.pad_1{
+    padding-left: 5px;
+}
+.wid_1{
+    width: 100%;
+}
+.wid_2{
+    width: 25%;
+}
+.wid_3{
+    width: 15%;
+}
+.account{
+    width: 19%;
+    text-align: right;
+}
+.accbox{
+    display: flex;
+}
+
+@media only screen and (max-width: 1326px) {
+    .listapichek{
+        display: flex;
+        align-items: center;
+        p{
+            font-family: roboto-400 !important;
+            color: #BDBDBD !important;
+                    font-size: 13px !important;
+        }
+        a{
+            color: #009947 !important;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0px 0px 0px 4px;
+        }
+    }
+    .listdataaaco{
+        display: flex;
+        align-items: center;
+        padding: 10px 0px;
+       .listofavtar{
+        padding: 0px 17px 0px 0px;
+       
+       }
+    
+    }
+}
+
+@media only screen and (max-width: 1305px) {
+    .listdiver{
+        padding: 0px 26px 0px 0px;
+    }
+}
+@media only screen and (max-width: 1249px) {
+    .account{
+        width: 18%;
+    }
+    .listdiver2{
+        padding: 60px 0 0 0 !important;
+    }
+    .switchadd{
+        padding: 0 0 0 20px !important;
+    }
+}
+
+@media only screen and (max-width: 1099px) {
+    .listdiver{
+        padding: 0px 26px 0px 0px;
+    }
+    .switchadd{
+        padding: 0 0 0 10px !important;
+    }
+    .accbox{
+        flex-direction: column;
     }
 }

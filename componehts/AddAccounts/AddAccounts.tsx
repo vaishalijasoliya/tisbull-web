@@ -188,15 +188,15 @@ export default function Home(props) {
                 <InputLabel className={styles.leballist}>Account Type </InputLabel>
                 <Divider className={styles.divaydaravta}></Divider>
                 <div className={styles.listdataaaco}>
-                    <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha}></Avatar></div>
-                    <div className={styles.listhedingbnk}>
+                    <div className={styles.listofavtar + " " + styles.wid_3}><Avatar className={styles.avatarzerotha}></Avatar></div>
+                    <div className={styles.listhedingbnk + " " + styles.wid_1}>
                         <Typography >ZERODHA </Typography>
                         <div className={styles.listapichek}>
                             <Typography>Zerodha can charge of API, please check it</Typography>
                             <Link href="https://mui.com/material-ui/react-divider/">here</Link>
                         </div>
                     </div>
-                    <div className={styles.switchadd}>
+                    <div className={styles.switchadd + " " + styles.account + " " + styles.wid_2}>
                         <SwitchUnstyled component={Root} onChange={console.log('virang') } {...label} id='switch'
                         // checked={row.Publication} 
                         // onChange={((e) => {
@@ -216,15 +216,15 @@ export default function Home(props) {
                 {/* <InputLabel className={styles.leballist}>Account Type </InputLabel> */}
                 <Divider className={styles.divaydaravta}></Divider>
                 <div className={styles.listdataaaco}>
-                    <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha}></Avatar></div>
-                    <div className={styles.listhedingbnk}>
+                    <div className={styles.listofavtar + " " + styles.wid_3}><Avatar className={styles.avatarzerotha}></Avatar></div>
+                    <div className={styles.listhedingbnk + " " + styles.wid_1}>
                         <Typography >Kotak Securities  </Typography>
                         <div className={styles.listapichek}>
                             <Typography>Kotak are providing free API for the customers.</Typography>
                             {/* <Link href="https://mui.com/material-ui/react-divider/">here</Link> */}
                         </div>
                     </div>
-                    <div className={styles.switchadd}>
+                    <div className={styles.switchadd + " " + styles.accoun + " " + styles.wid_2}>
                         <SwitchUnstyled component={Root} {...label} id='switch'
                         // checked={row.Publication} 
                         // onChange={((e) => {
@@ -248,7 +248,7 @@ export default function Home(props) {
                     error={Boolean(formik.touched.userId && formik.errors.userId)}
                     helperText={formik.touched.userId && formik.errors.userId}
                     name="userId"
-                    placeholder='USER ID '
+                    placeholder='User Id '
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values.userId}
@@ -328,7 +328,7 @@ export default function Home(props) {
                     <Typography>By ticking, you are confirming that you have read,  understand and agree to  our</Typography>
                 </div>
                 <div>
-                    <a> terms and conditions.</a>
+                    <a className={styles.pad_1}> terms and conditions.</a>
                 </div>
                 </div>
             </Grid>
