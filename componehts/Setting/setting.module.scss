@@ -146,3 +146,46 @@
     display: flex;
     align-items: center;
 }
+
+@media only screen and (max-width: 1182px) {
+    .listcomhed {
+        p {
+            font-size: 14px !important;
+        }
+    }
+
+    .personlist {
+        font-size: 11px !important;
+    }
+
+    .personlist2 {
+        font-size: 11px !important;
+        margin: 0 0 0 10px !important;
+    }
+    .accontbtn{
+        p{
+            font-size: 14px !important;
+        }
+    }
+}
+@media only screen and (max-width: 904px) {
+    .listcomhed {
+        p {
+            font-size: 14px !important;
+        }
+    }
+
+    .personlist {
+        font-size: 11px !important;
+    }
+
+    .personlist2 {
+        font-size: 11px !important;
+        margin: 0 0 0 10px !important;
+    }
+    .accontbtn{
+        p{
+            font-size: 12px !important;
+        }
+    }
+}

@@ -170,12 +170,187 @@
     }
 }
 
-@media only screen and (max-width: 1000px) {
-    .mar_1 {
-        margin-left: 45px;
+.wid_1 {
+    width: 60%;
+}
+
+.wid_2 {
+    width: 40%;
+}
+.wid_3{
+    width: 0;
+}
+.mar_1{
+    margin: 0;
+}
+@media only screen and (max-width: 1326px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 302px !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
     }
 }
 
+@media only screen and (max-width: 1248px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 278px !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+}
+
+@media only screen and (max-width: 1182px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 253px !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+}
+
+@media only screen and (max-width: 1120px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 231px !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+}
+
+@media only screen and (max-width: 1028px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 204px !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+
+    .cantenar_list {
+        .personmenu p {
+            font-size: 27px;
+            font-family: Poppins-400;
+
+            color: #000000;
+        }
+    }
+}
+
+@media only screen and (max-width: 978px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 189px !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+
+    .cantenar_list {
+        .personmenu p {
+            font-size: 25px;
+            font-family: Poppins-400;
+
+            color: #000000;
+        }
+
+        .uplodimgp p {
+            font-family: roboto-400;
+
+            color: #858789;
+            font-size: 12px;
+
+        }
+    }
+}
+
+@media only screen and (max-width: 978px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 169px !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+    
+}
+@media only screen and (max-width: 899px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 262px  !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+    .wid_3{
+        width: 50%;
+    }
+    
+}
+@media only screen and (max-width: 853px) {
+    .poneinput {
+        width: 100%;
+
+        input {
+            width: 238px  !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+    .wid_3{
+        width: 50%;
+    }
+    
+}
+@media only screen and (max-width: 783px) {
+    .poneinput {
+        width: 85%;
+
+        input {
+            // width: 310px  !important;
+            height: 46px;
+            background: rgba(229, 229, 229, 0.35);
+        }
+    }
+    .wid_3{
+        width: 100%;
+    }
+    .inputoplist {
+        flex-direction: column;
+    }
+
+    .pohelistmenu {
+        flex-direction: column;
+    }
+
+    .futtorlist {
+        flex-direction: column;
+    }
+    .mar_1{
+        margin: 25px 0 0 0 !important;
+    }
+}
 @media only screen and (max-width: 500px) {
     .inputoplist {
         // display: flex;
