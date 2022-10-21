@@ -412,76 +412,86 @@ const ResponsiveAppBar = (props) => {
   return (
     <Grid container className={styles.cantenar_list22}>
       {/* <Divider className={styles.devatdar}/> */}
-      <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal}>
-        <Typography className={styles.accolistp}>Account</Typography>
-      </Grid>
-      <Grid item md={6} sm={12} xs={12} className={styles.batntextend}>
-        <div>
-          <Button className={styles.addbtnkk}>Create account</Button>
-        </div>
-      </Grid>
-      <Grid item sm={12} md={6} xs={12} className={styles.padimgtebal2}>
-        <div>
-          <Box className={styles.boxreting} display={"flex"}>
-            <input
-              type="text"
-              id="myserchbtn"
-              name="search"
-              placeholder="Search"
-              className={styles.searchbtn}
-              autoComplete="off"
-              onChange={(e) => {
-                setPage(0);
-                var value = e.target.value;
-                if (typeof value !== "object") {
-                  if (!value || value == "") {
-                    setDatatebal(teballist);
-                  } else {
-                    var filteredData = teballist.filter((item) => {
-                      let searchValue = item.user_id.toLowerCase();
-                      return searchValue.includes(
-                        value.toString().toLowerCase()
-                      );
-                    });
-                    setDatatebal(filteredData);
-                  }
-                }
-              }}
-            />
-          </Box>
-        </div>
-      </Grid>
-
-      <Grid
-        item
-        md={6}
-        sm={12}
-        xs={12}
-        className={styles.padimgtebal3}
-        display={"flex"}
-        justifyContent={"end"}
-        alignItems={"center"}
-      >
-        {/* <CsvDownloader data={list}> */}
-        <CSVLink
-          className={styles.btnsaveic}
-          data={datatebal}
-          filename={"account.csv"}
+      <Box className={styles.flex}>
+        <Grid
+          item
+          md={6}
+          sm={12}
+          xs={12}
+          className={styles.padimgtebal + " " + styles.wid_1}
         >
-          {" "}
-          <SaveAltIcon />
-        </CSVLink>
-        {/* <Button className={styles.btnsaveic}>  */}
+          <Typography className={styles.accolistp}>Account</Typography>
+        </Grid>
+        <Grid item md={6} sm={12} xs={12} className={styles.batntextend + " " + styles.wid_1}>
+          <div>
+            <Button className={styles.addbtnkk}>Create account</Button>
+          </div>
+        </Grid>
+      </Box>
+      <Box className={styles.flex}>
+        <Grid item sm={12} md={6} xs={12} className={styles.padimgtebal2}>
+          <div>
+            <Box className={styles.boxreting} display={"flex"}>
+              <input
+                type="text"
+                id="myserchbtn"
+                name="search"
+                placeholder="Search"
+                className={styles.searchbtn}
+                autoComplete="off"
+                onChange={(e) => {
+                  setPage(0);
+                  var value = e.target.value;
+                  if (typeof value !== "object") {
+                    if (!value || value == "") {
+                      setDatatebal(teballist);
+                    } else {
+                      var filteredData = teballist.filter((item) => {
+                        let searchValue = item.user_id.toLowerCase();
+                        return searchValue.includes(
+                          value.toString().toLowerCase()
+                        );
+                      });
+                      setDatatebal(filteredData);
+                    }
+                  }
+                }}
+              />
+            </Box>
+          </div>
+        </Grid>
 
-        {/* <CSVDownload  filename={"user.csv"} clssName={styles.csvlinkfor}> */}
+        <Grid
+          item
+          md={6}
+          sm={12}
+          xs={12}
+          className={styles.padimgtebal3}
+          display={"flex"}
+          justifyContent={"end"}
+          alignItems={"center"}
+        >
+          {/* <CsvDownloader data={list}> */}
+          <CSVLink
+            className={styles.btnsaveic}
+            data={datatebal}
+            filename={"account.csv"}
+          >
+            {" "}
+            <SaveAltIcon />
+          </CSVLink>
+          {/* <Button className={styles.btnsaveic}>  */}
 
-        {/* </CSVDownload> */}
-        {/* </Button> */}
-        {/* </CsvDownloader> */}
-        <Button>
-          <img src="../../Vector (3).svg" />
-        </Button>
-      </Grid>
+          {/* <CSVDownload  filename={"user.csv"} clssName={styles.csvlinkfor}> */}
+
+          {/* </CSVDownload> */}
+          {/* </Button> */}
+          {/* </CsvDownloader> */}
+          <Button>
+            <img src="../../Vector (3).svg" />
+          </Button>
+        </Grid>
+      </Box>
       <Grid item md={12} sm={12} xs={12}>
         <Box className={styles.boxlistnum} sx={{ width: "100%" }}>
           <Paper sx={{ width: "100%", mb: 2 }}>
