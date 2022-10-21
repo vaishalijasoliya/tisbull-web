@@ -245,7 +245,7 @@ const Home = (props) => {
                     </div>
                 </Grid>
                 <Grid item md={6} sm={12} sx={12}>
-                    <img src='../../cengpass.svg' />
+                    <img src='../../cengpass.svg' className={styles.img}/>
                 </Grid>
             </form>
 

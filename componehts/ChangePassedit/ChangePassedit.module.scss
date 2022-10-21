@@ -25,9 +25,11 @@
     .cengpass {
         padding: 40px 0px 40px 30px;
     }
+
     .cengpass2 {
-        padding:50px 0px 40px 40px;
+        padding: 50px 0px 40px 40px;
     }
+
     .hedingdiv {
         display: flex;
 
@@ -75,6 +77,7 @@
             color: #009947;
         }
     }
+
     .uplodimgp2 {
         p {
             font-size: 14px;
@@ -83,13 +86,15 @@
             color: #BDBDBD;
         }
     }
-.personmenu23{
-    p{
-        font-family: Poppins-400;
-        color: #000000;
-font-size: 30px;
+
+    .personmenu23 {
+        p {
+            font-family: Poppins-400;
+            color: #000000;
+            font-size: 30px;
+        }
     }
-}
+
     .personmenu2 {
         padding: 10px 0px 10px 0px;
     }
@@ -101,34 +106,40 @@ font-size: 30px;
         color: #333333;
         font-size: 18px;
     }
+
     .leballist443 {
-        padding:25px 0px 9px 0px;
+        padding: 25px 0px 9px 0px;
         font-family: roboto-400;
 
         color: #333333;
         font-size: 18px;
     }
-    .avatarbank{
+
+    .avatarbank {
         display: flex;
         justify-content: center;
         padding: 50px 30px 0px 0px;
         // text-align: center;
         // width: 100%;
     }
-    .avatarbank2{
+
+    .avatarbank2 {
         width: 90px;
         height: 90px;
     }
+
     .userinput {
         width: 82%;
 
         div {
             height: 46px;
         }
-input{
-    background: rgba(229, 229, 229, 0.35) !important;
-    border-radius: 5px;
-}
+
+        input {
+            background: rgba(229, 229, 229, 0.35) !important;
+            border-radius: 5px;
+        }
+
         // height: 46px;
         fieldset {
             background: rgba(229, 229, 229, 0.35) !important;
@@ -153,6 +164,25 @@ input{
 
 }
 
+.img {
+    width: 100%;
+}
+
+.wid_1 {
+    width: 100%;
+}
+
+@media only screen and (max-width: 700px) {
+    .img {
+        width: 100%;
+    }
+
+    .formcenjpasss {
+        flex-direction: column;
+    }
+
+}
+
 @media only screen and (max-width: 500px) {
     .formcenjpasss {
         margin: 20px;
@@ -160,4 +190,30 @@ input{
         display: block;
     }
 
+}
+
+@media only screen and (max-width: 1194px) {
+    .cantenar_list {
+        .hedingdiv {
+            display: flex;
+
+            .personmenu2 {
+
+                p {
+                    font-size: 25px;
+                    color: #000000;
+                    font-family: Poppins-400;
+                }
+            }
+
+        }
+        .uplodimgp2 {
+            p {
+                font-size: 12px;
+                font-family: roboto-400;
+    
+                color: #BDBDBD;
+            }
+        }
+    }
 }

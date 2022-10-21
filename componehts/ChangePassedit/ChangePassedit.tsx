@@ -130,7 +130,7 @@ const handleClickShowPassword = () => {
 
           <div className={styles.hedingdiv}>
 
-            <div>
+            <div className={styles.wid_1}>
               <div className={styles.personmenu2}><Typography>Change Password</Typography></div>
               {/* */}
               <div className={styles.uplodimgp2}><Typography>Update your photo and personal detalis here.</Typography></div>
@@ -209,7 +209,7 @@ const handleClickShowPassword = () => {
           </div>
         </Grid>
         <Grid item md={6} sm={12} sx={12}>
-          <img src='../../cengpass.svg' />
+          <img src='../../cengpass.svg' className={styles.img} />
         </Grid>
       </form>
 
