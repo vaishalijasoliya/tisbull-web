@@ -28,7 +28,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 // import Newbar from '../componehts/newbar/newbar';
 // import Dashboard from '../componehts/dashboard/dashboard';
 const Home = (props) => {
-// console.log(  toast.error("Please Enter Correct Password"),'prodbh');
+
+console.log(props.props,'loghggygg');
 
   const [showPassword, setShowPassword] = useState(false)
   const [showPasswordlist, setShowPasswordlist] = useState(false)
@@ -54,7 +55,7 @@ const Home = (props) => {
     var data = await ApiServices.PostApiCall(ApiEndpoint.USERCHANGEPASS, JSON.stringify(body), headers);
     props.props.loaderRef(false)
     console.log(data, 'data');
-    if (!!data) {
+    // if (!!data) {
       if (data.status == true) {
         data.token = data.token
         // elistdata
@@ -66,9 +67,9 @@ const Home = (props) => {
       //   // setErrorShow(true)
       //   toast.error(data.message)
       // }
-    } 
+    // } 
     else {
-      toast.error("Please Enter Correct Password")
+      toast.error("Please Enter Correct Passwordtt")
     }
 
   }

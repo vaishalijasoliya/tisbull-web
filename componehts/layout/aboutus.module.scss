@@ -4,7 +4,11 @@
 }
 
 .img_list_pohot {
-    padding: 100px 0px 0px 0px;
+    background-image: url('../../public/Group 36.svg');
+    background-repeat: no-repeat;
+    background-position: 95% 70px;
+    background-size: 90% 100vh;
+    padding: 110px 50px 0px 0px;
     display: flex;
     justify-content: end;
 }
@@ -12,7 +16,8 @@
 .heding_tis_about p {
     font-family: Poppins-600;
     font-size: 48px;
-    color: #4F4F4F; font-weight: bold;
+    color: #4F4F4F;
+    font-weight: bold;
 }
 
 .tis_peregaraf_list p {
@@ -20,30 +25,36 @@
     color: #828282;
     max-width: 430px;
 }
-.maen_divabout{
+
+.maen_divabout {
     padding: 282px 0px 0px 80px;
 }
+
 @media only screen and (max-width: 450px) {
-    .maen_divabout{
+    .maen_divabout {
         padding: 60px 0px 0px 128px;
         // text-align: center;
     }
+
     // .tis_peregaraf_list{
     //     display: flex;
     // justify-content: center;
     // }
-    .img_list_pohot{
-        padding: 55px 0px 0px 0px;
+    .img_list_pohot {
+        padding: 115px 0px 0px 1px !important;
+        background-position: 55% 0px;
         display: flex;
         justify-content: center;
     }
 }
+
 @media only screen and (max-width: 820px) {
-    .maen_divabout{
+    .maen_divabout {
         padding: 60px 0px 0px 128px;
         // text-align: center;
     }
-    .img_list_pohot{
+
+    .img_list_pohot {
         padding: 55px 0px 0px 0px;
         display: flex;
         justify-content: center;

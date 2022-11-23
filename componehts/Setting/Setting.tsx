@@ -149,7 +149,7 @@ export default function Home() {
                         <Button onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
                     <div className={styles.accontbtn}>
-                        <Button><div className={styles.pandicon}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
+                        <Button><div className={styles.pandicon} onClick={(() => { router.push('./Support') })}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
                     <div className={styles.accontbtn}>
                         <Button><div className={styles.pandicon}><PaymentIcon /><Typography>Payment Settings</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>

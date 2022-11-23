@@ -18,7 +18,7 @@ const main = () => {
     <Grid container className={styles.container_index2}>
         <Grid md={12} className={styles.Headercss}>
         {/* <Sing /> */}
-        <div className={styles.Header_camponat}>
+        <div>
             <Header className={styles.Header_btn} />
           </div>
           <div className={styles.homepegcom}>

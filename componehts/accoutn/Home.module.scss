@@ -2,6 +2,10 @@
   font-family: Poppins-400;
   src: url(../../styles/popins//Poppins-Regular.ttf);
 }
+@font-face {
+  font-family: Poppins-600;
+  src: url(../../styles/popins//Poppins-ExtraBold.ttf);
+}
 
 $color_2: #009947;
 $primary_1: #36E586;
@@ -11,7 +15,7 @@ $primary_1: #36E586;
 }
 
 .fastesthome {
-  font-family: Poppins-400 !important;
+  font-family: Poppins-600!important;
   /* font-family: Poppins-400; */
   // font-style: normal;
   /* font-weight: 400; */
@@ -24,13 +28,14 @@ $primary_1: #36E586;
 .growtext {
   font-family: Poppins-400 !important;
   font-size: 59px !important;
-  font-weight: bold;
+  font-weight: bold !important;
   // line-height: 93px;
   color: $color_2;
 }
 
 .btn_get_learn {
   display: flex;
+  padding: 25px 0px 0px 0px;
 }
 
 .getbtn {
@@ -55,7 +60,7 @@ $primary_1: #36E586;
 }
 
 .bac_img {
-  padding: 60px 0px 0px 0px;
+  padding: 60px 0px 0px 40px;
 }
 
 .btnno1 {

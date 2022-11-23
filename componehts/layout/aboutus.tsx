@@ -24,7 +24,7 @@ TIS is technologically trading platform for everyone. It provides automatic trad
 </Grid>
 <Grid item sm={12} md={7} xs={12} >
     <div className={styles.img_list_pohot}>
-        <img height={600}  width={600} src='../../Group 37 (1).png' />
+        <img height={600}  width={600} src='../../Today orders.svg' />
     </div>
 </Grid>
 </Grid>

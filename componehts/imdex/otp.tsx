@@ -198,11 +198,11 @@ const Home = (props) => {
 
                     <div className={styles.optreset}><Typography>Didn’t get OTP ? </Typography><Link onClick={forgotpass}>Resend</Link></div>
                     <div className={styles.submitbyn31}>
-                        <button type="submit" className={styles.singbtn} onClick={onLoginPress}>Reset password</button>
+                        <button type="submit" className={styles.singbtn} onClick={onLoginPress}>VERIFY</button>
                     </div>
                     {/* </form> */}
                     <div className={styles.batnbacklist}>
-                        <Button href='./login' className={styles.backbtn}><KeyboardBackspaceIcon />Back to Forgot Password</Button>
+                        <Button href='./forgotpass' className={styles.backbtn}><KeyboardBackspaceIcon />Back to Forgot Password</Button>
                     </div>
                 </Box>
             </Grid>

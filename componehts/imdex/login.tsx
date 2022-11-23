@@ -108,7 +108,7 @@ const Home = (props) => {
     props.props.loaderRef(true)
     var data = await ApiServices.PostApiCall(ApiEndpoint.LOGIN_USER, JSON.stringify(body), headers);
     props.props.loaderRef(false)
-    console.log(data.userData.id, 'listdata');
+    // console.log(data.userData.id, 'listdata');
     if (!!data) {
       if (data.status == true) {
         data.token = data.token

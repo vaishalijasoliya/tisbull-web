@@ -42,6 +42,10 @@ import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import AdbIcon from '@mui/icons-material/Adb';
 import styles from './newbar.module.scss'
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
 import Badge from '@mui/material/Badge';
@@ -119,6 +123,10 @@ const ResponsiveAppBar = (props) => {
   console.log(props.props, 'propsmenu');
 
   const router = useRouter();
+  var currentPath = router.pathname
+console.log(currentPath =='/dashboard','dashboard');
+console.log(currentPath,'currentPath');
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
@@ -162,7 +170,7 @@ const ResponsiveAppBar = (props) => {
 
     var data = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
     // props.loaderRef(false)
-    // console.log(datadd, 'mydataLIST');
+    console.log(data, 'mydataLIST');
 
     if (!!data) {
       if (data.status == true && data.data.length > 0) {
@@ -182,7 +190,7 @@ const ResponsiveAppBar = (props) => {
           const object = {
             id: element.user_id,
             type: element.type,
-            loginUrl: element.loginUrl,
+            loginUrl: element.logoUrl,
             // password: element.password,
             // type: element.type,
             // Environments: element.env,
@@ -205,7 +213,7 @@ const ResponsiveAppBar = (props) => {
     }
   }
 
-  console.log(data.loginUrl, 'virang33');
+  // console.log(data[1].loginUrl, 'virang33');
 
 
   // console.log(props.props.profile, 'myyyydata')
@@ -297,8 +305,8 @@ const ResponsiveAppBar = (props) => {
           Dashboard
         </Button>
         <Button
-         onClick={(() => { router.push('./accountteyp') })}
-         
+          onClick={(() => { router.push('./accountteyp') })}
+
           className={styles.btn_pages2}
           // key={page}
           // onClick={handleCloseNavMenu}
@@ -307,7 +315,7 @@ const ResponsiveAppBar = (props) => {
           Account
         </Button>
         <Button
-         onClick={(() => { router.push('./home') })}
+          onClick={(() => { router.push('./home') })}
           className={styles.btn_pages2}
           // key={page}
           // onClick={handleCloseNavMenu}
@@ -389,7 +397,9 @@ const ResponsiveAppBar = (props) => {
         <Toolbar disableGutters>
           <Grid item sm={4} md={4} xs={4}>
             <div>
-              <img src='../../TISBULL 1.png'></img>
+              <a href='./dashboard'>
+                <img src='../../TISBULL 1.png'></img>
+              </a>
             </div>
           </Grid>
           <Grid item sm={0} md={1} xs={0} >
@@ -435,7 +445,7 @@ const ResponsiveAppBar = (props) => {
             </Box>
             <div>
               <div>
-               {(['left'] as const).map((anchor) => (
+                {(['left'] as const).map((anchor) => (
                   <React.Fragment key={anchor}>
                     <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
                     <SwipeableDrawer
@@ -445,18 +455,18 @@ const ResponsiveAppBar = (props) => {
                       onClose={toggleDrawer(anchor, false)}
                       onOpen={toggleDrawer(anchor, true)}
                     >
-                      {/* //  lkhhhh */} 
-                       {list(anchor)}
+                      {/* //  lkhhhh */}
+                      {list(anchor)}
                     </SwipeableDrawer>
                   </React.Fragment>
-                ))} 
+                ))}
               </div>
             </div>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {/* {pages.map((page) => ( */}
               <Button
                 onClick={(() => { router.push('./dashboard') })}
-                className={styles.btn_pages}
+                className={currentPath =='/dashboard'? styles.borderbottum :styles.btn_pages}
                 // key={page}
                 // onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
@@ -465,7 +475,7 @@ const ResponsiveAppBar = (props) => {
               </Button>
               <Button
                 onClick={(() => { router.push('./accountteyp') })}
-                className={styles.btn_pages}
+                className={currentPath =='/accountteyp'? styles.borderbottum :styles.btn_pages}
                 // key={page}
                 // onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
@@ -474,7 +484,7 @@ const ResponsiveAppBar = (props) => {
               </Button>
               <Button
                 onClick={(() => { router.push('./home') })}
-                className={styles.btn_pages}
+                className={currentPath =='/home'? styles.borderbottum :styles.btn_pages}
                 // key={page}
                 // onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
@@ -482,7 +492,8 @@ const ResponsiveAppBar = (props) => {
                 Pattern
               </Button>
               <Button
-                className={styles.btn_pages}
+              className={styles.btn_pages}
+                // className={currentPath =='/home'? styles.borderbottum :styles.btn_pages}
                 // key={page}
                 aria-controls={open ? 'demo-positioned-menu' : undefined}
                 aria-haspopup="true"
@@ -495,133 +506,189 @@ const ResponsiveAppBar = (props) => {
                 <KeyboardArrowDownIcon />
               </Button>
               <Menu
-                id="demo-positioned-menu"
-                aria-labelledby="demo-positioned-button"
                 anchorEl={anchorEl}
+                id="account-menu"
                 open={open}
                 onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                onClick={handleClose}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 1.5,
+                    '& .MuiAvatar-root': {
+                      width: 32,
+                      height: 32,
+                      ml: -0.5,
+                      mr: 1,
+                    },
+                    '&:before': {
+                      content: '""',
+                      display: 'block',
+                      position: 'absolute',
+                      top: 0,
+                      right: 14,
+                      width: 10,
+                      height: 10,
+                      bgcolor: 'background.paper',
+                      transform: 'translateY(-50%) rotate(45deg)',
+                      zIndex: 0,
+                    },
+                  },
                 }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               >
-                <MenuItem onClick={handleClose}>Trade</MenuItem>
-                <MenuItem onClick={handleClose}>History</MenuItem>
-                <MenuItem onClick={handleClose}>Stock</MenuItem>
+                <MenuItem>
+                  <Avatar /> Profile
+                </MenuItem>
+                <MenuItem>
+                  <Avatar /> My account
+                </MenuItem>
+                <Divider />
+                <MenuItem>
+                  <ListItemIcon>
+                    <PersonAdd fontSize="small" />
+                  </ListItemIcon>
+                  Add another account
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <Settings fontSize="small" />
+                  </ListItemIcon>
+                  Settings
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  Logout
+                </MenuItem>
               </Menu>
-              {/* <Button
-                className={styles.btn_pages}
-                // key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: 'block' }}
-              >
-                FO
-              </Button> */}
             </Box>
             <div className={styles.btnicon2} ><Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon /></Button>
               <Button><NotificationsNoneIcon /></Button></div>
             {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
+
+
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              {/* {data.map((row) => ( */}
+              {/* <Tooltip> */}
+            
                 <div className={styles.newbar_list}>
-                  <div className={styles.Avatar_newbar}>
-                    <Avatar className={styles.btn_avtar_list}></Avatar>
+                {/* {data.map((row) => ( */ }
+                < div className = { styles.Avatar_newbar } >
+                <Avatar className={styles.btn_avtar_list}>
+                  {/* <img src="../../Group 47124.svg" /> */}
+                  <img
+                  // src={data[1].loginUrl}
+                  //  src={row.logoUrl}
+                    />
+                </Avatar>
                   </div>
-                  <div className={styles.user_list}>
-                    <Typography>
-                      mirav
-                    </Typography>
-                  </div>
-                  <div>
-                    <Button className={styles.alt_list_ikon} onClick={handleOpenUserMenu}>
-                      <ExpandMoreIcon />
-                    </Button>
-                  </div>
-
+            <div className={styles.user_list}>
+              <Typography>
+                {/* {data[1].id} */}
+              </Typography>
+            </div>
+            <div>
+              <Button className={styles.alt_list_ikon} onClick={handleOpenUserMenu}>
+                <ExpandMoreIcon />
+              </Button>
+            </div>
+            {/* // ))} */}
                 </div>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {/* {settings.map((setting) => ( */}
-                {/* <MenuItem onClick={handleCloseUserMenu}> */}
-                <div className={styles.listmeuend}>
-                  <div>
-                    {data.map((row) => (
-                      <div>
-                        <Button className={styles.btnnevlist} onClick={handleCloseUserMenu}>
-                          <div>        
-                            {/* <img src={row.loginUrl}  /> */}
-                            <Avatar src={row.logoUrl} /> 
-                          </div>
-                          <div><div className={styles.idname}><Typography>{row.id}</Typography></div><div className={styles.listtype}><Typography>{row.type}</Typography></div></div>
-                          {console.log(row.loginUrl, 'row.loginUrl')}
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  <div className={styles.menulistbtn}>
 
-                    <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
-                      <img width={21} height={21} src='../../History.svg' />
-                      {/* <Box className={styles.massscolor} sx={{ color: 'action.active' }}> */}
-                      {/* <Badge color="secondary" className={styles.massscolor2} variant="dot" > */}
-                      {/* <Box>
+            
+
+          {/* </Tooltip> */}
+          {/* ))} */}
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {/* {settings.map((setting) => ( */}
+            {/* <MenuItem onClick={handleCloseUserMenu}> */}
+            {data.map((row, listdata) => ( 
+            <div className={styles.listmeuend}>
+            {/* {data.map((row, listdata) => ( */}
+              <div>
+           
+                <div>
+                  <Button className={styles.btnnevlist} onClick={handleCloseUserMenu}>
+                    <div>
+                      {/* <img src={row.loginUrl}  /> */}
+                      {/* <Avatar src={row.logoUrl} /> */}
+                    </div>
+                    <div><div className={styles.idname}>
+                      <Typography>{row.id}</Typography></div><div className={styles.listtype}><Typography>{row.type}</Typography>
+                    </div></div>
+                    {/* {console.log(row.loginUrl, 'row.loginUrl')} */}
+                  </Button>
+                </div>
+
+              </div>
+              <div className={styles.menulistbtn} style={{display:'flex',justifyContent:'end'}}>
+
+                <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
+                  <img width={21} height={21} src='../../History.svg' />
+                  {/* <Box className={styles.massscolor} sx={{ color: 'action.active' }}> */}
+                  {/* <Badge color="secondary" className={styles.massscolor2} variant="dot" > */}
+                  {/* <Box>
                         <AccessTimeIcon className={styles.ivonhestri}/>       */}
-                      {/* </Box> */}
-                      {/* </Badge> */}
-                      {/* </Box> */}
-                    </Button>
-                    <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
-                    <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
-                  </div>
-                </div>
-                <Divider className={styles.devatdar} />
-                <div className={styles.listbtmnuu}>
-                  <div className={styles.listaddacc}>
-                    <Button onClick={(() => { router.push('./AddAccounts') })}><PersonAddIcon />Add account</Button>
+                  {/* </Box> */}
+                  {/* </Badge> */}
+                  {/* </Box> */}
+                </Button>
+                <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
+                <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
+              </div>
+              {/* ))} */}
+            </div>
+            ))}
+            <Divider className={styles.devatdar} />
+            <div className={styles.listbtmnuu}>
+              <div className={styles.listaddacc}>
+                <Button onClick={(() => { router.push('./AddAccounts') })}><PersonAddIcon />Add account</Button>
 
-                  </div>
-                  <div className={styles.settinglist}>
-                    <Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon />Settings</Button>
-                  </div>
-                  <div className={styles.loglist}>
-                    <Button onClick={() => {
-                      var profile = "";
-                      props.save_user_data({ user: "" });
-                      router.push("/");
-                      toast.success("Logout Successfully!");
-                    }} >
-                      <LogoutIcon />Logout
-                    </Button>
-                  </div>
-                </div>
-                {/* <Typography textAlign="center">{setting}</Typography> */}
-                {/* </MenuItem> */}
-                {/* ))} */}
-              </Menu>
-            </Box>
-          </Grid>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              </div>
+              <div className={styles.settinglist}>
+                <Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon />Settings</Button>
+              </div>
+              <div className={styles.loglist}>
+                <Button onClick={() => {
+                  var profile = "";
+                  props.save_user_data({ user: "" });
+                  router.push("/");
+                  toast.success("Logout Successfully!");
+                }} >
+                  <LogoutIcon />Logout
+                </Button>
+              </div>
+            </div>
+            {/* <Typography textAlign="center">{setting}</Typography> */}
+            {/* </MenuItem> */}
+
+          </Menu>
+
+        </Box>
+      </Grid>
+    </Toolbar>
+      </Container >
+    </AppBar >
   );
 };
 const mapStateToProps = (state) => ({

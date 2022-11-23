@@ -9,6 +9,7 @@ $colorlist: #009947;
 
 .affordable_text {
     padding: 177px 0px 0px 79px;
+    height: 100%;
     background-image: url('../../public/Ellipse 16.png'), url('../../public/Ellipse 18 (1).png'), url('../../public/Ellipse 17 (2).png');
     background-repeat: no-repeat;
 
@@ -74,9 +75,12 @@ $colorlist: #009947;
     .box_com_mobali {
         margin: 60px 10px 0px 10px;
     }
+// .affordable_text{
 
+// }
     .affordable_text {
         padding: 30px 0px 0px 60px;
+        background-image: none !important;
     }
 }
 @media only screen and (max-width: 820px) {

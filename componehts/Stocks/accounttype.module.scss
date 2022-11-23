@@ -1,5 +1,5 @@
 @font-face {
-    font-family: Poppins-500;
+    // font-family: Poppins-500;
     font-family: Poppins-400;
     src: url(../../styles/popins//Poppins-Regular.ttf);
     // src: url(../../popins/Poppins-Regular.ttf)
@@ -9,7 +9,16 @@
     font-family: roboto-400;
     src: url(../../styles/Roboto/Roboto-Regular.ttf);
 }
-
+.peparlist{
+    border-radius: 20px !important;
+}
+.avtartype{
+    margin: auto;
+    // pa
+}
+.hadingbtn{
+    padding: 0px 30px 0px 40px !important;
+}
 .menu2btn {
     color: #858789 !important;
 }
@@ -76,18 +85,26 @@ width: 160px;
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.18);
     border-radius: 20px;
 }
+.checkboxtd{
+    padding: 0px 35px 0px 40px !important;
 
-.tablelist th span {
+}
+.fasttebarow{
+    // display: flex !important;
+    // justify-content: end;
+}
+.tablelist th  {
     color: #333333 !important;
     font-family: Poppins-400;
     font-size: 14px;
+    text-align: center !important;
 }
 
 .tablelist td {
     font-family: Poppins-400;
     font-size: 14px;
     color: #333333;
-
+text-align: center;
 }
 
 .accolistp {
@@ -128,15 +145,23 @@ width: 160px;
 }
 
 .padimgtebal {
-    padding: 30px 0px 25px 80px;
+    padding: 40px 0px 40px 50px;
+}
+.detapikarrow td{
+    padding: 16px !important;
 }
 
 .padimgtebal2 {
-    padding: 0px 0px 30px 80px;
+    padding: 0px 0px 40px 50px;
 }
+.tablePagination p{
+    font-size: 14px;
+    color: #4F4F4F;
+    font-family: Poppins-400;
 
+}
 .padimgtebal3 {
-    padding: 0px 80px 0px 0px;
+    padding: 0px 60px 40px 0px;
 }
 
 .cantenartebal {
@@ -159,7 +184,7 @@ width: 160px;
 .batntextend {
     display: flex;
     justify-content: end;
-    padding: 30px 80px 0px 0px;
+    padding: 40px 60px 40px 0px;
 }
 
 @media only screen and (max-width: 500px) {

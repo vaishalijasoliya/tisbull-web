@@ -21,6 +21,8 @@ import TablePagination from '@mui/material/TablePagination';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Avatar,Box, Button, Typography, TableFooter, useTheme } from '@mui/material';
 import PropTypes from "prop-types";
+import { toast } from 'react-toastify';
+
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
@@ -283,7 +285,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     return (
         <TableHead>
             <TableRow>
-                <TableCell padding="checkbox">
+                <TableCell className={styles.hadingbtn} padding="checkbox">
                     <Checkbox
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -301,18 +303,18 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
-                        <TableSortLabel
+                        {/* <TableSortLabel
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : 'asc'}
                             onClick={createSortHandler(headCell.id)}
-                        >
+                        > */}
                             {headCell.label}
                             {orderBy === headCell.id ? (
                                 <Box component="span" sx={visuallyHidden}>
                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                                 </Box>
                             ) : null}
-                        </TableSortLabel>
+                        {/* </TableSortLabel> */}
                     </TableCell>
                 ))}
             </TableRow>
@@ -323,11 +325,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 interface EnhancedTableToolbarProps {
     numSelected: number;
 }
-const csvData = [
-    ['firstname', 'lastname', 'email'],
-    ['John', 'Doe', 'john.doe@xyz.com'],
-    ['Jane', 'Doe', 'jane.doe@xyz.com']
-];
+
 const ResponsiveAppBar = (props) => {
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [order, setOrder] = React.useState<Order>('asc');
@@ -339,6 +337,9 @@ const ResponsiveAppBar = (props) => {
     const [dense, setDense] = React.useState(false);
     const [page, setPage] = React.useState(0);
     const [teballist, setTeballist] = React.useState([])
+    const [rowid, setRowid] = React.useState('')
+console.log(rowid,'rowid');
+
     const openlightbox = (index) => {
         console.log(index);
         setCurrentIndex(index);
@@ -401,7 +402,38 @@ const ResponsiveAppBar = (props) => {
             }
         }
     }
+    const accountdelete = async () => {
 
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.props.profile.token
+        }
+        var body = {
+            "id_account":rowid
+        }
+        // console.log(body, 'lkahuaah');
+
+        props.props.loaderRef(true)
+        var accountdelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_DELETE, JSON.stringify(body), headers)
+        // var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_PLAY, headers)
+
+        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
+        props.props.loaderRef(false)
+        console.log(accountdelete, 'accountdelete');
+        // if (!!data) {
+        if (accountdelete.status == true) {
+            // patternDelete.token = patternDelete.token
+            // elistdata
+            // props.save_user_data({ user: data });
+            toast.success("Successfully Updated Personal Information lisgg")
+            // router.push('./dashboard')
+        }
+        else {
+            // setErrorShow(true)
+            toast.error(accountdelete.message)
+        }
+        // }
+    }
     // let inloglist=datatebal.zerodha_token_update
 
     console.log(datatebal, 'datatebal');
@@ -534,7 +566,7 @@ const ResponsiveAppBar = (props) => {
             </Grid>
             <Grid item md={12} sm={12} xs={12} >
                 <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-                    <Paper sx={{ width: '100%', mb: 2 }}>
+                    <Paper className={styles.peparlist} sx={{ width: '100%' }}>
                         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
                         <TableContainer className={styles.cantenartebal}>
                             <Table
@@ -570,7 +602,7 @@ const ResponsiveAppBar = (props) => {
                                                     key={row.id}
                                                     selected={isItemSelected}
                                                 >
-                                                    <TableCell padding="checkbox">
+                                                    <TableCell className={styles.checkboxtd} padding="checkbox">
                                                         <Checkbox
                                                             onClick={(event) => handleClick(event, row.id)}
                                                             color="primary"
@@ -582,12 +614,14 @@ const ResponsiveAppBar = (props) => {
                                                     </TableCell>
                                                     <TableCell
                                                         // component="th"
+                                                        className={styles.fasttebarow}
+                                                        align="right"
                                                         id={labelId}
                                                         scope="row"
                                                         padding="none"
                                                     >
                                                         {/* <div> */}
-                                                        <Avatar src={row.logoUrl} />
+                                                        <Avatar className={styles.avtartype} src={row.logoUrl} />
                                                         {/* {row.type} */}
                                                         {/* </div> */}
                                                         {/* <div className={styles.nselist}><Typography>{row.NSE}</Typography></div> */}
@@ -609,7 +643,7 @@ const ResponsiveAppBar = (props) => {
                                                     {/* <Button className={styles.listststu}>{row.Status}</Button></TableCell> */}
 
                                                     <TableCell >
-                                                        <Button className={styles.menu2btn} onClick={handleClickOpenCom}>
+                                                        <Button className={styles.menu2btn} onClick={() => { setRowid(row.id), handleClickOpenCom() }}>
 
                                                             <MoreVertIcon />
                                                         </Button>
@@ -637,7 +671,7 @@ const ResponsiveAppBar = (props) => {
                                                                             <Divider>
 
                                                                             </Divider>
-                                                                            <div><Button className={styles.cancelbtn}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2}>Delete</Button></div>
+                                                                            <div><Button className={styles.cancelbtn}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={accountdelete}>Delete</Button></div>
                                                                         </Box>
                                                                         {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                     </DialogContent>
@@ -660,7 +694,7 @@ const ResponsiveAppBar = (props) => {
                                     )}
                                 </TableBody>
                                 <TableFooter>
-                                        <TableRow >
+                                        <TableRow className={styles.detapikarrow}>
                                             <TablePagination
                                                 className={styles.tablePagination}
                                                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}

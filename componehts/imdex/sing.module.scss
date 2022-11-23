@@ -120,7 +120,7 @@
 }
 
 .cantenar_list_caps {
-    padding: 0px 50px 0px 80px !important;
+    padding: 5px 50px 5px 80px !important;
     background-color: white;
 
 }
@@ -167,6 +167,7 @@
 
     p {
         font-family: roboto-400 !important;
+        padding: 0px 10px 0px 0px;
 
         color: #4F4F4F !important;
         font-size: 14px !important;
@@ -236,8 +237,9 @@
 }
 
 .boxlistyyy {
-    display: flex;
+    display: flex !important;
     justify-content: end;
+    align-items: center !important;
     // padding: 0px 50px 0px 0px ;
 }
 
@@ -444,10 +446,11 @@
 }
 
 .btn_pages2 {
-    font-family: Poppins-400;
+    font-family: Poppins-400 !important;
     color: #4F4F4F !important;
     font-size: 18px !important;
     text-transform: capitalize !important;
+    margin: 0 !important;
     // padding: 5px;
     border-radius: 0px !important;
 }
@@ -455,7 +458,7 @@
 .btn_pages2:hover {
 
     border-bottom: 2px solid #009947 !important;
-    font-size: 18px !important;
+    // font-size: 18px !important;
     color: #009947 !important;
 }
 
@@ -486,6 +489,7 @@
     border: 1px solid #C4C4C4;
     border-radius: 12px;
     margin: 0px 0px 0px 15px;
+    text-align: center;
     font-size: 25px;
     font-family: roboto-400 !important;
 
@@ -507,7 +511,16 @@
 .bakimginpos {
     display: none;
 }
-
+.btn_pages221 {
+    font-family: roboto-400 !important;
+    color: #FFFFFF !important;
+    font-size: 18px !important;
+    margin-left: 16px !important;
+    text-transform: capitalize !important;
+    background: #009947 !important;
+    border-radius: 50px !important;
+    width: 164px;
+}
 @media only screen and (max-width: 900px) {
     .cantenar_pegsingcantenar {
         background-image: none !important;
@@ -573,6 +586,9 @@
 
 
 @media only screen and (max-width: 880px){
+    .boxlistyyy{
+        display: none !important;
+    }
     .boxsinglist3{
         margin: 30px !important;
     }
@@ -602,7 +618,7 @@
     }
 
     .cantenar_list_caps {
-        padding: 0px 0px 0px 40px !important;
+        padding: 0px 40px 0px 40px !important;
     }
 
     .borderimline {

@@ -113,6 +113,8 @@
 
 .listmeuend {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .menulistbtn {
@@ -277,10 +279,21 @@
     color: #4F4F4F !important;
     border: none !important;
     font-size: 18px !important;
-    margin: 0px 25px 0px 0px !important;
+    margin: 13px 25px 13px 0px !important;
     text-transform: capitalize !important;
 }
-
+.borderbottum{
+    display: flex !important;
+    font-family: Poppins-400 !important;
+    color: #4F4F4F !important;
+    border: none !important;
+    font-size: 18px !important;
+    margin: 13px 25px 13px 0px !important;
+    text-transform: capitalize !important;
+    border-bottom: 2px solid #009947 !important;
+    color: #009947;
+    border-radius: 0 !important;
+}
 .btn_pages2 {
     display: flex !important;
     justify-content: left !important;
@@ -313,11 +326,11 @@
     border-radius: 25px 25px 25px 25px !important;
 }
 
-.btn_pages:hover {
-    border-bottom: 2px solid #009947 !important;
-    color: #009947;
-    border-radius: 0 !important;
-}
+// .btn_pages:hover {
+//     border-bottom: 2px solid #009947 !important;
+//     color: #009947;
+//     border-radius: 0 !important;
+// }
 
 .listmenuoncc {
     color: black !important;

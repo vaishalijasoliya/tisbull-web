@@ -32,7 +32,7 @@ const Home = (props) => {
     const router = useRouter();
     // setLogo('http://198.71.53.215:3001/7aae52796c8e086b3c2eb2403.jpeg')
     useEffect(() => {
-        setData(1)
+        // setData()
         // if (!!props.router && !!props.router.query && !!props.router.query.data) {
         //     setData(JSON.parse(props.router.query.data).id)
         // }
@@ -54,7 +54,7 @@ const Home = (props) => {
         if (!!patternDelete && patternDelete.status == true) {
             
             // formik.setFieldValue('ConsumerKey', patternDelete.data.);
-            formik.setFieldValue('ConsumerSecret', patternDelete.data.email)
+            // formik.setFieldValue('ConsumerSecret', patternDelete.data.email)
             // formik.setFieldValue('phone', patternDelete.data.phone_no)
             // formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("MM/DD/YYYY"))
             // formik.setFieldValue('Address', patternDelete.data.address)
@@ -62,7 +62,8 @@ const Home = (props) => {
             // setPhonedata(patternDelete.data.phone_no)
             // setAge(patternDelete.data.gender)
             setLogo(patternDelete.data.profileUrl)
-        } else {
+        } 
+        else {
             toast.error('Something went wrong.')
         }
     }

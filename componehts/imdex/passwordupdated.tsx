@@ -90,7 +90,7 @@ const Home = (props) => {
         // elistdata
         props.save_user_data({ user: data });
         toast.success("Password Changed Succesfully")
-        router.push('./dashboard')
+        router.push('./login')
       } else {
         // setErrorShow(true)
         toast.error(data.message)
@@ -261,7 +261,7 @@ const Home = (props) => {
             </div>
           </form>
           <div className={styles.batnbacklist}>
-            <Button href='./login' className={styles.backbtn}><KeyboardBackspaceIcon />Back to Forgot Password</Button>
+            <Button href='./forgotpass' className={styles.backbtn}><KeyboardBackspaceIcon />Back to Forgot Password</Button>
           </div>
           {/* </Formik> */}
         </Box>

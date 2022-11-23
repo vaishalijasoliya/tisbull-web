@@ -23,6 +23,7 @@ import ApiEndpoint from '../../config/ApiEndpoint';
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import moment from 'moment';
 
 import PhoneInput from 'react-phone-input-2'
@@ -50,19 +51,21 @@ const ResponsiveAppBar = (props) => {
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [age, setAge] = React.useState('');
     const [isoutField, setIsOutField] = useState(false);
+const [datelist,setDatelist] =React.useState('')
 
-
-    console.log(age, 'listage');
+    console.log(createObjectURL, 'createObjectURL');
     useEffect(() => {
-        setData(props.profile.userData.id)
+        setData()
+        // 
         // if (!!props.router && !!props.router.query && !!props.router.query.data) {
-        //     setData(JSON.parse(props.router.query.data).id)
+        //     setData(JSON.parse(props.router.query.data).id)UPLOAD_PROFILE
         // }
-    }, [])
+    },[])
 
     const setData = async (userId) => {
+       
         var obj = {
-            "id_user": userId
+            "id_user": props.profile.userData.id
         }
         var headers = {
             "Content-Type": "application/json",
@@ -71,20 +74,21 @@ const ResponsiveAppBar = (props) => {
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.GET_PROFILE, JSON.stringify(obj), headers)
         props.props.loaderRef(false)
-        console.log(patternDelete.data.profileUrl, 'patternDelete.data.birth_date');
+        console.log( patternDelete, 'patternDelete');
 
         if (!!patternDelete && patternDelete.status == true) {
             
             formik.setFieldValue('username', patternDelete.data.name);
             formik.setFieldValue('email', patternDelete.data.email)
             formik.setFieldValue('phone', patternDelete.data.phone_no)
-            formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("MM/DD/YYYY"))
+            // formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("DD-mm-yyyy"))
             formik.setFieldValue('Address', patternDelete.data.address)
             formik.setFieldValue('Gender', patternDelete.data.gender)
+            setDatelist(moment(patternDelete.data.birth_date).format("MM-DD-YYYY"))
             setPhonedata(patternDelete.data.phone_no)
             setAge(patternDelete.data.gender)
         } else {
-            toast.error('Something went wrong.')
+            toast.error('Somethinggg went wrong.')
         }
     }
 
@@ -129,12 +133,56 @@ const ResponsiveAppBar = (props) => {
         //     toast.error('Something went wrong.')
         // }
     }
+    const uploadpohot = async () => {
+       
+        // console.log(body, 'body');
+
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        var body = {
+            'file':createObjectURL
+            // 'name': formik.values.username,
+            // 'email': formik.values.email,
+            // 'phone_no': phonedata,
+            // 'birth_date': formik.values.date,
+            // 'address': formik.values.Address,
+            // 'gender': age,
+            // 'listemail':
+        }
+        console.log(body, 'TOKANfffff');
+
+        props.props.loaderRef(true)
+        var data = await ApiServices.PostApiCall(ApiEndpoint.UPLOAD_PROFILE, JSON.stringify(body), headers);
+        props.props.loaderRef(false)
+        // console.log(data, 'DATA');
+
+        console.log(data, 'dvdddddd');
+        if (!!data) {
+            if (data.status == true) {
+                // data.token = data.token
+                // elistdata
+                // props.save_user_data({ user: data });
+                toast.success("list")
+                // router.push('./dashboard')
+            }
+            else {
+                // setErrorShow(true)
+                toast.error(data.message)
+            }
+        }
+        else {
+            toast.error('Something went wrong.')
+        }
+    }
     const edituser = () => {
         if (phonedata.length < 8) {
             setIsOutField(true)
         }
         else {
             onLoginPress()
+        
         }
     }
     const handleChange = (event: SelectChangeEvent) => {
@@ -211,6 +259,7 @@ const ResponsiveAppBar = (props) => {
         }),
         onSubmit: () => {
             onLoginPress()
+           
         },
     });
     return (
@@ -224,7 +273,7 @@ const ResponsiveAppBar = (props) => {
                             {/* */}
                             <div className={styles.uplodimgp}><Typography>Update your photo and personal detalis here.</Typography></div>
                         </div>
-                        <div className={styles.donebtn}><Button type='submit' onClick={edituser}>Done</Button></div>
+                        <div className={styles.donebtn}><Button type='submit' onClick={()=>{edituser,uploadpohot()}}>Done</Button></div>
                     </div>
                 </Grid>
                 {/* <form> */}
@@ -289,6 +338,7 @@ const ResponsiveAppBar = (props) => {
                     </Grid>
                     <Grid item md={6} sm={12} xs={12}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Date of Birth</InputLabel>
+                        
                         <TextField
                             className={styles.dataeinput}
                             error={Boolean(formik.touched.date && formik.errors.date)}
@@ -298,8 +348,8 @@ const ResponsiveAppBar = (props) => {
                             // placeholder='Enter name '
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
-                            value={formik.values.date}
-                            id="date"
+                            // value={datelist}
+                            // id="date"
                             // label="Birthday"
                             type="date"
                         // defaultValue="MM/DD/YYYY"

@@ -199,14 +199,14 @@ export default function Home(props) {
                     <div className={styles.switchadd}>
                         <SwitchUnstyled component={Root} onChange={console.log('virang') } {...label} id='switch'
                         // checked={row.Publication} 
-                        // onChange={((e) => {
-                        //                                             setChecked(e.target.checked)
-                        //                                             editFAQ(e.target.checked, row.id)
-                        //                                             setSwitchcheck(e.target.checked)
-                        //                                             setIdItem(row.id,)
-                        //                                             console.log(e.target.checked, 'checkedv');
-                        //                                             console.log(row.id, 'myvalueee')
-                        //                                         })} 
+                        onChange={((e) => {
+                                                                    setChecked(e.target.checked)
+                                                                    // editFAQ(e.target.checked, row.id)
+                                                                    // setSwitchcheck(e.target.checked)
+                                                                    // setIdItem(row.id,)
+                                                                    console.log(e.target.checked, 'checkedv');
+                                                                    // console.log(row.id, 'myvalueee')
+                                                                })} 
                         />
                     </div>
                 </div>

@@ -1,7 +1,11 @@
 import { Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import { useRouter } from 'next/router';
+
 import styles from './Home.module.scss'
 const main = () => {
+  const router = useRouter();
+
   return (
     <>
 
@@ -25,7 +29,7 @@ const main = () => {
             </div>
             <div className={styles.btn_get_learn}>
               <div className={styles.btnno1}>
-                <Button className={styles.getbtn}>Get Started</Button>
+                <Button className={styles.getbtn}   onClick={(() => { router.push('./login') })}>Get Started</Button>
               </div>
               <div>
                 <Button className={styles.getbtn}>Learn More</Button>
@@ -35,7 +39,7 @@ const main = () => {
         </Grid>
         <Grid item sm={12} md={7} xs={12} >
           <div className={styles.bac_img}>
-            <img src='../../image 3.png' />
+            <img width={740} src='../../Pattern list.svg' />
           </div>
         </Grid>
       </Grid>
