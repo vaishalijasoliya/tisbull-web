@@ -59,7 +59,13 @@
     text-transform: capitalize;
     height: 22px;
 }
-
+.listdatlog{
+    background-color: #053159 !important;
+    color: white !important;
+}
+.list2data{
+    // background-color: red !important;
+}
 .active2 {
     border: 1px solid #053159;
     border-radius: 20px;
@@ -105,6 +111,28 @@
         border-radius: 20px;
         color: #053159;
         width: 79px;
+        font-size: 11px;
+        font-family: roboto-400;
+        text-transform: capitalize;
+        height: 25px;
+
+    }
+
+    // button:hover {
+    //     background: #053159;
+    //     color: white;
+    // }
+}
+.btn_all_buy22 {
+    padding: 10px 0px 0px 0px;
+    text-align: center;
+
+    button {
+        margin: 0px 0px 0px 10px;
+        border: 1px solid #053159;
+        border-radius: 20px;
+        color: #053159;
+        // width: 79px;
         font-size: 11px;
         font-family: roboto-400;
         text-transform: capitalize;

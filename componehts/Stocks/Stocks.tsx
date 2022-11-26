@@ -461,30 +461,35 @@ const ResponsiveAppBar = (props) => {
     const [isoutField, setIsOutField] = useState(false);
     const [phonedata, setPhonedata] = useState('')
     const [deletbtn, setDelebtn] = React.useState(false);
-
+    
     const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
-    const [deletemenukk, setDeleteMenukk] = React.useState(false);
+    const [listdara, setLlistdata] =useState('');
+    const [listdarapush, setLlistdatapush] =useState('');
 
+    const [deletemenukk, setDeleteMenukk] = React.useState(false);
+const[logvvmog,setLogvvmog]=useState('')
     const [listpires, setListPires] = React.useState('');
     const [accounttype, setAccounttype] = React.useState('')
 
     const [btnlistname, setBtnlistname] = React.useState('')
+    const [btnlistnamelist, setBtnlistnamelist] = React.useState('')
+
     const [pause, setPause] = React.useState(false)
     const router = useRouter();
     const [swishlist, setSwishlist] = React.useState(false);
     const [checked, setChecked] = React.useState(false);
 
     const [switchCheck, setSwitchcheck] = React.useState('')
-    console.log(btnlistname, 'swishlist');
+    console.log(listpires, 'logvvmog');
     const handlePinChangelist = (e) => {
         setListPires(e.target.value);
     };
-    const switchchange = (e) => {
-        setChecked(e.target.checked)
-        setSwitchcheck(e.target.checked)
-        console.log(switchCheck, 'myvaxrlueee')
-    }
+    // const switchchange = (e) => {
+    //     setChecked(e.target.checked)
+    //     setSwitchcheck(e.target.checked)
+    //     console.log(switchCheck, 'myvaxrlueee')
+    // }
     const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
     const [values, setValues] = React.useState({
         amount: '',
@@ -503,7 +508,7 @@ const ResponsiveAppBar = (props) => {
         }
     }
     const edituserlistpause = () => {
-        if (btnlistname == '') {
+        if (setBtnlistnamelist == '') {
             setIsOutField(true)
         }
         else {
@@ -515,6 +520,11 @@ const ResponsiveAppBar = (props) => {
     };
     const printButtonLabel = (event) => {
         setBtnlistname(event.target.name)
+        console.log(event.target.name, 'LITFDADRDA');
+        //do some stuff here
+    };
+    const printButtonLabellist = (event) => {
+        setBtnlistnamelist(event.target.name)
         console.log(event.target.name, 'LITFDADRDA');
         //do some stuff here
     };
@@ -652,7 +662,7 @@ const ResponsiveAppBar = (props) => {
             "pattern": [
                 {
                     "pattern_id": rowid,
-                    "type": btnlistname
+                    "type": btnlistnamelist
                 }
             ]
         }
@@ -690,8 +700,8 @@ const ResponsiveAppBar = (props) => {
         }
         console.log(body, 'listbody');
 
-        if (!!btnlistname) {
-            if (btnlistname == 'Stock') {
+        if (!!logvvmog) {
+            if (logvvmog == 'Stock') {
                 if (!!accounttype) {
                     if (accounttype == 'exit for fixedPrice') {
                         console.log('withFixed price')
@@ -749,7 +759,7 @@ const ResponsiveAppBar = (props) => {
             "pattern": [
                 {
                     "pattern_id": rowid,
-                    "type": btnlistname
+                    "type": listdarapush
                 }
             ]
         }
@@ -1121,7 +1131,8 @@ const ResponsiveAppBar = (props) => {
                                                                                 </div>
 
 
-                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}><Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 24PX 3PX 24PX'}}>Cancel</Button>
+                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
+                                                                                    <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 24PX 3PX 24PX'}}>Cancel</Button>
                                                                                 {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
                                                                                 <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>SAVE </Button></div>
                                                                             </Box>
@@ -1156,13 +1167,16 @@ const ResponsiveAppBar = (props) => {
                                                                                     <div>
                                                                                         <Typography className={styles.texstcolor} style={{ 'color': '#333333', 'font-size': '15px', padding: '0px 0px 7px 0px' }}>Exit with  </Typography>
                                                                                     </div>
-                                                                                    <div style={{ padding: '0px 0px 20px 0px' }}>
-                                                                                        <ButtonGroup
+                                                                                    <div className={styles.btn_all_buy22} style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                        {/* <ButtonGroup
                                                                                             style={{ margin: '0px 0px 0px 10px' }}
                                                                                             value={phonedata}
                                                                                             buttons={["Stock", "Without Stock"]}
                                                                                             doSomethingAfterClick={printButtonLabel}
-                                                                                        />
+                                                                                        /> */}
+  {/* <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button> */}
+                                                                                    <Button onClick={()=>{setLogvvmog('Stock')}} className={logvvmog =='Stock' ? styles.listdatlog:styles.list2data }>Stock</Button>
+                                                                                    <Button  onClick={()=>{setLogvvmog('WithoutStock')}} className={logvvmog =='WithoutStock' ? styles.listdatlog:styles.list2data }>Without Stock</Button>
 
                                                                                     </div>
                                                                                     <div style={{ padding: '0px 0px 20px 0px' }}>
@@ -1176,50 +1190,29 @@ const ResponsiveAppBar = (props) => {
                                                                                             </Typography>
                                                                                             <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
                                                                                         </div>
-                                                                                        {checked == true ? <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
-                                                                                            disabled
-                                                                                            style={{ padding: '0px 0px 0px 20px' }}
+                                                                                        {checked == false ? <SwitchUnstyled component={Root} 
+                                                                                        // onChange={console.log('virang')} 
+                                                                                        {...label} id='switch'
+                                                                                            style={{ padding: '0px 0px 0px 32px' }}
 
                                                                                             // checked={row.Publication} 
                                                                                             onChange={((e) => {
                                                                                                 setSwishlist(e.target.checked)
-
-                                                                                                // editFAQ(e.target.checked, row.id)
-                                                                                                // setSwitchcheck(e.target.checked)
-                                                                                                // setIdItem(row.id,)
-                                                                                                // console.log(e.target.checked, 'checkedv');
-                                                                                                // console.log(row.id, 'myvalueee')
-                                                                                            })}
-                                                                                        /> : <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
-                                                                                            style={{ padding: '0px 0px 0px 20px' }}
-
-                                                                                            // checked={row.Publication} 
-                                                                                            onChange={((e) => {
-                                                                                                // setChecked('ZERODHA')
-                                                                                                setSwishlist(e.target.checked)
+                                                                                                // setLogvvmog('exit for fixedPrice')
                                                                                                 setAccounttype('exit for fixedPrice')
-                                                                                                // editFAQ(e.target.checked, row.id)
-                                                                                                // setSwitchcheck(e.target.checked)
-                                                                                                // setIdItem(row.id,)
-                                                                                                // console.log(e.target.checked, 'checkedv');
-                                                                                                // console.log(row.id, 'myvalueee')
                                                                                             })}
-                                                                                        />}
-                                                                                        {/* <SwitchUnstyled component={Root} {...label} id='switch'
+                                                                                        />:<SwitchUnstyled component={Root} 
+                                                                                        // onChange={console.log('virang')}
+                                                                                         {...label} id='switch'
+                                                                                            disabled
+                                                                                            style={{ padding: '0px 0px 0px 32px' }}
+
                                                                                             // checked={row.Publication} 
-                                                                                            // disabled
-                                                                                            style = {{ padding: '0px 0px 0px 20px' }}
                                                                                             onChange={((e) => {
                                                                                                 setSwishlist(e.target.checked)
-                                                                                              
                                                                                             })}
-                                    // editFAQ(e.target.checked, row.id)
-                                    // setSwitchcheck(e.target.checked)
-                                    // setIdItem(row.id,)
-                                    // console.log(e.target.checked, 'checkedv');
-                                    // console.log(row.id, 'myvalueee')
-                            
-                            /> */}
+                                                                                        /> }
+                                                                               
                                                                                     </div>
                                                                                     <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
                                                                                         <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
@@ -1237,45 +1230,40 @@ const ResponsiveAppBar = (props) => {
                                                                                         <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
                                                                                         <div>
                                                                                             <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                                Sell holding stock with fixed price
+                                                                                            Sell holding stock with market price 
                                                                                             </Typography>
-                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
+                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
                                                                                         </div>
-                                                                                        {swishlist == true ? <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
-                                                                                            disabled
-                                                                                            style={{ padding: '0px 0px 0px 20px' }}
-
-                                                                                            // checked={row.Publication} 
-                                                                                            onChange={((e) => {
-                                                                                                setChecked(e.target.checked)
-
-                                                                                                // editFAQ(e.target.checked, row.id)
-                                                                                                // setSwitchcheck(e.target.checked)
-                                                                                                // setIdItem(row.id,)
-                                                                                                // console.log(e.target.checked, 'checkedv');
-                                                                                                // console.log(row.id, 'myvalueee')
-                                                                                            })}
-                                                                                        /> : <SwitchUnstyled component={Root}  {...label} id='switch'
+                                                                                        {swishlist == false ? <SwitchUnstyled component={Root}  {...label} id='switch'
                                                                                             style={{ padding: '0px 0px 0px 20px' }}
                                                                                             // checked={row.Publication} 
                                                                                             onChange={((e) => {
                                                                                                 // setChecked('ZERODHA')
                                                                                                 setChecked(e.target.checked)
                                                                                                 setAccounttype('exit for market')
-                                                                                                // editFAQ(e.target.checked, row.id)
-                                                                                                // setSwitchcheck(e.target.checked)
-                                                                                                // setIdItem(row.id,)
-                                                                                                // console.log(e.target.checked, 'checkedv');
-                                                                                                // console.log(row.id, 'myvalueee')
+                                                                     
                                                                                             })}
-                                                                                        />}
+                                                                                        />:<SwitchUnstyled component={Root} 
+                                                                                        // onChange={console.log('virang')}
+                                                                                         {...label} id='switch'
+                                                                                            disabled
+                                                                                            style={{ padding: '0px 0px 0px 20px' }}
+
+                                                                                            // checked={row.Publication} 
+                                                                                            onChange={((e) => {
+                                                                                                setChecked(e.target.checked)
+                                                                                            })}
+                                                                                        /> }
 
 
                                                                                     </div>
                                                                                 </div>
                                                                                 <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
+                                                                                {logvvmog == 'Stock' &&  swishlist == false && listpires == '' ? 'desebal':'yes'}
+
                                                                                 <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseComdeletlog}>Cancel</Button>
-                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>
+                                                                                {logvvmog == 'WithoutStock' &&  swishlist == true && listpires == '' ?  
+                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>: <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn} >SAVE </Button>}
                                                                                     {/* <Button>Cancel</Button> */}
                                                                                     {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
                                                                                     {/* <Button className={styles.cofimbatn} onClick={deletepattern}>Confirm</Button> */}
@@ -1351,7 +1339,7 @@ const ResponsiveAppBar = (props) => {
                                                                             <Box className={styles.lisrmaenbox}>
 
                                                                                 <div className={styles.delehedar}>
-                                                                                    <Typography>Play Pattern</Typography>
+                                                                                    <Typography>Pause Pattern</Typography>
                                                                                 </div>
                                                                                 <div className={styles.listimgyes}>
                                                                                     <img src="../../Group 47124 (1).svg" />
@@ -1365,16 +1353,14 @@ const ResponsiveAppBar = (props) => {
                                                                                     <Typography>Pause with </Typography>
                                                                                 </div>
                                                                                 <div className={styles.btn_all_buy}>
-                                                                                    <ButtonGroup
-                                                                                        //  value={phonedata}
-                                                                                        buttons={["All", "Buy", "Sell"]}
-                                                                                        doSomethingAfterClick={printButtonLabel}
-                                                                                    />
+                                                                                <Button onClick={()=>{setLlistdatapush('All') }} className={listdarapush =='All' ? styles.listdatlog:styles.list2data }>All</Button>
+                                                                                    <Button onClick={()=>{setLlistdatapush('Buy')}} className={listdarapush =='Buy' ? styles.listdatlog:styles.list2data }>Buy</Button>
+                                                                                    <Button  onClick={()=>{setLlistdatapush('Sell')}} className={listdarapush =='Sell' ? styles.listdatlog:styles.list2data }>Sell</Button>
 
 
                                                                                 </div>
                                                                                 <div className={styles.divpopupspn}>
-                                                                                    {isoutField == '' ? '' : <span className={styles.otperr}>Please Enter Valid list</span>}
+                                                                                    {listdarapush == '' ?  <span className={styles.otperr}>Please Enter Valid list</span> :''}
                                                                                 </div>
                                                                                 <div className={styles.cancelbtnlog} style={{padding:'25px 0px 0px 0px'}}>
                                                                                 {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
@@ -1383,7 +1369,8 @@ const ResponsiveAppBar = (props) => {
                                                                                 {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
                                                                                     {/* <Button>Cancel</Button> */}
                                                                                 {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituser(),handleCloseComplay()}}>SAVE </Button>
+                                                                                {listdarapush == '' ? <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn} >SAVE </Button>: 
+                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituser(),handleCloseComplay()}}>SAVE </Button>}
                                                                                 </div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -1420,22 +1407,27 @@ const ResponsiveAppBar = (props) => {
                                                                                     <Typography>Pause with </Typography>
                                                                                 </div>
                                                                                 <div className={styles.btn_all_buy}>
-                                                                                    <ButtonGroup
+                                                                                  {/* {btnlistnamelist == 'All' ? }   */}
+                                                                                  <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button>
+                                                                                    <Button onClick={()=>{setLlistdata('Buy')}} className={listdara =='Buy' ? styles.listdatlog:styles.list2data }>Buy</Button>
+                                                                                    <Button  onClick={()=>{setLlistdata('Sell')}} className={listdara =='Sell' ? styles.listdatlog:styles.list2data }>Sell</Button>
 
-                                                                                        buttons={["All", "Buy", "Sell"]}
-                                                                                        doSomethingAfterClick={printButtonLabel}
-                                                                                    // style={}
-                                                                                    // className={btnlistname == 'Buy' ? styles.buylist : styles.buylist2}
-                                                                                    />
+                                                                                    {/* <ButtonGroup */}
+{/* onClick={()=>{setLlistdata(true)}} */}
+                                                                                        {/* buttons={["All", "Buy", "Sell"]} */}
+                                                                                        {/* doSomethingAfterClick={printButtonLabellist} */}
+                                                                                    {/* // style={} */}
+                                                                                    {/* // className={btnlistname == 'Buy' ? styles.buylist : styles.buylist2} */}
+                                                                                    {/* /> */}
                                                                                 </div>
                                                                                 <div className={styles.divpopupspn}>
                                                                                     {isoutField == '' ? '' : <span className={styles.otperr}>Please Enter Valid list</span>}
                                                                                 </div>
                                                                                 {/* </Box> */}
                                                                                 <div className={styles.cancelbtnlog}>
-                                                                                <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseCompause}>Cancel</Button>
-                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituserlistpause(),handleCloseCompause()}}>SAVE </Button>
-
+                                                                             <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseCompause}>Cancel</Button>
+                                                                             {listdara == '' ? <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  >SAVE </Button>:
+ <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituserlistpause(),handleCloseCompause()}}>SAVE </Button>}
                                                                                     {/* <Button >Cancel</Button> */}
                                                                                     {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
                                                                                     {/* <Button className={styles.cofimbatn} onClick={edituserlistpause}>Confirm</Button> */}
