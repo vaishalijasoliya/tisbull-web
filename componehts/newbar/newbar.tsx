@@ -45,6 +45,8 @@ import styles from './newbar.module.scss'
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import Constants from '../../config/Constants';
+import { useEffect } from 'react';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
@@ -120,12 +122,12 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const ResponsiveAppBar = (props) => {
-  console.log(props.props, 'propsmenu');
+  console.log(props.profile.id, 'propsmenu');
 
   const router = useRouter();
   var currentPath = router.pathname
-console.log(currentPath =='/dashboard','dashboard');
-console.log(currentPath,'currentPath');
+  console.log(currentPath == '/dashboard', 'dashboard');
+  console.log(currentPath, 'currentPath');
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -134,9 +136,13 @@ console.log(currentPath,'currentPath');
   const [data, setData] = React.useState([]);
   const [datalist, setDatalist] = React.useState([]);
   const [datalistlogin, setDatalistlogin] = React.useState([]);
-
+  const [rowidlist, setRowidlist] = React.useState("")
   const [advertiseMent, setAdvertisement] = React.useState("")
   const [com, setCom] = React.useState(false);
+  const [accountList, setAccountList] = useState(!!props.profile ? props.profile.logoUrl : []);
+  const [barItem, setBarItem] = useState('');
+console.log(rowidlist,'rowidlist');
+
 
   var handleClickOpenCom = (myprops) => {
     setCom(true);
@@ -154,7 +160,99 @@ console.log(currentPath,'currentPath');
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  useEffect(() => {
+    setAccountList(!!props.profile.account ? props.profile.account : [])
+  }, [props.profile.account])
   var currentPath = router.pathname
+
+  const switchAccount = async (account) => {
+    if (account.id == props.profile.currentAccount.id) {
+      return;
+    }
+    var headers = {
+      "Content-Type": "application/json",
+      "x-access-token": props.profile.token
+    }
+    var body1 = {
+      'id_account': account.id 
+    }
+    console.log(account,'accountList');
+
+    console.log(rowidlist,'body1');
+    
+    var data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_SWITCH, JSON.stringify(body1), headers);
+    console.log(data, 'datadddd');
+
+    if (!!data) {
+      if (data.status) {
+        var profile = props.profile;
+        var accountsArray = profile.account;
+        profile.currentAccount = account;
+        profile.account = accountsArray;
+        profile.token = data.token;
+        props.save_user_data({ user: profile });
+        router.reload(window.location.pathname)
+
+        Constants.EventEmitter.emit('change_account', router)
+      } else {
+        toast.error(data.message)
+      }
+    } else {
+      toast.error('Something went wrong.')
+    }
+  }
+
+
+  // useEffect(() => {
+  //   if (!!props.profile && !!props.profile.user_name) {
+  //     let newBarItem = barItem;
+  //     newBarItem = newBarItem.filter(item => !(item.title == 'Login' || item.title == 'Register'));
+  //     setBarItem(newBarItem)
+  //   } else {
+  //     setBarItem(items)
+  //   }
+  // }, [props.profile])
+
+  // useEffect(() => {
+  //   setRefreshData(isRefreshData + 1);
+  // }, [props.profile.currentAccount])
+  //   const playpattern = async () => {
+
+  //     var headers = {
+  //         "Content-Type": "application/json",
+  //         "x-access-token": props.profile.token
+  //     }
+  //     var body = {
+
+  //                 "id_account": rowidlist,
+  //                 // "type": btnlistname
+
+  //     }
+
+  //     // console.log(body, 'lkahuaah');
+
+  //     // props.loaderRef(true)
+  //     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_SWITCH, JSON.stringify(body), headers)
+  //     console.log(patternDelete,'patternDelete');
+
+  //     // var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_PLAY, headers)
+
+  //     // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
+  //     // props.loaderRef(false)
+  //     // console.log(patternDelete, 'datalist444');
+  //     // if (!!data) {
+  //     if (patternDelete.status) {
+  //         // patternDelete.token = patternDelete.token
+  //         // elistdata
+  //         props.save_user_data({ user: patternDelete });
+  //         toast.success("Successfully Updated Personal Information lisgg")
+  //         router.push('./dashboard')
+  //     }
+  //     else {
+  //         toast.error(patternDelete.message)
+  //     }
+  //     // }
+  // }
   const chartloginuser = async () => {
 
     // console.log(id, 'id')
@@ -188,9 +286,10 @@ console.log(currentPath,'currentPath');
           //     arr.push(element)
           // }
           const object = {
-            id: element.user_id,
+            id: element.id,
+            user_id: element.user_id,
             type: element.type,
-            loginUrl: element.logoUrl,
+            logoUrl: element.logoUrl,
             // password: element.password,
             // type: element.type,
             // Environments: element.env,
@@ -199,7 +298,7 @@ console.log(currentPath,'currentPath');
             // id_user: element.id_user,
             // zerodha_token_update: element.zerodha_token_update
           }
-          console.log(object.loginUrl, 'object');
+          console.log(object, 'object');
 
           accoyty.push(JSON.parse(JSON.stringify(object)))
           // csvall.push(JSON.parse(JSON.stringify (element.loginUrl)))
@@ -213,7 +312,7 @@ console.log(currentPath,'currentPath');
     }
   }
 
-  // console.log(data[1].loginUrl, 'virang33');
+  console.log(data[1], 'virang33');
 
 
   // console.log(props.props.profile, 'myyyydata')
@@ -466,7 +565,7 @@ console.log(currentPath,'currentPath');
               {/* {pages.map((page) => ( */}
               <Button
                 onClick={(() => { router.push('./dashboard') })}
-                className={currentPath =='/dashboard'? styles.borderbottum :styles.btn_pages}
+                className={currentPath == '/dashboard' ? styles.borderbottum : styles.btn_pages}
                 // key={page}
                 // onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
@@ -475,7 +574,7 @@ console.log(currentPath,'currentPath');
               </Button>
               <Button
                 onClick={(() => { router.push('./accountteyp') })}
-                className={currentPath =='/accountteyp'? styles.borderbottum :styles.btn_pages}
+                className={currentPath == '/accountteyp' ? styles.borderbottum : styles.btn_pages}
                 // key={page}
                 // onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
@@ -483,8 +582,16 @@ console.log(currentPath,'currentPath');
                 Account
               </Button>
               <Button
-                onClick={(() => { router.push('./home') })}
-                className={currentPath =='/home'? styles.borderbottum :styles.btn_pages}
+              onClick={() => {
+                router.push({
+                    pathname: './home',
+                    query: { scripType: 'currency', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) }
+                    // query: { type: 'currency' }
+                });
+            }}
+                // href={ pathname: '/addPattern', query: { scripType: 'currency', patternType: 'basic', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) } }
+                // onClick={(() => { router.push(pathname:'./home',query: { type: 'currency' }) })}
+                className={currentPath == '/home' ? styles.borderbottum : styles.btn_pages}
                 // key={page}
                 // onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
@@ -492,7 +599,7 @@ console.log(currentPath,'currentPath');
                 Pattern
               </Button>
               <Button
-              className={styles.btn_pages}
+                className={styles.btn_pages}
                 // className={currentPath =='/home'? styles.borderbottum :styles.btn_pages}
                 // key={page}
                 aria-controls={open ? 'demo-positioned-menu' : undefined}
@@ -575,118 +682,128 @@ console.log(currentPath,'currentPath');
             <Box sx={{ flexGrow: 0 }}>
               {/* {data.map((row) => ( */}
               {/* <Tooltip> */}
-            
-                <div className={styles.newbar_list}>
-                {/* {data.map((row) => ( */ }
-                < div className = { styles.Avatar_newbar } >
-                <Avatar className={styles.btn_avtar_list}>
-                  {/* <img src="../../Group 47124.svg" /> */}
-                  <img
+
+              <div className={styles.newbar_list}>
+                {/* {data.map((row) => ( */}
+                < div className={styles.Avatar_newbar}
+
+                >
+                  <Avatar className={styles.btn_avtar_list}
+                  // src={rowidlist == ''? props.profile.logoUrl:props.profile.currentAccount.logoUrl}
+                  src={!!props.profile.currentAccount ? props.profile.currentAccount.logoUrl:'login'}
+                  >
+                    {/* <img src="../../Group 47124.svg" /> */}
+                    {/* <img
+                 
                   // src={data[1].loginUrl}
-                  //  src={row.logoUrl}
-                    />
-                </Avatar>
-                  </div>
-            <div className={styles.user_list}>
-              <Typography>
-                {/* {data[1].id} */}
-              </Typography>
-            </div>
-            <div>
-              <Button className={styles.alt_list_ikon} onClick={handleOpenUserMenu}>
-                <ExpandMoreIcon />
-              </Button>
-            </div>
-            {/* // ))} */}
+                  //  src={data[0].loginUrl}loginUrl
+                    /> */}
+                  </Avatar>
                 </div>
-
-            
-
-          {/* </Tooltip> */}
-          {/* ))} */}
-          <Menu
-            sx={{ mt: '45px' }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {/* {settings.map((setting) => ( */}
-            {/* <MenuItem onClick={handleCloseUserMenu}> */}
-            {data.map((row, listdata) => ( 
-            <div className={styles.listmeuend}>
-            {/* {data.map((row, listdata) => ( */}
-              <div>
-           
+                <div className={styles.user_list}>
+                  <Typography>
+                    { !!props.profile.currentAccount ? props.profile.currentAccount.user_id:'login'}
+                    {/* {props.profile.currentAccount.user_id} */}
+                    {/* {props.profile.data.user_id} */}
+                    {/* {props.profile.userData.user_id} */}
+                    {/* {data[0].id} */}
+                  </Typography>
+                </div>
                 <div>
-                  <Button className={styles.btnnevlist} onClick={handleCloseUserMenu}>
-                    <div>
-                      {/* <img src={row.loginUrl}  /> */}
-                      {/* <Avatar src={row.logoUrl} /> */}
-                    </div>
-                    <div><div className={styles.idname}>
-                      <Typography>{row.id}</Typography></div><div className={styles.listtype}><Typography>{row.type}</Typography>
-                    </div></div>
-                    {/* {console.log(row.loginUrl, 'row.loginUrl')} */}
+                  <Button className={styles.alt_list_ikon} onClick={handleOpenUserMenu}>
+                    <ExpandMoreIcon />
                   </Button>
                 </div>
-
+                {/* // ))} */}
               </div>
-              <div className={styles.menulistbtn} style={{display:'flex',justifyContent:'end'}}>
 
-                <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
-                  <img width={21} height={21} src='../../History.svg' />
-                  {/* <Box className={styles.massscolor} sx={{ color: 'action.active' }}> */}
-                  {/* <Badge color="secondary" className={styles.massscolor2} variant="dot" > */}
-                  {/* <Box>
-                        <AccessTimeIcon className={styles.ivonhestri}/>       */}
-                  {/* </Box> */}
-                  {/* </Badge> */}
-                  {/* </Box> */}
-                </Button>
-                <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
-                <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
-              </div>
+
+
+              {/* </Tooltip> */}
               {/* ))} */}
-            </div>
-            ))}
-            <Divider className={styles.devatdar} />
-            <div className={styles.listbtmnuu}>
-              <div className={styles.listaddacc}>
-                <Button onClick={(() => { router.push('./AddAccounts') })}><PersonAddIcon />Add account</Button>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {/* {settings.map((setting) => ( */}
+                {/* <MenuItem onClick={handleCloseUserMenu}> */}
+                {data.map((item, idx) => (
+                  <div className={styles.listmeuend}>
+                    {/* {data.map((row, listdata) => ( */}
+                    <div>
 
-              </div>
-              <div className={styles.settinglist}>
-                <Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon />Settings</Button>
-              </div>
-              <div className={styles.loglist}>
-                <Button onClick={() => {
-                  var profile = "";
-                  props.save_user_data({ user: "" });
-                  router.push("/");
-                  toast.success("Logout Successfully!");
-                }} >
-                  <LogoutIcon />Logout
-                </Button>
-              </div>
-            </div>
-            {/* <Typography textAlign="center">{setting}</Typography> */}
-            {/* </MenuItem> */}
+                      <div>
+                        <Button className={styles.btnnevlist}  onClick={() =>{ setRowidlist(item.id),handleCloseUserMenu(), switchAccount(item) }}>
+                          <div>
+                            {/* <img src={row.loginUrl}  /> */}
+                            <Avatar src={item.logoUrl} />
+                          </div>
+                          <div><div className={styles.idname}>
+                            <Typography>{item.user_id}</Typography></div><div className={styles.listtype}><Typography>{item.type}</Typography>
+                            </div></div>
+                          {/* {console.log(row.loginUrl, 'row.loginUrl')} */}
+                        </Button>
+                      </div>
 
-          </Menu>
+                    </div>
+                    <div className={styles.menulistbtn} style={{ display: 'flex', justifyContent: 'end' }}>
 
-        </Box>
-      </Grid>
-    </Toolbar>
+                      <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
+                        <img width={21} height={21} src='../../History.svg' />
+                        {/* <Box className={styles.massscolor} sx={ color: 'action.active' }}> */}
+                        {/* <Badge color="secondary" className={styles.massscolor2} variant="dot" > */}
+                        {/* <Box>
+                        <AccessTimeIcon className={styles.ivonhestri}/>       */}
+                        {/* </Box> */}
+                        {/* </Badge> */}
+                        {/* </Box> */}
+                      </Button>
+                      <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
+                      <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
+                    </div>
+                    {/* ))} */}
+                  </div>
+                ))}
+                <Divider className={styles.devatdar} />
+                <div className={styles.listbtmnuu}>
+                  <div className={styles.listaddacc}>
+                    <Button onClick={(() => { router.push('./AddAccounts') })}><PersonAddIcon />Add account</Button>
+
+                  </div>
+                  <div className={styles.settinglist}>
+                    <Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon />Settings</Button>
+                  </div>
+                  <div className={styles.loglist}>
+                    <Button onClick={() => {
+                      var profile = "";
+                      props.save_user_data({ user: "" });
+                      router.push("/");
+                      toast.success("Logout Successfully!");
+                    }} >
+                      <LogoutIcon />Logout
+                    </Button>
+                  </div>
+                </div>
+                {/* <Typography textAlign="center">{setting}</Typography> */}
+                {/* </MenuItem> */}
+
+              </Menu>
+
+            </Box>
+          </Grid>
+        </Toolbar>
       </Container >
     </AppBar >
   );

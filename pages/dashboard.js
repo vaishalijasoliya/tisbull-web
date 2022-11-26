@@ -15,7 +15,7 @@ const ResponsiveAppBar = (props) => {
 
         {/* <Newbar /> */}
         {/* <Home /> */}
-        <div className={styles.dasnod_camponat2}>
+        <div className={styles.dasnod_camponat2369}>
         <Dashboard  props={props}/>
         </div>
       </Grid>

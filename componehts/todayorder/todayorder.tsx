@@ -463,7 +463,7 @@ function a11yProps(index: number) {
 //     },
 // });
 const ResponsiveAppBar = (props) => {
-    console.log( props,'props');
+    console.log( props.props,'props');
     
     // console.log(props.props.profile.token, 'emailID')
     // const [value, setValue] = React.useState('1');
@@ -561,7 +561,7 @@ const ResponsiveAppBar = (props) => {
             "x-access-token": props.profile.token
         }
         var body = {
-            "pattern_id": props.idlist,
+            "id_pattern": [props.props],
             // props.idlist,
             // email: props.email,
             // otp: outField
@@ -867,13 +867,13 @@ const ResponsiveAppBar = (props) => {
                                         var value = e.target.value
                                         if (typeof value !== 'object') {
                                             if (!value || value == '') {
-                                                setCustomer(supportListData)
+                                                setDatatebalpettan(datasars)
                                             } else {
-                                                var filteredData = supportListData.filter((item) => {
+                                                var filteredData = datasars.filter((item) => {
                                                     let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
                                                     return searchValue.includes(value.toString().toLowerCase())
                                                 })
-                                                setCustomer(filteredData)
+                                                setDatatebalpettan(filteredData)
                                             }
                                         }
                                     }}

@@ -26,6 +26,9 @@ import { useRouter } from 'next/router';
 
 export default function Home() {
     const router = useRouter();
+    var currentPath = router.pathname
+    console.log(currentPath,'currentPath');
+    
 
     const [state, setState] = React.useState({
         // top: false,
@@ -66,6 +69,7 @@ export default function Home() {
                         <div>
                             <Accordion className={styles.listcomhed}>
                                 <AccordionSummary
+                                style={{marginBottom:'10px'}}
                                     className={styles.settingfast}
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1a-content"
@@ -74,16 +78,16 @@ export default function Home() {
                                     <Typography><PersonOutlineIcon className={styles.personicon} />My profile and account</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Button className={styles.personlist} onClick={(() => { router.push('./editprofileacc') })}><PersonOutlineIcon className={styles.jjperuser} />Personal Informations <ArrowForwardIosIcon className={styles.arronewbar} /></Button>
-                                    <Button className={styles.personlist2} onClick={(() => { router.push('./ChangePassedit') })}><HttpsIcon className={styles.jjperuser} />Change Password <ArrowForwardIosIcon className={styles.arronewbar2} /></Button>
+                                    <Button   className={currentPath =='/editprofileacc'? styles.personlist :styles.personlist2} onClick={(() => { router.push('./editprofileacc') })}><PersonOutlineIcon className={styles.jjperuser} />Personal Informations <ArrowForwardIosIcon className={styles.arronewbar} /></Button>
+                                    <Button  className={currentPath =='/ChangePassedit'? styles.personlist :styles.personlist2} onClick={(() => { router.push('./ChangePassedit') })}><HttpsIcon className={styles.jjperuser} />Change Password <ArrowForwardIosIcon className={styles.arronewbar2} /></Button>
                                 </AccordionDetails>
                             </Accordion>
                         </div>
                         <div className={styles.accontbtn}>
-                            <Button onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
+                            <Button className={currentPath =='/Accountsview'? styles.accontbtn22 :styles.personlist22}  onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                         </div>
                         <div className={styles.accontbtn}>
-                            <Button><div className={styles.pandicon}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
+                            <Button className={currentPath =='/Support'? styles.accontbtn22 :styles.personlist22}><div className={styles.pandicon}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                         </div>
                         <div className={styles.accontbtn}>
                             <Button><div className={styles.pandicon}><PaymentIcon /><Typography>Payment Settings</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
@@ -132,6 +136,7 @@ export default function Home() {
                     <div>
                         <Accordion className={styles.listcomhed}>
                             <AccordionSummary
+                            style={{margin:'0px 0px 10px 0px'}}
                                 className={styles.settingfast}
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -140,16 +145,16 @@ export default function Home() {
                                 <Typography><PersonOutlineIcon className={styles.personicon} />My profile and account</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Button className={styles.personlist} onClick={(() => { router.push('./editprofileacc') })}><PersonOutlineIcon className={styles.jjperuser} />Personal Informations <ArrowForwardIosIcon className={styles.arronewbar} /></Button>
-                                <Button className={styles.personlist2} onClick={(() => { router.push('./ChangePassedit') })}><HttpsIcon className={styles.jjperuser} />Change Password <ArrowForwardIosIcon className={styles.arronewbar2} /></Button>
+                                <Button  className={currentPath =='/editprofileacc'? styles.personlist :styles.personlist2}  onClick={(() => { router.push('./editprofileacc') })}><PersonOutlineIcon className={styles.jjperuser} />Personal Informations <ArrowForwardIosIcon className={styles.arronewbar} /></Button>
+                                <Button className={currentPath =='/ChangePassedit'? styles.personlist :styles.personlist2}  onClick={(() => { router.push('./ChangePassedit') })}><HttpsIcon className={styles.jjperuser} />Change Password <ArrowForwardIosIcon className={styles.arronewbar2} /></Button>
                             </AccordionDetails>
                         </Accordion>
                     </div>
                     <div className={styles.accontbtn}>
-                        <Button onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
+                        <Button className={currentPath =='/Accountsview'? styles.accontbtn22 :styles.personlist22} onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
                     <div className={styles.accontbtn}>
-                        <Button><div className={styles.pandicon} onClick={(() => { router.push('./Support') })}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
+                        <Button  className={currentPath =='/Support'? styles.accontbtn22 :styles.personlist22} onClick={(() => { router.push('./Support') })}><div className={styles.pandicon} ><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
                     <div className={styles.accontbtn}>
                         <Button><div className={styles.pandicon}><PaymentIcon /><Typography>Payment Settings</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>

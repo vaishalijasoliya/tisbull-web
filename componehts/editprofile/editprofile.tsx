@@ -44,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const ResponsiveAppBar = (props) => {
+    console.log(props.profile.id,'listprjjjops');
+    
     // console.log(, "listmenu");
     const [phonedata, setPhonedata] = useState('')
     const [gender, setGender] = useState('')
@@ -51,6 +53,9 @@ const ResponsiveAppBar = (props) => {
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [age, setAge] = React.useState('');
     const [isoutField, setIsOutField] = useState(false);
+    const [imgUpload, setImgupload] = React.useState([])
+    const [idItem, setIditem] = React.useState("")
+const[imglist,setImagelist] =useState('')
 const [datelist,setDatelist] =React.useState('')
 
     console.log(createObjectURL, 'createObjectURL');
@@ -64,12 +69,13 @@ const [datelist,setDatelist] =React.useState('')
 
     const setData = async (userId) => {
        
-        var obj = {
-            "id_user": props.profile.userData.id
-        }
         var headers = {
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
+        }
+        
+        var obj = {
+            "id_user": props.profile.id
         }
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.GET_PROFILE, JSON.stringify(obj), headers)
@@ -87,6 +93,7 @@ const [datelist,setDatelist] =React.useState('')
             setDatelist(moment(patternDelete.data.birth_date).format("MM-DD-YYYY"))
             setPhonedata(patternDelete.data.phone_no)
             setAge(patternDelete.data.gender)
+            setCreateObjectURL(patternDelete.data.profileUrl)
         } else {
             toast.error('Somethinggg went wrong.')
         }
@@ -142,13 +149,13 @@ const [datelist,setDatelist] =React.useState('')
             "x-access-token": props.profile.token
         }
         var body = {
-            'file':createObjectURL
-            // 'name': formik.values.username,
-            // 'email': formik.values.email,
-            // 'phone_no': phonedata,
-            // 'birth_date': formik.values.date,
-            // 'address': formik.values.Address,
-            // 'gender': age,
+            'file':imgUpload,
+            'name': formik.values.username,
+            'email': formik.values.email,
+            'phone_no': phonedata,
+            'birth_date': formik.values.date,
+            'address': formik.values.Address,
+            'gender': age,
             // 'listemail':
         }
         console.log(body, 'TOKANfffff');
@@ -203,7 +210,55 @@ const [datelist,setDatelist] =React.useState('')
             setCreateObjectURL(URL.createObjectURL(i));
         }
     };
+    const handleChangeImage = (e) => {
+        console.log(e.target.files[0], "myfile");
+        // console.log(e.target.files[0].type,"myfiletype");
+        const filetypes = e.target.files[0].type;
+        const extension = filetypes.substring(0, 5)
+        setImgupload(extension)
+        console.log(extension, "filetypes");
+        console.log(e.target.files[0], "myfiletype");
+        uploadItem(e.target.files[0], extension)
+        if (e.target.files && e.target.files[0]) {
+            const i = e.target.files[0];
 
+            setImage(i);
+            setCreateObjectURL(URL.createObjectURL(i));
+        }
+        // extensionCheck()
+      }
+      const uploadItem = async (file, type) => {
+
+        var myHeaders = new Headers();
+        myHeaders.append("x-access-token", props.profile.token);
+        var formdata = new FormData();
+        formdata.append("file", file);
+        formdata.append("type", type);
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: formdata,
+          redirect: 'follow'
+        };
+        var reader = new FileReader();
+        props.props.loaderRef(true);
+        const data = await fetch(ApiEndpoint.UPLOAD_PROFILE, requestOptions)
+          .then((response) => response.json())
+          .then(result => {
+            return result
+          })
+          .catch(error => console.log('error', error));
+        console.log(data, 'datata')
+        props.props.loaderRef(false)
+        if (!!data) {
+          if (data.status == true) {
+            console.log(data.id, "id")
+            console.log(data, 'damydata');
+            setIditem(data.data.id)
+          }
+        }
+        console.log(formdata, "iditems")
+      }
     const uploadToServer = async (event) => {
         const body = new FormData();
         body.append("file", image);
@@ -282,7 +337,7 @@ const [datelist,setDatelist] =React.useState('')
                         <Avatar src={createObjectURL} className={styles.avtaruplo} />
                         <IconButton className={styles.iconbtnop} color="primary" aria-label="upload picture" component="label">
 
-                            <input type="file" name="myImage" hidden onChange={uploadToClient} className={styles.myimmmglist} />
+                            <input type="file" name="myImage" hidden onChange={handleChangeImage} className={styles.myimmmglist} />
                             <Avatar>
                                 <CameraAltIcon className={styles.cemeraicon} />
                             </Avatar>
@@ -391,6 +446,16 @@ const [datelist,setDatelist] =React.useState('')
                         <FormControl className={styles.slaydarinput}>
                             {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                             <Select
+                              onChange={((e) => {
+                                // setCekboxlist(e.target.checked)
+                                // setChecked('ZERODHA')
+                                // setChecked(e.target.checked)
+                                // editFAQ(e.target.checked)
+                                // setSwitchcheck(e.target.checked)
+                                // setIdItem(row.id,)
+                                console.log(e.target.checked, 'cvvvheckedv');
+                                // console.log(row.id, 'myvalueee')
+                            })}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={age}

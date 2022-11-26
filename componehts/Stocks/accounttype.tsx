@@ -19,7 +19,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import TablePagination from '@mui/material/TablePagination';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { Avatar,Box, Button, Typography, TableFooter, useTheme } from '@mui/material';
+import { Avatar, Box, Button, Typography, TableFooter, useTheme } from '@mui/material';
 import PropTypes from "prop-types";
 import { toast } from 'react-toastify';
 
@@ -33,6 +33,8 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogContent from '@mui/material/DialogContent';
+import { useRouter } from 'next/router';
+
 import { Types } from '../../constants/actionTypes'
 // import { connect } from 'react-redux';
 import ApiServices from '../../config/ApiServices';
@@ -308,12 +310,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                             direction={orderBy === headCell.id ? order : 'asc'}
                             onClick={createSortHandler(headCell.id)}
                         > */}
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </Box>
-                            ) : null}
+                        {headCell.label}
+                        {orderBy === headCell.id ? (
+                            <Box component="span" sx={visuallyHidden}>
+                                {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                            </Box>
+                        ) : null}
                         {/* </TableSortLabel> */}
                     </TableCell>
                 ))}
@@ -327,6 +329,8 @@ interface EnhancedTableToolbarProps {
 }
 
 const ResponsiveAppBar = (props) => {
+    const router = useRouter();
+
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
@@ -338,7 +342,7 @@ const ResponsiveAppBar = (props) => {
     const [page, setPage] = React.useState(0);
     const [teballist, setTeballist] = React.useState([])
     const [rowid, setRowid] = React.useState('')
-console.log(rowid,'rowid');
+    console.log(rowid, 'rowid');
 
     const openlightbox = (index) => {
         console.log(index);
@@ -409,7 +413,7 @@ console.log(rowid,'rowid');
             "x-access-token": props.props.profile.token
         }
         var body = {
-            "id_account":rowid
+            "id_account": rowid
         }
         // console.log(body, 'lkahuaah');
 
@@ -520,7 +524,12 @@ console.log(rowid,'rowid');
             </Grid>
             <Grid item md={6} sm={12} xs={12} className={styles.batntextend}>
                 <div>
-                    <Button className={styles.addbtnkk}>
+                    <Button className={styles.addbtnkk} onClick={() => {
+                        router.push({
+                            pathname: './AddAccounts',
+                            // query: { emailID: row.id,namescoka:row.script }
+                        });
+                    }}>
                         Create account
                     </Button>
                 </div>
@@ -678,8 +687,9 @@ console.log(rowid,'rowid');
                                                                 </div>
                                                             </Dialog>
                                                         </div>
-                                                    </TableCell>
 
+                                                    </TableCell>
+                                                   
                                                 </TableRow>
                                             );
                                         })}
@@ -694,25 +704,25 @@ console.log(rowid,'rowid');
                                     )}
                                 </TableBody>
                                 <TableFooter>
-                                        <TableRow className={styles.detapikarrow}>
-                                            <TablePagination
-                                                className={styles.tablePagination}
-                                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                                                count={datatebal.length}
-                                                rowsPerPage={rowsPerPage}
-                                                page={page}
-                                                SelectProps={{
-                                                    inputProps: {
-                                                        "aria-label": "rows per page",
-                                                    },
-                                                    native: false,
-                                                }}
-                                                onPageChange={handleChangePage}
-                                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                                ActionsComponent={TablePaginationActions}
-                                            />
-                                        </TableRow>
-                                    </TableFooter>
+                                    <TableRow className={styles.detapikarrow}>
+                                        <TablePagination
+                                            className={styles.tablePagination}
+                                            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                                            count={datatebal.length}
+                                            rowsPerPage={rowsPerPage}
+                                            page={page}
+                                            SelectProps={{
+                                                inputProps: {
+                                                    "aria-label": "rows per page",
+                                                },
+                                                native: false,
+                                            }}
+                                            onPageChange={handleChangePage}
+                                            onRowsPerPageChange={handleChangeRowsPerPage}
+                                            ActionsComponent={TablePaginationActions}
+                                        />
+                                    </TableRow>
+                                </TableFooter>
                             </Table>
 
                         </TableContainer>

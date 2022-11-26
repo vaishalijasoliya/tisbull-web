@@ -37,7 +37,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Home = (props) => {
 
-  console.log(ApiEndpoint, "ApiEndpoint");
+  console.log(props, "ApiEndpoint");
 
 
   const [showPassword, setShowPassword] = useState(false)
@@ -111,11 +111,19 @@ const Home = (props) => {
     // console.log(data.userData.id, 'listdata');
     if (!!data) {
       if (data.status == true) {
-        data.token = data.token
-        // elistdata
-        props.save_user_data({ user: data });
-        toast.success("Logged In Succesfully")
-        router.push('./dashboard')
+        // data.token = data.token
+        // // elistdata
+        // data.userData.currentAccount = data.userData.account[0];
+
+        // props.save_user_data({ user: data });
+        // toast.success("Logged In Succesfully")
+        // router.push('./dashboard')
+
+        data.userData.token = data.token;
+        data.userData.currentAccount = data.userData.account[0];
+        props.save_user_data({ user: data.userData });
+        router.push('/dashboard');
+        toast.success(data.message)
       } else {
         // setErrorShow(true)
         toast.error(data.message)

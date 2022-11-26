@@ -138,14 +138,6 @@ function createData(
         protein,
     };
 }
-
-
-// function a11yProps(index) {
-//     return {
-//         id: `simple-tab-${index}`,
-//         "aria-controls": `simple-tabpanel-${index}`,
-//     };
-// }
 function TablePaginationActions(props: {
     count: any;
     page: any;
@@ -240,9 +232,6 @@ function getComparator<Key extends keyof any>(
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
     const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
     stabilizedThis.sort((a, b) => {
@@ -287,12 +276,7 @@ const headCells: readonly HeadCell[] = [
         disablePadding: false,
         label: 'Price',
     },
-    // {
-    //     id: 'Stocks',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'Stocks',
-    // },
+
     {
         id: 'Created',
         numeric: true,
@@ -351,11 +335,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
-                        {/* <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
-                        > */}
                         {headCell.label}
                         {orderBy === headCell.id ? (
                             <Box component="span" sx={visuallyHidden}>
@@ -455,19 +434,9 @@ function a11yProps(index: number) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-// const tabtheme = createTheme({
-//     palette: {
-//         primary: {
-//             main: '#32908F'
-//         },
-//     },
-// });
+
 const ResponsiveAppBar = (props) => {
     console.log( props,'props');
-    
-    // console.log(props.props.profile.token, 'emailID')
-    // const [value, setValue] = React.useState('1');
-
     const [arrolist, setArrolist] = useState(true);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
@@ -491,27 +460,18 @@ const ResponsiveAppBar = (props) => {
 
     var handleClickOpenComdilet = (myprops) => {
         setDiletbtn(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     const handleCloseComdelet = () => {
         setDiletbtn(false);
     }
     var handleClickOpenCom = (myprops) => {
         setCom(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     var handleClickOpenComplay = (myprops) => {
         setPlay(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
-
     };
     var handleClickOpenCompause = (myprops) => {
         setPause(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     const handleCloseCom = () => {
         setCom(false);
@@ -554,7 +514,8 @@ const ResponsiveAppBar = (props) => {
 
         prevOpen.current = open;
     }, [open]);
-    const patternlist = async () => {
+
+    const patternlist= async () => {
 
         var headers = {
             "Content-Type": "application/json",
@@ -576,7 +537,7 @@ const ResponsiveAppBar = (props) => {
         // props.loaderRef(false)
         console.log(patternDelete, 'datalistddd');
 
-        if (!!data) {
+        if (!!patternDelete) {
             if (patternDelete.status == true && patternDelete.data.length > 0) {
                 const accoyty = [];
                 const datalist = [];
@@ -688,154 +649,8 @@ const ResponsiveAppBar = (props) => {
         <Grid container spacing={0} className={styles.cantenar_list57}>
 
             <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
-                {/* <Box> */}
-
-                {/* <div className={styles.listmeniom}>
-                    <Grid item md={3} sm={6} xs={6}>
-                        <div className={styles.patterndiv}>
-                            <Typography>AAPL</Typography>
-                        </div>
-                    </Grid>
-                    <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
-                        <Button >
-                            <Avatar className={styles.avtarmenuop}>
-                                <img src="../../Vector (14).svg" />
-                            </Avatar>
-                        </Button>
-                    </Grid>
-                </div> */}
-                <div className={styles.inputlistm3}>
-                    {/* <Grid item md={6} sm={12} xs={12}>
-                        <div> */}
-                        {/* <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-      <Summary />        </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-    </Box> */}
-                            {/* <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="basic tabs example"
-                    // TabIndicatorProps={{ style: { background: "#009947" } }}
-                    sx={{
-                      "& .MuiTabs-indicator": {
-                        backgroundColor: "#009947",
-                        height: 4,
-                      },
-                      "& .MuiTab-root.Mui-selected": {
-                        color: "#009947",
-                        fontSize: 14,
-                        textTransform: "capitalize",
-                      },
-                    }}
-                  >
-                    <Tab
-                      label="Summary"
-                      {...a11yProps(0)}
-                      className={styles.active + " " + styles.btn}
-                    />
-                    <Tab
-                      label="Today’s orders"
-                      {...a11yProps(1)}
-                      className={styles.btn}
-                    />
-                    <Tab
-                      label="Order History"
-                      {...a11yProps(2)}
-                      className={styles.btn}
-                    />
-                    <Tab
-                      label="Chart"
-                      {...a11yProps(3)}
-                      className={styles.btn}
-                    />
-                  </Tabs>
-                {/* </Box> */}
-                            {/* <Box>
-                  <TabPanel value={value} index={0}>
-                    {/* {/ Summary /} */}
-                            {/* <Summary /> */}
-                            {/* </TabPanel> */}
-                            {/* <TabPanel value={value} index={1}> */}
-                            {/* {/ Today’s orders /} */}
-                            {/* <TodayOrder /> */}
-                            {/* </TabPanel> */}
-                            {/* <TabPanel value={value} index={2}> */}
-                            {/* {/ Order History /} */}
-                            {/* </TabPanel> */}
-                            {/* <TabPanel value={value} index={3}> */}
-                            {/* {/ Chart /} */}
-                            {/* </TabPanel> */}
-                            {/* </Box>  */}
-                            {/* <TabContext value={value}> */}
-                            {/* <ThemeProvider theme={tabtheme}>
-                                <TabContext value={value}  > */}
-                            {/* <Tabs        
-                                                                TabIndicatorProps={{
-                                            style: {
-                                                indicatorColor: "#009947",
-                                                textColor: '#009947',
-                                                backgroundColor: "#009947",
-                                            }
-                                        }}
-                                        theme={tabtheme}
-                                        className={styles.tebpenaimanna}
-                                        //  textColor="green"
-                                        value={value}
-                                        //  onChange={handleChange}
-                                        // indicatorColor="#009947"
-                                        onChange={handleChange} aria-label="lab API tabs example">
-                                        <Tab label="Summary"   {...a11yProps(0)} className={styles.summarvaurr} />
-                                        <Tab label="Today’s orders" value="2" className={styles.summarvaurr} />
-                                        <Tab label="Order History" value="3" className={styles.summarvaurr} />
-                                        <Tab label="Chart" value="4" className={styles.summarvaurr} />
-                                    </Tabs>
-                                {/* </TabContext>
-                            </ThemeProvider> */}
-                            {/* <TabPanel value={value} index={1}>
-                                {/* {/ Summary /} */}
-                            {/* <Summary />
-                            </TabPanel>  */}
-                            {/* </TabContext> */}
-                        </div>
-                        {/* <Box className={styles.boxreting} display={'flex'}>
-
-                            <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
-                                onChange={(e) => {
-                                    //   setPage(0)
-                                    var value = e.target.value
-                                    if (typeof value !== 'object') {
-                                        if (!value || value == '') {
-                                            setDatatebalpettan(datasars);
-                                        } else {
-                                            var filteredData = datasars.filter((item) => {
-                                                let searchValue = item.script.toLowerCase();
-                                                return searchValue.includes(value.toString().toLowerCase())
-                                            })
-                                            setDatatebalpettan(filteredData);
-                                        }
-                                    }
-                                }}
-                            />
-                        </Box> */}
-                    {/* </Grid>
-
-                    <Grid item md={6} item md={6} sm={12} xs={12} display={'flex'} justifyContent={'end'}>
-                        <Button className={styles.editbtndiv}>Edit</Button>
-                    </Grid> */}
-
-                {/* </div> */}
+                {/* <div className={styles.inputlistm3}> */}
+                  
                 <div style={{display:'flex'}}>
              <div className={styles.maendivhpline}>
                     {/* <Grid item md={12} sm={12} xs={12}> */}
@@ -844,46 +659,52 @@ const ResponsiveAppBar = (props) => {
                             <div className={styles.openbtn_today}><Button>Open</Button></div>
                             <div className={styles.openbtn_today}><Button>Trade</Button></div>
                         </div>
-                    {/* </Grid> */} 
-                    {/* <Grid item md={12} display={'flex'} justifyContent={'end'}> */}
-                        {/* <Paper>
-        <MenuList>
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>My account</MenuItem>
-          <MenuItem>Logout</MenuItem>
-        </MenuList>
-      </Paper> */}
-                        {/* <div>
-                        {/* <Button className={styles.btnfiltaebtn2} ><SearchIcon /></Button> */}
-
-                        {/* </div> */}
+                   
                         </div> 
+                        <div style={{display:'flex',justifyContent:'end',alignItems:'center',width:'58%'}}>
                         {search ?
                             <div>
                                 <input type="text" name="search"
                                     className={styles.searchbtn}
                                     // onClick={display:b}
-                                    onChange={(e) => {
-                                        var value = e.target.value
-                                        if (typeof value !== 'object') {
-                                            if (!value || value == '') {
-                                                setCustomer(supportListData)
-                                            } else {
-                                                var filteredData = supportListData.filter((item) => {
-                                                    let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
-                                                    return searchValue.includes(value.toString().toLowerCase())
-                                                })
-                                                setCustomer(filteredData)
+                                    // onChange={(e) => {
+                                        onChange={(e) => {
+                                            //   setPage(0)
+                                            var value = e.target.value
+                                            if (typeof value !== 'object') {
+                                                if (!value || value == '') {
+                                                    setDatatebalpettan(datasars);
+                                                } else {
+                                                    var filteredData = datasars.filter((item) => {
+                                                        let searchValue = item.script.toLowerCase();
+                                                        return searchValue.includes(value.toString().toLowerCase())
+                                                    })
+                                                    setDatatebalpettan(filteredData);
+                                                }
                                             }
-                                        }
-                                    }}
+                                        }}
+                                        // patternlistcccc(e)
+                                    //     var value = e.target.value
+                                    //     if (typeof value !== 'object') {
+                                    //         if (!value || value == '') {
+                                    //             setDatatebalpettan(datasars)
+                                    //         } else {
+                                    //             var filteredData = datasars.filter((item) => {
+                                    //                 let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
+                                    //                 return searchValue.includes(value.toString().toLowerCase())
+                                    //             })
+                                    //             setDatatebalpettan(filteredData)
+                                    //         }
+                                    //     }
+                                    // }}
                                     autoComplete="off" /></div> : <style>{`
                           display: none;
                         `}</style>}
-                        <div style={{display:'flex',justifyContent:'end',alignItems:'center',width:'58%'}}>
+                        <div >
                             <Button className={styles.btnfiltaebtn2} onClick={(e) => {
                                 setSearch(!search)
                             }} ><SearchIcon /></Button>
+                            </div>
                         </div>
                         <Button className={styles.btnfiltaebtn} onClick={menulist}
                         >
@@ -1033,7 +854,7 @@ const ResponsiveAppBar = (props) => {
                                                         >
                                                             <div className={styles.typefild}>
                                                                 <div>
-                                                                    <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'exit' ? styles.avtarlistyes398 : ''}>
+                                                                    <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'cancelled' ? styles.avtarlistyes398 : ''}>
                                                                         {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}
                                                                         {row.stock == 'SELL' ?
                                                                             <img src="../../ftGySSa - Imgur.svg" />
@@ -1041,7 +862,7 @@ const ResponsiveAppBar = (props) => {
                                                                             : row.stock == 'BUY' ? <img src="../../2Nk5d5p - Imgur.svg" /> : ''}
                                                                     </Avatar>
                                                                 </div><div className={styles.listperegaf}>
-                                                                    <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'exit' ? styles.exitcolor : ''}>{row.script}</Typography>
+                                                                    <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.script}</Typography>
 
                                                                     <div className={styles.nselist}><Typography>{row.exchange}</Typography></div></div>
                                                             </div>
@@ -1062,9 +883,9 @@ const ResponsiveAppBar = (props) => {
                                                             } </Typography></TableCell>
 
                                                         <TableCell>
-                                                            <Button className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'exit' ? handleClickOpenCom : ''}>
+                                                            <Button className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}>
                                                                 {/* {row.status == 'pause' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}> */}
-                                                                <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'exit' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}</Typography>
+                                                                <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
                                                             </Button>
 
 
@@ -1181,11 +1002,6 @@ const ResponsiveAppBar = (props) => {
                                                                                     <div className={styles.oderidpopup2}><InputLabel>Type</InputLabel>
                                                                                         <Typography>Zerodha</Typography>
                                                                                     </div>
-
-                                                                                    {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                                                                    {/* <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order ( #12334 ) from zerodha ?</Typography></div>
-                                                                                 <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#12345</Typography></div>
-                                                                                 <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#12345</Typography></div> */}
                                                                                 </Box>
                                                                                 <div className={styles.listbtnimpoo}>
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComplay}><Button >Cancel</Button></div>

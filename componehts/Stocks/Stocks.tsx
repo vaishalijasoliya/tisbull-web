@@ -1,25 +1,13 @@
-// import Head from 'next/head'
-// import Image from 'next/image'
 import React, { useState } from "react";
 import styles from './Stocks.module.scss'
 import Grid from '@mui/material/Grid';
-// import Newbar from '../componehts/newbar/newbar';
-// import Stocks from '../componehts/Stocks/Stocks';
-import { Box, Button, Typography, TableFooter, useTheme, RadioGroup, Radio } from '@mui/material';
+import { Box, Button, Typography, TableFooter, useTheme, RadioGroup, Radio, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import SouthIcon from '@mui/icons-material/South';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import NorthIcon from '@mui/icons-material/North';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import Tab from '@mui/material/Tab';
-// import * as React from 'react';
 import { alpha } from '@mui/material/styles';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-// import Box from '@mui/material/Box';
 import { toast } from 'react-toastify';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -27,25 +15,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
-import CloseIcon from '@mui/icons-material/Close';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-// import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import moment from 'moment'
 import PropTypes from "prop-types";
 import Menu from '@mui/material/Menu';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import MenuList from '@mui/material/MenuList';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Touchable from 'rc-touchable';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import Popper from '@mui/material/Popper';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import Grow from '@mui/material/Grow';
 import InputLabel from '@mui/material/InputLabel';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import ApiServices from '../../config/ApiServices';
@@ -54,35 +33,24 @@ import { Types } from '../../constants/actionTypes'
 import { connect } from 'react-redux';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ButtonGroup from "./btngorup";
-import { makeStyles } from "@mui/styles";
 import { useRouter } from 'next/router';
-
-// import FilterListIcon from '@mui/icons-material/FilterList';
+import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled';
+import { styled } from '@mui/material/styles';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 import { visuallyHidden } from '@mui/utils';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import CardTravelIcon from '@mui/icons-material/CardTravel';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-// import ButtonGroup from '@ramonak/react-button-group'
-
-import { shouldDisplay } from "rsuite/esm/Picker";
-import { setDate } from "rsuite/esm/utils/dateUtils";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { BUILD_MANIFEST } from "next/dist/shared/lib/constants";
 const tabtheme = createTheme({
     palette: {
         primary: {
@@ -91,9 +59,7 @@ const tabtheme = createTheme({
     },
 });
 interface Data {
-    // calories: number;
-    // carbs: number;
-    // fat: number;
+
     Script: string;
     NSE: string;
     Type: string;
@@ -102,7 +68,6 @@ interface Data {
     Stocks: number;
     Created: string;
     Status: string;
-    // protein: number;
 }
 
 function createData(
@@ -114,10 +79,6 @@ function createData(
     Stocks: number,
     Created: string,
     Status: string,
-    // calories: number,
-    // fat: number,
-    // carbs: number,
-    // protein: number,
 ): Data {
     return {
         Script,
@@ -128,28 +89,9 @@ function createData(
         Stocks,
         Created,
         Status,
-        // calories,
-        // fat,
-        // carbs,
-        // protein,
     };
 }
 
-const rows = [
-    createData('Cupcake', 'uqwdgasd', 'hyggg', 3.7, 67, 4.3, '01-10-2022', 'Active'),
-    // createData('Donut', 452, 25.0, 51, 4.9),
-    // createData('Eclair', 262, 16.0, 24, 6.0),
-    // createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    // createData('Gingerbread', 356, 16.0, 49, 3.9),
-    // createData('Honeycomb', 408, 3.2, 87, 6.5),
-    // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    // createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    // createData('KitKat', 518, 26.0, 65, 7.0),
-    // createData('Lollipop', 392, 0.2, 98, 0.0),
-    // createData('Marshmallow', 318, 0, 81, 2.0),
-    // createData('Nougat', 360, 19.0, 9, 37.0),
-    // createData('Oreo', 437, 18.0, 63, 4.0),
-];
 function TablePaginationActions(props: {
     count: any;
     page: any;
@@ -245,8 +187,6 @@ function getComparator<Key extends keyof any>(
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
     const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
     stabilizedThis.sort((a, b) => {
@@ -303,12 +243,6 @@ const headCells: readonly HeadCell[] = [
         disablePadding: false,
         label: 'Created',
     },
-    // {
-    //     id: 'Status',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'Status',
-    // },
     {
         id: 'Action',
         numeric: true,
@@ -316,8 +250,6 @@ const headCells: readonly HeadCell[] = [
         label: 'Action',
     },
 ];
-// const tableClasses = useTableStyles();
-
 interface EnhancedTableProps {
     numSelected: number;
     onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
@@ -326,73 +258,82 @@ interface EnhancedTableProps {
     orderBy: string;
     rowCount: number;
 }
+const blue = {
+    500: '#36DAB2',
+};
 
-// function EnhancedTableHead(props: EnhancedTableProps<AdvertisementData>) {
-//     const {
-//       onSelectAllClick,
-//       order,
-//       orderBy,
-//       numSelected,
-//       rowCount,
-//       onRequestSort,
-//     } = props;
-//     const createSortHandler =
-//       (property: keyof AdvertisementData) =>
-//         (event: React.MouseEvent<unknown>) => {
-//           onRequestSort(event, property);
-//         };
-const useTableStyles = makeStyles({
-    header: {
-        // "& .MuiTableCell-head": {
-        //     color: "#6E6893",
-        //     backgroundColor: "#f4f2ff"
-        // },
-        "& .MuiTableCell-head": {
-            color: "#6E6893",
-            backgroundColor: "#f4f2ff",
-            borderTop: "1px solid #D9D5EC",
-            fontWeight: "600",
-            fontSize: "12.8477px",
-            lineHeight: "16px",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            color: "#6E6893",
-            padding: "10px 0",
-            //   textAlign: "center",
-        },
-        "&$active": {
-            color: "#6E6893",
-            "&& $svg": {
-                color: "#6E6893",
-            },
-        },
-        "&:hover": {
-            color: "#808080",
-        },
-        "&.MuiTableRow-footer": {
-            color: "#6E6893",
-            backgroundColor: "#f4f2ff",
-        },
-    },
-    body: {
-        "& .MuiTableCell-root": {
-            padding: "0",
-        },
-        "& .MuiTableCell-sizeMedium": {
-            padding: "10px 0",
-        },
-    },
-    footer: {
-        "&.MuiTableRow-footer": {
-            color: "#6E6893",
-            backgroundColor: "#f4f2ff !important",
-        },
-    },
-    active: {},
-});
-//   const tableClasses = useTableStyles();
+const grey = {
+    400: '#BFC7CF',
+    500: '#AAB4BE',
+    600: '#6F7E8C',
+};
 
-
+const Root = styled('span')(
+    ({ theme }) => `
+    font-size: 0;
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin: 10px;
+    cursor: pointer;
+  
+    &.${switchUnstyledClasses.disabled} {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  
+    & .${switchUnstyledClasses.track} {
+      background: ${theme.palette.mode === 'dark' ? grey[600] : grey[400]};
+      border-radius: 10px;
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+    }
+  
+    & .${switchUnstyledClasses.thumb} {
+      display: block;
+      width: 14px;
+      height: 14px;
+      top: 3px;
+      left: 3px;
+      border-radius: 16px;
+      background-color: #fff;
+      position: relative;
+      transition: all 200ms ease;
+    }
+  
+    &.${switchUnstyledClasses.focusVisible} .${switchUnstyledClasses.thumb} {
+      background-color: ${grey[500]};
+      box-shadow: 0 0 1px 8px rgba(0, 0, 0, 0.25);
+    }
+  
+    &.${switchUnstyledClasses.checked} {
+      .${switchUnstyledClasses.thumb} {
+        left: 22px;
+        top: 3px;
+        background-color: #fff;
+      }
+  
+      .${switchUnstyledClasses.track} {
+        background: ${blue[500]};
+      }
+    }
+  
+    & .${switchUnstyledClasses.input} {
+      cursor: inherit;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 1;
+      margin: 0;
+    }
+    `,
+)
 function EnhancedTableHead(props: EnhancedTableProps<AdvertisementData>) {
     const {
         onSelectAllClick,
@@ -432,15 +373,6 @@ function EnhancedTableHead(props: EnhancedTableProps<AdvertisementData>) {
                         sortDirection={orderBy === headCell.id ? order : false}
                         className={styles.tablehead}
                     >
-                        {/* <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(headCell.id)}
-                classes={{
-                  root: tableClasses.header,
-                  active: tableClasses.active,
-                }}
-              > */}
                         {headCell.label}
                         {orderBy === headCell.id ? (
                             <Box component="span" sx={visuallyHidden}>
@@ -534,11 +466,33 @@ const ResponsiveAppBar = (props) => {
     const [play, setPlay] = React.useState(false);
     const [deletemenukk, setDeleteMenukk] = React.useState(false);
 
-    const [dettwobtn, setDetwolbtn] = React.useState(false);
+    const [listpires, setListPires] = React.useState('');
+    const [accounttype, setAccounttype] = React.useState('')
 
     const [btnlistname, setBtnlistname] = React.useState('')
     const [pause, setPause] = React.useState(false)
     const router = useRouter();
+    const [swishlist, setSwishlist] = React.useState(false);
+    const [checked, setChecked] = React.useState(false);
+
+    const [switchCheck, setSwitchcheck] = React.useState('')
+    console.log(btnlistname, 'swishlist');
+    const handlePinChangelist = (e) => {
+        setListPires(e.target.value);
+    };
+    const switchchange = (e) => {
+        setChecked(e.target.checked)
+        setSwitchcheck(e.target.checked)
+        console.log(switchCheck, 'myvaxrlueee')
+    }
+    const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
+    const [values, setValues] = React.useState({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+    });
 
     const edituser = () => {
         if (btnlistname == '') {
@@ -561,7 +515,7 @@ const ResponsiveAppBar = (props) => {
     };
     const printButtonLabel = (event) => {
         setBtnlistname(event.target.name)
-        console.log(event.target.name);
+        console.log(event.target.name, 'LITFDADRDA');
         //do some stuff here
     };
     console.log(rowid, 'AEFESWFE');
@@ -569,43 +523,30 @@ const ResponsiveAppBar = (props) => {
     var handleClickOpenCom = (myprops) => {
 
         setCom(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
+
     };
     var handleClickOpenComplay = (myprops) => {
         setPlay(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
+
+    };
+    var handleClickOpenCom = (myprops) => {
+        setCom(true);
     };
     var handleClickOpenCom = (myprops) => {
 
         setCom(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
-    };
-    var handleClickOpenCom = (myprops) => {
-
-        setCom(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     var handleClickOpendeletbtnlog = (myprops) => {
         setDeleteMenukk(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     var handleClickOpenCompausedletbtn = (myprops) => {
         setDelebtn(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     const handleCloseComdeletbtn = () => {
         setDelebtn(false);
     }
     var handleClickOpenCompause = (myprops) => {
         setPause(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     const handleCloseCom = () => {
         setCom(false);
@@ -642,12 +583,9 @@ const ResponsiveAppBar = (props) => {
             setOpen(false);
         }
     }
-    //   const prevOpen = React.useRef(open);
     const prevOpen = React.useRef(open);
     React.useEffect(() => {
-        // playpattern
         if (prevOpen.current === true && open === false) {
-            // anchorRef.current!.focus();
         }
 
         prevOpen.current = open;
@@ -662,8 +600,6 @@ const ResponsiveAppBar = (props) => {
 
         props.props.loaderRef(true)
         var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
-
-        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
         console.log(data, 'datalist');
 
@@ -706,12 +642,6 @@ const ResponsiveAppBar = (props) => {
 
         }
     }
-
-    // let inloglist=datatebal.zerodha_token_update
-
-    // console.log(data.id, 'dataid');
-
-
     const playpattern = async () => {
 
         var headers = {
@@ -726,28 +656,88 @@ const ResponsiveAppBar = (props) => {
                 }
             ]
         }
-        // console.log(body, 'lkahuaah');
-
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
-        // var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_PLAY, headers)
-
-        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        // console.log(patternDelete, 'datalist444');
-        // if (!!data) {
+        // if (!!patternDelete) {
+
+        console.log(patternDelete, 'datalist');
         if (patternDelete.status) {
-            // patternDelete.token = patternDelete.token
-            // elistdata
-            // props.save_user_data({ user: data });
+            patternDelete.token = patternDelete.token
             toast.success("Successfully Updated Personal Information lisgg")
-            // router.push('./dashboard')
+            patternlist()
         }
         else {
-            // setErrorShow(true)
             toast.error(patternDelete.message)
         }
         // }
+        // else{
+        //     toast.error("Successfully nformation lisgg")
+
+        // }
+
+    }
+    const deletepattern = async () => {
+
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.props.profile.token
+        }
+        var body = {
+            "pattern": [
+
+            ]
+        }
+        console.log(body, 'listbody');
+
+        if (!!btnlistname) {
+            if (btnlistname == 'Stock') {
+                if (!!accounttype) {
+                    if (accounttype == 'exit for fixedPrice') {
+                        console.log('withFixed price')
+                        const withFixedPrice = {
+                            pattern_id: rowid,
+                            action: accounttype,
+                            price: listpires,
+                        };
+                        body.pattern.push(withFixedPrice);
+                    } else {
+                        const withMarketPrice = {
+                            pattern_id: rowid,
+                            action: accounttype,
+                        };
+                        body.pattern.push(withMarketPrice);
+                    }
+                }
+            } else {
+                const withOutStockObject = {
+                    pattern_id: rowid,
+                    action: 'exit',
+                }
+                body.pattern.push(withOutStockObject);
+            }
+        }
+        console.log(body, 'lkahuaahxss');
+
+        props.props.loaderRef(true)
+        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_DELETE, JSON.stringify(body), headers)
+        props.props.loaderRef(false)
+        if (!!patternDelete) {
+            if (patternDelete.status) {
+
+
+                toast.success("Successfully Updated Personal Information lisgg")
+                patternlist()
+                // router.push('./dashboard')
+            }
+            else {
+                toast.error(patternDelete.message)
+            }
+        }
+        else {
+            toast.error('list')
+
+        }
     }
     const Pausepattern = async () => {
 
@@ -767,29 +757,26 @@ const ResponsiveAppBar = (props) => {
 
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PAUSE, JSON.stringify(body), headers)
-        // var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_PLAY, headers)
-
-        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
         // console.log(patternDelete, 'datalist444');
-        // if (!!data) {
+        // if (!!patternDelete) {
         if (patternDelete.status) {
-            // patternDelete.token = patternDelete.token
-            // elistdata
-            // props.save_user_data({ user: data });
             toast.success("Successfully Updated Personal list")
-            // router.push('./dashboard')
+            patternlist()
         }
         else {
-            // setErrorShow(true)
             toast.error(patternDelete.message)
         }
+        // }else{
+        //     toast.error('list')
+
         // }
     }
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
             // playpattern()
             patternlist()
+            // Pausepattern()
         }
     }, [])
     console.log(datalist, 'stock');
@@ -1049,6 +1036,12 @@ const ResponsiveAppBar = (props) => {
                                                             id={labelId}
                                                             scope="row"
                                                             padding="none"
+                                                            onClick={() => {
+                                                                router.push({
+                                                                    pathname: './pattandeteal',
+                                                                    query: { emailID: row.id,namescoka:row.script }
+                                                                });
+                                                            }}
                                                         >
                                                             <div className={styles.typefild}>
                                                                 <div>
@@ -1090,12 +1083,7 @@ const ResponsiveAppBar = (props) => {
 
                                                             <div className={styles.listtebal}>
                                                                 <Button className={styles.viwebtnmm}
-                                                                    onClick={() => {
-                                                                        router.push({
-                                                                            pathname: './pattandeteal',
-                                                                            query: { emailID: row.id }
-                                                                        });
-                                                                    }}
+                                                                   
                                                                 // onClick={() => { setRowid(row.id) }}
                                                                 > <img height={18} src="../../edit_square.svg" /> </Button>
 
@@ -1104,7 +1092,7 @@ const ResponsiveAppBar = (props) => {
                                                                     {/* <Touchable>dilet</Touchable> */}
                                                                     {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
                                                                 </Button>}
-                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpenCompausedletbtn() }}><DeleteOutlineIcon /></Button>}
+                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>}
                                                             </div>
                                                             <div>
                                                                 <Dialog open={deletbtn} onClose={handleCloseComdeletbtn}
@@ -1133,7 +1121,9 @@ const ResponsiveAppBar = (props) => {
                                                                                 </div>
 
 
-                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}><Button>Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>Confirm</Button></div>
+                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}><Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 24PX 3PX 24PX'}}>Cancel</Button>
+                                                                                {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>SAVE </Button></div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                         </DialogContent>
@@ -1149,7 +1139,7 @@ const ResponsiveAppBar = (props) => {
                                                                     // fullWidth
                                                                     maxWidth="sm"
                                                                 >
-                                                                    <div className={styles.colosbatnlist}><Button onClick={handleCloseComdeletlog}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                    <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button onClick={handleCloseComdeletlog}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
                                                                     <div>
                                                                         <DialogContent className={styles.popupcantenar}>
                                                                             <Box className={styles.lisrmaenbox}>
@@ -1157,25 +1147,139 @@ const ResponsiveAppBar = (props) => {
                                                                                 <div className={styles.delehedar}>
                                                                                     <Typography>Delete Pattern</Typography>
                                                                                 </div>
-                                                                                <div className={styles.listimgyes}>
+                                                                                <div style={{ textAlign: 'center' }}>
                                                                                     <img src="../../Group 1000002845.svg" />
                                                                                 </div>
                                                                                 {/* <Box className={styles.listboxiduser}>
                                                                         //    <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                                                                <div>
-                                                                                    <InputLabel className={styles.leballistvvv}>Exit with  </InputLabel>
+                                                                                <div style={{ padding: '0px 40px 0px 40px' }}>
+                                                                                    <div>
+                                                                                        <Typography className={styles.texstcolor} style={{ 'color': '#333333', 'font-size': '15px', padding: '0px 0px 7px 0px' }}>Exit with  </Typography>
+                                                                                    </div>
+                                                                                    <div style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                        <ButtonGroup
+                                                                                            style={{ margin: '0px 0px 0px 10px' }}
+                                                                                            value={phonedata}
+                                                                                            buttons={["Stock", "Without Stock"]}
+                                                                                            doSomethingAfterClick={printButtonLabel}
+                                                                                        />
+
+                                                                                    </div>
+                                                                                    <div style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                        <Typography className={styles.texstcolor} style={{ 'color': '#333333', fontSize: '12px' }}>Clean up Stock from this pattern</Typography>
+                                                                                    </div>
+                                                                                    <div style={{ display: 'flex', }}>
+                                                                                        <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (16).svg" /></Avatar>
+                                                                                        <div>
+                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
+                                                                                                Sell holding stock with fixed price
+                                                                                            </Typography>
+                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
+                                                                                        </div>
+                                                                                        {checked == true ? <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
+                                                                                            disabled
+                                                                                            style={{ padding: '0px 0px 0px 20px' }}
+
+                                                                                            // checked={row.Publication} 
+                                                                                            onChange={((e) => {
+                                                                                                setSwishlist(e.target.checked)
+
+                                                                                                // editFAQ(e.target.checked, row.id)
+                                                                                                // setSwitchcheck(e.target.checked)
+                                                                                                // setIdItem(row.id,)
+                                                                                                // console.log(e.target.checked, 'checkedv');
+                                                                                                // console.log(row.id, 'myvalueee')
+                                                                                            })}
+                                                                                        /> : <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
+                                                                                            style={{ padding: '0px 0px 0px 20px' }}
+
+                                                                                            // checked={row.Publication} 
+                                                                                            onChange={((e) => {
+                                                                                                // setChecked('ZERODHA')
+                                                                                                setSwishlist(e.target.checked)
+                                                                                                setAccounttype('exit for fixedPrice')
+                                                                                                // editFAQ(e.target.checked, row.id)
+                                                                                                // setSwitchcheck(e.target.checked)
+                                                                                                // setIdItem(row.id,)
+                                                                                                // console.log(e.target.checked, 'checkedv');
+                                                                                                // console.log(row.id, 'myvalueee')
+                                                                                            })}
+                                                                                        />}
+                                                                                        {/* <SwitchUnstyled component={Root} {...label} id='switch'
+                                                                                            // checked={row.Publication} 
+                                                                                            // disabled
+                                                                                            style = {{ padding: '0px 0px 0px 20px' }}
+                                                                                            onChange={((e) => {
+                                                                                                setSwishlist(e.target.checked)
+                                                                                              
+                                                                                            })}
+                                    // editFAQ(e.target.checked, row.id)
+                                    // setSwitchcheck(e.target.checked)
+                                    // setIdItem(row.id,)
+                                    // console.log(e.target.checked, 'checkedv');
+                                    // console.log(row.id, 'myvalueee')
+                            
+                            /> */}
+                                                                                    </div>
+                                                                                    <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
+                                                                                        <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
+                                                                                        <TextField
+                                                                                            onChange={handlePinChangelist}
+                                                                                            value={listpires}
+                                                                                            className={styles.textfiladligb}
+                                                                                            style={{ padding: '0px 0px 0px 0px', width: '100px' }}
+                                                                                        />
+                                                                                    </div>
+                                                                                    {/* <div style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                    <Typography className={styles.texstcolor}  style={{'color':'#333333',fontSize:'12px'}}>Clean up Stock from this pattern</Typography>
+                                                                                </div> */}
+                                                                                    <div style={{ display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                                                        <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
+                                                                                        <div>
+                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
+                                                                                                Sell holding stock with fixed price
+                                                                                            </Typography>
+                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
+                                                                                        </div>
+                                                                                        {swishlist == true ? <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
+                                                                                            disabled
+                                                                                            style={{ padding: '0px 0px 0px 20px' }}
+
+                                                                                            // checked={row.Publication} 
+                                                                                            onChange={((e) => {
+                                                                                                setChecked(e.target.checked)
+
+                                                                                                // editFAQ(e.target.checked, row.id)
+                                                                                                // setSwitchcheck(e.target.checked)
+                                                                                                // setIdItem(row.id,)
+                                                                                                // console.log(e.target.checked, 'checkedv');
+                                                                                                // console.log(row.id, 'myvalueee')
+                                                                                            })}
+                                                                                        /> : <SwitchUnstyled component={Root}  {...label} id='switch'
+                                                                                            style={{ padding: '0px 0px 0px 20px' }}
+                                                                                            // checked={row.Publication} 
+                                                                                            onChange={((e) => {
+                                                                                                // setChecked('ZERODHA')
+                                                                                                setChecked(e.target.checked)
+                                                                                                setAccounttype('exit for market')
+                                                                                                // editFAQ(e.target.checked, row.id)
+                                                                                                // setSwitchcheck(e.target.checked)
+                                                                                                // setIdItem(row.id,)
+                                                                                                // console.log(e.target.checked, 'checkedv');
+                                                                                                // console.log(row.id, 'myvalueee')
+                                                                                            })}
+                                                                                        />}
+
+
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div>
-                                                                                    <ButtonGroup
-                                                                                        style={{ margin: '0px 0px 0px 10px' }}
-                                                                                        //  value={phonedata}
-                                                                                        buttons={["Stock", "Without Stock"]}
-                                                                                        doSomethingAfterClick={printButtonLabel}
-                                                                                    />
-                                                                                    {/* <Button style={{ 'background': '#053159', 'border-radius': '20px', 'font-size': '11px', 'color': '#fff', textTransform: 'capitalize', 'height': '25px' }}>Stock</Button>
-                                                                                    <Button style={{ 'background': '#053159', 'border-radius': '20px', 'font-size': '11px', 'color': '#fff', textTransform: 'capitalize', 'height': '25px' }}>Without Stock</Button> */}
-                                                                                </div>
-                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}><Button>Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn} onClick={handleClickOpenCom}>Confirm</Button></div>
+                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
+                                                                                <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseComdeletlog}>Cancel</Button>
+                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>
+                                                                                    {/* <Button>Cancel</Button> */}
+                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                    {/* <Button className={styles.cofimbatn} onClick={deletepattern}>Confirm</Button> */}
+                                                                                    </div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                         </DialogContent>
@@ -1272,7 +1376,15 @@ const ResponsiveAppBar = (props) => {
                                                                                 <div className={styles.divpopupspn}>
                                                                                     {isoutField == '' ? '' : <span className={styles.otperr}>Please Enter Valid list</span>}
                                                                                 </div>
-                                                                                <div className={styles.cancelbtnlog}><Button>Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn} onClick={edituser}>Confirm</Button></div>
+                                                                                <div className={styles.cancelbtnlog} style={{padding:'25px 0px 0px 0px'}}>
+                                                                                {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
+                                                                                    <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseComplay}>Cancel</Button>
+
+                                                                                {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
+                                                                                    {/* <Button>Cancel</Button> */}
+                                                                                {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituser(),handleCloseComplay()}}>SAVE </Button>
+                                                                                </div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                         </DialogContent>
@@ -1320,7 +1432,14 @@ const ResponsiveAppBar = (props) => {
                                                                                     {isoutField == '' ? '' : <span className={styles.otperr}>Please Enter Valid list</span>}
                                                                                 </div>
                                                                                 {/* </Box> */}
-                                                                                <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn} onClick={edituserlistpause}>Confirm</Button></div>
+                                                                                <div className={styles.cancelbtnlog}>
+                                                                                <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseCompause}>Cancel</Button>
+                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituserlistpause(),handleCloseCompause()}}>SAVE </Button>
+
+                                                                                    {/* <Button >Cancel</Button> */}
+                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                    {/* <Button className={styles.cofimbatn} onClick={edituserlistpause}>Confirm</Button> */}
+                                                                                    </div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                         </DialogContent>
@@ -1330,20 +1449,45 @@ const ResponsiveAppBar = (props) => {
                                                         </TableCell>
 
                                                     </TableRow>
+                                               
+
                                                 );
                                             })}
+                                          
                                         {emptyRows > 0 && (
                                             <TableRow
                                                 style={{
                                                     height: (dense ? 33 : 53) * emptyRows,
                                                 }}
                                             >
-                                                <TableCell colSpan={6} />
+                                                {/* <TableCell colSpan={6} /> */}
                                             </TableRow>
                                         )}
+
                                     </TableBody>
+                                    {/* <TableFooter> */}
+
+                                    {/* </TableFooter> */}
                                     <TableFooter>
-                                        <TableRow >
+                                    {/* <TableRow> */}
+                                    <Accordion style={{width:'100%'}}>
+                                                            <AccordionSummary
+                                                                expandIcon={<ExpandMoreIcon />}
+                                                                aria-controls="panel1a-content"
+                                                                id="panel1a-header"
+                                                            >
+                                                                <Typography>Accordion 1</Typography>
+                                                            </AccordionSummary>
+                                                            <AccordionDetails>
+                                                               {/* <Typography>
+                                                                    Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                                                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                                </Typography> */}
+                                                            </AccordionDetails>
+                                                        </Accordion>
+                                        {/* </TableRow> */}
+                                        <TableRow>
+                                        
                                             <TablePagination
                                                 className={styles.tablePagination}
                                                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}

@@ -1,6 +1,4 @@
 import * as React from "react";
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/index.module.css";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -15,7 +13,9 @@ import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 import OrderHistory from "../componehts/OrderHistory/OrderHistory";
 import Summary from "../componehts/pattern/patterndetails";
-
+import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import TodayOrder from '../componehts/todayorder/todayorder';
 import Chart from '../componehts/chart/chart'
 
@@ -52,9 +52,17 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-export default function PatternDetail() {
-  const [value, setValue] = React.useState(0);
+const ResponsiveAppBar = (props) => {
+  console.log(props.loaderRef,'listprops');
+  const router = useRouter();
 
+  console.log(router.query.namescoka,'gvvvvv');
+
+// export default function PatternDetail(props) {
+  console.log(props.emailID,'hvgfhhg');
+  const [value, setValue] = React.useState(0);
+  const[listdatall,setListDatall] =React.useState('')
+console.log(value,'listdatall');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -64,10 +72,25 @@ export default function PatternDetail() {
         <Box className={styles.container_list80}>
           <Newbar />
           <Box component={Paper} className={styles.container_box}>
+          <Button className={styles.listpattbek} style={{color:'black',testTransform:'capitalize'}} 
+          onClick={() => {
+                                                                router.push({
+                                                                    pathname: './home',
+                                                                    // query: { emailID: row.id,namescoka:row.script }
+                                                                });
+                                                            }}
+        
+          ><KeyboardReturnIcon />Pattern</Button>
+
             <Box className={styles.flex}>
+
               <Box className={styles.wid_1 + " " + styles.pad_12}>
-                <Typography variant="h5" className={styles.typo}>
-                  AAPL
+              {value ==2 || value ==1 ?
+              <Typography variant="h5" className={styles.typo}>
+               
+               {router.query.namescoka}
+               </Typography>:<Typography variant="h5" className={styles.typo}>
+                  {router.query.namescoka}
                   <ArrowDropUpIcon
                     fontSize={"large"}
                     className={styles.dropup_icon}
@@ -75,7 +98,8 @@ export default function PatternDetail() {
                   <span className={styles.span_1}>
                     97.75 <span className={styles.span}> (0.66%)</span>
                   </span>
-                </Typography>
+                  
+                </Typography>}
               </Box>
               <Box
                 className={
@@ -127,16 +151,21 @@ export default function PatternDetail() {
                       }}
                     >
                       <Tab
+                   
                         label="Summary"
                         {...a11yProps(0)}
                         className={styles.active + " " + styles.btn}
                       />
                       <Tab
+                         onClick={
+                        ()=>{setListDatall('orderhistory')}}
                         label="Today’s orders"
                         {...a11yProps(1)}
                         className={styles.btn}
                       />
                       <Tab
+                       onClick={
+                        ()=>{setListDatall('orderhistory')}}
                         label="Order History"
                         {...a11yProps(2)}
                         className={styles.btn}
@@ -157,11 +186,11 @@ export default function PatternDetail() {
                 <Box>
                   <TabPanel  value={value} index={0}>
                     {/* {/ Summary /} */}
-                    <Summary />
+                    <Summary proidlists={router.query.emailID} props={props} />
                   </TabPanel>
                   <TabPanel className={styles.tbapenalist} style={{ padding: '0px' }}  value={value} index={1}>
                     {/* {/ Today’s orders /} */}
-                    <TodayOrder  />
+                    <TodayOrder  props={router.query.emailID}/>
                   </TabPanel>
                   <TabPanel value={value} index={2}>
                   <OrderHistory />
@@ -184,3 +213,13 @@ export default function PatternDetail() {
     </Grid>
   );
 }
+const mapStateToProps = (state) => ({
+  profile: state.user.profile
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  save_user_data: (data) =>
+     dispatch({ type: Types.LOGIN, payload: data }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);

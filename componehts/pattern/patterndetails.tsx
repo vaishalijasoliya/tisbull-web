@@ -1,7 +1,84 @@
 import styles from "./patterndetail.module.scss";
 import { Box, Divider, Grid, Typography } from "@mui/material";
+import ApiServices from '../../config/ApiServices';
+import ApiEndpoint from '../../config/ApiEndpoint';
+import { Types } from '../../constants/actionTypes'
+import { connect } from 'react-redux';
+import React, { useState } from "react";
+import moment from 'moment';
 
-export default function Summary() {
+const ResponsiveAppBar = (props) => {
+    console.log( props.listlodar,'propsprops');
+    const [data, setData] = useState([])
+    const[listpatt,setListpatt] =useState([])
+    console.log(listpatt,'data55');
+    
+    const patternlist = async () => {
+
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        var body = {
+            "id_pattern": props.proidlists,
+            // props.idlist,
+            // email: props.email,
+            // otp: outField
+        }
+        console.log(body, 'body');
+
+        props.props.loaderRef(true)
+        // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
+        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
+
+        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
+        props.props.loaderRef(false)
+        // console.log(patternDelete.pattern.buy, 'datalistddd');
+
+        if (!!patternDelete) {
+            if (patternDelete.status == true) {
+                setListpatt(patternDelete.pattern.quote)
+                setData(patternDelete.pattern)
+        //         const accoyty = [];
+        //         const datalist = [];
+        //         const datalogo = []
+                const listdata = []
+                // for (let index = 0; index < patternDelete.pattern.length; index++) {
+                    // const element = patternDelete.pattern[index];
+                    // console.log(patternDelete.element,'element');
+                    
+        //             const object = {
+        //                 id: element.id,
+        //                 script: element.name,
+        //                 exchange: element.exchange,
+        //                 type_pattern: element.orderId,
+        //                 investment: element.quantity,
+        //                 profit: element.price,
+        //                 stock: element.transactionType,
+        //                 created_at: element.createdAt,
+        //                 status: element.status
+                    // }
+                    // listdata.push(JSON.parse(JSON.stringify(patternDelete)))
+        //             datalogo.push(JSON.parse(JSON.stringify(object.status)))
+        //             datalist.push(JSON.parse(JSON.stringify(object)))
+        //             accoyty.push(JSON.parse(JSON.stringify(object)))
+        //             // csvall.push(objectcsv)
+                }
+        //         setDatasars(listdata)
+        //         setDatalist(datalogo)
+        //         setDatatebalpettan(accoyty)
+              
+        //     }
+
+        }
+    }
+    console.log(data,'listkkk');
+    
+    React.useEffect(() => {
+        if (!!props.profile && !!props.profile.token) {
+            patternlist()
+        }
+    }, [])
     return (
         <Grid container>
             <Grid  item sm={12} md={12} xs={12}>
@@ -10,7 +87,7 @@ export default function Summary() {
                 <div style={{display:'flex',alignItems:'center',padding:'0px 50px 0px 0px'}}>
                     <div >
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Script</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>AAPL</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.script}</Typography>
                     </div>
                     <div style={{padding:'0px 0px 0px 25px'}}>
                         <Box style={{'background': 'rgba(240, 240, 240, 0.97)','borderRadius':'2px',padding:'1px 2px 1px 2px'}}><Typography style={{'font-size':'6px','color':'#858789'}}>NSE</Typography></Box>
@@ -22,19 +99,19 @@ export default function Summary() {
                     </div>
                     <div style={{padding:'0px 80px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Entry</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>400</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.enterPrice == null ? '-':data.enterPrice}</Typography>
                     </div>
                     <div style={{padding:'0px 80px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Exit</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>500</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.exitPrice == null ? '-' :data.exitPrice}</Typography>
                     </div>
                     <div style={{padding:'0px 80px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Buy Diffrerance</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>5</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.buy == null ? '-' : data.buy}</Typography>
                     </div>
                     <div style={{padding:'0px 80px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Sell Diffrerance</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>10</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.sell == null ? '-' :data.sell}</Typography>
                     </div>
                     <div style={{padding:'0px 80px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Target</Typography>
@@ -48,7 +125,7 @@ export default function Summary() {
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Investment</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>100k</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.investment == '' ?'-':data.investment}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>No. of Levels</Typography>
@@ -60,15 +137,15 @@ export default function Summary() {
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Tick Type</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>10</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.tickSize == null ? '-':data.tickSize}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Created At</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>12/10/2022 10:10:12</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{ moment(data.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Edited At</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>12/10/2022 10:10:12</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{ moment(data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                     </div>
               </div>
               </div>
@@ -85,7 +162,7 @@ export default function Summary() {
              <div style={{display:'flex',padding:'20px 0px 40px 60px'}}>
                 <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Profit</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>450</Typography>
+                        <Typography className={data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold"}}>{data.todayprofit == null ? '-':data.todayprofit }</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Loss</Typography>
@@ -93,19 +170,19 @@ export default function Summary() {
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Pending orders</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>10</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.pendingOrder == null ? '-':data.pendingOrder}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Executed Orders</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>350</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.executedOrder == null ? '-' :data.executedOrder}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Stock</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>5</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{data.stock == null ? '-':data.stock }</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Profit</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>350</Typography>
+                        <Typography className={data.profit >=0 ? styles.peregarflistlist:styles.redline} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>{data.profit == null ? '-' :data.profit}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Loss</Typography>
@@ -120,10 +197,12 @@ export default function Summary() {
               <div style={{padding:'30px 0px 0px 58px'}}>
                     <Typography className={styles.peregarflist} style={{'font-size': '15px','color': '#333333',fontWeight:'bold',borderBottom:'3px solid #009947','borderRadius':'2px',width:'102px'}}>Market Depth </Typography>
                 </div>
+                {/* {listpatt.map((row, index) => { */}
                 <div style={{display:'flex',padding:'30px 0px 0px 58px'}}>
+                   
                 <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Open</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>410</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{listpatt.open_price}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Prev. Close</Typography>
@@ -131,15 +210,18 @@ export default function Summary() {
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>High</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>400</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>
+{/* {row.low_price} */}
+                            {listpatt.high_price == null ? '-':listpatt.high_price}
+                            </Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Low</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>390</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{listpatt.low_price ==null ?"-":listpatt.low_price  }</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Volumn</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>50,000</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>{listpatt.wtoken == null ? '-' :listpatt.wtoken}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Market Cap </Typography>
@@ -150,6 +232,8 @@ export default function Summary() {
                         <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#333333'}}>600</Typography>
                     </div>
                 </div>
+                {/* })} */}
+
                 <div style={{display:'flex',padding:'30px 0px 50px 58px'}}>
                 <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Lower circuit</Typography>
@@ -169,3 +253,13 @@ export default function Summary() {
         </Grid >
     );
 }
+const mapStateToProps = (state) => ({
+    profile: state.user.profile
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    save_user_data: (data) =>
+        dispatch({ type: Types.LOGIN, payload: data }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);

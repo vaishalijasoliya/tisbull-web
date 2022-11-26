@@ -1,5 +1,4 @@
-import Head from 'next/head'
-import Image from 'next/image'
+
 import styles from '../ChangePassedit/ChangePassedit.module.scss'
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@material-ui/core';
@@ -24,10 +23,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 const Home = (props) => {
     // console.log(  toast.error("Please Enter Correct Password"),'prodbh');
 
-    const [showPassword, setShowPassword] = useState(false)
+    // const [showPassword, setShowPassword] = useState(false)
     const [showPasswordlist, setShowPasswordlist] = useState(false)
-    const [showPasswordlistdata, setShowPasswordlistdata] = useState(false)
-    const [showPasswordicon, setShowPasswordicon] = useState("yes")
+    // const [showPasswordlistdata, setShowPasswordlistdata] = useState(false)
+    // const [showPasswordicon, setShowPasswordicon] = useState("yes")
     const [logo,setLogo] = useState([])
     const router = useRouter();
     // setLogo('http://198.71.53.215:3001/7aae52796c8e086b3c2eb2403.jpeg')
@@ -53,14 +52,7 @@ const Home = (props) => {
 
         if (!!patternDelete && patternDelete.status == true) {
             
-            // formik.setFieldValue('ConsumerKey', patternDelete.data.);
-            // formik.setFieldValue('ConsumerSecret', patternDelete.data.email)
-            // formik.setFieldValue('phone', patternDelete.data.phone_no)
-            // formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("MM/DD/YYYY"))
-            // formik.setFieldValue('Address', patternDelete.data.address)
-            // formik.setFieldValue('Gender', patternDelete.data.gender)
-            // setPhonedata(patternDelete.data.phone_no)
-            // setAge(patternDelete.data.gender)
+       
             setLogo(patternDelete.data.profileUrl)
         } 
         else {
@@ -68,43 +60,7 @@ const Home = (props) => {
         }
     }
 
-    //   const onLoginPresslist = async () => {
-    //     var body = {
-    //       // 'id_user': props.userid,
-    //       'current_password':formik.values.oldPassword,
-    //       'new_password': formik.values.newPassword,
-
-    //       // 'reTypePassword': formik.values.reTypePassword
-    //     }
-    //     console.log(body, 'body');
-
-    //     var headers = {
-    //       "Content-Type": "application/json",
-    //       "x-access-token": props.profile.token
-    //     }
-    //     console.log(body, 'body')
-    //     props.props.loaderRef(true)
-    //     var data = await ApiServices.PostApiCall(ApiEndpoint.USERCHANGEPASS, JSON.stringify(body), headers);
-    //     props.props.loaderRef(false)
-    //     console.log(data, 'data');
-    //     if (!!data) {
-    //       if (data.status == true) {
-    //         data.token = data.token
-    //         // elistdata
-    //         props.save_user_data({ user: data });
-    //         toast.success("Password Changed Succesfully")
-    //         // router.push('./dashboard')
-    //       } 
-    //       // else {
-    //       //   // setErrorShow(true)
-    //       //   toast.error(data.message)
-    //       // }
-    //     } 
-    //     else {
-    //       toast.error("Please Enter Correct Password")
-    //     }
-
-    //   }
+   
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
@@ -153,7 +109,7 @@ const Home = (props) => {
                     'Password is required'),
         }),
         onSubmit: async () => {
-            await onLoginPresslist();
+             onLoginPresslist();
         },
     });
     return (

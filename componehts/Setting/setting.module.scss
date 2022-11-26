@@ -5,7 +5,9 @@
     // src: url(../../styles/popins//Poppins-Regular.ttf);
     // src: url(../../popins/Poppins-Regular.ttf)
 }
-
+.personlist{
+    background-color: red;
+}
 // .cantenar_list100{
 //     height: 100vh;
 // }
@@ -66,10 +68,12 @@
     font-family: Poppins-400 !important;
     font-size: 16px !important;
     color: #FFFFFF !important;
-    margin: 0px 0px 10px 12px !important;
+    // margin: 0px 0px 10px 12px !important;
     text-transform: capitalize !important;
     background: #405E7A !important;
     border-radius: 20px !important;
+    margin: 0px 0px 10px 10px !important;
+
 }
 
 .personlist2 {
@@ -79,17 +83,17 @@
     font-family: Poppins-400 !important;
     font-size: 16px !important;
     color: #FFFFFF !important;
-    margin: 0px 0px 0px 20px !important;
+    margin: 0px 0px 10px 10px !important;
     text-transform: capitalize !important;
     border-radius: 20px !important;
 }
 
-.personlist2:hover {
-    background: #405E7A !important;
+// .personlist2:hover {
+//     background: #405E7A !important;
 
-}
+// }
 
-.accontbtn button:hover {
+.accontbtn22 {
     background: #405E7A !important;
 
 }

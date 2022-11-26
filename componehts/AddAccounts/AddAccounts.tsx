@@ -1,5 +1,4 @@
-import Head from 'next/head'
-import Image from 'next/image'
+
 import styles from './AddAccounts.module.scss'
 import Grid from '@mui/material/Grid';
 import { Box, Button, LinearProgress, List, Typography } from '@material-ui/core';
@@ -16,6 +15,8 @@ import TextField from '@mui/material/TextField';
 import ApiServices from '../../config/ApiServices';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import React, { useState } from "react";
+
 import ApiEndpoint from '../../config/ApiEndpoint';
 // import Login from '../componehts/imdex/login';
 // import Newbar from '../componehts/newbar/testnewbar';
@@ -97,7 +98,20 @@ const blue = {
     500: '#36DAB2',
 };
 export default function Home(props) {
+    const [checked, setChecked] = React.useState(false);
+    const [swishlist, setSwishlist] = React.useState(false);
+    const [accounttype, setAccounttype] = React.useState('')
+    const [switchCheck, setSwitchcheck] = React.useState([])
+    const [cekboxlist, setCekboxlist] = React.useState(false)
+    console.log(checked, 'checked');
+    console.log(accounttype, 'accounttype');
 
+    // const switchchange = (e) => {
+    //     // isChecked: !e.target.checked
+    //     setChecked(e.target.checked)
+    //     setSwitchcheck(e.target.checked)
+    //     console.log(switchCheck, 'myvaxrlueee')
+    // }
 
     const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
 
@@ -108,6 +122,9 @@ export default function Home(props) {
             'consumer_key': formik.values.consumer_key,
             'password': formik.values.password,
             'consumer_secret': formik.values.consumer_secret,
+            'type': accounttype,
+            "env": 'production'
+
             // 'listemail':
         }
         console.log(body, 'body');
@@ -122,19 +139,19 @@ export default function Home(props) {
         var data = await ApiServices.PostApiCall(ApiEndpoint.ADD_ACCOUNT, JSON.stringify(body), headers);
         props.props.loaderRef(false)
         console.log(data, 'listdata55');
-        // if (!!data) {
-        if (data.status == true) {
-            data.token = data.token
-            // elistdata
-            // props.save_user_data({ user: data });
-            toast.success("Logged In Succesfully")
-            // router.push('./dashboard')
+        if (!!data) {
+            if (data.status == true) {
+                // data.token = data.token
+                // elistdata
+                // props.save_user_data({ user: data });
+                toast.success("Logged In Succesfully")
+                // router.push('./dashboard')
+            }
+            else {
+                // setErrorShow(true)
+                toast.error(data.message)
+            }
         }
-        // else {
-        //     // setErrorShow(true)
-        //     toast.error(data.message)
-        // }
-        // }
         else {
             toast.error('Something went wrong.')
         }
@@ -197,17 +214,32 @@ export default function Home(props) {
                         </div>
                     </div>
                     <div className={styles.switchadd}>
-                        <SwitchUnstyled component={Root} onChange={console.log('virang') } {...label} id='switch'
-                        // checked={row.Publication} 
-                        onChange={((e) => {
-                                                                    setChecked(e.target.checked)
-                                                                    // editFAQ(e.target.checked, row.id)
-                                                                    // setSwitchcheck(e.target.checked)
-                                                                    // setIdItem(row.id,)
-                                                                    console.log(e.target.checked, 'checkedv');
-                                                                    // console.log(row.id, 'myvalueee')
-                                                                })} 
-                        />
+                        {swishlist == true ? <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
+                            disabled
+                            // checked={row.Publication} 
+                            onChange={((e) => {
+                                setChecked(e.target.checked)
+
+                                // editFAQ(e.target.checked, row.id)
+                                // setSwitchcheck(e.target.checked)
+                                // setIdItem(row.id,)
+                                // console.log(e.target.checked, 'checkedv');
+                                // console.log(row.id, 'myvalueee')
+                            })}
+                        /> : <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
+
+                            // checked={row.Publication} 
+                            onChange={((e) => {
+                                // setChecked('ZERODHA')
+                                setChecked(e.target.checked)
+                                setAccounttype('zerodha')
+                                // editFAQ(e.target.checked, row.id)
+                                // setSwitchcheck(e.target.checked)
+                                // setIdItem(row.id,)
+                                // console.log(e.target.checked, 'checkedv');
+                                // console.log(row.id, 'myvalueee')
+                            })}
+                        />}
                     </div>
                 </div>
                 <Divider className={styles.divaydaravta}></Divider>
@@ -225,17 +257,32 @@ export default function Home(props) {
                         </div>
                     </div>
                     <div className={styles.switchadd}>
-                        <SwitchUnstyled component={Root} {...label} id='switch'
-                        // checked={row.Publication} 
-                        // onChange={((e) => {
-                        //                                             setChecked(e.target.checked)
-                        //                                             editFAQ(e.target.checked, row.id)
-                        //                                             setSwitchcheck(e.target.checked)
-                        //                                             setIdItem(row.id,)
-                        //                                             console.log(e.target.checked, 'checkedv');
-                        //                                             console.log(row.id, 'myvalueee')
-                        //                                         })} 
-                        />
+                        {checked == true ?
+                            <SwitchUnstyled component={Root} {...label} id='switch'
+                                // checked={row.Publication} 
+                                disabled
+                                onChange={((e) => {
+                                    setSwishlist(e.target.checked)
+
+                                    // editFAQ(e.target.checked, row.id)
+                                    // setSwitchcheck(e.target.checked)
+                                    // setIdItem(row.id,)
+                                    // console.log(e.target.checked, 'checkedv');
+                                    // console.log(row.id, 'myvalueee')
+                                })}
+                            /> :
+                            <SwitchUnstyled component={Root} {...label} id='switch'
+                                // checked={row.Publication} 
+                                onChange={((e) => {
+                                    setSwishlist(e.target.checked)
+                                    setAccounttype('kotak')
+                                    // editFAQ(e.target.checked, row.id)
+                                    // setSwitchcheck(e.target.checked)
+                                    // setIdItem(row.id,)
+                                    // console.log(e.target.checked, 'checkedv');
+                                    // console.log(row.id, 'myvalueee')
+                                })}
+                            />}
                     </div>
                 </div>
                 <Divider className={styles.divaydaravta}></Divider>
@@ -321,15 +368,27 @@ export default function Home(props) {
             {/* </form> */}
             <Grid item sm={12} md={12} xs={12}>
                 <div className={styles.typoandchek}>
-                <div>
-                    <Checkbox style={{borderRadius:'15px'}} defaultChecked />
-                </div>
-                <div>
-                    <Typography>By ticking, you are confirming that you have read,  understand and agree to  our</Typography>
-                </div>
-                <div>
-                    <a> terms and conditions.</a>
-                </div>
+                    <div>
+                        <Checkbox style={{ borderRadius: '15px' }}
+                            onChange={((e) => {
+                                setCekboxlist(e.target.checked)
+                                // setChecked('ZERODHA')
+                                // setChecked(e.target.checked)
+                                // editFAQ(e.target.checked)
+                                // setSwitchcheck(e.target.checked)
+                                // setIdItem(row.id,)
+                                // console.log(e.target.checked, 'cvvvheckedv');
+                                // console.log(row.id, 'myvalueee')
+                            })}
+                        //  defaultChecked
+                        />
+                    </div>
+                    <div>
+                        <Typography>By ticking, you are confirming that you have read,  understand and agree to  our</Typography>
+                    </div>
+                    <div>
+                        <a> terms and conditions.</a>
+                    </div>
                 </div>
             </Grid>
         </Grid>

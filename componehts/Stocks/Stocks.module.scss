@@ -14,7 +14,18 @@
     font-family: roboto-600;
     src: url(../../styles/Roboto/Roboto-Bold.ttf);
 }
-
+.texstcolor{
+    font-family: roboto-600 !important;
+}
+.textfiladligb{
+    border-radius: 10px !important;
+    input{
+        padding: 0px 0px 0px 10px!important;
+    }
+}
+.texstcolor22{
+    font-family: roboto-400!important;
+}
 .listchekboix{
     padding: 0px 0px 0px 50px !important;
 }
@@ -29,14 +40,16 @@
 }
 
 .divpopupspn {
-    padding: 6px 0px 0px 33px;
+    text-align: center;
+    padding: 6px 0px 0px 0px;
 }
 
 .active {
     background: #053159;
     border-radius: 20px;
-    margin: 0px 0px 0px 10px;
+    margin: 0px 10px 0px 0px;
     border: 1px solid #053159;
+    padding: 0px 10px 0px 10px;
     // border-radius: 20px;
     color: #FFFFFF !important;
     // width: 56px;
@@ -44,7 +57,7 @@
     font-size: 11px;
     font-family: roboto-400;
     text-transform: capitalize;
-    height: 25px;
+    height: 22px;
 }
 
 .active2 {
@@ -54,6 +67,8 @@
     // width: 56px;
     // color: #053159;
     font-size: 11px;
+    background:#fff;
+    margin: 0px 10px 0px 0px;
     font-family: roboto-400;
     text-transform: capitalize;
     height: 25px;
@@ -81,13 +96,15 @@
 }
 
 .btn_all_buy {
-    padding: 10px 0px 0px 28px;
+    padding: 10px 0px 0px 0px;
+    text-align: center;
 
     button {
         margin: 0px 0px 0px 10px;
         border: 1px solid #053159;
         border-radius: 20px;
         color: #053159;
+        width: 79px;
         font-size: 11px;
         font-family: roboto-400;
         text-transform: capitalize;
@@ -101,13 +118,14 @@
     // }
 }
 
-.cofimbatn {
-    color: #E31E24 !important;
+// .cofimbatn {
+//     color: #E31E24 !important;
 
-}
+// }
 
 .pustlebal {
-    padding: 20px 0px 0px 37px;
+    padding: 20px 0px 0px 0px;
+    text-align: center;
 
     p {
         font-family: roboto-600;
@@ -151,7 +169,7 @@
         margin: 0px 15px 0px 15px;
         font-family: Poppins-400;
         text-transform: capitalize !important;
-        font-size: 20px;
+        font-size: 12px;
         // line-height: 22px;
         // text-align: center;
         color: #4285F4;
@@ -627,6 +645,8 @@ color: #4285F4 !important;
     border-radius: 10px;
     // display: flex;
     align-items: center;
+    box-shadow: 0px 0px 16px rgb(0 0 0 / 10%);
+
     // margin-left: 30px !important;
     // margin-top: 30px !important;
 
@@ -638,7 +658,7 @@ color: #4285F4 !important;
         border-radius: 10px;
         font-size: 16px;
         background-color: #F9F9F9;
-        // background-image: url(../../public/Search.svg);
+        background-image: url(../../public/Search.svg);
         background-position: 18px 50%;
         background-repeat: no-repeat;
         padding: 18px 0px 18px 56px;
@@ -839,14 +859,14 @@ color: #4285F4 !important;
     // margin-top: 30px !important;
 
     .searchbtn {
-        width: 320px;
+        width: 100px;
         box-sizing: border-box;
-        height: 56px;
+        height: 4px;
         border: 1px solid #F0F0F0;
         border-radius: 10px;
         font-size: 16px;
         background-color: #F9F9F9;
-        // background-image: url(../../public/Search.svg);
+        background-image: url(../../public/Search.svg);
         background-position: 18px 50%;
         background-repeat: no-repeat;
         padding: 18px 0px 18px 56px;
@@ -855,7 +875,9 @@ color: #4285F4 !important;
         cursor: text;
         box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.02);
     }
-    
+    .searchbtn:focus{
+        width: 100%;
+    }
     .filterlist {
         font-family: Poppins-400 !important;
         background: #FFFFFF;
