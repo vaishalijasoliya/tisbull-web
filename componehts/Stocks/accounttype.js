@@ -1,106 +1,62 @@
-import styles from './accounttype.module.scss'
-import Grid from '@mui/material/Grid';
-import { connect } from 'react-redux';
-// import { Avatar, Box, Button, Typography } from '@mui/material';
-import Paper from '@mui/material/Paper';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { alpha } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import React, { useState } from "react";
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import moment from 'moment'
-import Divider from '@mui/material/Divider';
-import CsvDownloader from 'react-csv-downloader';
-import { CSVLink, CSVDownload } from 'react-csv';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
 import TablePagination from '@mui/material/TablePagination';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { Avatar, Box, Button, Typography, TableFooter, useTheme } from '@mui/material';
-import PropTypes from "prop-types";
-import { toast } from 'react-toastify';
-
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import LastPageIcon from "@mui/icons-material/LastPage";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogContent from '@mui/material/DialogContent';
+import Grid from '@mui/material/Grid';
+import styles from './accounttype.module.scss'
+import { Button } from '@mui/material';
+import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import Menu from '@mui/material/Menu';
+import Divider from '@mui/material/Divider';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { Types } from '../../constants/actionTypes'
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
-interface Data {
-    // calories: number;
-    // carbs: number;
-    // fat: number;
-    Script: string;
-    NSE: string;
-    Type: string;
-    consumer_key: number;
-    Profit: number;
-    Stocks: number;
-    Created: string;
-    Status: string;
-    // protein: number;
-}
+import Avatar from '@mui/material/Avatar';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import moment from 'moment'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Dialog from '@mui/material/Dialog';
+import { CSVLink, CSVDownload } from 'react-csv';
 
-function createData(
-    Script: string,
-    NSE: string,
-    Type: string,
-    consumer_key: number,
-    Profit: number,
-    Stocks: number,
-    Created: string,
-    Status: string,
-    // calories: number,
-    // fat: number,
-    // carbs: number,
-    // protein: number,
-): Data {
+import DialogContent from '@mui/material/DialogContent';
+function createData(name, calories, fat, carbs, protein) {
     return {
-        Script,
-        NSE,
-        Type,
-        consumer_key,
-        Profit,
-        Stocks,
-        Created,
-        Status,
-        // calories,
-        // fat,
-        // carbs,
-        // protein,
+        name,
+        calories,
+        fat,
+        carbs,
+        protein,
     };
 }
 
-// const rows = [
-//     createData('Cupcake', 'uqwdgasd', 'hyggg', 3.7, 67, 4.3, '01-10-2022', 'Active'),
-//     // createData('Donut', 452, 25.0, 51, 4.9),
-//     // createData('Eclair', 262, 16.0, 24, 6.0),
-//     // createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     // createData('Gingerbread', 356, 16.0, 49, 3.9),
-//     // createData('Honeycomb', 408, 3.2, 87, 6.5),
-//     // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     // createData('Jelly Bean', 375, 0.0, 94, 0.0),
-//     // createData('KitKat', 518, 26.0, 65, 7.0),
-//     // createData('Lollipop', 392, 0.2, 98, 0.0),
-//     // createData('Marshmallow', 318, 0, 81, 2.0),
-//     // createData('Nougat', 360, 19.0, 9, 37.0),
-//     // createData('Oreo', 437, 18.0, 63, 4.0),
-// ];
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
     }
@@ -110,15 +66,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     return 0;
 }
 
-type Order = 'asc' | 'desc';
-
-function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key,
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-) => number {
+function getComparator(order, orderBy) {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
@@ -126,8 +74,8 @@ function getComparator<Key extends keyof any>(
 
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
         if (order !== 0) {
@@ -138,85 +86,7 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
     return stabilizedThis.map((el) => el[0]);
 }
 
-interface HeadCell {
-    disablePadding: boolean;
-    id: keyof Data;
-    label: string;
-    numeric: boolean;
-}
-function TablePaginationActions(props: {
-    count: any;
-    page: any;
-    rowsPerPage: any;
-    onPageChange: any;
-}) {
-    const theme = useTheme();
-    const { count, page, rowsPerPage, onPageChange } = props;
-
-    const handleFirstPageButtonClick = (event: any) => {
-        onPageChange(event, 0);
-    };
-
-    const handleBackButtonClick = (event: any) => {
-        onPageChange(event, page - 1);
-    };
-
-    const handleNextButtonClick = (event: any) => {
-        onPageChange(event, page + 1);
-    };
-
-    const handleLastPageButtonClick = (event: any) => {
-        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-    };
-    return (
-        <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-            <IconButton
-                onClick={handleFirstPageButtonClick}
-                disabled={page === 0}
-                aria-label="first page"
-            >
-                {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
-            </IconButton>
-            <IconButton
-                onClick={handleBackButtonClick}
-                disabled={page === 0}
-                aria-label="previous page"
-            >
-                {theme.direction === "rtl" ? (
-                    <KeyboardArrowRight />
-                ) : (
-                    <KeyboardArrowLeft />
-                )}
-            </IconButton>
-            <IconButton
-                onClick={handleNextButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="next page"
-            >
-                {theme.direction === "rtl" ? (
-                    <KeyboardArrowLeft />
-                ) : (
-                    <KeyboardArrowRight />
-                )}
-            </IconButton>
-            <IconButton
-                onClick={handleLastPageButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="last page"
-            >
-                {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
-            </IconButton>
-        </Box>
-    );
-}
-TablePaginationActions.propTypes = {
-    count: PropTypes.number.isRequired,
-    onPageChange: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
-};
-
-const headCells: readonly HeadCell[] = [
+const headCells = [
     {
         id: 'Type',
         numeric: false,
@@ -224,37 +94,26 @@ const headCells: readonly HeadCell[] = [
         label: 'Type',
     },
     {
-        id: 'Environments',
+        id: 'Type',
         numeric: true,
         disablePadding: false,
         label: 'User ID',
     },
     {
-        id: 'Consumer Key',
+        id: 'Investment',
         numeric: true,
         disablePadding: false,
         label: 'Consumer Key',
     },
     {
-        id: 'consumer_secret',
+        id: 'Profit',
         numeric: true,
         disablePadding: false,
         label: 'Consumer Secret',
     },
-    // {
-    //     id: 'User ID',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'User ID',
-    // },
-    // {
-    //     id: 'Created',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'Consumer Secret',
-    // },
+
     {
-        id: 'Last Login',
+        id: 'Created',
         numeric: true,
         disablePadding: false,
         label: 'Last Login',
@@ -267,27 +126,18 @@ const headCells: readonly HeadCell[] = [
     },
 ];
 
-interface EnhancedTableProps {
-    numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    order: Order;
-    orderBy: string;
-    rowCount: number;
-}
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function EnhancedTableHead(props) {
     const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
         props;
-    const createSortHandler =
-        (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-            onRequestSort(event, property);
-        };
+    const createSortHandler = (property) => (event) => {
+        onRequestSort(event, property);
+    };
 
     return (
         <TableHead>
             <TableRow>
-                <TableCell className={styles.hadingbtn} padding="checkbox">
+                <TableCell className={styles.listchekboix} padding="checkbox">
                     <Checkbox
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -301,15 +151,15 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'left' : 'left'}
+                        // align={headCell.numeric ? 'right' : 'left'}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         {/* <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
-                        > */}
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            > */}
                         {headCell.label}
                         {orderBy === headCell.id ? (
                             <Box component="span" sx={visuallyHidden}>
@@ -324,32 +174,39 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     );
 }
 
-interface EnhancedTableToolbarProps {
-    numSelected: number;
-}
+EnhancedTableHead.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+    onRequestSort: PropTypes.func.isRequired,
+    onSelectAllClick: PropTypes.func.isRequired,
+    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+    orderBy: PropTypes.string.isRequired,
+    rowCount: PropTypes.number.isRequired,
+};
 
-const ResponsiveAppBar = (props) => {
+
+const Home = (props) => {
+    console.log(props, 'propsprops');
     const router = useRouter();
 
-    const [selected, setSelected] = React.useState<readonly string[]>([]);
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
-    // const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [com, setCom] = React.useState(false);
-    const [datatebal, setDatatebal] = React.useState([]);
-    const [dense, setDense] = React.useState(false);
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('calories');
+    const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
+    const [dense, setDense] = React.useState(false);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [search, setSearch] = React.useState(false);
+    const [datatebalpettan, setDatatebalpettan] = React.useState([]);
+    const [data, setData] = React.useState([]);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [age, setAge] = React.useState('');
+    const [datasars, setDatasars] = React.useState([]);
+    const [datalist, setDatalist] = React.useState([]);
+    const [datatebal, setDatatebal] = React.useState([]);
     const [teballist, setTeballist] = React.useState([])
+    const [com, setCom] = React.useState(false);
     const [rowid, setRowid] = React.useState('')
-    console.log(rowid, 'rowid');
 
-    const openlightbox = (index) => {
-        console.log(index);
-        setCurrentIndex(index);
-        setopen(true);
-    };
-    var handleClickOpenCom = (myprops) => {
+    var handleClickOpenCom = () => {
         setCom(true);
         // console.log(advertiseMent, startDate, endDate, image, 'hello data')
         // myprops = { advertiseMent }
@@ -357,10 +214,6 @@ const ResponsiveAppBar = (props) => {
     const handleCloseCom = () => {
         setCom(false);
     }
-    const handlePageChange = (event, newPage) => {
-        setPage(newPage);
-    };
-
     const accounttype = async () => {
 
         var headers = {
@@ -443,45 +296,38 @@ const ResponsiveAppBar = (props) => {
     console.log(datatebal, 'datatebal');
 
     React.useEffect(() => {
-        if (!!props.profile && !!props.profile.token) {
+        if (!!props.props.profile && !!props.props.profile.token) {
             accounttype()
         }
     }, [])
-
-    // const handleRequestSort = (
-    //     event: React.MouseEvent<unknown>,
-    //     property: keyof Data,
-    // ) => {
-    //     const isAsc = orderBy === property && order === 'asc';
-    //     setOrder(isAsc ? 'desc' : 'asc');
-    //     setOrderBy(property);
-    // };
-    const handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof Data,
-    ) => {
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
+    const open = Boolean(anchorEl);
+    const handleClicklist = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
+
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelected = datatebal.map((n) => n.name);
+            setSelected(newSelected);
+            return;
+        }
+        setSelected([]);
     };
 
-
-
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
-    const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    const handleClick = (event, name) => {
         const selectedIndex = selected.indexOf(name);
-        let newSelected: readonly string[] = [];
+        let newSelected = [];
 
         if (selectedIndex === -1) {
             newSelected = newSelected.concat(selected, name);
@@ -499,19 +345,24 @@ const ResponsiveAppBar = (props) => {
         setSelected(newSelected);
     };
 
-    const isSelected = (name: string) => selected.indexOf(name) !== -1;
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const handleChangeDense = (event) => {
+        setDense(event.target.checked);
+    };
+
+    const isSelected = (name) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebal.length) : 0;
-    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked) {
-            const newSelected = datatebal.map((n) => n.name);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
-    };
 
     return (
         <Grid container className={styles.cantenar_list22}>
@@ -575,12 +426,12 @@ const ResponsiveAppBar = (props) => {
             </Grid>
             <Grid item md={12} sm={12} xs={12} >
                 <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-                    <Paper className={styles.peparlist} sx={{ width: '100%' }}>
+                    <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
                         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-                        <TableContainer className={styles.cantenartebal}>
+                        <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
                             <Table
                                 className={styles.tablelist}
-                                sx={{ minWidth: 750 }}
+                                // sx={{ minWidth: 750 }}
                                 aria-labelledby="tableTitle"
                                 size={dense ? 'small' : 'medium'}
                             >
@@ -588,17 +439,16 @@ const ResponsiveAppBar = (props) => {
                                     numSelected={selected.length}
                                     order={order}
                                     orderBy={orderBy}
-                                    // onSelectAllClick={handleSelectAllClick}
+                                    onSelectAllClick={handleSelectAllClick}
                                     onRequestSort={handleRequestSort}
                                     rowCount={datatebal.length}
                                 />
                                 <TableBody>
-                                    {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
                                     {stableSort(datatebal, getComparator(order, orderBy))
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .map((row, index) => {
-                                            const isItemSelected = isSelected(row.type);
+                                            const isItemSelected = isSelected(row.id);
+                                            // const isItemSelected = isSelected(row.id_account);
                                             const labelId = `enhanced-table-checkbox-${index}`;
 
                                             return (
@@ -680,7 +530,7 @@ const ResponsiveAppBar = (props) => {
                                                                             <Divider>
 
                                                                             </Divider>
-                                                                            <div><Button className={styles.cancelbtn}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={accountdelete}>Delete</Button></div>
+                                                                            <div><Button className={styles.cancelbtn} onClick={handleCloseCom}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={()=>{accountdelete(),handleCloseCom()}}>Delete</Button></div>
                                                                         </Box>
                                                                         {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                     </DialogContent>
@@ -689,7 +539,7 @@ const ResponsiveAppBar = (props) => {
                                                         </div>
 
                                                     </TableCell>
-                                                   
+
                                                 </TableRow>
                                             );
                                         })}
@@ -703,52 +553,45 @@ const ResponsiveAppBar = (props) => {
                                         </TableRow>
                                     )}
                                 </TableBody>
-                                <TableFooter>
-                                    <TableRow className={styles.detapikarrow}>
-                                        <TablePagination
-                                            className={styles.tablePagination}
-                                            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                                            count={datatebal.length}
-                                            rowsPerPage={rowsPerPage}
-                                            page={page}
-                                            SelectProps={{
-                                                inputProps: {
-                                                    "aria-label": "rows per page",
-                                                },
-                                                native: false,
-                                            }}
-                                            onPageChange={handleChangePage}
-                                            onRowsPerPageChange={handleChangeRowsPerPage}
-                                            ActionsComponent={TablePaginationActions}
-                                        />
-                                    </TableRow>
-                                </TableFooter>
+                                {/* <TableFooter> */}
+                                <TableRow >
+                                    <TablePagination
+                                        className={styles.tablePagination}
+                                        rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                                        count={datatebal.length}
+                                        rowsPerPage={rowsPerPage}
+                                        page={page}
+                                        SelectProps={{
+                                            inputProps: {
+                                                "aria-label": "rows per page",
+                                            },
+                                            native: false,
+                                        }}
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
+                                    // ActionsComponent={TablePaginationActions}
+                                    />
+                                </TableRow>
+                                {/* </TableFooter> */}
                             </Table>
-
                         </TableContainer>
                         {/* <TablePagination
-                            component="div"
-                            //   count={datatebal.length}
-                            //   onPageChange={handlePageChange}
-                            //   onRowsPerPageChange={handleLimitChange}
-                            //   page={page}
-                            //   rowsPerPage={limit}
-                            rowsPerPageOptions={[5, 10, 25]}
-                        /> */}
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            /> */}
                     </Paper>
+                    {/* <FormControlLabel
+            control={<Switch checked={dense} onChange={handleChangeDense} />}
+            label="Dense padding"
+          /> */}
                 </Box>
             </Grid>
-        </Grid >
-    )
+        </Grid>
+    );
 }
-// export default ResponsiveAppBar;
-const mapStateToProps = (state) => ({
-    profile: state.user.profile
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    save_user_data: (data) =>
-        dispatch({ type: Types.LOGIN, payload: data }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
+export default Home;

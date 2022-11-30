@@ -4,13 +4,14 @@ import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@material-ui/core';
 import { Avatar, Button } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+// import { Types } from '../../constants/actionTypes'
 import { Types } from '../../constants/actionTypes'
 
 import * as Yup from 'yup';
@@ -21,66 +22,112 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 // import Newbar from '../componehts/newbar/newbar';
 // import Dashboard from '../componehts/dashboard/dashboard';
 const Home = (props) => {
-    // console.log(  toast.error("Please Enter Correct Password"),'prodbh');
-
-    // const [showPassword, setShowPassword] = useState(false)
+    console.log(props.profile.token, 'listpfffrosps');
     const [showPasswordlist, setShowPasswordlist] = useState(false)
-    // const [showPasswordlistdata, setShowPasswordlistdata] = useState(false)
-    // const [showPasswordicon, setShowPasswordicon] = useState("yes")
-    const [logo,setLogo] = useState([])
+    const [logo, setLogo] = useState([])
+    const [userid, setUserid] = useState('')
+    const [usertype, setType] = useState('')
+    console.log(userid, 'userid');
     const router = useRouter();
-    // setLogo('http://198.71.53.215:3001/7aae52796c8e086b3c2eb2403.jpeg')
+console.log(props,'lisyysg');
     useEffect(() => {
-        // setData()
+        setData()
+        // 
         // if (!!props.router && !!props.router.query && !!props.router.query.data) {
-        //     setData(JSON.parse(props.router.query.data).id)
+        //     setData(JSON.parse(props.router.query.data).id)UPLOAD_PROFILE
         // }
     }, [])
+    const setData = async () => {
 
-    const setData = async (userId) => {
-        var obj = {
-            "user_id": 1,
-        }
         var headers = {
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
+        var obj = {
+            "id_account": props.profile.userData.currentAccount.id
+        }
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_VIEW, JSON.stringify(obj), headers)
         props.props.loaderRef(false)
-        console.log( patternDelete, 'patternDelete.data.birth_date');
+        console.log(patternDelete.data, 'vvvvvvv');
 
         if (!!patternDelete && patternDelete.status == true) {
-            
-       
-            setLogo(patternDelete.data.profileUrl)
-        } 
+            formik.setFieldValue('ConsumerKey', patternDelete.data.consumer_key);
+            formik.setFieldValue('ConsumerSecret', patternDelete.data.consumer_secret);
+            formik.setFieldValue('reTypePassword', patternDelete.data.password);
+            setUserid(patternDelete.data.user_id)
+            setType(patternDelete.data.type)
+            //     setLogo(patternDelete.data.profileUrl)
+        }
         else {
             toast.error('Something went wrong.')
         }
     }
 
-   
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-    const [values, setValues] = React.useState<State>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-    const handleChange =
-        (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setValues({ ...values, [prop]: event.target.value });
-        };
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
+    const onLoginPress = async () => {
+        var body = {
+
+            'id_account': props.profile.currentAccount.id,
+            'consumer_key': formik.values.ConsumerKey,
+            'consumer_secret': formik.values.ConsumerSecret,
+            'userId': userid,
+            'password': formik.values.reTypePassword,
+            // 'address': formik.values.Address,
+            'type': usertype,
+            "env": "production"
+            // 'listemail':
+        }
+        console.log(body, 'body');
+
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        // console.log(props.profile.token, 'TOKAN');
+
+        props.props.loaderRef(true)
+        var data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_EDIT, JSON.stringify(body), headers);
+        props.props.loaderRef(false)
+        console.log(data, 'DATA');
+
+        console.log(data, 'onLoginPress');
+        if (!!data) {
+            if (data.status == true) {
+                data.token = data.token
+                // elistdata
+                props.props.save_user_data({ user: data });
+                toast.success("Successfully Updated Personal Information")
+                // router.push('./dashboard')
+            }
+            else {
+                // setErrorShow(true)
+                toast.error(data.message)
+            }
+        }
+        // else {
+        //     toast.error('Something went wrong.')
+        // }
+    }
+    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //     event.preventDefault();
+    // };
+    // const [values, setValues] = React.useState<State>({
+    //     amount: '',
+    //     password: '',
+    //     weight: '',
+    //     weightRange: '',
+    //     showPassword: false,
+    // });
+    // const handleChange =
+    //     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    //         setValues({ ...values, [prop]: event.target.value });
+    //     };
+    // const handleClickShowPassword = () => {
+    //     setValues({
+    //         ...values,
+    //         showPassword: !values.showPassword,
+    //     });
+    // };
     const formik = useFormik({
         initialValues: {
             ConsumerKey: '',
@@ -109,7 +156,7 @@ const Home = (props) => {
                     'Password is required'),
         }),
         onSubmit: async () => {
-             onLoginPresslist();
+            onLoginPress();
         },
     });
     return (
@@ -124,10 +171,14 @@ const Home = (props) => {
                             {/* */}
                             {/* <div className={styles.uplodimgp2}><Typography>Update your photo and personal detalis here.</Typography></div> */}
                         </div>
-                        <div className={styles.donebtn22}><Button type='submit' >Done</Button></div>
+                        <div className={styles.donebtn22}><Button type='submit'
+                            onClick={onLoginPress}
+                        >Done</Button></div>
                     </div>
                     <div className={styles.avatarbank}>
-                        <Avatar src={logo} className={styles.avatarbank2} />
+                        <Avatar
+                            src={logo}
+                            className={styles.avatarbank2} />
                     </div>
                     <div>
                         <InputLabel className={styles.leballist443}>Consumer Key </InputLabel>
@@ -201,7 +252,7 @@ const Home = (props) => {
                         </Button>
                     </div>
                 </Grid>
-                <Grid item md={6} sm={12} sx={12}>
+                <Grid item md={6} sm={12} xs={12}>
                     <img src='../../cengpass.svg' />
                 </Grid>
             </form>
@@ -210,14 +261,12 @@ const Home = (props) => {
     )
 }
 const mapStateToProps = (state) => ({
-    profile: state.user.profile,
-    // {console.log( state.user.profile,'profile')}
-});
-// {}
-
-const mapDispatchToProps = (dispatch) => ({
+    profile: state.user.profile
+  });
+  
+  const mapDispatchToProps = (dispatch) => ({
     save_user_data: (data) =>
         dispatch({ type: Types.LOGIN, payload: data }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+  });
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Home);

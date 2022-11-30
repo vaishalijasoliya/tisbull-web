@@ -28,7 +28,7 @@ const adv = () => {
             </div>
             {/* <div> */}
             <div className={styles.Avatar_userlistbox}>
-              <Avatar className={styles.Avatar_user} white={30} height={20} src='../../employee 3.png' />
+              {/* <Avatar className={styles.Avatar_user} white={30} height={20} src='../../employee 3.png' /> */}
 
             </div>
             {/* // </div> */}
@@ -48,7 +48,7 @@ const adv = () => {
             </div>
             {/* <div> */}
             <div className={styles.Avatar_userlistbox}>
-              <Avatar className={styles.Avatar_user2} white={30} height={20} src='../../Icon.png' />
+              {/* <Avatar className={styles.Avatar_user2} white={30} height={20} src='../../Icon.png' /> */}
 
             </div>
             {/* // </div> */}

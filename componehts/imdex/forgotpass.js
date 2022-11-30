@@ -11,7 +11,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 // import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -141,26 +141,26 @@ const Home = (props) => {
         weightRange: '',
         showPassword: false,
     });
-    const handleChange =
-        (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setValues({ ...values, [prop]: event.target.value });
-        };
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
+    // const handleChange =
+    //     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    //         setValues({ ...values, [prop]: event.target.value });
+    //     };
+    // const handleClickShowPassword = () => {
+    //     setValues({
+    //         ...values,
+    //         showPassword: !values.showPassword,
+    //     });
+    // };
     // const router = useRouter();
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
+    // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    //     setAnchorElNav(event.currentTarget);
+    // };
+    // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    //     setAnchorElUser(event.currentTarget);
+    // };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -170,9 +170,9 @@ const Home = (props) => {
         setAnchorElUser(null);
     };
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
+    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //     event.preventDefault();
+    // };
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar3}>
@@ -194,12 +194,12 @@ const Home = (props) => {
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
                             value={formik.values.email}
-                            placeholder='Email ID'
+                            // placeholder='Email ID'
                             type="text"
                             //  {...register('email')}
                             placeholder='Enter your email'
                             className={styles.userinput}
-                            type='text'
+                            // type='text'
                             style={{
                                 margin: '0px'
                             }}

@@ -249,8 +249,8 @@ const ResponsiveAppBar = (props) => {
                     </div>
                     </div>
               </div>
-            </Grid >
-        </Grid >
+            </Grid>
+        </Grid>
     );
 }
 const mapStateToProps = (state) => ({

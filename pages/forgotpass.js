@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import Forgotpass from '../componehts/imdex/forgotpass';
-import Newbar from '../componehts/newbar/newbar';
+import Newbar from './newbarlist';
 import Dashboard from '../componehts/dashboard/dashboard';
 import  Nevbarlogin  from '../componehts/imdex/nevbarlogin';
 import { connect } from 'react-redux';

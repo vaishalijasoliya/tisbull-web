@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import Otp from '../componehts/imdex/otp';
-import Newbar from '../componehts/newbar/newbar';
+// import Newbar from '../componehts/newbar/newbar';
 import  Nevbarlogin  from '../componehts/imdex/nevbarlogin';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';

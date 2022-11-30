@@ -8,7 +8,7 @@ import  Editprofileacc  from './editprofileacc';
 
 // import Sing from '../tis_admin_web/componehts/imdex/test';editprofileacc
 
-import Newbar from '../componehts/newbar/newbar';
+// import Newbar from '../componehts/newbar/newbar';
 import Dashboard from '../componehts/dashboard/dashboard';
 export default function Home(props) {
   return (

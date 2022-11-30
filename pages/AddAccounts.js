@@ -2,8 +2,9 @@ import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 
-import Newbar from '../componehts/newbar/newbar';
-import AddAccounts from '../componehts/AddAccounts/AddAccounts';
+import Newbar from './newbarlist';
+import AddAccounts from '../componehts/AddAccounts/AddAccounts'
+// import AddAccounts from '../componehts/AddAccounts/AddAccounts';
 const ResponsiveAppBar = (props) => {
   console.log(props,'vir');
   return (
@@ -29,3 +30,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
+
+

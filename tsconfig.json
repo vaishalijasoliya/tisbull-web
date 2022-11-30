@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "componehts/AddAccounts/AddAccounts.js", "componehts/ChangePassedit/ChangePassedit.js", "componehts/Accountsview/Accountsview.js", "componehts/newbar/newbar.tsx", "componehts/dashboard/dashboard.js", "componehts/editprofile/editprofile.js", "componehts/imdex/login.js", "componehts/imdex/forgotpass.js", "componehts/imdex/sing.js", "componehts/imdex/passwordupdated.js", "componehts/imdex/otp.js", "componehts/OrderHistory/OrderHistory.tsx", "componehts/pattern/patterndetails.js", "componehts/Support/Support.js"],
   "exclude": ["node_modules"]
 }

@@ -99,7 +99,9 @@ const main = () => {
                   >
 
                     {pages.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <MenuItem
+                      //  key={page}
+                        onClick={handleCloseNavMenu}>
 
                         <Typography textAlign="center" className={styles.page_listmenu}>{page}</Typography>
                       </MenuItem>

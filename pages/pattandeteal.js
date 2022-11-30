@@ -3,7 +3,7 @@ import styles from "../styles/index.module.css";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Createpattern from "../componehts/home/createpattern";
-import Newbar from "../componehts/newbar/newbar";
+import Newbar from "./newbarlist";
 import Dashboard from "../componehts/dashboard/dashboard";
 import { Avatar, Box, Typography } from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -16,7 +16,7 @@ import Summary from "../componehts/pattern/patterndetails";
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-import TodayOrder from '../componehts/todayorder/todayorder';
+import TodayOrder from '../componehts/todayorder/todayorder'
 import Chart from '../componehts/chart/chart'
 
 
@@ -188,12 +188,12 @@ console.log(value,'listdatall');
                     {/* {/ Summary /} */}
                     <Summary proidlists={router.query.emailID} props={props} />
                   </TabPanel>
-                  <TabPanel className={styles.tbapenalist} style={{ padding: '0px' }}  value={value} index={1}>
+                  <TabPanel style={{padding:'30px 0px 0px 0px'}}  className={styles.tbapenalist}   value={value} index={1}>
                     {/* {/ Today’s orders /} */}
-                    <TodayOrder  props={router.query.emailID}/>
+                    <TodayOrder props={props}  listdsts={router.query.emailID}/>
                   </TabPanel>
-                  <TabPanel value={value} index={2}>
-                  <OrderHistory />
+                  <TabPanel  style={{padding:'30px 0px 0px 0px'}} value={value} index={2}>
+                  <OrderHistory props={props} />
                     {/* {/ Order History /} */}
                   </TabPanel>
                   <TabPanel value={value} index={3}>

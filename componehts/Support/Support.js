@@ -18,9 +18,9 @@ const tabtheme = createTheme({
 });
 // import Newbar from '../componehts/newbar/newbar';
 // import Chart from '../componehts/chart/chart';
-const ResponsiveAppBar = (props) => {
+const ResponsiveAppBar = (props ) => {
     const [value, setValue] = React.useState('1');
-    const handleChange = (event, newValue) => {
+    const handleChange = ( newValue) => {
         setValue(newValue);
     };
     console.log(props, 'vir');

@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const ResponsiveAppBar = (props) => {
-    console.log(props.profile.id,'listprjjjops');
+    console.log(props.profile.userData.currentAccount.id,'listprjjjops');
     
     // console.log(, "listmenu");
     const [phonedata, setPhonedata] = useState('')
@@ -58,7 +58,7 @@ const ResponsiveAppBar = (props) => {
 const[imglist,setImagelist] =useState('')
 const [datelist,setDatelist] =React.useState('')
 
-    console.log(createObjectURL, 'createObjectURL');
+    console.log(age, 'createObjectURL');
     useEffect(() => {
         setData()
         // 
@@ -67,7 +67,7 @@ const [datelist,setDatelist] =React.useState('')
         // }
     },[])
 
-    const setData = async (userId) => {
+    const setData = async () => {
        
         var headers = {
             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const [datelist,setDatelist] =React.useState('')
         }
         
         var obj = {
-            "id_user": props.profile.id
+            "id_user": props.profile.userData.currentAccount.id
         }
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.GET_PROFILE, JSON.stringify(obj), headers)
@@ -125,9 +125,10 @@ const [datelist,setDatelist] =React.useState('')
         console.log(data, 'listdata');
         if (!!data) {
             if (data.status == true) {
-                data.token = data.token
+                // data.userData.token = data.token;
+                data.userData.token = data.token
                 // elistdata
-                props.save_user_data({ user: data });
+                props.save_user_data({ user: data.userData });
                 toast.success("Successfully Updated Personal Information")
                 // router.push('./dashboard')
             }
@@ -192,8 +193,9 @@ const [datelist,setDatelist] =React.useState('')
         
         }
     }
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
     };
     console.log(createObjectURL, 'createObjectURL');
     // const handlePinChange = moNumber => {
@@ -446,16 +448,16 @@ const [datelist,setDatelist] =React.useState('')
                         <FormControl className={styles.slaydarinput}>
                             {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                             <Select
-                              onChange={((e) => {
-                                // setCekboxlist(e.target.checked)
-                                // setChecked('ZERODHA')
-                                // setChecked(e.target.checked)
-                                // editFAQ(e.target.checked)
-                                // setSwitchcheck(e.target.checked)
-                                // setIdItem(row.id,)
-                                console.log(e.target.checked, 'cvvvheckedv');
-                                // console.log(row.id, 'myvalueee')
-                            })}
+                            //   onChange={((e) => {
+                            //     // setCekboxlist(e.target.checked)
+                            //     // setChecked('ZERODHA')
+                            //     // setChecked(e.target.checked)
+                            //     // editFAQ(e.target.checked)
+                            //     // setSwitchcheck(e.target.checked)
+                            //     // setIdItem(row.id,)
+                            //     console.log(e.target.checked, 'cvvvheckedv');
+                            //     // console.log(row.id, 'myvalueee')
+                            // })}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={age}

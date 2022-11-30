@@ -2,7 +2,7 @@ import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 
-import Newbar from './newbar';
+import Newbar from './newbarlist';
 import Dashboard from '../componehts/dashboard/dashboard';
 const ResponsiveAppBar = (props) => {
   console.log(props,'vir');

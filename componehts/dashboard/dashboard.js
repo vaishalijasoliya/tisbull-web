@@ -50,6 +50,7 @@ function createData(name, calories) {
 // ];
 const Chartdyanamic = dynamic(() => import("react-apexcharts"), { ssr: false });
 const main = (props) => {
+    console.log(props,'jsjhshhss');
     const [onlineUserList, setOnlineUserList] = React.useState([]);
     const activeData = []
     const [onlineDate, setonlineDate] = React.useState([]);

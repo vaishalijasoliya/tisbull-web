@@ -1,12 +1,17 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from './setting.module.scss'
-import Grid from '@mui/material/Grid';
+import * as React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Button } from '@mui/material';
-import React, { useState } from "react";
-// import { ClassNames } from '@emotion/react';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import Grid from '@mui/material/Grid';
+import styles from './setting.module.scss'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -17,47 +22,40 @@ import HttpsIcon from '@mui/icons-material/Https';
 import ClassIcon from '@mui/icons-material/Class';
 import MenuIcon from '@mui/icons-material/Menu';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Typography from '@mui/material/Typography';
 
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import PaymentIcon from '@mui/icons-material/Payment';
 import SmsIcon from '@mui/icons-material/Sms';
 import { useRouter } from 'next/router';
+export default function TemporaryDrawer() {
+  const router = useRouter();
+  var currentPath = router.pathname
+  const [state, setState] = React.useState({
+    // top: false,
+    left: false,
+    // bottom: false,
+    // right: false,
+  });
 
-export default function Home() {
-    const router = useRouter();
-    var currentPath = router.pathname
-    console.log(currentPath,'currentPath');
-    
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
 
-    const [state, setState] = React.useState({
-        // top: false,
-        left: false,
-        // bottom: false,
-        // right: false,
-    });
-    const toggleDrawer =
-        (anchor: Anchor, open: boolean) =>
-            (event: React.KeyboardEvent | React.MouseEvent) => {
-                if (
-                    event &&
-                    event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
-                ) {
-                    return;
-                }
+    setState({ ...state, [anchor]: open });
+  };
 
-                setState({ ...state, [anchor]: open });
-            };
-    const list = (anchor: Anchor) => (
-        <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 350 }}
-            role="presentation"
-            className={styles.menunewbarlist}
-        // onClick={toggleDrawer(anchor, false)}
-        // onKeyDown={toggleDrawer(anchor, false)}
-        >
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 350 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+      className={styles.menunewbarlist}
+    >
+   
             <Grid container className={styles.cantenar_list1002}>
                 <Grid item sm={12} md={12} xs={12} className={styles.listsetingdd}>
 
@@ -103,32 +101,28 @@ export default function Home() {
 
                 </Grid>
             </Grid>
-        </Box>
-    );
-    const [btnlist, setBtnlist] = React.useState('turu')
-    return (
-        <Grid container className={styles.cantenar_list100}>
-            
+    </Box>
+  );
 
-                <div>
-                    {(['left'] as const).map((anchor) => (
-                        <React.Fragment key={anchor}>
-                            <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
-                            <SwipeableDrawer
-                                className={styles.calsslistbag}
-                                anchor={anchor}
-                                open={state[anchor]}
-                                onClose={toggleDrawer(anchor, false)}
-                                onOpen={toggleDrawer(anchor, true)}
-                            >
-                                {/* //  lkhhhh */}
-                                {list(anchor)}
-                            </SwipeableDrawer>
-                        </React.Fragment>
-                    ))}
-                </div>
-                {/* <div> */}
-                <Grid item sm={12} md={12} xs={12} className={styles.listseting}>
+  return (
+    <Grid container className={styles.cantenar_list100}>
+
+    <div>
+      {['left'].map((anchor) => (
+        <React.Fragment key={anchor}>
+        <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
+          {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+    </div>
+    <Grid item sm={12} md={12} xs={12} className={styles.listseting}>
                 <Box className={styles.listmenudh}>
                     <div className={styles.imgboxse}>
                         <img src='../../image 25.svg' />
@@ -169,7 +163,6 @@ export default function Home() {
                 {/* </div> */}
 
             </Grid>
-        </Grid>
-
-    )
+            </Grid>
+  );
 }

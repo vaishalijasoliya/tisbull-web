@@ -3,10 +3,11 @@
 import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import Accountsadd from '../componehts/Accountsview/Accountsview';
-import Newbar from '../componehts/newbar/newbar';
+import Newbar from './newbarlist';
 import Setting from '../componehts/Setting/Setting';
 import { connect } from 'react-redux';
 // import { useRouter } from 'next/router';
+import { Types } from '../constants/actionTypes'
 
 
 import Dashboard from '../componehts/dashboard/dashboard';

@@ -2,7 +2,7 @@ import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 
-import Newbar from '../componehts/newbar/newbar';
+import Newbar from './newbarlist';
 import Accounttype from '../componehts/Stocks/accounttype';
 const ResponsiveAppBar = (props) => {
   console.log(props,'vir');

@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import Home from "./support/Support";
 
-import Newbar from '../componehts/newbar/newbar';
+import Newbar from './newbarlist';
 // import Support from '../componehts/Support/Support';
 const ResponsiveAppBar = (props) => {
   console.log(props,'vir');

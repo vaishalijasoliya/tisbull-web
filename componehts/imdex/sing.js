@@ -1,8 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
+
 import styles from './sing.module.scss'
 import Grid from '@mui/material/Grid';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Box, Typography, Button, Link } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,7 +10,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 // import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -37,6 +35,9 @@ import { max } from 'moment';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Home = (props) => {
+    const router = useRouter();
+
+console.log(router.query.googleId,'gvvvvv');
 
     // console.log(ApiEndpoint, "ApiEndpoint");
 
@@ -44,17 +45,31 @@ const Home = (props) => {
 
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordicon, setShowPasswordicon] = useState("yes")
-    const router = useRouter();
+    // const router = useRouter();
     const client_id =
         "233345635594-km0tlqqrv2difnjgovf2jn11sgg7117c.apps.googleusercontent.com";
     const [showLoginButton, setLoginButton] = useState(true);
     const [showLogoutButton, setLogoutButton] = useState(false);
     const [elistdata, setElistdata] = useState([])
+
+    useEffect(() => {
+        formik.setFieldValue('Name',router.query.name);
+        formik.setFieldValue('username',router.query.givenName);
+        formik.setFieldValue('email',router.query.listemail);
+
+        // setData()
+        // 
+        // if (!!props.router && !!props.router.query && !!props.router.query.data) {
+        //     setData(JSON.parse(props.router.query.data).id)UPLOAD_PROFILE
+        // }
+    },[])
     const loginHandler = async (res) => {
         console.log(res.Ca, 'my res');
         var body = {
           social_id: res.Ca
         }
+        console.log(body,'lisrtkkk');
+        
         var headers = {
           'Content-Type': 'application/json',
         };
@@ -109,6 +124,7 @@ const Home = (props) => {
             'password': formik.values.password,
             'email': formik.values.email,
             'name': formik.values.Name,
+            'social_id':router.query.googleId
             // 'listemail':
         }
         console.log(body, 'body');
@@ -248,35 +264,35 @@ const Home = (props) => {
     //         onLoginPress()
     //     }
     // });
-    // const onRegisterPress = async () => {
-    //     var body = {
-    //         // 'user_name': formik.values.userName,
-    //         'password': formik.values.password,
-    //         'name': formik.values.name,
-    //         'email': formik.values.email
-    //     }
-    //     console.log(formik.values.password, 'bodylist');
+    const onRegisterPress = async () => {
+        var body = {
+            // 'user_name': formik.values.userName,
+            'password': formik.values.password,
+            'name': formik.values.name,
+            'email': formik.values.email
+        }
+        console.log(formik.values.password, 'bodylist');
 
-    //     var headers = {
-    //         "Content-Type": "application/json",
-    //     }
-    //     props.loaderRef(true)
-    //     var data = await ApiServices.PostApiCall(ApiEndpoint.REGISTER_LIST, JSON.stringify(body), headers);
-    //     props.loaderRef(false)
-    //     console.log(data, 'liiii')
-    //     //   if (!!data) {
-    //     //     if (data.status) {
-    //     //       data.userData.token = data.token
-    //     //       props.save_user_data({ user: data.userData });
-    //     //       router.push('/dashboard');
-    //     //       toast.success(data.message)
-    //     //     } else {
-    //     //       toast.error(data.message)
-    //     //     }
-    //     //   } else {
-    //     //     toast.error('Something went wrong.')
-    //     //   }
-    // }
+        var headers = {
+            "Content-Type": "application/json",
+        }
+        props.loaderRef(true)
+        var data = await ApiServices.PostApiCall(ApiEndpoint.REGISTER_LIST, JSON.stringify(body), headers);
+        props.loaderRef(false)
+        console.log(data, 'liiii')
+          if (!!data) {
+            if (data.status) {
+              data.userData.token = data.token
+              props.save_user_data({ user: data.userData });
+              router.push('/dashboard');
+              toast.success(data.message)
+            } else {
+              toast.error(data.message)
+            }
+          } else {
+            toast.error('Something went wrong.')
+          }
+    }
 
     // console.log(formik.values.name, 'bodylist');
 
@@ -307,33 +323,33 @@ const Home = (props) => {
 
     //   console.log(elistdata,'elistdata');
 
-    const [values, setValues] = React.useState<State>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-    const handleChange =
-        (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setValues({ ...values, [prop]: event.target.value });
-        };
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
+    // const [values, setValues] = React.useState<State>({
+    //     amount: '',
+    //     password: '',
+    //     weight: '',
+    //     weightRange: '',
+    //     showPassword: false,
+    // });
+    // const handleChange =
+    //     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    //         setValues({ ...values, [prop]: event.target.value });
+    //     };
+    // const handleClickShowPassword = () => {
+    //     setValues({
+    //         ...values,
+    //         showPassword: !values.showPassword,
+    //     });
+    // };
     // const router = useRouter();
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
+    // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    //     setAnchorElNav(event.currentTarget);
+    // };
+    // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    //     setAnchorElUser(event.currentTarget);
+    // };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -343,9 +359,9 @@ const Home = (props) => {
         setAnchorElUser(null);
     };
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
+    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //     event.preventDefault();
+    // };
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar}>
@@ -368,7 +384,7 @@ const Home = (props) => {
                             value={formik.values.Name}
                             type="text"
                             className={styles.userinput}
-                            type='text'
+                            // type='text'
                             style={{
                                 margin: '0px'
                             }}
@@ -384,7 +400,7 @@ const Home = (props) => {
                             placeholder='Email ID'
                             type="text"
                             className={styles.userinput}
-                            type='text'
+                            // type='text'
                             style={{
                                 margin: '0px'
                             }}
@@ -402,7 +418,7 @@ const Home = (props) => {
                             // placeholder='Email ID'
                             type="text"
                             className={styles.userinput}
-                            type='text'
+                            // type='text'
                             style={{
                                 margin: '0px'
                             }}

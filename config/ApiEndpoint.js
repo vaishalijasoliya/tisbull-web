@@ -26,4 +26,5 @@ export default {
     ACCOUNT_SWITCH: Constants.BASE_API_URL + 'account/switch',
     PATTERN_VIEW: Constants.BASE_API_URL + 'Pattern/view',
     SEARCHLIST: Constants.BASE_API_URL + 'stock/instrumnetlist/search',
+    ACCOUNT_EDIT:Constants.BASE_API_URL+'account/edit',
 }

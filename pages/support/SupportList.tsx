@@ -13,7 +13,7 @@ function createData(id: string, message: string, user: object) {
   return { id, message, user }
 }
 
-const SupportList = (props) => {
+const SupportList = (props : any) => {
   console.log(props, "props11")
   const [supportListData, setSupportListData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true)
@@ -21,77 +21,77 @@ const SupportList = (props) => {
 
   const { activeSupportId, setActiveSupportId, setActiveSupportObject } = useContext(SupportContext);
 
-  const handleClick = (id: string, data: object) => {
-    // setActiveSupportId(id)
-    // setActiveSupportObject(data)
-    viewSupportMsg(id)
+  // const handleClick = (id: string, data: object) => {
+  //   // setActiveSupportId(id)
+  //   // setActiveSupportObject(data)
+  //   viewSupportMsg(id)
 
-  }
+  // }
 
-  const viewSupportMsg = async (id) => {
+  // const viewSupportMsg = async (id) => {
 
-    var headers = {
-      "Content-Type": "application/json",
-      "x-access-token": props.props.profile.token
-    }
-    var body = {
-      id_support: id
-    }
-    props.props.loaderRef(true)
-    var data = await ApiServices.PostApiCall(ApiEndpoint.VIEW_SUPPORT_MSG, JSON.stringify(body), headers);
-    props.props.loaderRef(false)
-    console.log(data, "111data")
-    if (!!data) {
-      if (data.status == true) {
-        setResData(data)
-        // getSupportList()
-      }
-    }
-  }
-  console.log(resData)
+  //   var headers = {
+  //     "Content-Type": "application/json",
+  //     "x-access-token": props.props.profile.token
+  //   }
+  //   var body = {
+  //     id_support: id
+  //   }
+  //   props.props.loaderRef(true)
+  //   var data = await ApiServices.PostApiCall(ApiEndpoint.VIEW_SUPPORT_MSG, JSON.stringify(body), headers);
+  //   props.props.loaderRef(false)
+  //   console.log(data, "111data")
+  //   if (!!data) {
+  //     if (data.status == true) {
+  //       setResData(data)
+  //       // getSupportList()
+  //     }
+  //   }
+  // }
+  // console.log(resData)
 
-  const getSupportList = async () => {
+  // const getSupportList = async () => {
 
-    var headers = {
-      "Content-Type": "application/json",
-      "x-access-token": props.props.profile.token
-    }
-    props.props.loaderRef(true)
-    var data = await ApiServices.PostApiCall(ApiEndpoint.LIST_SUPPORT_TICKET, null, headers);
-    props.props.loaderRef(false)
-    console.log(data, "data")
-    if (!!data) {
-      if (data.status == true) {
+  //   var headers = {
+  //     "Content-Type": "application/json",
+  //     "x-access-token": props.props.profile.token
+  //   }
+  //   props.props.loaderRef(true)
+  //   var data = await ApiServices.PostApiCall(ApiEndpoint.LIST_SUPPORT_TICKET, null, headers);
+  //   props.props.loaderRef(false)
+  //   console.log(data, "data")
+  //   if (!!data) {
+  //     if (data.status == true) {
 
-        let supportListDataUpdate = [];
-        data.data.map((result: any) => {
-          console.log(result, "myresult")
-          const dataR = {
-            id: result.id,
-            message: result.lastMessage,
-            pendingCount: result.pendingMsgCount,
-            user: result.userDetail,
-            datetime: result.lastMessage,
-          }
-          supportListDataUpdate.push(dataR)
-        });
+  //       let supportListDataUpdate = [];
+  //       data.data.map((result: any) => {
+  //         console.log(result, "myresult")
+  //         const dataR = {
+  //           id: result.id,
+  //           message: result.lastMessage,
+  //           pendingCount: result.pendingMsgCount,
+  //           user: result.userDetail,
+  //           datetime: result.lastMessage,
+  //         }
+  //         supportListDataUpdate.push(dataR)
+  //       });
 
-        setSupportListData(supportListDataUpdate)
-        setIsLoading(false)
-      } else {
+  //       setSupportListData(supportListDataUpdate)
+  //       setIsLoading(false)
+  //     } else {
         
-        toast.error(data.message)
-      }
-    } else {
-      toast.error('Something went wrong.')
-    }
-  }
+  //       toast.error(data.message)
+  //     }
+  //   } else {
+  //     toast.error('Something went wrong.')
+  //   }
+  // }
 
-  React.useEffect(() => {
-    getSupportList()
-  }, [])
+  // React.useEffect(() => {
+  //   getSupportList()
+  // }, [])
 
-
+// 
   return (
     <>
 
@@ -128,7 +128,9 @@ const SupportList = (props) => {
                 // const activeClass = (id == activeSupportId) ? "active" : "";
                 return (
                   <>
-                    <div className={`support-list-item d-flex align-items-center  `} id={style.left} key={id} onClick={() => handleClick(id, row)}>
+                    <div className={`support-list-item d-flex align-items-center  `} id={style.left} key={id} 
+                    // onClick={() => handleClick(id, row)}
+                    >
                       <div className="list-item-left">
                         <Avatar src={!!user.profile_photo ? user.profile_photo : "M"}></Avatar>
                       </div>

@@ -2,7 +2,7 @@
 // import Image from 'next/image'
 import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
-import Newbar from '../componehts/newbar/newbar';
+import Newbar from './newbarlist';
 import { connect } from 'react-redux';
 
 import Stocks from '../componehts/Stocks/Stocks';

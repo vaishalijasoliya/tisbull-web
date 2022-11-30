@@ -11,7 +11,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 // import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -48,48 +47,55 @@ const Home = (props) => {
   const [showLoginButton, setLoginButton] = useState(true);
   const [showLogoutButton, setLogoutButton] = useState(false);
   const [elistdata, setElistdata] = useState([])
+
   const loginHandler = async (res) => {
-    console.log(res.Ca, 'my res');
+    // console.log(res.Ca, 'my res');
     var body = {
       social_id: res.Ca
     }
+    // console.log(res, 'listbodylist');
+
     var headers = {
       'Content-Type': 'application/json',
     };
     props.props.loaderRef(true)
     var data = await ApiServices.PostApiCall(ApiEndpoint.SOCIAL_LOGIN, JSON.stringify(body), headers);
     props.props.loaderRef(false)
-    
+
     console.log(data, 'datafvbfgv');
     if (!!data) {
-      
+      data.token = data.token;
       if (data.status == true) {
-        props.save_user_data({ user: data, });
+        props.save_user_data({ user: data });
         router.push('/dashboard')
       } else {
         if (data.status == false && data.message == 'Social id not found!') {
           // props.save_user_data({ user: "" });
-          router.push('/sing')
+          // onClick={() => {
+          router.push({
+            pathname: './sing',
+            query: { listemail: res.kv.Wv, givenName: res.kv.wZ, name: res.kv.Af,googleId:res.profileObj.googleId}
+          })
+          // }}
+          // router.push('/sing')
         }
       }
     } else {
       toast.error('Something went wrong.');
     }
-    console.log("res",);
+    // console.log("res",);
     console.log("this is my")
     setLoginButton(false);
     setElistdata(res.profileObj)
     setLogoutButton(true);
   };
-  const failureHandler = (res) => {
-    console.log("login failed", res);
+  const failureHandler = () => {
+    console.log("redddddds",res);
   };
-  const logoutHandler = (res) => {
-    alert("logout sucessfully");
-    setLoginButton(true);
-    setLogoutButton(false);
-  };
-  console.log(elistdata, 'res');
+  // const loginHandler = (res) => {
+  //   console.log("redddddds",res);
+  // };
+  // console.log(elistdata, 'res');
 
   //   formik.values.username
   const onLoginPress = async () => {
@@ -108,22 +114,30 @@ const Home = (props) => {
     props.props.loaderRef(true)
     var data = await ApiServices.PostApiCall(ApiEndpoint.LOGIN_USER, JSON.stringify(body), headers);
     props.props.loaderRef(false)
-    // console.log(data.userData.id, 'listdata');
+    console.log(data, 'listdatavvvvv');
     if (!!data) {
       if (data.status == true) {
-        // data.token = data.token
-        // // elistdata
-        // data.userData.currentAccount = data.userData.account[0];
-
-        // props.save_user_data({ user: data });
-        // toast.success("Logged In Succesfully")
-        // router.push('./dashboard')
-
-        data.userData.token = data.token;
+        data.token = data.token
+        // elistdata
         data.userData.currentAccount = data.userData.account[0];
-        props.save_user_data({ user: data.userData });
-        router.push('/dashboard');
-        toast.success(data.message)
+console.log(data,'loginData');
+        props.save_user_data({ user: data });
+        toast.success("Logged In Succesfully")
+        router.push('./dashboard')
+        // console.log(data.userData.token,'data.userData.token');
+
+
+        //         data.token = data.token
+        //         // elistdata
+        //         props.save_user_data({ user: data });
+        //         toast.success("Logged In Succesfully")
+
+        //         data.userData.token = data.token;
+        //         data.userData.currentAccount = data.userData.logoUrl
+        //         data.userData.currentAccount = data.userData.account[0];
+        //         props.save_user_data({ user: data.userData });
+        //         router.push('/dashboard');
+        //         toast.success(data.message)
       } else {
         // setErrorShow(true)
         toast.error(data.message)
@@ -158,47 +172,30 @@ const Home = (props) => {
   });
 
 
-  //   console.log(elistdata,'elistdata');
+  // //   console.log(elistdata,'elistdata');
 
-  const [values, setValues] = React.useState<State>({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-  });
-  const handleChange =
-    (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-  // const router = useRouter();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  // // const router = useRouter();
+  // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
+  // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   event.preventDefault();
+  // };
   return (
 
     <Grid container className={styles.cantenar_pegsingcantenar}>
@@ -225,7 +222,6 @@ const Home = (props) => {
               //  {...register('email')}
               // placeholder='Username'
               className={styles.userinput}
-              type='text'
               style={{
                 margin: '0px'
               }}
@@ -243,7 +239,6 @@ const Home = (props) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               value={formik.values.password}
-              lable='Password'
               placeholder='Confirm Password'
               className={styles.passoutinput}
               type={showPassword ? 'text' : 'password'}
@@ -262,7 +257,7 @@ const Home = (props) => {
                 <Link href='./forgotpass' className={styles.linkfaragot}>Forgot password?</Link>
               </div>
             </div>
-            <button type="submit" className={styles.singbtn} onClick={console.log("virang")} href='./dashboard'>Log in</button>
+            <button type="submit" className={styles.singbtn} >Log in</button>
 
           </form>
           <div className={styles.borderimline}>
@@ -341,3 +336,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+// const checkElement = async (selector: string) => {
+//   while (document.querySelector(selector) === null) {
+//     await new Promise(resolve => requestAnimationFrame(resolve))
+//   }
+//   return document.querySelector(selector);
+// };

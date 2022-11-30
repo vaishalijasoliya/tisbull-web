@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import styles from './Stocks.module.scss'
-import Grid from '@mui/material/Grid';
-import { Box, Button, Typography, TableFooter, useTheme, RadioGroup, Radio, TextField } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { toast } from 'react-toastify';
+import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,253 +9,58 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import moment from 'moment'
-import PropTypes from "prop-types";
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { visuallyHidden } from '@mui/utils';
+import Grid from '@mui/material/Grid';
+import styles from './Stocks.module.scss'
+import { Button,TextField } from '@mui/material';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Menu from '@mui/material/Menu';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import Divider from '@mui/material/Divider';
 import InputLabel from '@mui/material/InputLabel';
-import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
-import ApiServices from '../../config/ApiServices';
-import ApiEndpoint from '../../config/ApiEndpoint';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { Types } from '../../constants/actionTypes'
 import { connect } from 'react-redux';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ButtonGroup from "./btngorup";
-import { useRouter } from 'next/router';
+import ApiServices from '../../config/ApiServices';
+import ApiEndpoint from '../../config/ApiEndpoint';
+import Avatar from '@mui/material/Avatar';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import moment from 'moment'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Dialog from '@mui/material/Dialog';
+import { CSVLink, CSVDownload } from 'react-csv';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled';
 import { styled } from '@mui/material/styles';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import { visuallyHidden } from '@mui/utils';
-import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
-import Logout from '@mui/icons-material/Logout';
-import Dialog from '@mui/material/Dialog';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+
 import DialogContent from '@mui/material/DialogContent';
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import LastPageIcon from "@mui/icons-material/LastPage";
-const tabtheme = createTheme({
-    palette: {
-        primary: {
-            main: '#009947'
-        },
-    },
-});
-interface Data {
-
-    Script: string;
-    NSE: string;
-    Type: string;
-    Investment: number;
-    Profit: number;
-    Stocks: number;
-    Created: string;
-    Status: string;
-}
-
-function createData(
-    Script: string,
-    NSE: string,
-    Type: string,
-    Investment: number,
-    Profit: number,
-    Stocks: number,
-    Created: string,
-    Status: string,
-): Data {
+function createData(name, calories, fat, carbs, protein) {
     return {
-        Script,
-        NSE,
-        Type,
-        Investment,
-        Profit,
-        Stocks,
-        Created,
-        Status,
+        name,
+        calories,
+        fat,
+        carbs,
+        protein,
     };
-}
-
-function TablePaginationActions(props: {
-    count: any;
-    page: any;
-    rowsPerPage: any;
-    onPageChange: any;
-}) {
-    const theme = useTheme();
-    const { count, page, rowsPerPage, onPageChange } = props;
-
-    const handleFirstPageButtonClick = (event: any) => {
-        onPageChange(event, 0);
-    };
-
-    const handleBackButtonClick = (event: any) => {
-        onPageChange(event, page - 1);
-    };
-
-    const handleNextButtonClick = (event: any) => {
-        onPageChange(event, page + 1);
-    };
-
-    const handleLastPageButtonClick = (event: any) => {
-        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-    };
-    return (
-        <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-            <IconButton
-                onClick={handleFirstPageButtonClick}
-                disabled={page === 0}
-                aria-label="first page"
-            >
-                {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
-            </IconButton>
-            <IconButton
-                onClick={handleBackButtonClick}
-                disabled={page === 0}
-                aria-label="previous page"
-            >
-                {theme.direction === "rtl" ? (
-                    <KeyboardArrowRight />
-                ) : (
-                    <KeyboardArrowLeft />
-                )}
-            </IconButton>
-            <IconButton
-                onClick={handleNextButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="next page"
-            >
-                {theme.direction === "rtl" ? (
-                    <KeyboardArrowLeft />
-                ) : (
-                    <KeyboardArrowRight />
-                )}
-            </IconButton>
-            <IconButton
-                onClick={handleLastPageButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="last page"
-            >
-                {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
-            </IconButton>
-        </Box>
-    );
-}
-TablePaginationActions.propTypes = {
-    count: PropTypes.number.isRequired,
-    onPageChange: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
-};
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
-
-type Order = 'asc' | 'desc';
-
-function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key,
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-) => number {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) {
-            return order;
-        }
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-}
-
-interface HeadCell {
-    disablePadding: boolean;
-    id: keyof Data;
-    label: string;
-    numeric: boolean;
-}
-
-const headCells: readonly HeadCell[] = [
-    {
-        id: 'Script',
-        numeric: false,
-        disablePadding: true,
-        label: 'Script',
-    },
-    {
-        id: 'Type',
-        numeric: true,
-        disablePadding: false,
-        label: 'Type',
-    },
-    {
-        id: 'Investment',
-        numeric: true,
-        disablePadding: false,
-        label: 'Investment',
-    },
-    {
-        id: 'Profit',
-        numeric: true,
-        disablePadding: false,
-        label: 'Profit',
-    },
-    {
-        id: 'Stocks',
-        numeric: true,
-        disablePadding: false,
-        label: 'Stocks',
-    },
-    {
-        id: 'Created',
-        numeric: true,
-        disablePadding: false,
-        label: 'Created',
-    },
-    {
-        id: 'Action',
-        numeric: true,
-        disablePadding: false,
-        label: 'Action',
-    },
-];
-interface EnhancedTableProps {
-    numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    order: Order;
-    orderBy: string;
-    rowCount: number;
 }
 const blue = {
     500: '#36DAB2',
 };
-
 const grey = {
     400: '#BFC7CF',
     500: '#AAB4BE',
@@ -334,33 +133,103 @@ const Root = styled('span')(
     }
     `,
 )
-function EnhancedTableHead(props: EnhancedTableProps<AdvertisementData>) {
-    const {
-        onSelectAllClick,
-        order,
-        orderBy,
-        numSelected,
-        rowCount,
-        onRequestSort,
-    } = props;
-    const createSortHandler =
-        (property: keyof AdvertisementData) =>
-            (event: React.MouseEvent<unknown>) => {
-                onRequestSort(event, property);
-            };
+
+function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
+
+function getComparator(order, orderBy) {
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+// This method is created for cross-browser compatibility, if you don't
+// need to support IE11, you can use Array.prototype.sort() directly
+function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) {
+            return order;
+        }
+        return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+}
+
+const headCells = [
+    {
+        id: 'Type',
+        numeric: false,
+        disablePadding: true,
+        label: 'Script',
+    },
+    {
+        id: 'Type',
+        numeric: true,
+        disablePadding: false,
+        label: 'Type',
+    },
+    {
+        id: 'Investment',
+        numeric: true,
+        disablePadding: false,
+        label: 'Investment',
+    },
+    {
+        id: 'Profit',
+        numeric: true,
+        disablePadding: false,
+        label: 'Profit',
+    },
+
+    {
+        id: 'Created',
+        numeric: true,
+        disablePadding: false,
+        label: 'Stocks',
+    },
+    {
+        id: 'Created',
+        numeric: true,
+        disablePadding: false,
+        label: 'Created',
+    },
+    {
+        id: 'Action',
+        numeric: true,
+        disablePadding: false,
+        label: 'Action',
+    },
+];
+
+
+function EnhancedTableHead(props) {
+    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+        props;
+    const createSortHandler = (property) => (event) => {
+        onRequestSort(event, property);
+    };
 
     return (
-        <TableHead >
+        <TableHead>
             <TableRow>
-                <TableCell className={styles.hedingtdlist} padding="checkbox">
+                <TableCell className={styles.listchekboix} padding="checkbox">
                     <Checkbox
-
+                      className={styles.tablehead}
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
                         checked={rowCount > 0 && numSelected === rowCount}
                         onChange={onSelectAllClick}
                         inputProps={{
-                            "aria-label": "select all advertisement",
+                            'aria-label': 'select all desserts',
                         }}
                     />
                 </TableCell>
@@ -368,15 +237,18 @@ function EnhancedTableHead(props: EnhancedTableProps<AdvertisementData>) {
                     <TableCell
                         key={headCell.id}
                         // align={headCell.numeric ? 'right' : 'left'}
-                        align={headCell.id == "name" ? "left" : "center"}
-                        padding={headCell.disablePadding ? "none" : "normal"}
+                        padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
-                        className={styles.tablehead}
                     >
+                        {/* <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            > */}
                         {headCell.label}
                         {orderBy === headCell.id ? (
                             <Box component="span" sx={visuallyHidden}>
-                                {order === "desc" ? "sorted descending" : "sorted ascending"}
+                                {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                             </Box>
                         ) : null}
                         {/* </TableSortLabel> */}
@@ -386,221 +258,61 @@ function EnhancedTableHead(props: EnhancedTableProps<AdvertisementData>) {
         </TableHead>
     );
 }
-interface EnhancedTableToolbarProps {
-    numSelected: number;
-}
 
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const { numSelected } = props;
-
-    return (
-        <Toolbar
-            sx={{
-                pl: { sm: 2 },
-                pr: { xs: 1, sm: 1 },
-                ...(numSelected > 0 && {
-                    bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-                }),
-            }}
-        >
-            {numSelected > 0 ? (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    color="inherit"
-                    variant="subtitle1"
-                    component="div"
-                >
-                    {numSelected} selected
-                </Typography>
-            ) : (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    Nutrition
-                </Typography>
-            )}
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon />
-                    </IconButton>
-                </Tooltip>
-            )}
-        </Toolbar>
-    );
+EnhancedTableHead.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+    onRequestSort: PropTypes.func.isRequired,
+    onSelectAllClick: PropTypes.func.isRequired,
+    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+    orderBy: PropTypes.string.isRequired,
+    rowCount: PropTypes.number.isRequired,
 };
 
-const ResponsiveAppBar = (props) => {
-    const [value, setValue] = React.useState('1');
 
-    const [arrolist, setArrolist] = useState(true);
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
-    const [selected, setSelected] = React.useState<readonly string[]>([]);
+const Home = (props) => {
+    const router = useRouter();
+
+    console.log(props, 'propsprops');
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('calories');
+    const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [search, setSearch] = React.useState(false);
     const [datatebalpettan, setDatatebalpettan] = React.useState([]);
     const [data, setData] = React.useState([]);
-    const [datalist, setDatalist] = React.useState([]);
-    const [datasars, setDatasars] = React.useState([]);
-    const [iduser, setIduser] = React.useState([]);
-    const [rowid, setRowid] = React.useState('')
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = React.useState(null);
     const [age, setAge] = React.useState('');
-    const [isoutField, setIsOutField] = useState(false);
-    const [phonedata, setPhonedata] = useState('')
-    const [deletbtn, setDelebtn] = React.useState(false);
-    
+    const [datasars, setDatasars] = React.useState([]);
+    const [datalist, setDatalist] = React.useState([]);
+    const [datatebal, setDatatebal] = React.useState([]);
+    const [teballist, setTeballist] = React.useState([])
     const [com, setCom] = React.useState(false);
+    const [rowid, setRowid] = React.useState('')
+    const [deletbtn, setDelebtn] = React.useState(false);
+    const [listpires, setListPires] = React.useState('');
+    const [swishlist, setSwishlist] = React.useState(false);
+    const [pause, setPause] = React.useState(false)
+    const [isoutField, setIsOutField] = useState(false);
+    const [iduser, setIduser] = React.useState([]);
+    const [btnlistnamelist, setBtnlistnamelist] = React.useState('')
+    const [accounttype, setAccounttype] = React.useState('')
+
+    // const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
     const [listdara, setLlistdata] =useState('');
     const [listdarapush, setLlistdatapush] =useState('');
-
-    const [deletemenukk, setDeleteMenukk] = React.useState(false);
-const[logvvmog,setLogvvmog]=useState('')
-    const [listpires, setListPires] = React.useState('');
-    const [accounttype, setAccounttype] = React.useState('')
-
-    const [btnlistname, setBtnlistname] = React.useState('')
-    const [btnlistnamelist, setBtnlistnamelist] = React.useState('')
-
-    const [pause, setPause] = React.useState(false)
-    const router = useRouter();
-    const [swishlist, setSwishlist] = React.useState(false);
+    const[logvvmog,setLogvvmog]=useState('')
     const [checked, setChecked] = React.useState(false);
 
-    const [switchCheck, setSwitchcheck] = React.useState('')
-    console.log(listpires, 'logvvmog');
-    const handlePinChangelist = (e) => {
-        setListPires(e.target.value);
-    };
-    // const switchchange = (e) => {
-    //     setChecked(e.target.checked)
-    //     setSwitchcheck(e.target.checked)
-    //     console.log(switchCheck, 'myvaxrlueee')
-    // }
-    const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
+    const [deletemenukk, setDeleteMenukk] = React.useState(false);
 
-    const edituser = () => {
-        if (btnlistname == '') {
-            setIsOutField(true)
-        }
-        else {
-            playpattern()
-        }
-    }
-    const edituserlistpause = () => {
-        if (setBtnlistnamelist == '') {
-            setIsOutField(true)
-        }
-        else {
-            Pausepattern()
-        }
-    }
-    const handlePinChange = phonedata => {
-        setPhonedata(phonedata);
-    };
-    const printButtonLabel = (event) => {
-        setBtnlistname(event.target.name)
-        console.log(event.target.name, 'LITFDADRDA');
-        //do some stuff here
-    };
-    const printButtonLabellist = (event) => {
-        setBtnlistnamelist(event.target.name)
-        console.log(event.target.name, 'LITFDADRDA');
-        //do some stuff here
-    };
-    console.log(rowid, 'AEFESWFE');
-
-    var handleClickOpenCom = (myprops) => {
-
-        setCom(true);
-
-    };
-    var handleClickOpenComplay = (myprops) => {
-        setPlay(true);
-
-    };
-    var handleClickOpenCom = (myprops) => {
-        setCom(true);
-    };
-    var handleClickOpenCom = (myprops) => {
-
-        setCom(true);
-    };
-    var handleClickOpendeletbtnlog = (myprops) => {
-        setDeleteMenukk(true);
-    };
-    var handleClickOpenCompausedletbtn = (myprops) => {
-        setDelebtn(true);
-    };
-    const handleCloseComdeletbtn = () => {
-        setDelebtn(false);
-    }
-    var handleClickOpenCompause = (myprops) => {
-        setPause(true);
-    };
-    const handleCloseCom = () => {
-        setCom(false);
-    }
-    const handleCloseCompause = () => {
-        setPause(false);
-    }
-    const handleCloseComplay = () => {
-        setPlay(false);
-    }
-    const handleCloseComdeletlog = () => {
-        setDeleteMenukk(false);
-    }
-
-    const handlePageChange = (event, newPage) => {
-        setPage(newPage);
-    };
-    const handleChangesalyadar = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-    };
-
-    const open = Boolean(anchorEl);
-    const menulist = (event: React.MouseEvent<HTMLElement>) => {
+    console.log(swishlist,'swishlist');
+    const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    function handleListKeyDown(event: React.KeyboardEvent) {
-        if (event.key === 'Tab') {
-            event.preventDefault();
-            setOpen(false);
-        } else if (event.key === 'Escape') {
-            setOpen(false);
-        }
-    }
-    const prevOpen = React.useRef(open);
-    React.useEffect(() => {
-        if (prevOpen.current === true && open === false) {
-        }
-
-        prevOpen.current = open;
-    }, [open]);
-
+    
     const patternlist = async () => {
 
         var headers = {
@@ -782,36 +494,190 @@ const[logvvmog,setLogvvmog]=useState('')
 
         // }
     }
+    const edituser = () => {
+        if (listdarapush == '') {
+            setIsOutField(true)
+        }
+        else {
+            playpattern()
+        }
+    }
+    const edituserlistpause = () => {
+        if (listdara == '') {
+            setIsOutField(true)
+        }
+        else {
+            Pausepattern()
+        }
+    }
+ 
     React.useEffect(() => {
-        if (!!props.profile && !!props.profile.token) {
+        if (!!props.props.profile && !!props.props.profile.token) {
             // playpattern()
             patternlist()
             // Pausepattern()
         }
     }, [])
-    console.log(datalist, 'stock');
+    const handlePinChangelist = (e) => {
+        setListPires(e.target.value);
+    };
+    const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
 
-    const handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof Data,
-    ) => {
+    var handleClickOpenCom = (myprops) => {
+
+        setCom(true);
+
+    };
+    var handleClickOpenComplay = (myprops) => {
+        setPlay(true);
+
+    };
+    var handleClickOpenCom = (myprops) => {
+        setCom(true);
+    };
+    var handleClickOpenCom = (myprops) => {
+
+        setCom(true);
+    };
+    var handleClickOpendeletbtnlog = (myprops) => {
+        setDeleteMenukk(true);
+    };
+    var handleClickOpenCompausedletbtn = (myprops) => {
+        setDelebtn(true);
+    };
+    const handleCloseComdeletbtn = () => {
+        setDelebtn(false);
+    }
+    var handleClickOpenCompause = (myprops) => {
+        setPause(true);
+    };
+    const handleCloseCom = () => {
+        setCom(false);
+    }
+    const handleCloseCompause = () => {
+        setPause(false);
+    }
+    const handleCloseComplay = () => {
+        setPlay(false);
+    }
+    const handleCloseComdeletlog = () => {
+        setDeleteMenukk(false);
+    }
+  
+    // const accounttype = async () => {
+
+    //     var headers = {
+    //         "Content-Type": "application/json",
+    //         "x-access-token": props.props.profile.token
+    //     }
+    //     // var body = { type: 'active' }
+    //     // if (!!startDate && !!endDate) {
+    //     //     body.start_day = moment(startDate).format("MM/DD/YYYY")
+    //     //     body.end_day = moment(endDate).format("MM/DD/YYYY")
+    //     // }
+    //     // console.log(body, 'body');
+    //     props.props.loaderRef(true)
+    //     var data = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
+
+    //     // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
+    //     props.props.loaderRef(false)
+    //     console.log(props.props.profile.token, 'datadfsf');
+
+    //     if (!!data) {
+    //         if (data.status == true && data.data.length > 0) {
+    //             const accoyty = [];
+    //             const csvall = [];
+    //             for (let index = 0; index < data.data.length; index++) {
+    //                 const element = data.data[index];
+    //                 const object = {
+    //                     id: element.id,
+    //                     logoUrl: element.logoUrl,
+    //                     password: element.password,
+    //                     // type: element.type,
+    //                     user_id: element.user_id,
+    //                     consumer_key: element.consumer_key,
+    //                     consumer_secret: element.consumer_secret,
+    //                     id_user: element.id_user,
+    //                     zerodha_token_update: element.zerodha_token_update
+    //                 }
+    //                 console.log(element, 'password');
+
+    //                 accoyty.push(JSON.parse(JSON.stringify(object)))
+    //             }
+    //             setDatatebal(accoyty)
+    //             setTeballist(accoyty)
+    //         }
+    //     }
+    // }
+    // const accountdelete = async () => {
+
+    //     var headers = {
+    //         "Content-Type": "application/json",
+    //         "x-access-token": props.props.profile.token
+    //     }
+    //     var body = {
+    //         "id_account": rowid
+    //     }
+    //     // console.log(body, 'lkahuaah');
+
+    //     props.props.loaderRef(true)
+    //     var accountdelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_DELETE, JSON.stringify(body), headers)
+    //     // var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_PLAY, headers)
+
+    //     // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
+    //     props.props.loaderRef(false)
+    //     console.log(accountdelete, 'accountdelete');
+    //     // if (!!data) {
+    //     if (accountdelete.status == true) {
+    //         // patternDelete.token = patternDelete.token
+    //         // elistdata
+    //         // props.save_user_data({ user: data });
+    //         toast.success("Successfully Updated Personal Information lisgg")
+    //         // router.push('./dashboard')
+    //     }
+    //     else {
+    //         // setErrorShow(true)
+    //         toast.error(accountdelete.message)
+    //     }
+    //     // }
+    // }
+    // // let inloglist=datatebal.zerodha_token_update
+
+    // console.log(datatebal, 'datatebal');
+
+    // React.useEffect(() => {
+    //     if (!!props.props.profile && !!props.props.profile.token) {
+    //         accounttype()
+    //     }
+    // }, [])
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
+    const open = Boolean(anchorEl);
+    const handleClicklist = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
 
-    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
+            const newSelected = datatebalpettan.map((n) => n.name);
             setSelected(newSelected);
             return;
         }
         setSelected([]);
     };
 
-    const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    const handleClick = (event, name) => {
         const selectedIndex = selected.indexOf(name);
-        let newSelected: readonly string[] = [];
+        let newSelected = [];
 
         if (selectedIndex === -1) {
             newSelected = newSelected.concat(selected, name);
@@ -829,209 +695,190 @@ const[logvvmog,setLogvvmog]=useState('')
         setSelected(newSelected);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
+    const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
 
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeDense = (event) => {
         setDense(event.target.checked);
     };
 
-    const isSelected = (name: string) => selected.indexOf(name) !== -1;
+    const isSelected = (name) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebalpettan.length) : 0;
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+
     return (
         <Grid container spacing={0} className={styles.cantenar_list57}>
 
-            <Grid item md={12} sm={12} xs={12} className={styles.boxteballist}>
-                {/* <Box> */}
+        <Grid item md={12} sm={12} xs={12} className={styles.boxteballist}>
+            {/* <Box> */}
 
-                <div className={styles.listmeniom}>
-                    <Grid item md={3} sm={6} xs={6}>
-                        <div className={styles.patterndiv}>
-                            <Typography>Pattern</Typography>
-                        </div>
-                    </Grid>
-                    <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
-                        <Button className={styles.cerbatn}>
-                            <Avatar className={styles.cerbatn2}>
-                                <img src="../../Vector (5).svg" />
-                            </Avatar>
-                        </Button>
-                    </Grid>
-                </div>
-                <div className={styles.inputlistm}>
-                    <Grid item md={12} sm={12} xs={12}>
-                        <Box className={styles.boxreting} display={'flex'}>
+            <div className={styles.listmeniom}>
+                <Grid item md={3} sm={6} xs={6}>
+                    <div className={styles.patterndiv}>
+                        <Typography>Pattern</Typography>
+                    </div>
+                </Grid>
+                <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
+                    <Button className={styles.cerbatn}>
+                        <Avatar className={styles.cerbatn2}>
+                            <img src="../../Vector (5).svg" />
+                        </Avatar>
+                    </Button>
+                </Grid>
+            </div>
+            <div className={styles.inputlistm}>
+                <Grid item md={12} sm={12} xs={12}>
+                    <Box className={styles.boxreting} display={'flex'}>
 
-                            <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
-                                onChange={(e) => {
-                                    //   setPage(0)
-                                    var value = e.target.value
-                                    if (typeof value !== 'object') {
-                                        if (!value || value == '') {
-                                            setDatatebalpettan(datasars);
-                                        } else {
-                                            var filteredData = datasars.filter((item) => {
-                                                let searchValue = item.script.toLowerCase();
-                                                return searchValue.includes(value.toString().toLowerCase())
-                                            })
-                                            setDatatebalpettan(filteredData);
-                                        }
+                        <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
+                            onChange={(e) => {
+                                //   setPage(0)
+                                var value = e.target.value
+                                if (typeof value !== 'object') {
+                                    if (!value || value == '') {
+                                        setDatatebalpettan(datasars);
+                                    } else {
+                                        var filteredData = datasars.filter((item) => {
+                                            let searchValue = item.script.toLowerCase();
+                                            return searchValue.includes(value.toString().toLowerCase())
+                                        })
+                                        setDatatebalpettan(filteredData);
                                     }
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                    <Grid item md={12} display={'flex'} justifyContent={'end'}>
-                        {/* <Paper>
-        <MenuList>
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>My account</MenuItem>
-          <MenuItem>Logout</MenuItem>
-        </MenuList>
-      </Paper> */}
-                        <Button className={styles.filterlist} onClick={menulist}
-                        >
-                            <Typography>
-                                Filter
-                            </Typography>
-                            <FilterListIcon />
-                        </Button>
-                        <Menu
-                            className={styles.menufiltarbtn}
-                            anchorEl={anchorEl}
-                            id="account-menu"
-                            open={open}
-                            onClose={handleClose}
-                            // onClick={handleClose}
-                            PaperProps={{
-                                elevation: 0,
-                                sx: {
-                                    overflow: 'visible',
-                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                    mt: 1.5,
-                                    '& .MuiAvatar-root': {
-                                        width: 32,
-                                        height: 32,
-                                        ml: -0.5,
-                                        mr: 1,
-                                    },
-                                    '&:before': {
-                                        content: '""',
-                                        display: 'block',
-                                        position: 'absolute',
-                                        top: 0,
-                                        right: 14,
-                                        width: 10,
-                                        height: 10,
-                                        bgcolor: 'background.paper',
-                                        transform: 'translateY(-50%) rotate(45deg)',
-                                        zIndex: 0,
-                                    },
-                                },
+                                }
                             }}
-                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                        >
-                            <div className={styles.filtarlist}>
-                                <div><Typography>Pattern</Typography></div>
-                                <div className={styles.listbtnsot}>
-                                    <Button className={styles.censbatnsot} onClick={handleClose}>Cancel</Button>
-                                    <Button className={styles.savebatnsot}>Save</Button></div>
-                            </div>
-                            <Divider></Divider>
+                        />
+                    </Box>
+                </Grid>
+                <Grid item md={12} display={'flex'} justifyContent={'end'}>
+              
+                    <Button className={styles.filterlist} onClick={menulist}
+                    >
+                        <Typography>
+                            Filter
+                        </Typography>
+                        <FilterListIcon />
+                    </Button>
+                    <Menu
+                        className={styles.menufiltarbtn}
+                        anchorEl={anchorEl}
+                        id="account-menu"
+                        open={open}
+                        onClose={handleClose}
+                        // onClick={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&:before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                        <div className={styles.filtarlist}>
+                            <div><Typography>Pattern</Typography></div>
+                            <div className={styles.listbtnsot}>
+                                <Button className={styles.censbatnsot} onClick={handleClose}>Cancel</Button>
+                                <Button className={styles.savebatnsot}>Save</Button></div>
+                        </div>
+                        <Divider></Divider>
+                        <div>
+                            <div className={styles.typetext}><Typography>Type</Typography></div>
                             <div>
-                                <div className={styles.typetext}><Typography>Type</Typography></div>
-                                <div>
-                                    <Button className={styles.nonelistbtn}>None</Button>
-                                    <Button className={styles.Basiclistbtn}>Basic</Button>
-                                    <Button className={styles.Customlistbtn}>Custom</Button>
-                                </div>
+                                <Button className={styles.nonelistbtn}>None</Button>
+                                <Button className={styles.Basiclistbtn}>Basic</Button>
+                                <Button className={styles.Customlistbtn}>Custom</Button>
                             </div>
-                            <div className={styles.maendivselect}>
-                                <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
+                        </div>
+                        <div className={styles.maendivselect}>
+                            <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
 
-                                <Select
-                                    className={styles.listsekater}
-                                    value={age}
-                                    onChange={handleChange}
-                                    displayEmpty
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={'Ten'}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
+                            <Select
+                                className={styles.listsekater}
+                                value={age}
+                                onChange={handleChange}
+                                displayEmpty
+                                inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={'Ten'}>Ten</MenuItem>
+                                <MenuItem value={20}>Twenty</MenuItem>
+                                <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
 
-                            </div>
-                            <Divider className={styles.divaydarten}></Divider>
-                            <div className={styles.divlistsivijan}></div>
-                        </Menu>
-                    </Grid>
-                </div>
+                        </div>
+                        <Divider className={styles.divaydarten}></Divider>
+                        <div className={styles.divlistsivijan}></div>
+                    </Menu>
+                </Grid>
+            </div>
+            <Grid item md={12} sm={12} xs={12} >
+                <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
+                    <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+                        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
+                        <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+                            <Table
+                                className={styles.tablelist}
+                                // sx={{ minWidth: 750 }}
+                                aria-labelledby="tableTitle"
+                                size={dense ? 'small' : 'medium'}
+                            >
+                                <EnhancedTableHead
+                                    numSelected={selected.length}
+                                    order={order}
+                                    orderBy={orderBy}
+                                    onSelectAllClick={handleSelectAllClick}
+                                    onRequestSort={handleRequestSort}
+                                    rowCount={datatebalpettan.length}
+                                />
+                                <TableBody>
+                                    {stableSort(datatebalpettan, getComparator(order, orderBy))
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row, index) => {
+                                            const isItemSelected = isSelected(row.id);
+                                            // const isItemSelected = isSelected(row.id_account);
+                                            const labelId = `enhanced-table-checkbox-${index}`;
 
-
-                <Grid>
-                    <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-                        <Paper sx={{ width: '100%', mb: 2 }}>
-                            {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-                            <TableContainer>
-                                <Table
-                                    className={styles.tablelist}
-                                    sx={{ minWidth: 750 }}
-                                    aria-labelledby="tableTitle"
-                                    size={dense ? 'small' : 'medium'}
-                                >
-                                    <EnhancedTableHead
-                                        //  numSelected={selected.length}
-                                        //  order={order}
-                                        //  orderBy={orderBy}
-                                        //  onSelectAllClick={handleSelectAllClick}
-                                        //  onRequestSort={handleRequestSort}
-                                        //  rowCount={data.length}
-
-                                        numSelected={selected.length}
-                                        order={order}
-                                        orderBy={orderBy}
-                                        onSelectAllClick={handleSelectAllClick}
-                                        onRequestSort={handleRequestSort}
-                                        rowCount={datatebalpettan.length}
-                                    />
-                                    <TableBody>
-
-                                        {stableSort(datatebalpettan, getComparator(order, orderBy))
-                                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                            .map((row: any, index) => {
-                                                const isItemSelected = isSelected(row.id);
-                                                const labelId = `approved-checkbox-${index}`;
-                                                const popupID = `long-menu-${index}`;
-                                                const longbuttonID = `long-button-${index}`;
-                                                return (
-                                                    <TableRow
-                                                        // hover
-                                                        // onClick={(event) => handleClick(event, row.name)}
-                                                        role="checkbox"
-                                                        aria-checked={isItemSelected}
-                                                        tabIndex={-1}
-                                                        key={row.id}
-                                                        selected={isItemSelected}
-                                                    >
-
-                                                        <TableCell className={styles.cekboxtd} padding="checkbox">
+                                            return (
+                                                <TableRow
+                                                    // hover
+                                                    // onClick={(event) => handleClick(event, row.name)}
+                                                    role="checkbox"
+                                                    aria-checked={isItemSelected}
+                                                    tabIndex={-1}
+                                                    key={row.id}
+                                                    selected={isItemSelected}
+                                                >
+                                                     <TableCell className={styles.cekboxtd} padding="checkbox">
                                                             <Checkbox
                                                                 checked={isItemSelected}
 
@@ -1259,11 +1106,12 @@ const[logvvmog,setLogvvmog]=useState('')
                                                                                     </div>
                                                                                 </div>
                                                                                 <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
-                                                                                {logvvmog == 'Stock' &&  swishlist == false && listpires == '' ? 'desebal':'yes'}
+                                                                                {logvvmog == 'WithoutStock' ||  swishlist == false || listpires == '' ? 'desebal':'yes'}
 
                                                                                 <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseComdeletlog}>Cancel</Button>
-                                                                                {logvvmog == 'WithoutStock' &&  swishlist == true && listpires == '' ?  
-                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>: <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn} >SAVE </Button>}
+                                                                                {logvvmog == 'WithoutStock' ? <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>:''}
+                                                                                {logvvmog == 'WithoutStock' ||  swishlist == false || listpires == '' ?  
+                                                                                <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={logvvmog == 'WithoutStock' ? styles.listmenuu:styles.cofimbatn} >SAVE </Button>:<Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet:styles.namnedata} style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={logvvmog == 'WithoutStock' ? styles.listmenuu:styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>}
                                                                                     {/* <Button>Cancel</Button> */}
                                                                                     {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
                                                                                     {/* <Button className={styles.cofimbatn} onClick={deletepattern}>Confirm</Button> */}
@@ -1440,94 +1288,60 @@ const[logvvmog,setLogvvmog]=useState('')
                                                             </div>
                                                         </TableCell>
 
-                                                    </TableRow>
-                                               
 
-                                                );
-                                            })}
-                                          
-                                        {emptyRows > 0 && (
-                                            <TableRow
-                                                style={{
-                                                    height: (dense ? 33 : 53) * emptyRows,
-                                                }}
-                                            >
-                                                {/* <TableCell colSpan={6} /> */}
-                                            </TableRow>
-                                        )}
-
-                                    </TableBody>
-                                    {/* <TableFooter> */}
-
-                                    {/* </TableFooter> */}
-                                    <TableFooter>
-                                    {/* <TableRow> */}
-                                    <Accordion style={{width:'100%'}}>
-                                                            <AccordionSummary
-                                                                expandIcon={<ExpandMoreIcon />}
-                                                                aria-controls="panel1a-content"
-                                                                id="panel1a-header"
-                                                            >
-                                                                <Typography>Accordion 1</Typography>
-                                                            </AccordionSummary>
-                                                            <AccordionDetails>
-                                                               {/* <Typography>
-                                                                    Lorem  ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                                    malesuada lacus ex, sit amet blandit leo lobortis eget.
-                                                                </Typography> */}
-                                                            </AccordionDetails>
-                                                        </Accordion>
-                                        {/* </TableRow> */}
-                                        <TableRow>
-                                        
-                                            <TablePagination
-                                                className={styles.tablePagination}
-                                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                                                count={datatebalpettan.length}
-                                                rowsPerPage={rowsPerPage}
-                                                page={page}
-                                                SelectProps={{
-                                                    inputProps: {
-                                                        "aria-label": "rows per page",
-                                                    },
-                                                    native: false,
-                                                }}
-                                                onPageChange={handleChangePage}
-                                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                                ActionsComponent={TablePaginationActions}
-                                            />
+                                                </TableRow>
+                                            );
+                                        })}
+                                    {emptyRows > 0 && (
+                                        <TableRow
+                                            style={{
+                                                height: (dense ? 33 : 53) * emptyRows,
+                                            }}
+                                        >
+                                            <TableCell colSpan={6} />
                                         </TableRow>
-                                    </TableFooter>
-                                </Table>
-                            </TableContainer>
-                            {/* <TablePagination
-                                rowsPerPageOptions={[5, 10, 25]}
-                                component="div"
-                                count={rows.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                            /> */}
-                        </Paper>
-                        {/* <FormControlLabel
-                            control={<Switch checked={dense} onChange={handleChangeDense} />}
-                            label="Dense padding"
-                        /> */}
-                    </Box>
-                </Grid>
+                                    )}
+                                </TableBody>
+                                {/* <TableFooter> */}
+                                <TableRow >
+                                    <TablePagination
+                                        className={styles.tablePagination}
+                                        rowsPerPageOptions={[2, 10, 25, { label: "All", value: -1 }]}
+                                        count={datatebalpettan.length}
+                                        rowsPerPage={rowsPerPage}
+                                        page={page}
+                                        SelectProps={{
+                                            inputProps: {
+                                                "aria-label": "rows per page",
+                                            },
+                                            native: false,
+                                        }}
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
+                                    // ActionsComponent={TablePaginationActions}
+                                    />
+                                </TableRow>
+                                {/* </TableFooter> */}
+                            </Table>
+                        </TableContainer>
+                        {/* <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            /> */}
+                    </Paper>
+                    {/* <FormControlLabel
+            control={<Switch checked={dense} onChange={handleChangeDense} />}
+            label="Dense padding"
+          /> */}
+                </Box>
             </Grid>
         </Grid>
-    )
+        </Grid>
+    );
 }
-// export default ResponsiveAppBar;
-const mapStateToProps = (state) => ({
-    profile: state.user.profile
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    save_user_data: (data) =>
-        dispatch({ type: Types.LOGIN, payload: data }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
+export default Home;

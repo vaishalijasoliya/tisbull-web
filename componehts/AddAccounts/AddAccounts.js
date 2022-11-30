@@ -97,7 +97,9 @@ const grey = {
 const blue = {
     500: '#36DAB2',
 };
-export default function Home(props) {
+// export default function Home(props) {
+const Home = (props) => {
+
     const [checked, setChecked] = React.useState(false);
     const [swishlist, setSwishlist] = React.useState(false);
     const [accounttype, setAccounttype] = React.useState('')
@@ -214,7 +216,9 @@ export default function Home(props) {
                         </div>
                     </div>
                     <div className={styles.switchadd}>
-                        {swishlist == true ? <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
+                        {swishlist == true ? <SwitchUnstyled component={Root}
+                            //  onChange={console.log('virang')}
+                            {...label} id='switch'
                             disabled
                             // checked={row.Publication} 
                             onChange={((e) => {
@@ -226,7 +230,9 @@ export default function Home(props) {
                                 // console.log(e.target.checked, 'checkedv');
                                 // console.log(row.id, 'myvalueee')
                             })}
-                        /> : <SwitchUnstyled component={Root} onChange={console.log('virang')} {...label} id='switch'
+                        /> : <SwitchUnstyled component={Root}
+                            // onChange={console.log('virang')}
+                            {...label} id='switch'
 
                             // checked={row.Publication} 
                             onChange={((e) => {
@@ -394,3 +400,10 @@ export default function Home(props) {
         </Grid>
     )
 }
+export default Home
+// const checkElement = async (selector: string) => {
+//     while (document.querySelector(selector) === null) {
+//       await new Promise(resolve => requestAnimationFrame(resolve))
+//     }
+//     return document.querySelector(selector);
+//   };

@@ -63,30 +63,30 @@ console.log(props.props,'loghggygg');
         toast.success("Password Changed Succesfully")
         // router.push('./dashboard')
       } 
-      // else {
-      //   // setErrorShow(true)
-      //   toast.error(data.message)
-      // }
+      else {
+        // setErrorShow(true)
+        toast.error(data.message)
+      }
     // } 
-    else {
-      toast.error("Please Enter Correct Passwordtt")
-    }
+    // else {
+    //   toast.error("Please Enter Correct Passwordtt")
+    // }
 
   }
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-  const [values, setValues] = React.useState<State>({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-});
-const handleChange =
-    (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
+  // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   event.preventDefault();
+  // };
+//   const [values, setValues] = React.useState<State>({
+//     amount: '',
+//     password: '',
+//     weight: '',
+//     weightRange: '',
+//     showPassword: false,
+// });
+// const handleChange =
+//     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+//         setValues({ ...values, [prop]: event.target.value });
+//     };
 const handleClickShowPassword = () => {
     setValues({
         ...values,
@@ -193,7 +193,7 @@ const handleClickShowPassword = () => {
               onChange={formik.handleChange}
               value={formik.values.reTypePassword}
               placeholder='Confirm Password'
-              type="password"
+              // type="password"
               className={styles.userinput}
               type={showPasswordlist ? 'text' : 'password'}
               // type='text'

@@ -3,7 +3,7 @@
 import styles from '../styles/index.module.css'
 import Grid from '@mui/material/Grid';
 import ChangePassedit from '../componehts/ChangePassedit/ChangePassedit';
-import Newbar from '../componehts/newbar/newbar';
+import Newbar from './newbarlist';
 import Setting from '../componehts/Setting/Setting';
 // import { connect } from 'react-redux';
 // import { useRouter } from 'next/router';

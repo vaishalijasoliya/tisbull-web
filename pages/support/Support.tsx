@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card } from "react-bootstrap";
+// import { Card } from "react-bootstrap";
 import SupportList from './SupportList'
 import Msg from './msgindex';
 import BasicTabs from '../../pages/support/supporttab'
@@ -85,94 +85,94 @@ const Support = (props: any) => {
   // const handleCloseCom = () => {
   //   setSearch(false);
   // };
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
 
 
-  const handleChangeTab = (event, newValue) => {
-    setValueTab(newValue);
-  };
+  // const handleChangeTab = (event, newValue) => {
+  //   setValueTab(newValue);
+  // };
 
 
-  const handleClick = (id: string, data) => {
-    // setActiveSupportId(id)
-    // setActiveSupportObject(data)
-    setUserData(data)
-    viewSupportMsg(id)
+  // const handleClick = (id: string, data) => {
+  //   // setActiveSupportId(id)
+  //   // setActiveSupportObject(data)
+  //   setUserData(data)
+  //   viewSupportMsg(id)
 
-  }
+  // }
 
-  React.useEffect(() => {
-    getSupportList()
-  }, [])
-
-
-  const viewSupportMsg = async (id) => {
-
-    var headers = {
-      "Content-Type": "application/json",
-      "x-access-token": props.props.profile.token
-    }
-    var body = {
-      id_support: id
-    }
-    props.props.loaderRef(true)
-    var data = await ApiServices.PostApiCall(ApiEndpoint.VIEW_SUPPORT_MSG, JSON.stringify(body), headers);
-    props.props.loaderRef(false)
-    console.log(data, "111data")
-    if (!!data) {
-      if (data.status == true) {
-        setResData(data)
-        getSupportList()
-      }
-    }
-  }
-  console.log(resData)
-
-  const getSupportList = async () => {
-    var headers = {
-      "Content-Type": "application/json",
-      "x-access-token": props.props.profile.token
-    }
-    props.props.loaderRef(true)
-    var data = await ApiServices.PostApiCall(ApiEndpoint.LIST_SUPPORT_TICKET, null, headers);
-    props.props.loaderRef(false)
-    // console.log(data, "data")
-    if (!!data) {
-      if (data.status == true) {
-
-        let supportListDataUpdate = [];
-        data.data.map((result: any) => {
-          console.log(result, "myresult")
-          const dataR = {
-            id: result.id,
-            message: result.lastMessage,
-            pendingCount: result.pendingMsgCount,
-            user: result.userDetail,
-            tickit: result.tickit,
-            status: result.status,
-            title: result.title,
-            datetime: result.lastMessage,
-          }
-          supportListDataUpdate.push(dataR)
-        });
-
-        setSupportListData(supportListDataUpdate)
-        setCustomer(supportListDataUpdate)
-        setIsLoading(false)
-
-      } else {
-        // setErrorShow(true)
-        toast.error(data.message)
-      }
-    } else {
-
-    }
+  // React.useEffect(() => {
+  //   getSupportList()
+  // }, [])
 
 
-  }
+  // const viewSupportMsg = async (id) => {
+
+  //   var headers = {
+  //     "Content-Type": "application/json",
+  //     "x-access-token": props.props.profile.token
+  //   }
+  //   var body = {
+  //     id_support: id
+  //   }
+  //   props.props.loaderRef(true)
+  //   var data = await ApiServices.PostApiCall(ApiEndpoint.VIEW_SUPPORT_MSG, JSON.stringify(body), headers);
+  //   props.props.loaderRef(false)
+  //   console.log(data, "111data")
+  //   if (!!data) {
+  //     if (data.status == true) {
+  //       setResData(data)
+  //       getSupportList()
+  //     }
+  //   }
+  // }
+  // console.log(resData)
+
+  // const getSupportList = async () => {
+  //   var headers = {
+  //     "Content-Type": "application/json",
+  //     "x-access-token": props.props.profile.token
+  //   }
+  //   props.props.loaderRef(true)
+  //   var data = await ApiServices.PostApiCall(ApiEndpoint.LIST_SUPPORT_TICKET, null, headers);
+  //   props.props.loaderRef(false)
+  //   // console.log(data, "data")
+  //   if (!!data) {
+  //     if (data.status == true) {
+
+  //       let supportListDataUpdate = [];
+  //       data.data.map((result: any) => {
+  //         console.log(result, "myresult")
+  //         const dataR = {
+  //           id: result.id,
+  //           message: result.lastMessage,
+  //           pendingCount: result.pendingMsgCount,
+  //           user: result.userDetail,
+  //           tickit: result.tickit,
+  //           status: result.status,
+  //           title: result.title,
+  //           datetime: result.lastMessage,
+  //         }
+  //         supportListDataUpdate.push(dataR)
+  //       });
+
+  //       setSupportListData(supportListDataUpdate)
+  //       setCustomer(supportListDataUpdate)
+  //       setIsLoading(false)
+
+  //     } else {
+  //       // setErrorShow(true)
+  //       toast.error(data.message)
+  //     }
+  //   } else {
+
+  //   }
+
+
+  // }
 
   const tabtheme = createTheme({
     palette: {
@@ -218,7 +218,7 @@ const Support = (props: any) => {
                         <h1 className={style.msgtitel} style={{ fontSize: '30PX' }}>Support</h1>
                         <div >
                           <Button >
-                            <Avatar style={{ 'background': '#009947', 'box-shadow': '0px 8px 16px rgba(47, 128, 237, 0.4)' }} className={style.avtarmenuop}>
+                            <Avatar style={{ 'background': '#009947', 'boxShadow': '0px 8px 16px rgba(47, 128, 237, 0.4)' }} className={style.avtarmenuop}>
                               <img src="../../Vector (14).svg" />
                             </Avatar>
                           </Button>
@@ -238,8 +238,8 @@ const Support = (props: any) => {
                                   setCustomer(supportListData)
                                 } else {
                                   var filteredData = supportListData.filter((item) => {
-                                    let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
-                                    return searchValue.includes(value.toString().toLowerCase())
+                                    // let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
+                                    // return searchValue.includes(value.toString().toLowerCase())
                                   })
                                   setCustomer(filteredData)
                                 }
@@ -252,7 +252,9 @@ const Support = (props: any) => {
 
                       <Box sx={{ width: '100%' }}>
                         <Box sx={{ borderBottom: 0, borderColor: 'divider', marginLeft: '20px' }}>
-                          <Tabs value={valueTab} onChange={handleChangeTab} aria-label="basic tabs example" sx={{ borderBottom: '2px solid #EAEAEA' }}  >
+                          <Tabs value={valueTab}
+                          //  onChange={handleChangeTab}
+                            aria-label="basic tabs example" sx={{ borderBottom: '2px solid #EAEAEA' }}  >
                             <Tab label="All" {...tabProps(0)} style={{textTransform:'capitalize'}} className={style.MuiTabroot} />
                             <Tab label="Pending" value="2" style={{textTransform:'capitalize'}}  className={style.MuiTabroot} />
                                 <Tab label="Completed" value="3" style={{textTransform:'capitalize'}}  className={style.MuiTabroot} />
@@ -323,7 +325,9 @@ const Support = (props: any) => {
                             return (
                               <>
                                 <Grid sm={12} md={12} xs={12}>
-                                  <div className={`support-list-item d-flex align-items-center  `} id={style.left} key={id} onClick={() => handleClick(id, row)}>
+                                  <div className={`support-list-item d-flex align-items-center  `} id={style.left} key={id}
+                                  //  onClick={() => handleClick(id, row)}
+                                   >
                                     <div id={style.avtarlistmasspro} className="list-item-left">
                                       <Avatar src={!!user.profile_photo ? user.profile_photo : "M"}></Avatar>
                                     </div>
@@ -362,7 +366,9 @@ const Support = (props: any) => {
               </Grid>
               <Grid sm={12} md={8} className={style.this_right}>
                 <div className={style.this_right}>
-                  <Msg props={props.props} viewSupport={viewSupportMsg} viewSupportList={resData} userDetail={userData} />
+                  <Msg props={props.props}
+                  //  viewSupport={viewSupportMsg} 
+                   viewSupportList={resData} userDetail={userData} />
 
                 </div>
               </Grid>

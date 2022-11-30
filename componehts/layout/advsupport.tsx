@@ -3,7 +3,7 @@
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import styles from './advsupport.module.scss'
-const main = (props) => {
+const main = () => {
   return (
     <>
 

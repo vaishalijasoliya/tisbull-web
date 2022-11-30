@@ -11,7 +11,7 @@ import Aboutus from '../componehts/layout/aboutus';
 import Payment from '../componehts/footer/payment';
 import Footer from '../componehts/footer/footer';
 import Sing from '../componehts/imdex/sing';
-import Newbar from '../componehts/newbar/newbar';
+// import Newbar from '../componehts/newbar/newbar';
 import Dashboard from '../componehts/dashboard/dashboard';
 const main = () => {
   return (
