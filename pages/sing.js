@@ -13,7 +13,7 @@ import Dashboard from '../componehts/dashboard/dashboard';
 export default function Home(props) {
   const router = useRouter();
 
-  console.log(router.query,'gvvvvv');
+  console.log(router.query,'gvvvvvvcv');
 
   return (
     <Grid container className={styles.cantenar_list}>
