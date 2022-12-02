@@ -365,7 +365,9 @@ console.log(router.query.googleId,'gvvvvv');
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar}>
-
+  <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
+        <img width={360} className={styles.maenloginpegimg} src='../../Group 109.svg' />
+      </Grid>
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
                 <div className={styles.baglistee}></div>
                 <Box className={styles.boxsinglist2}>

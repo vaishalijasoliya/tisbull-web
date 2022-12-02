@@ -27,4 +27,6 @@ export default {
     PATTERN_VIEW: Constants.BASE_API_URL + 'Pattern/view',
     SEARCHLIST: Constants.BASE_API_URL + 'stock/instrumnetlist/search',
     ACCOUNT_EDIT:Constants.BASE_API_URL+'account/edit',
+    UPDATE_ACCESS_TOKEN: Constants.BASE_API_URL + 'zerodha/access/update',
+    ORDER_DELETE:Constants.BASE_API_URL+'order/delete',
 }

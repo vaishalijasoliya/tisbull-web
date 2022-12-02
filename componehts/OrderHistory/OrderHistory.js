@@ -324,7 +324,8 @@ const Home = (props) => {
             profit: element.price,
             stock: element.transactionType,
             created_at: element.createdAt,
-            status: element.status
+            status: element.status,
+            orderId:element.orderId
           }
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
@@ -716,9 +717,9 @@ const Home = (props) => {
                                       </div>
                                       <Box className={styles.listboxiduser28}>
                                         {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
-                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order ( #12334 ) from zerodha ?</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#12345</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#12345</Typography></div>
+                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{row.orderId}) from zerodha ?</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.orderId}</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#12345</Typography></div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
                                         <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
@@ -754,7 +755,7 @@ const Home = (props) => {
                                       <Box className={styles.listboxiduser223}>
                                         <div className={styles.listmaendivid}>
                                           <div className={styles.oderidpopup}><InputLabel>ORDER ID</InputLabel>
-                                            <Typography>NF123444</Typography>
+                                            <Typography>{row.orderId}</Typography>
                                           </div>
                                           <div className={styles.oderidpopup}><InputLabel>TIS ORDER ID</InputLabel>
                                             <Typography>12322SSDFDF</Typography>

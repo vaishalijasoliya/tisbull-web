@@ -308,7 +308,24 @@
     background: #405E7A !important;
     border-radius: 25px 25px 25px 25px !important;
 }
-
+@media only screen and (max-width: 880px) {
+    .menu_icom {
+        display: none !important;
+    }
+    .btnicon2 {
+        display: none;
+    }
+    .listbatnmenu {
+        margin: 25px 0px 0px 0px !important;
+    }
+    .listmenuoncc {
+        // padding: 30px 0px 0px 0px;
+        display: block !important;
+    }
+    // .menu_icom {
+    //     display: none !important;
+    // }
+}
 @media only screen and (max-width: 450px) {
     .btnicon2 {
         display: none;

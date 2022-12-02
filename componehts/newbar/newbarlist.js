@@ -320,7 +320,7 @@ function ResponsiveAppBar(props) {
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             
-              {/* <ButtonGroup
+              {/* {/* <ButtonGroup
                 orientation="vertical"
                 aria-label="vertical outlined button group"
                 // className={styles.newbtnrow}
@@ -328,7 +328,7 @@ function ResponsiveAppBar(props) {
                 {pages}
 
               </ButtonGroup> */}
-              <IconButton
+              {/* <IconButton
                 size="large"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -354,15 +354,15 @@ function ResponsiveAppBar(props) {
                 onClose={handleCloseNavMenu}
                 sx={{
                   display: { xs: 'block', md: 'none' },
-                }}
-              >
+                }} */}
+              {/* > */}
                 {/* {pages.map((page) => ( 
 
 
 
                 {page} 
                  ))} */}
-              </Menu>
+              {/* </Menu> */}
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
              {/* <Typography
@@ -441,7 +441,7 @@ function ResponsiveAppBar(props) {
                 </div>
                 <div className={styles.user_list}>
                   <Typography>
-                    {!!props.profile.userData.currentAccount ? props.profile.userData.currentAccount.user_id : 'login'}
+                    { props.profile.userData.currentAccount.user_id }
                     {/* {props.profile.currentAccount.user_id} */}
                     {/* {props.profile.data.user_id} */}
                     {/* {props.profile.userData.user_id} */}
@@ -538,7 +538,8 @@ function ResponsiveAppBar(props) {
                       <div className={styles.loglist}>
                         <Button onClick={() => {
                           var profile = "";
-                          props.save_user_data({ user: "" });
+                          // var currentAccount=''
+                          props.save_user_data({ user: '' });
                           router.push("/");
                           toast.success("Logout Successfully!");
                         }} >

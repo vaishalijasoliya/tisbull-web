@@ -44,14 +44,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const ResponsiveAppBar = (props) => {
-    console.log(props.profile.userData.currentAccount.id,'listprjjjops');
+    console.log(props.profile,'listprjjjops');
     
     // console.log(, "listmenu");
     const [phonedata, setPhonedata] = useState('')
     const [gender, setGender] = useState('')
     const [image, setImage] = useState(null);
     const [createObjectURL, setCreateObjectURL] = useState(null);
-    const [age, setAge] = React.useState('');
+    const [age, setAge] = React.useState({});
     const [isoutField, setIsOutField] = useState(false);
     const [imgUpload, setImgupload] = React.useState([])
     const [idItem, setIditem] = React.useState("")
@@ -59,6 +59,9 @@ const[imglist,setImagelist] =useState('')
 const [datelist,setDatelist] =React.useState('')
 
     console.log(age, 'createObjectURL');
+    const handleChangeCountry = (event) => {
+        setAge(event.target.value);
+      };
     useEffect(() => {
         setData()
         // 
@@ -90,7 +93,9 @@ const [datelist,setDatelist] =React.useState('')
             // formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("DD-mm-yyyy"))
             formik.setFieldValue('Address', patternDelete.data.address)
             formik.setFieldValue('Gender', patternDelete.data.gender)
-            setDatelist(moment(patternDelete.data.birth_date).format("MM-DD-YYYY"))
+            setDatelist(moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
+            formik.setFieldValue('date',moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
+
             setPhonedata(patternDelete.data.phone_no)
             setAge(patternDelete.data.gender)
             setCreateObjectURL(patternDelete.data.profileUrl)
@@ -104,7 +109,7 @@ const [datelist,setDatelist] =React.useState('')
             'name': formik.values.username,
             'email': formik.values.email,
             'phone_no': phonedata,
-            'birth_date': formik.values.date,
+            'birth_date':formik.values.date,
             'address': formik.values.Address,
             'gender': age,
             // 'listemail':
@@ -122,14 +127,14 @@ const [datelist,setDatelist] =React.useState('')
         props.props.loaderRef(false)
         console.log(data, 'DATA');
 
-        console.log(data, 'listdata');
+        console.log(data.toast, 'listdata');
         if (!!data) {
             if (data.status == true) {
                 // data.userData.token = data.token;
-                data.userData.token = data.token
+                // data.token = data.token
                 // elistdata
                 props.save_user_data({ user: data.userData });
-                toast.success("Successfully Updated Personal Information")
+                toast.success(data.message)
                 // router.push('./dashboard')
             }
             else {
@@ -137,9 +142,9 @@ const [datelist,setDatelist] =React.useState('')
                 toast.error(data.message)
             }
         }
-        // else {
-        //     toast.error('Something went wrong.')
-        // }
+        else {
+            toast.error('Something went wrong.')
+        }
     }
     const uploadpohot = async () => {
        
@@ -341,7 +346,7 @@ const [datelist,setDatelist] =React.useState('')
 
                             <input type="file" name="myImage" hidden onChange={handleChangeImage} className={styles.myimmmglist} />
                             <Avatar>
-                                <CameraAltIcon className={styles.cemeraicon} />
+                                <CameraAltIcon style={{color:'#AA4545'}} className={styles.cemeraicon} />
                             </Avatar>
 
                         </IconButton>
@@ -448,31 +453,11 @@ const [datelist,setDatelist] =React.useState('')
                         <FormControl className={styles.slaydarinput}>
                             {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                             <Select
-                            //   onChange={((e) => {
-                            //     // setCekboxlist(e.target.checked)
-                            //     // setChecked('ZERODHA')
-                            //     // setChecked(e.target.checked)
-                            //     // editFAQ(e.target.checked)
-                            //     // setSwitchcheck(e.target.checked)
-                            //     // setIdItem(row.id,)
-                            //     console.log(e.target.checked, 'cvvvheckedv');
-                            //     // console.log(row.id, 'myvalueee')
-                            // })}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={age}
-                                // defaultValue={'NDFVDFV'}
-                                //   label="Age"
-                                // error={Boolean(formik.touched.Gender && formik.errors.Gender)}
-                                // helperText={formik.touched.Gender && formik.errors.Gender}
                                 name="Gender"
-                                // className={styles.emailinput}
-                                // placeholder='Enter name '
-                                // onBlur={formik.handleBlur}
-                                // onChange={formik.handleChange}
-                                // value={formik.values.Address}
-                                onChange={handleChange}
-                            >
+                                onChange={handleChangeCountry}>
                                 <MenuItem value={'Male'}>Male</MenuItem>
                                 <MenuItem value={'female'}>female</MenuItem>
                                 <MenuItem value={'other'}>other</MenuItem>

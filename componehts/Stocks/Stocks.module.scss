@@ -14,6 +14,10 @@
     font-family: roboto-600;
     src: url(../../styles/Roboto/Roboto-Bold.ttf);
 }
+.peregarflist{
+    font-family: Poppins-400 !important;
+
+}
 .listmenuu{
     display: none !important;
 }
@@ -66,8 +70,8 @@
     background-color: #053159 !important;
     color: white !important;
 }
-.list2data{
-    // background-color: red !important;
+.listiconhh{
+    margin: 0px 30px 0px 0px !important;
 }
 .active2 {
     border: 1px solid #053159;
@@ -464,7 +468,7 @@ color: #4285F4 !important;
 .listtebal {
     display: flex;
     justify-content: center;
-    padding: 0px 43px 0px 0px;
+    // padding: 0px 43px 0px 0px;
 }
 
 .menufiltarbtn {
@@ -1438,6 +1442,14 @@ color: #4285F4 !important;
 }
 
 @media only screen and (max-width: 450px) {
+    .searchbtn{
+        width: 200px !important;
+
+    }
+    .inputlistm{
+        padding: 30px 25px 0px 25px;
+        display: flex !important;
+    }
     .maendivhpline {
         display: block;
     }

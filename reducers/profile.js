@@ -5,6 +5,7 @@ const initialState = {
     name: '',
     username: '',
     account: [],
+    accountId : '',
     currentAccount: {},
     email: ''
   },

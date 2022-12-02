@@ -134,13 +134,13 @@ const Home = (props) => {
 
     //   console.log(elistdata,'elistdata');
 
-    const [values, setValues] = React.useState<State>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
+    // const [values, setValues] = React.useState<State>({
+    //     amount: '',
+    //     password: '',
+    //     weight: '',
+    //     weightRange: '',
+    //     showPassword: false,
+    // });
     // const handleChange =
     //     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     //         setValues({ ...values, [prop]: event.target.value });
@@ -152,8 +152,8 @@ const Home = (props) => {
     //     });
     // };
     // const router = useRouter();
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     //     setAnchorElNav(event.currentTarget);

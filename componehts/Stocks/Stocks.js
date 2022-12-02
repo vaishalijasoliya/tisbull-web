@@ -23,7 +23,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import Grid from '@mui/material/Grid';
 import styles from './Stocks.module.scss'
-import { Button,TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Menu from '@mui/material/Menu';
 import Divider from '@mui/material/Divider';
@@ -47,7 +47,14 @@ import { styled } from '@mui/material/styles';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
-
+import Collapse from '@mui/material/Collapse';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+// import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DialogContent from '@mui/material/DialogContent';
 function createData(name, calories, fat, carbs, protein) {
     return {
@@ -208,6 +215,12 @@ const headCells = [
         disablePadding: false,
         label: 'Action',
     },
+    {
+        id: 'Action',
+        numeric: true,
+        disablePadding: false,
+        label: '',
+    },
 ];
 
 
@@ -221,9 +234,9 @@ function EnhancedTableHead(props) {
     return (
         <TableHead>
             <TableRow>
-                <TableCell className={styles.listchekboix} padding="checkbox">
+                <TableCell className={styles.hedingtdlist} padding="checkbox">
                     <Checkbox
-                      className={styles.tablehead}
+                        className={styles.tablehead}
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
                         checked={rowCount > 0 && numSelected === rowCount}
@@ -258,7 +271,23 @@ function EnhancedTableHead(props) {
         </TableHead>
     );
 }
-
+const row = [
+    createData('India', 'IN', 1324171354, 3287263),
+    createData('China', 'CN', 1403500365, 9596961),
+    createData('Italy', 'IT', 60483973, 301340),
+    createData('United States', 'US', 327167434, 9833520),
+    createData('Canada', 'CA', 37602103, 9984670),
+    createData('Australia', 'AU', 25475400, 7692024),
+    createData('Germany', 'DE', 83019200, 357578),
+    createData('Ireland', 'IE', 4857000, 70273),
+    createData('Mexico', 'MX', 126577691, 1972550),
+    createData('Japan', 'JP', 126317000, 377973),
+    createData('France', 'FR', 67022000, 640679),
+    createData('United Kingdom', 'GB', 67545757, 242495),
+    createData('Russia', 'RU', 146793744, 17098246),
+    createData('Nigeria', 'NG', 200962417, 923768),
+    createData('Brazil', 'BR', 210147125, 8515767),
+];
 EnhancedTableHead.propTypes = {
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
@@ -278,7 +307,7 @@ const Home = (props) => {
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(7);
     const [search, setSearch] = React.useState(false);
     const [datatebalpettan, setDatatebalpettan] = React.useState([]);
     const [data, setData] = React.useState([]);
@@ -301,18 +330,19 @@ const Home = (props) => {
 
     // const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
-    const [listdara, setLlistdata] =useState('');
-    const [listdarapush, setLlistdatapush] =useState('');
-    const[logvvmog,setLogvvmog]=useState('')
+    const [listdara, setLlistdata] = useState('');
+    const [listdarapush, setLlistdatapush] = useState('');
+    const [logvvmog, setLogvvmog] = useState('')
     const [checked, setChecked] = React.useState(false);
+    const [openlist, setOpen] = React.useState(false);
 
     const [deletemenukk, setDeleteMenukk] = React.useState(false);
 
-    console.log(swishlist,'swishlist');
+    console.log(swishlist, 'swishlist');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    
+
     const patternlist = async () => {
 
         var headers = {
@@ -510,7 +540,7 @@ const Home = (props) => {
             Pausepattern()
         }
     }
- 
+
     React.useEffect(() => {
         if (!!props.props.profile && !!props.props.profile.token) {
             // playpattern()
@@ -563,7 +593,7 @@ const Home = (props) => {
     const handleCloseComdeletlog = () => {
         setDeleteMenukk(false);
     }
-  
+
     // const accounttype = async () => {
 
     //     var headers = {
@@ -717,168 +747,170 @@ const Home = (props) => {
     return (
         <Grid container spacing={0} className={styles.cantenar_list57}>
 
-        <Grid item md={12} sm={12} xs={12} className={styles.boxteballist}>
-            {/* <Box> */}
+            <Grid item md={12} sm={12} xs={12} className={styles.boxteballist}>
+                {/* <Box> */}
 
-            <div className={styles.listmeniom}>
-                <Grid item md={3} sm={6} xs={6}>
-                    <div className={styles.patterndiv}>
-                        <Typography>Pattern</Typography>
-                    </div>
-                </Grid>
-                <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
-                    <Button className={styles.cerbatn}>
-                        <Avatar className={styles.cerbatn2}>
-                            <img src="../../Vector (5).svg" />
-                        </Avatar>
-                    </Button>
-                </Grid>
-            </div>
-            <div className={styles.inputlistm}>
-                <Grid item md={12} sm={12} xs={12}>
-                    <Box className={styles.boxreting} display={'flex'}>
+                <div className={styles.listmeniom}>
+                    <Grid item md={3} sm={6} xs={6}>
+                        <div className={styles.patterndiv}>
+                            <Typography>Pattern</Typography>
+                        </div>
+                    </Grid>
+                    <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
+                        <Button className={styles.cerbatn}>
+                            <Avatar className={styles.cerbatn2}>
+                                <img src="../../Vector (5).svg" />
+                            </Avatar>
+                        </Button>
+                    </Grid>
+                </div>
+                <div className={styles.inputlistm}>
+                    <Grid item md={12} sm={6} xs={6}>
+                        <Box className={styles.boxreting} display={'flex'}>
 
-                        <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
-                            onChange={(e) => {
-                                //   setPage(0)
-                                var value = e.target.value
-                                if (typeof value !== 'object') {
-                                    if (!value || value == '') {
-                                        setDatatebalpettan(datasars);
-                                    } else {
-                                        var filteredData = datasars.filter((item) => {
-                                            let searchValue = item.script.toLowerCase();
-                                            return searchValue.includes(value.toString().toLowerCase())
-                                        })
-                                        setDatatebalpettan(filteredData);
+                            <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
+                                onChange={(e) => {
+                                    //   setPage(0)
+                                    var value = e.target.value
+                                    if (typeof value !== 'object') {
+                                        if (!value || value == '') {
+                                            setDatatebalpettan(datasars);
+                                        } else {
+                                            var filteredData = datasars.filter((item) => {
+                                                let searchValue = item.script.toLowerCase();
+                                                return searchValue.includes(value.toString().toLowerCase())
+                                            })
+                                            setDatatebalpettan(filteredData);
+                                        }
                                     }
-                                }
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                    <Grid item md={12} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
+
+                        <Button className={styles.filterlist} onClick={menulist}
+                        >
+                            <Typography>
+                                Filter
+                            </Typography>
+                            <FilterListIcon />
+                        </Button>
+                        <Menu
+                            className={styles.menufiltarbtn}
+                            anchorEl={anchorEl}
+                            id="account-menu"
+                            open={open}
+                            onClose={handleClose}
+                            // onClick={handleClose}
+                            PaperProps={{
+                                elevation: 0,
+                                sx: {
+                                    overflow: 'visible',
+                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                    mt: 1.5,
+                                    '& .MuiAvatar-root': {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                    },
+                                    '&:before': {
+                                        content: '""',
+                                        display: 'block',
+                                        position: 'absolute',
+                                        top: 0,
+                                        right: 14,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: 'background.paper',
+                                        transform: 'translateY(-50%) rotate(45deg)',
+                                        zIndex: 0,
+                                    },
+                                },
                             }}
-                        />
-                    </Box>
-                </Grid>
-                <Grid item md={12} display={'flex'} justifyContent={'end'}>
-              
-                    <Button className={styles.filterlist} onClick={menulist}
-                    >
-                        <Typography>
-                            Filter
-                        </Typography>
-                        <FilterListIcon />
-                    </Button>
-                    <Menu
-                        className={styles.menufiltarbtn}
-                        anchorEl={anchorEl}
-                        id="account-menu"
-                        open={open}
-                        onClose={handleClose}
-                        // onClick={handleClose}
-                        PaperProps={{
-                            elevation: 0,
-                            sx: {
-                                overflow: 'visible',
-                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                mt: 1.5,
-                                '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                },
-                                '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 14,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                },
-                            },
-                        }}
-                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                    >
-                        <div className={styles.filtarlist}>
-                            <div><Typography>Pattern</Typography></div>
-                            <div className={styles.listbtnsot}>
-                                <Button className={styles.censbatnsot} onClick={handleClose}>Cancel</Button>
-                                <Button className={styles.savebatnsot}>Save</Button></div>
-                        </div>
-                        <Divider></Divider>
-                        <div>
-                            <div className={styles.typetext}><Typography>Type</Typography></div>
-                            <div>
-                                <Button className={styles.nonelistbtn}>None</Button>
-                                <Button className={styles.Basiclistbtn}>Basic</Button>
-                                <Button className={styles.Customlistbtn}>Custom</Button>
+                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                        >
+                            <div className={styles.filtarlist}>
+                                <div><Typography>Pattern</Typography></div>
+                                <div className={styles.listbtnsot}>
+                                    <Button className={styles.censbatnsot} onClick={handleClose}>Cancel</Button>
+                                    <Button className={styles.savebatnsot}>Save</Button></div>
                             </div>
-                        </div>
-                        <div className={styles.maendivselect}>
-                            <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
+                            <Divider></Divider>
+                            <div>
+                                <div className={styles.typetext}><Typography>Type</Typography></div>
+                                <div>
+                                    <Button className={styles.nonelistbtn}>None</Button>
+                                    <Button className={styles.Basiclistbtn}>Basic</Button>
+                                    <Button className={styles.Customlistbtn}>Custom</Button>
+                                </div>
+                            </div>
+                            <div className={styles.maendivselect}>
+                                <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
 
-                            <Select
-                                className={styles.listsekater}
-                                value={age}
-                                onChange={handleChange}
-                                displayEmpty
-                                inputProps={{ 'aria-label': 'Without label' }}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={'Ten'}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                                <Select
+                                    className={styles.listsekater}
+                                    value={age}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    inputProps={{ 'aria-label': 'Without label' }}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={'Ten'}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
 
-                        </div>
-                        <Divider className={styles.divaydarten}></Divider>
-                        <div className={styles.divlistsivijan}></div>
-                    </Menu>
-                </Grid>
-            </div>
-            <Grid item md={12} sm={12} xs={12} >
-                <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-                    <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
-                        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-                        <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
-                            <Table
-                                className={styles.tablelist}
-                                // sx={{ minWidth: 750 }}
-                                aria-labelledby="tableTitle"
-                                size={dense ? 'small' : 'medium'}
-                            >
-                                <EnhancedTableHead
-                                    numSelected={selected.length}
-                                    order={order}
-                                    orderBy={orderBy}
-                                    onSelectAllClick={handleSelectAllClick}
-                                    onRequestSort={handleRequestSort}
-                                    rowCount={datatebalpettan.length}
-                                />
-                                <TableBody>
-                                    {stableSort(datatebalpettan, getComparator(order, orderBy))
-                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        .map((row, index) => {
-                                            const isItemSelected = isSelected(row.id);
-                                            // const isItemSelected = isSelected(row.id_account);
-                                            const labelId = `enhanced-table-checkbox-${index}`;
+                            </div>
+                            <Divider className={styles.divaydarten}></Divider>
+                            <div className={styles.divlistsivijan}></div>
+                        </Menu>
+                    </Grid>
+                </div>
+                <Grid item md={12} sm={12} xs={12} >
+                    <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
+                        <React.Fragment>
 
-                                            return (
-                                                <TableRow
-                                                    // hover
-                                                    // onClick={(event) => handleClick(event, row.name)}
-                                                    role="checkbox"
-                                                    aria-checked={isItemSelected}
-                                                    tabIndex={-1}
-                                                    key={row.id}
-                                                    selected={isItemSelected}
-                                                >
-                                                     <TableCell className={styles.cekboxtd} padding="checkbox">
+                            <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+                                {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
+                                <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+                                    <Table
+                                        className={styles.tablelist}
+                                        // sx={{ minWidth: 750 }}
+                                        aria-labelledby="tableTitle"
+                                        size={dense ? 'small' : 'medium'}
+                                    >
+                                        <EnhancedTableHead
+                                            numSelected={selected.length}
+                                            order={order}
+                                            orderBy={orderBy}
+                                            onSelectAllClick={handleSelectAllClick}
+                                            onRequestSort={handleRequestSort}
+                                            rowCount={datatebalpettan.length}
+                                        />
+                                        <TableBody>
+                                            {stableSort(datatebalpettan, getComparator(order, orderBy))
+                                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                .map((row, index) => {
+                                                    const isItemSelected = isSelected(row.id);
+                                                    // const isItemSelected = isSelected(row.id_account);
+                                                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                                                    return (
+                                                    <TableRow
+                                                        // hover
+                                                        // onClick={(event) => handleClick(event, row.name)}
+                                                        role="checkbox"
+                                                        aria-checked={isItemSelected}
+                                                        tabIndex={-1}
+                                                        key={row.id}
+                                                        selected={isItemSelected}
+                                                    >
+                                                        <TableCell className={styles.cekboxtd} padding="checkbox">
                                                             <Checkbox
                                                                 checked={isItemSelected}
 
@@ -896,7 +928,7 @@ const Home = (props) => {
                                                             onClick={() => {
                                                                 router.push({
                                                                     pathname: './pattandeteal',
-                                                                    query: { emailID: row.id,namescoka:row.script }
+                                                                    query: { emailID: row.id, namescoka: row.script }
                                                                 });
                                                             }}
                                                         >
@@ -940,7 +972,7 @@ const Home = (props) => {
 
                                                             <div className={styles.listtebal}>
                                                                 <Button className={styles.viwebtnmm}
-                                                                   
+
                                                                 // onClick={() => { setRowid(row.id) }}
                                                                 > <img height={18} src="../../edit_square.svg" /> </Button>
 
@@ -979,9 +1011,9 @@ const Home = (props) => {
 
 
                                                                                 <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
-                                                                                    <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 24PX 3PX 24PX'}}>Cancel</Button>
-                                                                                {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>SAVE </Button></div>
+                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }}>Cancel</Button>
+                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                    <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }} className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>SAVE </Button></div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                         </DialogContent>
@@ -1021,9 +1053,9 @@ const Home = (props) => {
                                                                                             buttons={["Stock", "Without Stock"]}
                                                                                             doSomethingAfterClick={printButtonLabel}
                                                                                         /> */}
-  {/* <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button> */}
-                                                                                    <Button onClick={()=>{setLogvvmog('Stock')}} className={logvvmog =='Stock' ? styles.listdatlog:styles.list2data }>Stock</Button>
-                                                                                    <Button  onClick={()=>{setLogvvmog('WithoutStock')}} className={logvvmog =='WithoutStock' ? styles.listdatlog:styles.list2data }>Without Stock</Button>
+                                                                                        {/* <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button> */}
+                                                                                        <Button onClick={() => { setLogvvmog('Stock') }} className={logvvmog == 'Stock' ? styles.listdatlog : styles.list2data}>Stock</Button>
+                                                                                        <Button onClick={() => { setLogvvmog('WithoutStock') }} className={logvvmog == 'WithoutStock' ? styles.listdatlog : styles.list2data}>Without Stock</Button>
 
                                                                                     </div>
                                                                                     <div style={{ padding: '0px 0px 20px 0px' }}>
@@ -1037,9 +1069,9 @@ const Home = (props) => {
                                                                                             </Typography>
                                                                                             <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
                                                                                         </div>
-                                                                                        {checked == false ? <SwitchUnstyled component={Root} 
-                                                                                        // onChange={console.log('virang')} 
-                                                                                        {...label} id='switch'
+                                                                                        {checked == false ? <SwitchUnstyled component={Root}
+                                                                                            // onChange={console.log('virang')} 
+                                                                                            {...label} id='switch'
                                                                                             style={{ padding: '0px 0px 0px 32px' }}
 
                                                                                             // checked={row.Publication} 
@@ -1048,9 +1080,9 @@ const Home = (props) => {
                                                                                                 // setLogvvmog('exit for fixedPrice')
                                                                                                 setAccounttype('exit for fixedPrice')
                                                                                             })}
-                                                                                        />:<SwitchUnstyled component={Root} 
-                                                                                        // onChange={console.log('virang')}
-                                                                                         {...label} id='switch'
+                                                                                        /> : <SwitchUnstyled component={Root}
+                                                                                            // onChange={console.log('virang')}
+                                                                                            {...label} id='switch'
                                                                                             disabled
                                                                                             style={{ padding: '0px 0px 0px 32px' }}
 
@@ -1058,8 +1090,8 @@ const Home = (props) => {
                                                                                             onChange={((e) => {
                                                                                                 setSwishlist(e.target.checked)
                                                                                             })}
-                                                                                        /> }
-                                                                               
+                                                                                        />}
+
                                                                                     </div>
                                                                                     <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
                                                                                         <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
@@ -1077,7 +1109,7 @@ const Home = (props) => {
                                                                                         <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
                                                                                         <div>
                                                                                             <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                            Sell holding stock with market price 
+                                                                                                Sell holding stock with market price
                                                                                             </Typography>
                                                                                             <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
                                                                                         </div>
@@ -1088,11 +1120,11 @@ const Home = (props) => {
                                                                                                 // setChecked('ZERODHA')
                                                                                                 setChecked(e.target.checked)
                                                                                                 setAccounttype('exit for market')
-                                                                     
+
                                                                                             })}
-                                                                                        />:<SwitchUnstyled component={Root} 
-                                                                                        // onChange={console.log('virang')}
-                                                                                         {...label} id='switch'
+                                                                                        /> : <SwitchUnstyled component={Root}
+                                                                                            // onChange={console.log('virang')}
+                                                                                            {...label} id='switch'
                                                                                             disabled
                                                                                             style={{ padding: '0px 0px 0px 20px' }}
 
@@ -1100,22 +1132,22 @@ const Home = (props) => {
                                                                                             onChange={((e) => {
                                                                                                 setChecked(e.target.checked)
                                                                                             })}
-                                                                                        /> }
+                                                                                        />}
 
 
                                                                                     </div>
                                                                                 </div>
                                                                                 <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
-                                                                                {logvvmog == 'WithoutStock' ||  swishlist == false || listpires == '' ? 'desebal':'yes'}
+                                                                                    {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'}
 
-                                                                                <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseComdeletlog}>Cancel</Button>
-                                                                                {logvvmog == 'WithoutStock' ? <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>:''}
-                                                                                {logvvmog == 'WithoutStock' ||  swishlist == false || listpires == '' ?  
-                                                                                <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={logvvmog == 'WithoutStock' ? styles.listmenuu:styles.cofimbatn} >SAVE </Button>:<Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet:styles.namnedata} style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={logvvmog == 'WithoutStock' ? styles.listmenuu:styles.cofimbatn}  onClick={()=>{deletepattern(),handleCloseComdeletlog()}}>SAVE </Button>}
+                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
+                                                                                    {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button> : ''}
+                                                                                    {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ?
+                                                                                        <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >SAVE </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
                                                                                     {/* <Button>Cancel</Button> */}
                                                                                     {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
                                                                                     {/* <Button className={styles.cofimbatn} onClick={deletepattern}>Confirm</Button> */}
-                                                                                    </div>
+                                                                                </div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                         </DialogContent>
@@ -1201,24 +1233,24 @@ const Home = (props) => {
                                                                                     <Typography>Pause with </Typography>
                                                                                 </div>
                                                                                 <div className={styles.btn_all_buy}>
-                                                                                <Button onClick={()=>{setLlistdatapush('All') }} className={listdarapush =='All' ? styles.listdatlog:styles.list2data }>All</Button>
-                                                                                    <Button onClick={()=>{setLlistdatapush('Buy')}} className={listdarapush =='Buy' ? styles.listdatlog:styles.list2data }>Buy</Button>
-                                                                                    <Button  onClick={()=>{setLlistdatapush('Sell')}} className={listdarapush =='Sell' ? styles.listdatlog:styles.list2data }>Sell</Button>
+                                                                                    <Button onClick={() => { setLlistdatapush('All') }} className={listdarapush == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
+                                                                                    <Button onClick={() => { setLlistdatapush('Buy') }} className={listdarapush == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
+                                                                                    <Button onClick={() => { setLlistdatapush('Sell') }} className={listdarapush == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
 
 
                                                                                 </div>
                                                                                 <div className={styles.divpopupspn}>
-                                                                                    {listdarapush == '' ?  <span className={styles.otperr}>Please Enter Valid list</span> :''}
+                                                                                    {listdarapush == '' ? <span className={styles.otperr}>Please Enter Valid list</span> : ''}
                                                                                 </div>
-                                                                                <div className={styles.cancelbtnlog} style={{padding:'25px 0px 0px 0px'}}>
-                                                                                {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
-                                                                                    <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseComplay}>Cancel</Button>
+                                                                                <div className={styles.cancelbtnlog} style={{ padding: '25px 0px 0px 0px' }}>
+                                                                                    {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
+                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComplay}>Cancel</Button>
 
-                                                                                {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
+                                                                                    {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
                                                                                     {/* <Button>Cancel</Button> */}
-                                                                                {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                {listdarapush == '' ? <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn} >SAVE </Button>: 
-                                                                                <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituser(),handleCloseComplay()}}>SAVE </Button>}
+                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                    {listdarapush == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} >SAVE </Button> :
+                                                                                        <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituser(), handleCloseComplay() }}>SAVE </Button>}
                                                                                 </div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -1255,15 +1287,15 @@ const Home = (props) => {
                                                                                     <Typography>Pause with </Typography>
                                                                                 </div>
                                                                                 <div className={styles.btn_all_buy}>
-                                                                                  {/* {btnlistnamelist == 'All' ? }   */}
-                                                                                  <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button>
-                                                                                    <Button onClick={()=>{setLlistdata('Buy')}} className={listdara =='Buy' ? styles.listdatlog:styles.list2data }>Buy</Button>
-                                                                                    <Button  onClick={()=>{setLlistdata('Sell')}} className={listdara =='Sell' ? styles.listdatlog:styles.list2data }>Sell</Button>
+                                                                                    {/* {btnlistnamelist == 'All' ? }   */}
+                                                                                    <Button onClick={() => { setLlistdata('All') }} className={listdara == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
+                                                                                    <Button onClick={() => { setLlistdata('Buy') }} className={listdara == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
+                                                                                    <Button onClick={() => { setLlistdata('Sell') }} className={listdara == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
 
                                                                                     {/* <ButtonGroup */}
-{/* onClick={()=>{setLlistdata(true)}} */}
-                                                                                        {/* buttons={["All", "Buy", "Sell"]} */}
-                                                                                        {/* doSomethingAfterClick={printButtonLabellist} */}
+                                                                                    {/* onClick={()=>{setLlistdata(true)}} */}
+                                                                                    {/* buttons={["All", "Buy", "Sell"]} */}
+                                                                                    {/* doSomethingAfterClick={printButtonLabellist} */}
                                                                                     {/* // style={} */}
                                                                                     {/* // className={btnlistname == 'Buy' ? styles.buylist : styles.buylist2} */}
                                                                                     {/* /> */}
@@ -1273,13 +1305,13 @@ const Home = (props) => {
                                                                                 </div>
                                                                                 {/* </Box> */}
                                                                                 <div className={styles.cancelbtnlog}>
-                                                                             <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 24PX 7PX 24PX'}}  onClick={handleCloseCompause}>Cancel</Button>
-                                                                             {listdara == '' ? <Button disabled style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  >SAVE </Button>:
- <Button style={{background:'#009947',borderRadius:'5px',color: '#FFFFFF', padding:'7PX 31PX 7PX 31PX'}} className={styles.cofimbatn}  onClick={()=>{edituserlistpause(),handleCloseCompause()}}>SAVE </Button>}
+                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseCompause}>Cancel</Button>
+                                                                                    {listdara == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn}  >SAVE </Button> :
+                                                                                        <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituserlistpause(), handleCloseCompause() }}>SAVE </Button>}
                                                                                     {/* <Button >Cancel</Button> */}
                                                                                     {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
                                                                                     {/* <Button className={styles.cofimbatn} onClick={edituserlistpause}>Confirm</Button> */}
-                                                                                    </div>
+                                                                                </div>
                                                                             </Box>
                                                                             {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                         </DialogContent>
@@ -1287,44 +1319,119 @@ const Home = (props) => {
                                                                 </Dialog>
                                                             </div>
                                                         </TableCell>
+                                                        <TableCell>
+          <IconButton
+          className={styles.listiconhh}
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!openlist)}
+          >
+            {openlist ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
 
 
+                                                    </TableRow>
+                                      
+                                            
+                      
+                                                    );
+                               
+                                                })}
+
+
+                                            {emptyRows > 0 && (
+                                                <TableRow
+                                                    style={{
+                                                        height: (dense ? 33 : 53) * emptyRows,
+                                                    }}
+                                                >
+                                                    <TableCell colSpan={6} />
                                                 </TableRow>
-                                            );
-                                        })}
-                                    {emptyRows > 0 && (
-                                        <TableRow
-                                            style={{
-                                                height: (dense ? 33 : 53) * emptyRows,
-                                            }}
-                                        >
-                                            <TableCell colSpan={6} />
+                                            )}
+                                
+                                        </TableBody>
+                                        <TableRow>
+                                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
+          <Collapse in={openlist} timeout="auto" unmountOnExit>
+            {/* <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                History
+              </Typography> */}
+              <Table size="small" aria-label="purchases">
+                {/* <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Customer</TableCell>
+                    <TableCell align="right">Amount</TableCell>
+                    <TableCell align="right">Total price ($)</TableCell>
+                  </TableRow>
+                </TableHead> */}
+                <TableBody>
+                  {/* {row.map((historyRow) => ( */}
+                    <TableRow
+                    //  key={historyRow.date}
+                     >
+                      <TableCell scope="row">
+                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Type</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>600</Typography>
+                      {/* ajjaa */}
+                        {/* {historyRow.date} */}
+                      </TableCell>
+                      <TableCell>
+                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>StopLoss</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#E31E24'}}>600</Typography>
+                      {/* {historyRow.customerId} */}
+                      </TableCell>
+                      <TableCell align="right">
+                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Todays Profit</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>600</Typography>
+                      {/* {historyRow.amount} */}
+                      </TableCell>
+                      <TableCell align="right">
+                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Today Orders</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#4F4F4F'}}>600</Typography>
+                      </TableCell>
+                      <TableCell align="right">
+                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Created At</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#4F4F4F'}}>12/10/2022 10:10:12</Typography>
+                      </TableCell>
+                      <TableCell align="right">
+                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Edited At</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#4F4F4F'}}>12/10/2022 10:10:12</Typography>
+                      </TableCell>
+                    </TableRow>
+                  {/* ))} */}
+                </TableBody>
+              </Table>
+            {/* </Box> */}
+          </Collapse>
+        </TableCell>
+      </TableRow>
+                                        {/* <TableRow> */}
+                          {/* <TableFooter> */}
+                                        <TableRow >
+                                            <TablePagination
+                                                className={styles.tablePagination}
+                                                rowsPerPageOptions={[4, 10, 25, { label: "All", value: -1 }]}
+                                                count={datatebalpettan.length}
+                                                rowsPerPage={rowsPerPage}
+                                                page={page}
+                                                SelectProps={{
+                                                    inputProps: {
+                                                        "aria-label": "rows per page",
+                                                    },
+                                                    native: false,
+                                                }}
+                                                onPageChange={handleChangePage}
+                                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                            // ActionsComponent={TablePaginationActions}
+                                            />
                                         </TableRow>
-                                    )}
-                                </TableBody>
-                                {/* <TableFooter> */}
-                                <TableRow >
-                                    <TablePagination
-                                        className={styles.tablePagination}
-                                        rowsPerPageOptions={[2, 10, 25, { label: "All", value: -1 }]}
-                                        count={datatebalpettan.length}
-                                        rowsPerPage={rowsPerPage}
-                                        page={page}
-                                        SelectProps={{
-                                            inputProps: {
-                                                "aria-label": "rows per page",
-                                            },
-                                            native: false,
-                                        }}
-                                        onPageChange={handleChangePage}
-                                        onRowsPerPageChange={handleChangeRowsPerPage}
-                                    // ActionsComponent={TablePaginationActions}
-                                    />
-                                </TableRow>
-                                {/* </TableFooter> */}
-                            </Table>
-                        </TableContainer>
-                        {/* <TablePagination
+                                        {/* </TableFooter> */}
+                                    </Table>
+                                </TableContainer>
+                                {/* <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
               count={rows.length}
@@ -1333,14 +1440,15 @@ const Home = (props) => {
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
             /> */}
-                    </Paper>
-                    {/* <FormControlLabel
+                            </Paper>
+                        </React.Fragment>
+                        {/* <FormControlLabel
             control={<Switch checked={dense} onChange={handleChangeDense} />}
             label="Dense padding"
           /> */}
-                </Box>
+                    </Box>
+                </Grid>
             </Grid>
-        </Grid>
         </Grid>
     );
 }

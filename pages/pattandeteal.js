@@ -53,8 +53,8 @@ function a11yProps(index) {
   };
 }
 const ResponsiveAppBar = (props) => {
-  console.log(props.loaderRef,'listprops');
   const router = useRouter();
+  console.log(router.query.emailID, 'propsprops');
 
   console.log(router.query.namescoka,'gvvvvv');
 
@@ -69,9 +69,13 @@ console.log(value,'listdatall');
   return (
     <Grid container className={styles.cantenar_list265}>
       <Grid item sm={12} md={12} xs={12}>
-        <Box className={styles.container_list80}>
+
+        {/* <Box className={styles.container_list80}> */}
           <Newbar />
-          <Box component={Paper} className={styles.container_box}>
+          </Grid>
+          <Grid item sm={12} md={12} xs={12}>
+
+          {/* <Box component={Paper} className={styles.container_box}> */}
           <Button className={styles.listpattbek} style={{color:'black',testTransform:'capitalize'}} 
           onClick={() => {
                                                                 router.push({
@@ -81,6 +85,8 @@ console.log(value,'listdatall');
                                                             }}
         
           ><KeyboardReturnIcon />Pattern</Button>
+          </Grid>
+          <Grid item sm={12} md={6} xs={12}>
 
             <Box className={styles.flex}>
 
@@ -89,18 +95,19 @@ console.log(value,'listdatall');
               <Typography variant="h5" className={styles.typo}>
                
                {router.query.namescoka}
-               </Typography>:<Typography variant="h5" className={styles.typo}>
+               </Typography>:<Typography variant="h5" style={{display:'flex',alignItems:'center'}} className={styles.typo}>
                   {router.query.namescoka}
                   <ArrowDropUpIcon
                     fontSize={"large"}
                     className={styles.dropup_icon}
                   />
                   <span className={styles.span_1}>
-                    97.75 <span className={styles.span}> (0.66%)</span>
+                    97.75 
                   </span>
-                  
+                  <span className={styles.span}> (0.66%)</span>
                 </Typography>}
               </Box>
+
               <Box
                 className={
                   styles.wid_1 +
@@ -112,6 +119,12 @@ console.log(value,'listdatall');
                   styles.hei_12
                 }
               >
+              </Box>
+              </Box>
+              {/* </Box> */}
+              </Grid>
+              <Grid item sm={12} md={6} xs={12} style={{display:'flex',justifyContent:'end',padding:'0px 60px 0px 0px'}}>
+
                 <Button>
                   <Avatar style={{ background: '#009947' }}>
                     <img src="../Vector (14).svg"
@@ -120,17 +133,24 @@ console.log(value,'listdatall');
                     />
                   </Avatar>
                 </Button>
-              </Box>
-            </Box>
+                </Grid>
+              {/* </Box> */}
+            {/* </Box> */}
+            
             {/* <Box></Box> */}
-            <Box className={styles.flex}>
-              <Box className={styles.pad_1 + " " + styles.wid_2}>
-                <Box style={{ 'display': 'flex', padding: '0px 0px 0px 62px' }}>
+            {/* <Box className={styles.flex}> */}
+              {/* <Box className={styles.pad_1 + " " + styles.wid_2}> */}
+                {/* <Box style={{ 'display': 'flex', 
+                padding: '0px 0px 0px 62px' 
+                }}> */}
+                <Grid item sm={12} md={6} xs={12} style={{padding:'0px 0px 0px 62px'}}>
+
                   <Box
                     sx={{
                       borderBottom: 1,
                       borderColor: "rgba(0, 153, 71, 0.22)",
-                      width: 464,
+                      overflow:'auto'
+                      // width: 464,
                     }}
                   >
                     <Tabs
@@ -177,39 +197,39 @@ console.log(value,'listdatall');
                       />
                     </Tabs>
                   </Box>
-                  <Box style={{ display: 'flex', justifyContent: 'end', 'width': '54%' }}>
+</Grid>
+          <Grid item sm={12} md={6} xs={12}>
+
+                  <Box style={{ display: 'flex', justifyContent: 'end',  }}>
                     <Button type="submit" className={styles.button}>
                       Edit
                     </Button>
                   </Box>
-                </Box>
+                  </Grid>
+                {/* </Box> */}
                 <Box>
                   <TabPanel  value={value} index={0}>
-                    {/* {/ Summary /} */}
                     <Summary proidlists={router.query.emailID} props={props} />
                   </TabPanel>
                   <TabPanel style={{padding:'30px 0px 0px 0px'}}  className={styles.tbapenalist}   value={value} index={1}>
-                    {/* {/ Today’s orders /} */}
                     <TodayOrder props={props}  listdsts={router.query.emailID}/>
                   </TabPanel>
                   <TabPanel  style={{padding:'30px 0px 0px 0px'}} value={value} index={2}>
                   <OrderHistory props={props} />
-                    {/* {/ Order History /} */}
                   </TabPanel>
                   <TabPanel value={value} index={3}>
                     <Chart />
-                    {/* {/ Chart /} */}
                   </TabPanel>
                 </Box>
                 {/* <Box className={styles.text_align + " " + styles.pad_2}>
 
                 </Box> */}
-              </Box>
+              {/* </Box> */}
 
-            </Box>
-          </Box>
-        </Box>
-      </Grid>
+            {/* // </Box> */}
+          {/**/}
+        {/* </Box> */}
+      {/* </Grid> */}
     </Grid>
   );
 }

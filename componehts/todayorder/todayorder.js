@@ -32,6 +32,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Types } from '../../constants/actionTypes'
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
+
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import Avatar from '@mui/material/Avatar';
@@ -240,7 +242,8 @@ EnhancedTableHead.propTypes = {
 // };
 
 const Home = (props) => {
-  console.log(props, 'propsprops');
+  const router = useRouter();
+console.log(props.listdsts,'listdstslistdsts');
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -251,13 +254,18 @@ const Home = (props) => {
   const [datatebalpettan, setDatatebalpettan] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState('');setListid
+  const [listdarta, setListid] = React.useState('');
+const[idlist,setIdlist] = React.useState('')
   const [datasars, setDatasars] = React.useState([]);
   const [datalist, setDatalist] = React.useState([]);
   const [com, setCom] = React.useState(false);
   const [play, setPlay] = React.useState(false);
   const [pause, setPause] = React.useState(false)
   const [diletbtn, setDiletbtn] = React.useState(false)
+console.log(idlist,'listdarta');
+  const today = new Date();
+console.log(today,'today');
 
   var handleClickOpenComdilet = () => {
     setDiletbtn(true);
@@ -284,19 +292,21 @@ const Home = (props) => {
     setPlay(false);
   }
   console.log(datatebalpettan, 'datatebalpettan');
-  const patternlist = async () => {
-
+ const patternlist = async () => {
     var headers = {
       "Content-Type": "application/json",
       "x-access-token": props.props.profile.token
     }
     var body = {
-      "pattern_id": [props.listdsts],
+      "pattern_id":[parseInt(props.listdsts)],
+      "start_date": moment(today).format("MM/DD/YYYY"),
+      "end_date":moment(today).format("MM/DD/YYYY"),
       // props.idlist,
       // email: props.email,
       // otp: outField
     }
     console.log(body, 'body');
+    // moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
 
     // props.loaderRef(true)
     // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
@@ -323,7 +333,8 @@ const Home = (props) => {
             profit: element.price,
             stock: element.transactionType,
             created_at: element.createdAt,
-            status: element.status
+            status: element.status,
+            orderId:element.orderId
           }
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
@@ -339,7 +350,37 @@ const Home = (props) => {
 
     }
   }
+  const playpattern = async () => {
 
+    var headers = {
+        "Content-Type": "application/json",
+        "x-access-token": props.props.profile.token
+    }
+    var body = {
+      "id_order" :idlist
+  }
+    props.props.loaderRef(true)
+    var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
+    props.props.loaderRef(false)
+    // if (!!patternDelete) {
+
+    console.log(patternDelete, 'datalist');
+    if (patternDelete.status) {
+        // patternDelete.token = patternDelete.token
+        toast.success(patternDelete.message)
+        // toast.success("Successfully Updated Personal Information lisgg")
+        // patternlist()
+    }
+    else {
+        toast.error(patternDelete.message)
+    }
+    // }
+    // else{
+    //     toast.error("Successfully nformation lisgg")
+
+    // }
+
+}
   // let inloglist=datatebal.zerodha_token_update
 
   // console.log(datatebalpettan, 'datatebalpettan');
@@ -643,10 +684,10 @@ const Home = (props) => {
                             } </Typography></TableCell>
 
                           <TableCell>
-                            <Button className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}>
+                            {/* <Button className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}> */}
                               {/* {row.status == 'pause' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}> */}
                               <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
-                            </Button>
+                            {/* </Button> */}
 
 
                           </TableCell>
@@ -654,7 +695,7 @@ const Home = (props) => {
                           <TableCell className={styles.btnmenubar}>
 
                             <div >
-                              <Button className={styles.viwebtnmm22} onClick={handleClickOpenComdilet}> <MoreVertIcon /></Button>
+                              <Button className={styles.viwebtnmm22} onClick={()=>{handleClickOpenCom(),setIdlist(row.id)}}> <MoreVertIcon /></Button>
 
 
                             </div>
@@ -678,7 +719,7 @@ const Home = (props) => {
                                       <div className={styles.accoparegarf}>
                                         <Typography>
                                           Are you sure you want to delete
-                                          this order( #123DR5HKGF )?
+                                          this order(#{row.orderId})?
                                         </Typography>
                                         <Typography className={styles.peregara_itbtn}>It will delete from 3rd party broker </Typography>
                                       </div>
@@ -686,7 +727,7 @@ const Home = (props) => {
                                       <Divider>
 
                                       </Divider>
-                                      <div><Button className={styles.cancelbtn} onClick={handleCloseComdelet}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2}>Delete</Button></div>
+                                      <div><Button  onClick={handleCloseComdelet} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }}>Cancel</Button><img src='../../Line 17.png' /><Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
@@ -715,9 +756,9 @@ const Home = (props) => {
                                       </div>
                                       <Box className={styles.listboxiduser28}>
                                         {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
-                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order ( #12334 ) from zerodha ?</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#12345</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#12345</Typography></div>
+                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{row.orderId}) from zerodha ?</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.orderId}</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.id}</Typography></div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
                                         <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
@@ -816,6 +857,7 @@ const Home = (props) => {
                         </TableRow>
                       );
                     })}
+                
                   {emptyRows > 0 && (
                     <TableRow
                       style={{

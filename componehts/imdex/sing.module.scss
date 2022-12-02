@@ -522,6 +522,10 @@
     width: 164px;
 }
 @media only screen and (max-width: 900px) {
+   .boxsinglist2{
+        margin: 0px 35px 0px 37px;
+
+    }
     .cantenar_pegsingcantenar {
         background-image: none !important;
     }
@@ -590,10 +594,14 @@
         display: none !important;
     }
     .boxsinglist3{
-        margin: 30px !important;
+        margin: 30px ;
     }
 }
 @media only screen and (max-width: 500px) {
+    .boxsinglist2{
+        margin: 0px !important;
+        padding: 30px 20px 30px 20px
+    }
     .forgotlistmenu {
         padding: 0px 0px 0px 60px;
     }
@@ -669,7 +677,7 @@
     .otpinput33 input {
         width: 58px;
         height: 58px;
-        margin: 0px 0px 0px 13px;
+        margin: 0px 0px 0px 8px;
     }
 
     .newbar_list {

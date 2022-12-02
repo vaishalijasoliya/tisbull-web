@@ -413,6 +413,12 @@ padding: 80px 80px;
 }
 
 @media only screen and (max-width: 500px) {
+  .pad_12{
+    padding: 20px 0 30px 30px;
+  }
+  .container_box{
+    margin: 26px 20px 50px 20px !important;
+  }
   .newbarend{
     display: flex;
     justify-content: end;

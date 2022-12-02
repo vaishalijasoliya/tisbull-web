@@ -243,11 +243,12 @@ const Home = (props) => {
                         id: element.id,
                         logoUrl: element.logoUrl,
                         password: element.password,
-                        // type: element.type,
+                        type: element.type,
                         user_id: element.user_id,
                         consumer_key: element.consumer_key,
                         consumer_secret: element.consumer_secret,
                         id_user: element.id_user,
+                        loginUrllist:element.loginUrl,
                         zerodha_token_update: element.zerodha_token_update
                     }
                     console.log(element, 'password');
@@ -259,6 +260,7 @@ const Home = (props) => {
             }
         }
     }
+    console.log(datatebal,'datatebal');
     const accountdelete = async () => {
 
         var headers = {
@@ -367,13 +369,13 @@ const Home = (props) => {
     return (
         <Grid container className={styles.cantenar_list22}>
             {/* <Divider className={styles.devatdar}/> */}
-            <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal}>
+            <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal}>
 
                 <Typography className={styles.accolistp}>
                     Account
                 </Typography>
             </Grid>
-            <Grid item md={6} sm={12} xs={12} className={styles.batntextend}>
+            <Grid item md={6} sm={6} xs={6} className={styles.batntextend}>
                 <div>
                     <Button className={styles.addbtnkk} onClick={() => {
                         router.push({
@@ -385,7 +387,7 @@ const Home = (props) => {
                     </Button>
                 </div>
             </Grid>
-            <Grid item sm={12} md={6} xs={12} className={styles.padimgtebal2}>
+            <Grid item sm={6} md={6} xs={6} className={styles.padimgtebal2}>
                 <div>
                     <Box className={styles.boxreting} display={'flex'}>
 
@@ -410,7 +412,7 @@ const Home = (props) => {
                 </div>
             </Grid>
 
-            <Grid item md={6} sm={12} xs={12} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
+            <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
                 {/* <CsvDownloader data={list}> */}
                 <CSVLink className={styles.btnsaveic} data={datatebal} filename={"account.csv"}> <SaveAltIcon /></CSVLink>
                 {/* <Button className={styles.btnsaveic}>  */}
@@ -495,7 +497,15 @@ const Home = (props) => {
                                                         {row.password}
                                                     </TableCell> */}
                                                     <TableCell>
-                                                        <Button><img src='../../History.svg' /></Button>
+                                                        <Button onClick={() => {
+                                                            if (row.type == 'zerodha') {
+                                                                var profile = props.profile;
+                                                                profile.accountId = row.id
+                                                                rest.props.save_user_data({ user: profile });
+                                                                window.location.href = `${row.loginUrllist}`
+                                                            }
+                                                        }}
+                                                        ><img src='../../History.svg' /></Button>
                                                         {/* {row.zerodha_token_update} */}
                                                     </TableCell>
                                                     {/* <TableCell> */}
@@ -530,7 +540,7 @@ const Home = (props) => {
                                                                             <Divider>
 
                                                                             </Divider>
-                                                                            <div><Button className={styles.cancelbtn} onClick={handleCloseCom}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={()=>{accountdelete(),handleCloseCom()}}>Delete</Button></div>
+                                                                            <div><Button className={styles.cancelbtn} onClick={handleCloseCom}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => { accountdelete(), handleCloseCom() }}>Delete</Button></div>
                                                                         </Box>
                                                                         {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                     </DialogContent>
