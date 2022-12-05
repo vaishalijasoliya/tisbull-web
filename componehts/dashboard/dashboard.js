@@ -48,7 +48,7 @@ function createData(name, calories) {
 //     createData('Cupcake', 305),
 //     createData('Gingerbread', 356),
 // ];
-const Chartdyanamic = dynamic(() => import("react-apexcharts"), { ssr: false });
+//const Chartdyanamic = dynamic(() => import("react-apexcharts"), { ssr: false });
 const main = (props) => {
     console.log(props,'jsjhshhss');
     const [onlineUserList, setOnlineUserList] = React.useState([]);
@@ -363,14 +363,14 @@ const main = (props) => {
                             </div>
                         </div>
                         <div>
-                            <Chartdyanamic
+                            {/* <Chartdyanamic
                                 className={styles.listnjhahjhb}
                                 //   type: "vertical"
                                 options={options}
                                 series={series}
                                 // series={series == "-10" ? "virang" : "mirav"}
                                 type="bar"
-                            />
+                            /> */}
                         </div>
                     </Box>
                 </Grid>
