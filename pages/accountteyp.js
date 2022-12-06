@@ -3,11 +3,14 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
+import { Types } from '../constants/actionTypes'
+// import { connect } from 'react-redux';
+import ApiServices from '../config/ApiServices';
+import ApiEndpoint from '../config/ApiEndpoint';
 import Newbar from './newbarlist';
 import Accounttype from '../componehts/Stocks/accounttype';
 const ResponsiveAppBar = (props) => {
-  // console.log(props.profile.userData.currentAccount.id,'vssssir');
+  console.log(props.profile,'vssssir');
   const router = useRouter();
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const ResponsiveAppBar = (props) => {
     }
     var body = {
       request_token: token,
-      id_account:props.profile.userData.currentAccount.id
+      id_account:props.profile.userData.id
     }
     props.loaderRef(true)
     var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
@@ -42,7 +45,7 @@ const ResponsiveAppBar = (props) => {
         <Newbar />
         {/* <Home /> */}
         <div className={styles.dasnod_camponat266}>
-        <Accounttype className={styles.accolistmenu}  props={props}/>
+        <Accounttype  props={props}/>
         </div>
       </Grid>
     </Grid>

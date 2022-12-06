@@ -120,6 +120,7 @@ const Home = (props) => {
         data.token = data.token
         // elistdata
         data.userData.currentAccount = data.userData.account[0];
+        
 console.log(data,'loginData');
         props.save_user_data({ user: data });
         toast.success("Logged In Succesfully")

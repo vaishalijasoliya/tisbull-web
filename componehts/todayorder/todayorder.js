@@ -456,9 +456,9 @@ console.log(today,'today');
 
   return (
     <Grid container spacing={0} className={styles.cantenar_list57}>
-
-      <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
-        <div style={{ display: 'flex' }}>
+{/* <div style={{display:'flex'}}> */}
+      <Grid item md={6} sm={6} xs={12} >
+        {/* <div style={{ display: 'flex' }}> */}
           <div className={styles.maendivhpline}>
             {/* <Grid item md={12} sm={12} xs={12}> */}
             <div className={styles.inlinemanediv}>
@@ -468,7 +468,10 @@ console.log(today,'today');
             </div>
 
           </div>
-          <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', width: '58%' }}>
+          </Grid>
+          <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 60px 0px 0px'}}>
+
+          <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
             {search ?
               <div>
                 <input type="text" name="search"
@@ -520,7 +523,7 @@ console.log(today,'today');
                         </Typography> */}
             <FilterListIcon />
           </Button>
-        </div>
+        {/* </div> */}
         <Menu
           className={styles.menufiltarbtn}
           anchorEl={anchorEl}
@@ -602,6 +605,9 @@ console.log(today,'today');
           {/* <Divider className={styles.divaydarten}></Divider> */}
           <div className={styles.divlistsivijan}></div>
         </Menu>
+        </Grid>
+        {/* </div> */}
+        <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
         <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
           <Paper sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
             {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
@@ -905,7 +911,8 @@ console.log(today,'today');
             label="Dense padding"
           /> */}
         </Box>
-      </Grid>
+        </Grid>
+      {/* </Grid> */}
     </Grid>
   );
 }

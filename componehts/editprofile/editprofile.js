@@ -78,7 +78,7 @@ const [datelist,setDatelist] =React.useState('')
         }
         
         var obj = {
-            "id_user": props.profile.userData.currentAccount.id
+            "id_user": props.profile.userData.id
         }
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.GET_PROFILE, JSON.stringify(obj), headers)
@@ -130,10 +130,7 @@ const [datelist,setDatelist] =React.useState('')
         console.log(data.toast, 'listdata');
         if (!!data) {
             if (data.status == true) {
-                // data.userData.token = data.token;
-                // data.token = data.token
-                // elistdata
-                props.save_user_data({ user: data.userData });
+                // props.save_user_data({ user: data.userData});
                 toast.success(data.message)
                 // router.push('./dashboard')
             }

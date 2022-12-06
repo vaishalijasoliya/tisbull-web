@@ -111,7 +111,7 @@ function ResponsiveAppBar(props) {
       }
     }
   }
-  console.log(props,'listsggsggs');
+  console.log(props,'login Data');
   const switchAccount = async (account) => {
     // if (account.id == props.profile.userData.currentAccount.id) {
     //   return;
@@ -134,7 +134,7 @@ function ResponsiveAppBar(props) {
         const newData = props.profile
         newData.userData.currentAccount = data.data
         newData.token = data.token
-        newData.userData.logoUrl = data.logoUrl
+        newData.userData.logoUrl = data.data.logoUrl
         // data.userData = data.data;
         // elistdata
         // data.userData.currentAccount = data.data;
@@ -151,7 +151,6 @@ function ResponsiveAppBar(props) {
         // // data.data = data.data;
          props.save_user_data({ user: newData });
           router.reload(window.location.pathname)
-
         Constants.EventEmitter.emit('change_account', router)
       } else {
         toast.error(data.message)
@@ -316,73 +315,9 @@ function ResponsiveAppBar(props) {
           <Grid item sm={0} md={1} xs={0} >
           </Grid>
           <Grid item sm={9} md={7} xs={9} display={'flex'} justifyContent={'end'}>
-            {/* </Typography> */}
-
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            
-              {/* {/* <ButtonGroup
-                orientation="vertical"
-                aria-label="vertical outlined button group"
-                // className={styles.newbtnrow}
-              >
-                {pages}
-
-              </ButtonGroup> */}
-              {/* <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }} */}
-              {/* > */}
-                {/* {pages.map((page) => ( 
-
-
-
-                {page} 
-                 ))} */}
-              {/* </Menu> */}
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-             {/* <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography> */}
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
@@ -405,7 +340,6 @@ function ResponsiveAppBar(props) {
                   <div className={styles.listbatnmenu}>
                   <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
 </div>
-                    {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
                     <Drawer
                       anchor={anchor}
                       open={state[anchor]}
@@ -416,44 +350,24 @@ function ResponsiveAppBar(props) {
                   </React.Fragment>
                 ))}
               </div>
-            <Box sx={{ flexGrow: 0 }}>
-              {/* {data.map((row) => ( */}
-              {/* <Tooltip> */}
-
+           {!!props.profile ?  <Box sx={{ flexGrow: 0 }}>
               <div className={styles.newbar_list}>
-                {/* {data.map((row) => ( */}
                 <div className={styles.Avatar_newbar}
-
                 >
-                {console.log(props.profile,'checkLogo')}
                   <Avatar className={styles.btn_avtar_list}
-                    // src={rowidlist == ''? props..profile.logoUrl:props.props.profile.currentAccount.logoUrl}
-                  
-                    src={props.profile.userData.currentAccount.logoUrl}
+                    src={ props.profile.userData.logoUrl}
                   >
-                    {/* <img src="../../Group 47124.svg" /> */}
-                    {/* <img
-                 
-                  // src={data[1].loginUrl}
-                  //  src={data[0].loginUrl}loginUrl
-                    /> */}
                   </Avatar>
                 </div>
                 <div className={styles.user_list}>
                   <Typography>
-                    { props.profile.userData.currentAccount.user_id }
-                    {/* {props.profile.currentAccount.user_id} */}
-                    {/* {props.profile.data.user_id} */}
-                    {/* {props.profile.userData.user_id} */}
-                    {/* {data[0].id} */}
+                    {props.profile.userData.currentAccount.user_id }
                   </Typography>
                 </div>
                 <div>
                   <Button className={styles.alt_list_ikon} onClick={handleClick}>
                     <ExpandMoreIcon />
                   </Button>
-                  {/* <React.Fragment> */}
-
                   <Menu
                     anchorEl={anchorEl}
                     id="account-menu"
@@ -491,39 +405,25 @@ function ResponsiveAppBar(props) {
                   >
                     {data.map((item, idx) => (
                       <div className={styles.listmeuend}>
-                        {/* {data.map((row, listdata) => ( */}
                         <div>
-
                           <div>
                             <Button className={styles.btnnevlist} onClick={() => { setRowidlist(item.id), handleCloseUserMenu(), switchAccount(item) }}>
                               <div>
-                                {/* <img src={row.loginUrl}  /> */}
                                 <Avatar src={item.logoUrl} />
                               </div>
                               <div><div className={styles.idname}>
                                 <Typography>{item.user_id}</Typography></div><div className={styles.listtype}><Typography>{item.type}</Typography>
                                 </div></div>
-                              {/* {console.log(row.loginUrl, 'row.loginUrl')} */}
                             </Button>
                           </div>
-
                         </div>
                         <div className={styles.menulistbtn} style={{ display: 'flex', justifyContent: 'end' }}>
-
                           <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
                             <img width={21} height={21} src='../../History.svg' />
-                            {/* <Box className={styles.massscolor} sx={ color: 'action.active' }}> */}
-                            {/* <Badge color="secondary" className={styles.massscolor2} variant="dot" > */}
-                            {/* <Box>
-                        <AccessTimeIcon className={styles.ivonhestri}/>       */}
-                            {/* </Box> */}
-                            {/* </Badge> */}
-                            {/* </Box> */}
                           </Button>
                           <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
                           <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
                         </div>
-                        {/* ))} */}
                       </div>
                     ))}
                     <Divider className={styles.devatdar} />
@@ -538,7 +438,6 @@ function ResponsiveAppBar(props) {
                       <div className={styles.loglist}>
                         <Button onClick={() => {
                           var profile = "";
-                          // var currentAccount=''
                           props.save_user_data({ user: '' });
                           router.push("/");
                           toast.success("Logout Successfully!");
@@ -548,11 +447,9 @@ function ResponsiveAppBar(props) {
                       </div>
                     </div>
                   </Menu>
-                  {/* </React.Fragment> */}
-
                 </div>
               </div>
-            </Box>
+            </Box> : ''}
           </Grid>
         </Toolbar>
       </Container>
