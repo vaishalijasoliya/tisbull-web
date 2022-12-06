@@ -16,7 +16,7 @@ const ResponsiveAppBar = (props) => {
     <Grid container className={styles.cantenar_list265}>
       <Grid item sm={12} md={12} xs={12}>
         <Newbar />
-        {/* <Home /> */}
+        {/* <Home /> */}  
         <div className={styles.dasnod_camponat366}>
         <Todayorder idlist={router.query.emailID} props={props}/>
         </div>
