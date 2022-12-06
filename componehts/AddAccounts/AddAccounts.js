@@ -105,7 +105,7 @@ const Home = (props) => {
     const [accounttype, setAccounttype] = React.useState('')
     const [switchCheck, setSwitchcheck] = React.useState([])
     const [cekboxlist, setCekboxlist] = React.useState(false)
-    console.log(checked, 'checked');
+    console.log(cekboxlist, 'checked');
     console.log(accounttype, 'accounttype');
 
     // const switchchange = (e) => {
@@ -143,14 +143,9 @@ const Home = (props) => {
         console.log(data, 'listdata55');
         if (!!data) {
             if (data.status == true) {
-                // data.token = data.token
-                // elistdata
-                // props.save_user_data({ user: data });
-                toast.success("Logged In Succesfully")
-                // router.push('./dashboard')
+                toast.success(data.message)
             }
             else {
-                // setErrorShow(true)
                 toast.error(data.message)
             }
         }
@@ -200,7 +195,9 @@ const Home = (props) => {
             <Grid item sm={6} md={6} xs={6} display={'flex'} alignItems={'center'} justifyContent={'end'}>
                 <div>
                     <Button className={styles.cancelbtn}>Cancel</Button>
-                    <Button className={styles.donebtn} onClick={accountadd}>Done</Button>
+                    {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password  == '' || formik.values.consumer_secret == '' || formik.values.userId == '' ? 
+                
+                    <Button  type="submit"  className={styles.donebtn} >Done</Button>:<Button  type="submit"  className={styles.donebtn} onClick={accountadd}>Done</Button>}
                 </div>
             </Grid>
             <Grid item sm={12} md={6} xs={12} className={styles.listdiver}>

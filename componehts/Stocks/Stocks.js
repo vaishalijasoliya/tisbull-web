@@ -271,23 +271,7 @@ function EnhancedTableHead(props) {
         </TableHead>
     );
 }
-const row = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
-];
+
 EnhancedTableHead.propTypes = {
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
@@ -316,7 +300,7 @@ const Home = (props) => {
     const [datasars, setDatasars] = React.useState([]);
     const [datalist, setDatalist] = React.useState([]);
     const [datatebal, setDatatebal] = React.useState([]);
-    const [teballist, setTeballist] = React.useState([])
+    const [btnlistdata, setBtnlist] = React.useState('')
     const [com, setCom] = React.useState(false);
     const [rowid, setRowid] = React.useState('')
     const [deletbtn, setDelebtn] = React.useState(false);
@@ -327,6 +311,7 @@ const Home = (props) => {
     const [iduser, setIduser] = React.useState([]);
     const [btnlistnamelist, setBtnlistnamelist] = React.useState('')
     const [accounttype, setAccounttype] = React.useState('')
+    const [reviewStatus, setReviewStatus] = React.useState("none");
 
     // const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
@@ -335,10 +320,14 @@ const Home = (props) => {
     const [logvvmog, setLogvvmog] = useState('')
     const [checked, setChecked] = React.useState(false);
     const [openlist, setOpen] = React.useState(false);
-
+    const [isClear, setIsClear] = useState(true);
+    const [listscirip, setScripdata] = React.useState('')
     const [deletemenukk, setDeleteMenukk] = React.useState(false);
-
-    console.log(swishlist, 'swishlist');
+ const [pendingReviewList, setPendingReviewList] = React.useState([]);
+  const [approveReviewList, setApproveReviewList] = React.useState([]);
+  const [rejectReviewList, setRejectReviewList] = React.useState([]);
+  const [flagReviewList, setFlageReviewList] = React.useState([]);
+    console.log(btnlistdata, 'swishlist');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -351,10 +340,19 @@ const Home = (props) => {
         }
 
         props.props.loaderRef(true)
-        var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
+        var data = data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
         props.props.loaderRef(false)
         console.log(data, 'datalist');
+        // if (!isClear) {
+        // if (btnlistdata == '') {
+        //     ;
+        //     data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
 
+        // } else {
+        //     data = ApiEndpoint.PATTERN_LIST + `?status=${btnlistdata}&type=${btnlistdata}`;
+
+        // }
+        //   } 
         if (!!data) {
             if (data.status == true && data.data.length > 0) {
                 const accoyty = [];
@@ -363,6 +361,7 @@ const Home = (props) => {
                 const listdata = []
                 const idlist = []
                 const datalog = []
+                const script = []
                 for (let index = 0; index < data.data.length; index++) {
                     const element = data.data[index];
                     const object = {
@@ -383,6 +382,8 @@ const Home = (props) => {
                     idlist.push(JSON.parse(JSON.stringify(element.id)))
                     datalist.push(JSON.parse(JSON.stringify(object)))
                     accoyty.push(JSON.parse(JSON.stringify(object)))
+                    script.push(JSON.parse(JSON.stringify(element.script)))
+
                     // csvall.push(objectcsv)
                 }
                 setDatasars(listdata)
@@ -390,10 +391,74 @@ const Home = (props) => {
                 setDatatebalpettan(accoyty)
                 setData(datalog)
                 setIduser(idlist)
+                setScripdata(script)
             }
 
         }
     }
+    const tabChange = (status) => {
+        setReviewStatus(status);
+        if (status == "pending") {
+            setDatatebalpettan(pendingReviewList);
+            setUserSearch(pendingReviewList);
+        } else if (status == "approve") {
+            setDatatebalpettan(approveReviewList);
+            setUserSearch(approveReviewList);
+        } else if (status == "reject") {
+            setDatatebalpettan(rejectReviewList);
+            setUserSearch(rejectReviewList);
+        } else {
+            setDatatebalpettan(flagReviewList);
+            setUserSearch(flagReviewList);
+        }
+    };
+    // onFliterApply={(datalist, type) => {
+    //     var statusString = '';
+    //     if (datalist.active) {
+    //       statusString = 'active'
+    //     }
+    //     if (datalist.pause) {
+    //       if (!!statusString) {
+    //         statusString += ',paused'
+    //       } else {
+    //         statusString = 'paused'
+    //       }
+    //     }
+    //     if (datalist.delete) {
+    //       if (!!statusString) {
+    //         statusString += ',exit'
+    //       } else {
+    //         statusString = 'exit'
+    //       }
+    //     }
+
+    //     var typeString = '';
+    //     if (type.basic) {
+    //       typeString = 'BasicPattern'
+    //     }
+    //     if (type.magic) {
+    //       if (!!typeString) {
+    //         typeString += ',MagicPattern'
+    //       } else {
+    //         typeString = 'MagicPattern'
+    //       }
+    //     }
+    //     if (type.pyramid) {
+    //       if (!!typeString) {
+    //         typeString += ',PyramidPattern'
+    //       } else {
+    //         typeString = 'PyramidPattern'
+    //       }
+    //     }
+    //     if (type.custom) {
+    //       if (!!typeString) {
+    //         typeString += ',CustomPattern'
+    //       } else {
+    //         typeString = 'CustomPattern'
+    //       }
+    //     }
+    //     getPattern(dataType, 1, 10, statusString, typeString, null, null, false)
+    //   }}
     const playpattern = async () => {
 
         var headers = {
@@ -835,16 +900,77 @@ const Home = (props) => {
                             <div className={styles.filtarlist}>
                                 <div><Typography>Pattern</Typography></div>
                                 <div className={styles.listbtnsot}>
-                                    <Button className={styles.censbatnsot} onClick={handleClose}>Cancel</Button>
-                                    <Button className={styles.savebatnsot}>Save</Button></div>
+                                    <Button className={styles.censbatnsot} onClick={() => { handleClose, setIsClear(data) }}>Cancel</Button>
+                                    <Button className={styles.savebatnsot}
+                                        onClick={() => {
+                                            console.log('helllo');
+                                            if (
+                                                // selectedLanguage == 'none' &&
+                                                btnlistdata == 'none'
+                                            ) {
+                                                setDatatebalpettan(isClear);
+                                                // setAllbtn('active');
+                                                // setPatternType('none');
+                                            } else {
+                                                if (!!btnlistdata
+                                                    //  && selectedLanguage == 'none'
+                                                ) {
+                                                    console.log('filterData>>>>>>None');
+                                                    if (btnlistdata == 'none') {
+                                                        setDatatebalpettan(isClear);
+                                                        // setUserSearch(resetData);
+                                                    } else if (btnlistdata == 'Basic') {
+                                                        setDatatebalpettan(basicPatterntList);
+                                                        // setUserSearch(basicPatterntList);
+                                                    } else if (btnlistdata == 'Custom') {
+                                                        setDatatebalpettan(customPatterntList);
+                                                        // setUserSearch(customPatterntList);
+                                                    }
+                                                } else if (
+                                                    // selectedLanguage != 'none' &&
+                                                    !!btnlistdata
+                                                ) {
+                                                    console.log('filteredData>>>>other');
+                                                    var filteredData = datatebalpettan.filter(item => {
+                                                        console.log(item, 'item');
+
+                                                        // let filterValue = selectedLanguage.toLowerCase();
+
+                                                        console.log(filterValue, 'filterValue');
+                                                        // console.log(userSearch, 'userSearch');
+
+                                                        return filterValue.includes(
+                                                            item.script.toString().toLowerCase(),
+                                                        );
+                                                    });
+                                                    // console.log(userSearch, 'userSearch');
+                                                    console.log(filteredData, 'filteredData');
+                                                    // if(selectedLanguage == filterValue)
+                                                    setDatatebalpettan(filteredData);
+                                                    console.log(filteredData);
+                                                }
+                                            }
+                                            refRBSheet.current.close();
+                                        }}
+                                    >Save</Button></div>
                             </div>
                             <Divider></Divider>
                             <div>
                                 <div className={styles.typetext}><Typography>Type</Typography></div>
                                 <div>
-                                    <Button className={styles.nonelistbtn}>None</Button>
-                                    <Button className={styles.Basiclistbtn}>Basic</Button>
-                                    <Button className={styles.Customlistbtn}>Custom</Button>
+                                    {/* {btnlistdata == '' ? }
+                                    <Button className={styles.nonelistbtn} onClick={()=>{setBtnlist('none')}}>None</Button>
+                                    <Button className={styles.Basiclistbtn}  onClick={()=>{setBtnlist('basic')}} >Basic</Button>
+                                    <Button className={styles.Customlistbtn}  onClick={()=>{setBtnlist('custom')}}>Custom</Button> */}
+                                    <Button onClick={() => {
+                                        tabChange("none"),setBtnlist('none')
+                                    }} className={btnlistdata == 'none' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
+                                    <Button onClick={() => {
+                                        tabChange("basic"), setBtnlist('basic')
+                                    }} className={btnlistdata == 'basic' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
+                                    <Button onClick={() => {
+                                        tabChange("Custom"), setBtnlist('Custom')
+                                    }}  className={btnlistdata == 'Custom' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
                                 </div>
                             </div>
                             <div className={styles.maendivselect}>
@@ -852,17 +978,26 @@ const Home = (props) => {
 
                                 <Select
                                     className={styles.listsekater}
-                                    value={age}
+                                    value={listscirip}
                                     onChange={handleChange}
                                     displayEmpty
                                     inputProps={{ 'aria-label': 'Without label' }}
                                 >
-                                    <MenuItem value="">
+                                    {/* {listscirip.map((item, idx) => ( */}
+                                    <MenuItem value={listscirip}>{listscirip}</MenuItem>
+
+                                    {/* ))} */}
+
+                                    {/* {listscirip.map(scripdata)=>
+                                    <MenuItem value={listscirip}>listscirip</MenuItem>
+
+                                } */}
+                                    {/* <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
                                     <MenuItem value={'Ten'}>Ten</MenuItem>
                                     <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem> */}
                                 </Select>
 
                             </div>
@@ -901,442 +1036,442 @@ const Home = (props) => {
                                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                                     return (
-                                                    <TableRow
-                                                        // hover
-                                                        // onClick={(event) => handleClick(event, row.name)}
-                                                        role="checkbox"
-                                                        aria-checked={isItemSelected}
-                                                        tabIndex={-1}
-                                                        key={row.id}
-                                                        selected={isItemSelected}
-                                                    >
-                                                        <TableCell className={styles.cekboxtd} padding="checkbox">
-                                                            <Checkbox
-                                                                checked={isItemSelected}
-
-                                                                onClick={(event) => handleClick(event, row.id)}
-                                                                inputProps={{
-                                                                    "aria-labelledby": labelId,
-                                                                }}
-                                                            />
-                                                        </TableCell>
-                                                        <TableCell
-                                                            // component="th"
-                                                            id={labelId}
-                                                            scope="row"
-                                                            padding="none"
-                                                            onClick={() => {
-                                                                router.push({
-                                                                    pathname: './pattandeteal',
-                                                                    query: { emailID: row.id, namescoka: row.script }
-                                                                });
-                                                            }}
+                                                        <TableRow
+                                                            // hover
+                                                            // onClick={(event) => handleClick(event, row.name)}
+                                                            role="checkbox"
+                                                            aria-checked={isItemSelected}
+                                                            tabIndex={-1}
+                                                            key={row.id}
+                                                            selected={isItemSelected}
                                                         >
-                                                            <div className={styles.typefild}>
-                                                                <div>
-                                                                    {row.status == 'pause' ? <Avatar className={styles.avtarlistyes}>
-                                                                        <img src="../../Vector (10).svg" />
+                                                            <TableCell className={styles.cekboxtd} padding="checkbox">
+                                                                <Checkbox
+                                                                    checked={isItemSelected}
 
-                                                                    </Avatar> : row.status == 'active' ? <Avatar className={styles.avtarlistyes2}>  <img src="../../Vector (12).svg" /></Avatar> : row.status == 'exit' ? <Avatar className={styles.avtarlistyes3}>  <img src="../../Vector (11).svg" /></Avatar> : ''}
-                                                                </div><div className={styles.listperegaf}>
-                                                                    {row.script}
+                                                                    onClick={(event) => handleClick(event, row.id)}
+                                                                    inputProps={{
+                                                                        "aria-labelledby": labelId,
+                                                                    }}
+                                                                />
+                                                            </TableCell>
+                                                            <TableCell
+                                                                // component="th"
+                                                                id={labelId}
+                                                                scope="row"
+                                                                padding="none"
+                                                                onClick={() => {
+                                                                    router.push({
+                                                                        pathname: './pattandeteal',
+                                                                        query: { emailID: row.id, namescoka: row.script }
+                                                                    });
+                                                                }}
+                                                            >
+                                                                <div className={styles.typefild}>
+                                                                    <div>
+                                                                        {row.status == 'pause' ? <Avatar className={styles.avtarlistyes}>
+                                                                            <img src="../../Vector (10).svg" />
+
+                                                                        </Avatar> : row.status == 'active' ? <Avatar className={styles.avtarlistyes2}>  <img src="../../Vector (12).svg" /></Avatar> : row.status == 'exit' ? <Avatar className={styles.avtarlistyes3}>  <img src="../../Vector (11).svg" /></Avatar> : ''}
+                                                                    </div><div className={styles.listperegaf}>
+                                                                        {row.script}
 
 
+                                                                    </div>
+                                                                    <div className={styles.nselist}><Typography>{row.exchange}</Typography></div>
                                                                 </div>
-                                                                <div className={styles.nselist}><Typography>{row.exchange}</Typography></div>
-                                                            </div>
-                                                        </TableCell>
+                                                            </TableCell>
 
-                                                        <TableCell
-                                                        // align="right"
-                                                        > {row.type_pattern}</TableCell>
-                                                        <TableCell ><div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /><Typography>{row.investment}</Typography></div></TableCell>
-                                                        <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
-                                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CurrencyRupeeIcon />
-                                                                <Typography>  {row.profit}</Typography>
-                                                            </div>
-                                                            {/* 100 */}
-                                                        </TableCell>
-                                                        <TableCell >{row.stock}</TableCell>
-                                                        <TableCell >
-                                                            <Typography className={styles.dateone}>{
-                                                                moment(row.created_at).format("DD/MM/YYYY h:mm:ss")
-                                                            } </Typography></TableCell>
-                                                        {/* 
+                                                            <TableCell
+                                                            // align="right"
+                                                            > {row.type_pattern}</TableCell>
+                                                            <TableCell ><div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /><Typography>{row.investment}</Typography></div></TableCell>
+                                                            <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
+                                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CurrencyRupeeIcon />
+                                                                    <Typography>  {row.profit}</Typography>
+                                                                </div>
+                                                                {/* 100 */}
+                                                            </TableCell>
+                                                            <TableCell >{row.stock}</TableCell>
+                                                            <TableCell >
+                                                                <Typography className={styles.dateone}>{
+                                                                    moment(row.created_at).format("DD/MM/YYYY h:mm:ss")
+                                                                } </Typography></TableCell>
+                                                            {/* 
                                                         <TableCell>
                                                           
                                             
                                                         </TableCell> */}
 
-                                                        <TableCell >
+                                                            <TableCell >
 
-                                                            <div className={styles.listtebal}>
-                                                                <Button className={styles.viwebtnmm}
+                                                                <div className={styles.listtebal}>
+                                                                    <Button className={styles.viwebtnmm}
 
-                                                                // onClick={() => { setRowid(row.id) }}
-                                                                > <img height={18} src="../../edit_square.svg" /> </Button>
+                                                                    // onClick={() => { setRowid(row.id) }}
+                                                                    > <img height={18} src="../../edit_square.svg" /> </Button>
 
-                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
-                                                                    {/* <PauseCircleOutlineIcon /> */}
-                                                                    {/* <Touchable>dilet</Touchable> */}
-                                                                    {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
-                                                                </Button>}
-                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>}
-                                                            </div>
-                                                            <div>
-                                                                <Dialog open={deletbtn} onClose={handleCloseComdeletbtn}
-                                                                    className={styles.borderredayasfor}
-                                                                    style={{
-                                                                        // borderRadius: '30px'
-                                                                    }}
-                                                                    // fullWidth
-                                                                    maxWidth="sm"
-                                                                >
-                                                                    <div className={styles.colosbatnlist}><Button onClick={handleCloseComdeletbtn}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                                                    <div>
-                                                                        <DialogContent className={styles.popupcantenar}>
-                                                                            <Box className={styles.lisrmaenbox}>
+                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
+                                                                        {/* <PauseCircleOutlineIcon /> */}
+                                                                        {/* <Touchable>dilet</Touchable> */}
+                                                                        {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
+                                                                    </Button>}
+                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>}
+                                                                </div>
+                                                                <div>
+                                                                    <Dialog open={deletbtn} onClose={handleCloseComdeletbtn}
+                                                                        className={styles.borderredayasfor}
+                                                                        style={{
+                                                                            // borderRadius: '30px'
+                                                                        }}
+                                                                        // fullWidth
+                                                                        maxWidth="sm"
+                                                                    >
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseComdeletbtn}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div>
+                                                                            <DialogContent className={styles.popupcantenar}>
+                                                                                <Box className={styles.lisrmaenbox}>
 
-                                                                                <div className={styles.delehedar}>
-                                                                                    <Typography>Delete Pattern</Typography>
-                                                                                </div>
-                                                                                <div className={styles.listimgyes}>
-                                                                                    <img src="../../Group 1000002845.svg" />
-                                                                                </div>
-                                                                                {/* <Box className={styles.listboxiduser}>
-                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                                                                <div className={styles.paregarafnsg}>
-                                                                                    <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
-                                                                                </div>
-
-
-                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
-                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }}>Cancel</Button>
-                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                    <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }} className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>SAVE </Button></div>
-                                                                            </Box>
-                                                                            {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                                                        </DialogContent>
-                                                                    </div>
-                                                                </Dialog>
-                                                            </div>
-                                                            <div>
-                                                                <Dialog open={deletemenukk} onClose={handleCloseComdeletlog}
-                                                                    className={styles.borderredayasfor}
-                                                                    style={{
-                                                                        // borderRadius: '30px'
-                                                                    }}
-                                                                    // fullWidth
-                                                                    maxWidth="sm"
-                                                                >
-                                                                    <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button onClick={handleCloseComdeletlog}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                                                    <div>
-                                                                        <DialogContent className={styles.popupcantenar}>
-                                                                            <Box className={styles.lisrmaenbox}>
-
-                                                                                <div className={styles.delehedar}>
-                                                                                    <Typography>Delete Pattern</Typography>
-                                                                                </div>
-                                                                                <div style={{ textAlign: 'center' }}>
-                                                                                    <img src="../../Group 1000002845.svg" />
-                                                                                </div>
-                                                                                {/* <Box className={styles.listboxiduser}>
-                                                                        //    <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                                                                <div style={{ padding: '0px 40px 0px 40px' }}>
-                                                                                    <div>
-                                                                                        <Typography className={styles.texstcolor} style={{ 'color': '#333333', 'font-size': '15px', padding: '0px 0px 7px 0px' }}>Exit with  </Typography>
+                                                                                    <div className={styles.delehedar}>
+                                                                                        <Typography>Delete Pattern</Typography>
                                                                                     </div>
-                                                                                    <div className={styles.btn_all_buy22} style={{ padding: '0px 0px 20px 0px' }}>
-                                                                                        {/* <ButtonGroup
+                                                                                    <div className={styles.listimgyes}>
+                                                                                        <img src="../../Group 1000002845.svg" />
+                                                                                    </div>
+                                                                                    {/* <Box className={styles.listboxiduser}>
+                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                                    <div className={styles.paregarafnsg}>
+                                                                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                    </div>
+
+
+                                                                                    <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
+                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }}>Cancel</Button>
+                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                        <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }} className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>SAVE </Button></div>
+                                                                                </Box>
+                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                            </DialogContent>
+                                                                        </div>
+                                                                    </Dialog>
+                                                                </div>
+                                                                <div>
+                                                                    <Dialog open={deletemenukk} onClose={handleCloseComdeletlog}
+                                                                        className={styles.borderredayasfor}
+                                                                        style={{
+                                                                            // borderRadius: '30px'
+                                                                        }}
+                                                                        // fullWidth
+                                                                        maxWidth="sm"
+                                                                    >
+                                                                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button onClick={handleCloseComdeletlog}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div>
+                                                                            <DialogContent className={styles.popupcantenar}>
+                                                                                <Box className={styles.lisrmaenbox}>
+
+                                                                                    <div className={styles.delehedar}>
+                                                                                        <Typography>Delete Pattern</Typography>
+                                                                                    </div>
+                                                                                    <div style={{ textAlign: 'center' }}>
+                                                                                        <img src="../../Group 1000002845.svg" />
+                                                                                    </div>
+                                                                                    {/* <Box className={styles.listboxiduser}>
+                                                                        //    <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                                    <div style={{ padding: '0px 40px 0px 40px' }}>
+                                                                                        <div>
+                                                                                            <Typography className={styles.texstcolor} style={{ 'color': '#333333', 'font-size': '15px', padding: '0px 0px 7px 0px' }}>Exit with  </Typography>
+                                                                                        </div>
+                                                                                        <div className={styles.btn_all_buy22} style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                            {/* <ButtonGroup
                                                                                             style={{ margin: '0px 0px 0px 10px' }}
                                                                                             value={phonedata}
                                                                                             buttons={["Stock", "Without Stock"]}
                                                                                             doSomethingAfterClick={printButtonLabel}
                                                                                         /> */}
-                                                                                        {/* <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button> */}
-                                                                                        <Button onClick={() => { setLogvvmog('Stock') }} className={logvvmog == 'Stock' ? styles.listdatlog : styles.list2data}>Stock</Button>
-                                                                                        <Button onClick={() => { setLogvvmog('WithoutStock') }} className={logvvmog == 'WithoutStock' ? styles.listdatlog : styles.list2data}>Without Stock</Button>
+                                                                                            {/* <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button> */}
+                                                                                            <Button onClick={() => { setLogvvmog('Stock') }} className={logvvmog == 'Stock' ? styles.listdatlog : styles.list2data}>Stock</Button>
+                                                                                            <Button onClick={() => { setLogvvmog('WithoutStock') }} className={logvvmog == 'WithoutStock' ? styles.listdatlog : styles.list2data}>Without Stock</Button>
 
-                                                                                    </div>
-                                                                                    <div style={{ padding: '0px 0px 20px 0px' }}>
-                                                                                        <Typography className={styles.texstcolor} style={{ 'color': '#333333', fontSize: '12px' }}>Clean up Stock from this pattern</Typography>
-                                                                                    </div>
-                                                                                    <div style={{ display: 'flex', }}>
-                                                                                        <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (16).svg" /></Avatar>
-                                                                                        <div>
-                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                                Sell holding stock with fixed price
-                                                                                            </Typography>
-                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
                                                                                         </div>
-                                                                                        {checked == false ? <SwitchUnstyled component={Root}
-                                                                                            // onChange={console.log('virang')} 
-                                                                                            {...label} id='switch'
-                                                                                            style={{ padding: '0px 0px 0px 32px' }}
+                                                                                        <div style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                            <Typography className={styles.texstcolor} style={{ 'color': '#333333', fontSize: '12px' }}>Clean up Stock from this pattern</Typography>
+                                                                                        </div>
+                                                                                        <div style={{ display: 'flex', }}>
+                                                                                            <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (16).svg" /></Avatar>
+                                                                                            <div>
+                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
+                                                                                                    Sell holding stock with fixed price
+                                                                                                </Typography>
+                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
+                                                                                            </div>
+                                                                                            {checked == false ? <SwitchUnstyled component={Root}
+                                                                                                // onChange={console.log('virang')} 
+                                                                                                {...label} id='switch'
+                                                                                                style={{ padding: '0px 0px 0px 32px' }}
 
-                                                                                            // checked={row.Publication} 
-                                                                                            onChange={((e) => {
-                                                                                                setSwishlist(e.target.checked)
-                                                                                                // setLogvvmog('exit for fixedPrice')
-                                                                                                setAccounttype('exit for fixedPrice')
-                                                                                            })}
-                                                                                        /> : <SwitchUnstyled component={Root}
-                                                                                            // onChange={console.log('virang')}
-                                                                                            {...label} id='switch'
-                                                                                            disabled
-                                                                                            style={{ padding: '0px 0px 0px 32px' }}
+                                                                                                // checked={row.Publication} 
+                                                                                                onChange={((e) => {
+                                                                                                    setSwishlist(e.target.checked)
+                                                                                                    // setLogvvmog('exit for fixedPrice')
+                                                                                                    setAccounttype('exit for fixedPrice')
+                                                                                                })}
+                                                                                            /> : <SwitchUnstyled component={Root}
+                                                                                                // onChange={console.log('virang')}
+                                                                                                {...label} id='switch'
+                                                                                                disabled
+                                                                                                style={{ padding: '0px 0px 0px 32px' }}
 
-                                                                                            // checked={row.Publication} 
-                                                                                            onChange={((e) => {
-                                                                                                setSwishlist(e.target.checked)
-                                                                                            })}
-                                                                                        />}
+                                                                                                // checked={row.Publication} 
+                                                                                                onChange={((e) => {
+                                                                                                    setSwishlist(e.target.checked)
+                                                                                                })}
+                                                                                            />}
 
-                                                                                    </div>
-                                                                                    <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
-                                                                                        <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
-                                                                                        <TextField
-                                                                                            onChange={handlePinChangelist}
-                                                                                            value={listpires}
-                                                                                            className={styles.textfiladligb}
-                                                                                            style={{ padding: '0px 0px 0px 0px', width: '100px' }}
-                                                                                        />
-                                                                                    </div>
-                                                                                    {/* <div style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                        </div>
+                                                                                        <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
+                                                                                            <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
+                                                                                            <TextField
+                                                                                                onChange={handlePinChangelist}
+                                                                                                value={listpires}
+                                                                                                className={styles.textfiladligb}
+                                                                                                style={{ padding: '0px 0px 0px 0px', width: '100px' }}
+                                                                                            />
+                                                                                        </div>
+                                                                                        {/* <div style={{ padding: '0px 0px 20px 0px' }}>
                                                                                     <Typography className={styles.texstcolor}  style={{'color':'#333333',fontSize:'12px'}}>Clean up Stock from this pattern</Typography>
                                                                                 </div> */}
-                                                                                    <div style={{ display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                                                        <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
-                                                                                        <div>
-                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                                Sell holding stock with market price
-                                                                                            </Typography>
-                                                                                            <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
+                                                                                        <div style={{ display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                                                            <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
+                                                                                            <div>
+                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
+                                                                                                    Sell holding stock with market price
+                                                                                                </Typography>
+                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
+                                                                                            </div>
+                                                                                            {swishlist == false ? <SwitchUnstyled component={Root}  {...label} id='switch'
+                                                                                                style={{ padding: '0px 0px 0px 20px' }}
+                                                                                                // checked={row.Publication} 
+                                                                                                onChange={((e) => {
+                                                                                                    // setChecked('ZERODHA')
+                                                                                                    setChecked(e.target.checked)
+                                                                                                    setAccounttype('exit for market')
+
+                                                                                                })}
+                                                                                            /> : <SwitchUnstyled component={Root}
+                                                                                                // onChange={console.log('virang')}
+                                                                                                {...label} id='switch'
+                                                                                                disabled
+                                                                                                style={{ padding: '0px 0px 0px 20px' }}
+
+                                                                                                // checked={row.Publication} 
+                                                                                                onChange={((e) => {
+                                                                                                    setChecked(e.target.checked)
+                                                                                                })}
+                                                                                            />}
+
+
                                                                                         </div>
-                                                                                        {swishlist == false ? <SwitchUnstyled component={Root}  {...label} id='switch'
-                                                                                            style={{ padding: '0px 0px 0px 20px' }}
-                                                                                            // checked={row.Publication} 
-                                                                                            onChange={((e) => {
-                                                                                                // setChecked('ZERODHA')
-                                                                                                setChecked(e.target.checked)
-                                                                                                setAccounttype('exit for market')
-
-                                                                                            })}
-                                                                                        /> : <SwitchUnstyled component={Root}
-                                                                                            // onChange={console.log('virang')}
-                                                                                            {...label} id='switch'
-                                                                                            disabled
-                                                                                            style={{ padding: '0px 0px 0px 20px' }}
-
-                                                                                            // checked={row.Publication} 
-                                                                                            onChange={((e) => {
-                                                                                                setChecked(e.target.checked)
-                                                                                            })}
-                                                                                        />}
-
-
                                                                                     </div>
-                                                                                </div>
-                                                                                <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
-                                                                                    {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'}
+                                                                                    <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
+                                                                                        {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'}
 
-                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
-                                                                                    {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button> : ''}
-                                                                                    {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ?
-                                                                                        <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >SAVE </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
-                                                                                    {/* <Button>Cancel</Button> */}
-                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                    {/* <Button className={styles.cofimbatn} onClick={deletepattern}>Confirm</Button> */}
-                                                                                </div>
-                                                                            </Box>
-                                                                            {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                                                        </DialogContent>
-                                                                    </div>
-                                                                </Dialog>
-                                                            </div>
-                                                            <div>
-                                                                <Dialog open={com} onClose={handleCloseCom}
-                                                                    className={styles.borderredayasfor}
-                                                                    style={{
-                                                                        // borderRadius: '30px'
-                                                                    }}
-                                                                    // fullWidth
-                                                                    maxWidth="sm"
-                                                                >
-                                                                    <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                                                    <div>
-                                                                        <DialogContent className={styles.popupcantenar}>
-                                                                            <Box className={styles.lisrmaenbox}>
-
-                                                                                <div className={styles.delehedar}>
-                                                                                    <Typography>Delete Successful</Typography>
-                                                                                </div>
-                                                                                <div className={styles.listimgyes}>
-                                                                                    <img src="../../Group 47124.svg" />
-                                                                                </div>
-                                                                                <Box className={styles.listboxiduser}>
-                                                                                    <InputLabel className={styles.leballist}>ORDER ID </InputLabel>
-                                                                                    <div className={styles.maendividuser}>
-                                                                                        <div className={styles.odarlistop}>
-
-                                                                                            <Typography>jhgsadgds</Typography>
-
-                                                                                            <Typography>jhgsadgds</Typography>
-
-                                                                                            <Typography>jhgsadgds</Typography>
-
-                                                                                        </div>
-                                                                                        <div className={styles.odarlistop}>
-
-                                                                                            <Typography>jhgsadgds</Typography>
-
-                                                                                            <Typography>jhgsadgds</Typography>
-
-                                                                                            <Typography>jhgsadgds</Typography>
-
-                                                                                        </div>
+                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
+                                                                                        {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button> : ''}
+                                                                                        {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ?
+                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >SAVE </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
+                                                                                        {/* <Button>Cancel</Button> */}
+                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                        {/* <Button className={styles.cofimbatn} onClick={deletepattern}>Confirm</Button> */}
                                                                                     </div>
                                                                                 </Box>
-                                                                                <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
-                                                                            </Box>
-                                                                            {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                                                        </DialogContent>
-                                                                    </div>
-                                                                </Dialog>
-                                                            </div>
-                                                            <div>
-                                                                <Dialog open={play} onClose={handleCloseComplay}
-                                                                    className={styles.borderredayasfor}
-                                                                    style={{
-                                                                        // borderRadius: '30px'
-                                                                    }}
-                                                                    // fullWidth
-                                                                    maxWidth="sm"
-                                                                >
-                                                                    <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                                                    <div>
-                                                                        <DialogContent className={styles.popupcantenar}>
-                                                                            <Box className={styles.lisrmaenbox}>
+                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                            </DialogContent>
+                                                                        </div>
+                                                                    </Dialog>
+                                                                </div>
+                                                                <div>
+                                                                    <Dialog open={com} onClose={handleCloseCom}
+                                                                        className={styles.borderredayasfor}
+                                                                        style={{
+                                                                            // borderRadius: '30px'
+                                                                        }}
+                                                                        // fullWidth
+                                                                        maxWidth="sm"
+                                                                    >
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div>
+                                                                            <DialogContent className={styles.popupcantenar}>
+                                                                                <Box className={styles.lisrmaenbox}>
 
-                                                                                <div className={styles.delehedar}>
-                                                                                    <Typography>Pause Pattern</Typography>
-                                                                                </div>
-                                                                                <div className={styles.listimgyes}>
-                                                                                    <img src="../../Group 47124 (1).svg" />
-                                                                                </div>
-                                                                                {/* <Box className={styles.listboxiduser}>
+                                                                                    <div className={styles.delehedar}>
+                                                                                        <Typography>Delete Successful</Typography>
+                                                                                    </div>
+                                                                                    <div className={styles.listimgyes}>
+                                                                                        <img src="../../Group 47124.svg" />
+                                                                                    </div>
+                                                                                    <Box className={styles.listboxiduser}>
+                                                                                        <InputLabel className={styles.leballist}>ORDER ID </InputLabel>
+                                                                                        <div className={styles.maendividuser}>
+                                                                                            <div className={styles.odarlistop}>
+
+                                                                                                <Typography>jhgsadgds</Typography>
+
+                                                                                                <Typography>jhgsadgds</Typography>
+
+                                                                                                <Typography>jhgsadgds</Typography>
+
+                                                                                            </div>
+                                                                                            <div className={styles.odarlistop}>
+
+                                                                                                <Typography>jhgsadgds</Typography>
+
+                                                                                                <Typography>jhgsadgds</Typography>
+
+                                                                                                <Typography>jhgsadgds</Typography>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </Box>
+                                                                                    <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
+                                                                                </Box>
+                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                            </DialogContent>
+                                                                        </div>
+                                                                    </Dialog>
+                                                                </div>
+                                                                <div>
+                                                                    <Dialog open={play} onClose={handleCloseComplay}
+                                                                        className={styles.borderredayasfor}
+                                                                        style={{
+                                                                            // borderRadius: '30px'
+                                                                        }}
+                                                                        // fullWidth
+                                                                        maxWidth="sm"
+                                                                    >
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div>
+                                                                            <DialogContent className={styles.popupcantenar}>
+                                                                                <Box className={styles.lisrmaenbox}>
+
+                                                                                    <div className={styles.delehedar}>
+                                                                                        <Typography>Pause Pattern</Typography>
+                                                                                    </div>
+                                                                                    <div className={styles.listimgyes}>
+                                                                                        <img src="../../Group 47124 (1).svg" />
+                                                                                    </div>
+                                                                                    {/* <Box className={styles.listboxiduser}>
                                                                            <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                                                                <div className={styles.paregarafnsg}>
-                                                                                    <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
-                                                                                </div>
-                                                                                <div className={styles.pustlebal}>
-                                                                                    <Typography>Pause with </Typography>
-                                                                                </div>
-                                                                                <div className={styles.btn_all_buy}>
-                                                                                    <Button onClick={() => { setLlistdatapush('All') }} className={listdarapush == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
-                                                                                    <Button onClick={() => { setLlistdatapush('Buy') }} className={listdarapush == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
-                                                                                    <Button onClick={() => { setLlistdatapush('Sell') }} className={listdarapush == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
+                                                                                    <div className={styles.paregarafnsg}>
+                                                                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                    </div>
+                                                                                    <div className={styles.pustlebal}>
+                                                                                        <Typography>Pause with </Typography>
+                                                                                    </div>
+                                                                                    <div className={styles.btn_all_buy}>
+                                                                                        <Button onClick={() => { setLlistdatapush('All') }} className={listdarapush == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
+                                                                                        <Button onClick={() => { setLlistdatapush('Buy') }} className={listdarapush == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
+                                                                                        <Button onClick={() => { setLlistdatapush('Sell') }} className={listdarapush == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
 
 
-                                                                                </div>
-                                                                                <div className={styles.divpopupspn}>
-                                                                                    {listdarapush == '' ? <span className={styles.otperr}>Please Enter Valid list</span> : ''}
-                                                                                </div>
-                                                                                <div className={styles.cancelbtnlog} style={{ padding: '25px 0px 0px 0px' }}>
-                                                                                    {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
-                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComplay}>Cancel</Button>
+                                                                                    </div>
+                                                                                    <div className={styles.divpopupspn}>
+                                                                                        {listdarapush == '' ? <span className={styles.otperr}>Please Enter Valid list</span> : ''}
+                                                                                    </div>
+                                                                                    <div className={styles.cancelbtnlog} style={{ padding: '25px 0px 0px 0px' }}>
+                                                                                        {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
+                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComplay}>Cancel</Button>
 
-                                                                                    {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
-                                                                                    {/* <Button>Cancel</Button> */}
-                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                    {listdarapush == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} >SAVE </Button> :
-                                                                                        <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituser(), handleCloseComplay() }}>SAVE </Button>}
-                                                                                </div>
-                                                                            </Box>
-                                                                            {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                                                        </DialogContent>
-                                                                    </div>
-                                                                </Dialog>
-                                                            </div>
-                                                            <div>
-                                                                <Dialog open={pause} onClose={handleCloseCompause}
-                                                                    className={styles.borderredayasfor}
-                                                                    style={{
-                                                                        // borderRadius: '30px'
-                                                                    }}
-                                                                    // fullWidth
-                                                                    maxWidth="sm"
-                                                                >
-                                                                    <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                                                    <div>
-                                                                        <DialogContent className={styles.popupcantenar}>
-                                                                            <Box className={styles.lisrmaenbox}>
+                                                                                        {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
+                                                                                        {/* <Button>Cancel</Button> */}
+                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                        {listdarapush == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} >SAVE </Button> :
+                                                                                            <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituser(), handleCloseComplay() }}>SAVE </Button>}
+                                                                                    </div>
+                                                                                </Box>
+                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                            </DialogContent>
+                                                                        </div>
+                                                                    </Dialog>
+                                                                </div>
+                                                                <div>
+                                                                    <Dialog open={pause} onClose={handleCloseCompause}
+                                                                        className={styles.borderredayasfor}
+                                                                        style={{
+                                                                            // borderRadius: '30px'
+                                                                        }}
+                                                                        // fullWidth
+                                                                        maxWidth="sm"
+                                                                    >
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div>
+                                                                            <DialogContent className={styles.popupcantenar}>
+                                                                                <Box className={styles.lisrmaenbox}>
 
-                                                                                <div className={styles.delehedar}>
-                                                                                    <Typography>Play Pattern</Typography>
-                                                                                </div>
-                                                                                <div className={styles.listimgyes}>
-                                                                                    <img src="../../Group 47124 (2).svg" />
-                                                                                </div>
-                                                                                {/* <Box className={styles.listboxiduser}>
+                                                                                    <div className={styles.delehedar}>
+                                                                                        <Typography>Play Pattern</Typography>
+                                                                                    </div>
+                                                                                    <div className={styles.listimgyes}>
+                                                                                        <img src="../../Group 47124 (2).svg" />
+                                                                                    </div>
+                                                                                    {/* <Box className={styles.listboxiduser}>
                                                                            <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                                                                <div className={styles.paregarafnsg}>
-                                                                                    <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
-                                                                                </div>
-                                                                                <div className={styles.pustlebal}>
-                                                                                    <Typography>Pause with </Typography>
-                                                                                </div>
-                                                                                <div className={styles.btn_all_buy}>
-                                                                                    {/* {btnlistnamelist == 'All' ? }   */}
-                                                                                    <Button onClick={() => { setLlistdata('All') }} className={listdara == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
-                                                                                    <Button onClick={() => { setLlistdata('Buy') }} className={listdara == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
-                                                                                    <Button onClick={() => { setLlistdata('Sell') }} className={listdara == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
+                                                                                    <div className={styles.paregarafnsg}>
+                                                                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                    </div>
+                                                                                    <div className={styles.pustlebal}>
+                                                                                        <Typography>Pause with </Typography>
+                                                                                    </div>
+                                                                                    <div className={styles.btn_all_buy}>
+                                                                                        {/* {btnlistnamelist == 'All' ? }   */}
+                                                                                        <Button onClick={() => { setLlistdata('All') }} className={listdara == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
+                                                                                        <Button onClick={() => { setLlistdata('Buy') }} className={listdara == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
+                                                                                        <Button onClick={() => { setLlistdata('Sell') }} className={listdara == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
 
-                                                                                    {/* <ButtonGroup */}
-                                                                                    {/* onClick={()=>{setLlistdata(true)}} */}
-                                                                                    {/* buttons={["All", "Buy", "Sell"]} */}
-                                                                                    {/* doSomethingAfterClick={printButtonLabellist} */}
-                                                                                    {/* // style={} */}
-                                                                                    {/* // className={btnlistname == 'Buy' ? styles.buylist : styles.buylist2} */}
-                                                                                    {/* /> */}
-                                                                                </div>
-                                                                                <div className={styles.divpopupspn}>
-                                                                                    {isoutField == '' ? '' : <span className={styles.otperr}>Please Enter Valid list</span>}
-                                                                                </div>
-                                                                                {/* </Box> */}
-                                                                                <div className={styles.cancelbtnlog}>
-                                                                                    <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseCompause}>Cancel</Button>
-                                                                                    {listdara == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn}  >SAVE </Button> :
-                                                                                        <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituserlistpause(), handleCloseCompause() }}>SAVE </Button>}
-                                                                                    {/* <Button >Cancel</Button> */}
-                                                                                    {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                    {/* <Button className={styles.cofimbatn} onClick={edituserlistpause}>Confirm</Button> */}
-                                                                                </div>
-                                                                            </Box>
-                                                                            {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                                                        </DialogContent>
-                                                                    </div>
-                                                                </Dialog>
-                                                            </div>
-                                                        </TableCell>
-                                                        <TableCell>
-          <IconButton
-          className={styles.listiconhh}
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!openlist)}
-          >
-            {openlist ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
+                                                                                        {/* <ButtonGroup */}
+                                                                                        {/* onClick={()=>{setLlistdata(true)}} */}
+                                                                                        {/* buttons={["All", "Buy", "Sell"]} */}
+                                                                                        {/* doSomethingAfterClick={printButtonLabellist} */}
+                                                                                        {/* // style={} */}
+                                                                                        {/* // className={btnlistname == 'Buy' ? styles.buylist : styles.buylist2} */}
+                                                                                        {/* /> */}
+                                                                                    </div>
+                                                                                    <div className={styles.divpopupspn}>
+                                                                                        {isoutField == '' ? '' : <span className={styles.otperr}>Please Enter Valid list</span>}
+                                                                                    </div>
+                                                                                    {/* </Box> */}
+                                                                                    <div className={styles.cancelbtnlog}>
+                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseCompause}>Cancel</Button>
+                                                                                        {listdara == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn}  >SAVE </Button> :
+                                                                                            <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituserlistpause(), handleCloseCompause() }}>SAVE </Button>}
+                                                                                        {/* <Button >Cancel</Button> */}
+                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                        {/* <Button className={styles.cofimbatn} onClick={edituserlistpause}>Confirm</Button> */}
+                                                                                    </div>
+                                                                                </Box>
+                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                                            </DialogContent>
+                                                                        </div>
+                                                                    </Dialog>
+                                                                </div>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <IconButton
+                                                                    className={styles.listiconhh}
+                                                                    aria-label="expand row"
+                                                                    size="small"
+                                                                    onClick={() => setOpen(!openlist)}
+                                                                >
+                                                                    {openlist ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                                                                </IconButton>
+                                                            </TableCell>
 
 
-                                                    </TableRow>
-                                      
-                                            
-                      
+                                                        </TableRow>
+
+
+
                                                     );
-                               
+
                                                 })}
 
 
@@ -1349,17 +1484,17 @@ const Home = (props) => {
                                                     <TableCell colSpan={6} />
                                                 </TableRow>
                                             )}
-                                
+
                                         </TableBody>
                                         <TableRow>
-                                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
-          <Collapse in={openlist} timeout="auto" unmountOnExit>
-            {/* <Box sx={{ margin: 1 }}>
+                                            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
+                                                <Collapse in={openlist} timeout="auto" unmountOnExit>
+                                                    {/* <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
                 History
               </Typography> */}
-              <Table size="small" aria-label="purchases">
-                {/* <TableHead>
+                                                    <Table size="small" aria-label="purchases">
+                                                        {/* <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
                     <TableCell>Customer</TableCell>
@@ -1367,53 +1502,54 @@ const Home = (props) => {
                     <TableCell align="right">Total price ($)</TableCell>
                   </TableRow>
                 </TableHead> */}
-                <TableBody>
-                  {/* {row.map((historyRow) => ( */}
-                    <TableRow
-                    //  key={historyRow.date}
-                     >
-                      <TableCell scope="row">
-                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Type</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>600</Typography>
-                      {/* ajjaa */}
-                        {/* {historyRow.date} */}
-                      </TableCell>
-                      <TableCell>
-                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>StopLoss</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#E31E24'}}>600</Typography>
-                      {/* {historyRow.customerId} */}
-                      </TableCell>
-                      <TableCell align="right">
-                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Todays Profit</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>600</Typography>
-                      {/* {historyRow.amount} */}
-                      </TableCell>
-                      <TableCell align="right">
-                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Today Orders</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#4F4F4F'}}>600</Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Created At</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#4F4F4F'}}>12/10/2022 10:10:12</Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                      <Typography className={styles.peregarflist} style={{'font-size': '12px','color': '#BDBDBD','textTransform':'uppercase'}}>Edited At</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#4F4F4F'}}>12/10/2022 10:10:12</Typography>
-                      </TableCell>
-                    </TableRow>
-                  {/* ))} */}
-                </TableBody>
-              </Table>
-            {/* </Box> */}
-          </Collapse>
-        </TableCell>
-      </TableRow>
+                                                        <TableBody>
+                                                            {/* {row.map((historyRow) => ( */}
+                                                            <TableRow
+                                                            //  key={historyRow.date}
+                                                            >
+                                                                <TableCell scope="row">
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Type</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>600</Typography>
+                                                                    {/* ajjaa */}
+                                                                    {/* {historyRow.date} */}
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>StopLoss</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>600</Typography>
+                                                                    {/* {historyRow.customerId} */}
+                                                                </TableCell>
+                                                                <TableCell align="right">
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Todays Profit</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>600</Typography>
+                                                                    {/* {historyRow.amount} */}
+                                                                </TableCell>
+                                                                <TableCell align="right">
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Today Orders</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>600</Typography>
+                                                                </TableCell>
+                                                                <TableCell align="right">
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Created At</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>12/10/2022 10:10:12</Typography>
+                                                                </TableCell>
+                                                                <TableCell align="right">
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Edited At</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>12/10/2022 10:10:12</Typography>
+                                                                </TableCell>
+                                                            </TableRow>
+                                                            {/* ))} */}
+                                                        </TableBody>
+                                                    </Table>
+                                                    {/* </Box> */}
+                                                </Collapse>
+                                            </TableCell>
+                                        </TableRow>
                                         {/* <TableRow> */}
-                          {/* <TableFooter> */}
-                                        <TableRow >
-                                            <TablePagination
+                                        {/* <TableFooter> */}
+                                        <TableRow>
+
+                                            {/* <TablePagination
                                                 className={styles.tablePagination}
-                                                rowsPerPageOptions={[4, 10, 25, { label: "All", value: -1 }]}
+                                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                                                 count={datatebalpettan.length}
                                                 rowsPerPage={rowsPerPage}
                                                 page={page}
@@ -1426,11 +1562,21 @@ const Home = (props) => {
                                                 onPageChange={handleChangePage}
                                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                             // ActionsComponent={TablePaginationActions}
-                                            />
+                                            /> */}
                                         </TableRow>
                                         {/* </TableFooter> */}
                                     </Table>
                                 </TableContainer>
+                                <TablePagination
+                                    rowsPerPageOptions={[7, 10, 25, 100]}
+                                    component="div"
+                                    className={styles.tablePagination}
+                                    count={datatebalpettan.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
                                 {/* <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"

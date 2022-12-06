@@ -185,7 +185,7 @@ EnhancedTableHead.propTypes = {
 
 
 const Home = (props) => {
-    console.log(props, 'propsprops');
+    console.log(props.props.profile.userData.id, 'propsprovvvps');
     const router = useRouter();
 
     const [order, setOrder] = React.useState('asc');
@@ -248,7 +248,7 @@ const Home = (props) => {
                         consumer_key: element.consumer_key,
                         consumer_secret: element.consumer_secret,
                         id_user: element.id_user,
-                        loginUrllist:element.loginUrl,
+                        loginUrllist: element.loginUrl,
                         zerodha_token_update: element.zerodha_token_update
                     }
                     console.log(element, 'password');
@@ -260,7 +260,7 @@ const Home = (props) => {
             }
         }
     }
-    console.log(datatebal,'datatebal');
+    console.log(datatebal, 'datatebal');
     const accountdelete = async () => {
 
         var headers = {
@@ -499,9 +499,9 @@ const Home = (props) => {
                                                     <TableCell>
                                                         <Button onClick={() => {
                                                             if (row.type == 'zerodha') {
-                                                                var profile = props.profile;
+                                                                var profile = props.props.profile;
                                                                 profile.accountId = row.id
-                                                                rest.props.save_user_data({ user: profile });
+                                                                props.save_user_data({ user: profile });
                                                                 window.location.href = `${row.loginUrllist}`
                                                             }
                                                         }}
@@ -604,4 +604,14 @@ const Home = (props) => {
         </Grid>
     );
 }
-export default Home;
+// export default ;
+const mapStateToProps = (state) => ({
+    profile: state.user.profile
+  });
+  
+  const mapDispatchToProps = (dispatch) => ({
+    save_user_data: (data) =>
+        dispatch({ type: Types.LOGIN, payload: data }),
+  });
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Home);

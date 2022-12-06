@@ -520,16 +520,16 @@ color: #4285F4 !important;
 
 }
 
-.Customlistbtn {
-    font-family: roboto-400 !important;
-    color: #000000 !important;
-    font-size: 11px !important;
-    text-transform: capitalize !important;
-    height: 26px;
-    border: 1px solid #858789 !important;
-    border-radius: 20px !important;
-    margin-left: 9px !important;
-}
+// .Customlistbtn {
+//     font-family: roboto-400 !important;
+//     color: #000000 !important;
+//     font-size: 11px !important;
+//     text-transform: capitalize !important;
+//     height: 26px;
+//     border: 1px solid #858789 !important;
+//     border-radius: 20px !important;
+//     margin-left: 9px !important;
+// }
 
 .Basiclistbtn {
     font-family: roboto-400 !important;
@@ -542,11 +542,17 @@ color: #4285F4 !important;
     margin-left: 9px !important;
 }
 
-.Customlistbtn:hover,
-.nonelistbtn:hover,
-.Basiclistbtn:hover {
+.Customlistbtn {
     background: #06335C !important;
     color: white !important;
+    font-family: roboto-400 !important;
+        // color: #000000 !important;
+            border-radius: 20px !important;
+            margin-left: 27px !important;
+            height: 26px;
+
+        font-size: 11px !important;
+        text-transform: capitalize !important;
 }
 
 .patternlebal {
@@ -1442,6 +1448,10 @@ color: #4285F4 !important;
 }
 
 @media only screen and (max-width: 450px) {
+    .maendivhpline{
+        padding: 10px 0px 0px 30px !important;
+
+    }
     .searchbtn{
         width: 200px !important;
 
