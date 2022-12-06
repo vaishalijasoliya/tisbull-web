@@ -14,33 +14,33 @@ import Menu from '@mui/material/Menu';
 import React, { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = [<Button
-  // onClick={(() => { router.push('./dashboard') })}
-  className={styles.btn_pages2}
-  // key={page}
-  // onClick={handleCloseNavMenu}
-  sx={{ my: 2, display: 'block' }}
->
-  Home
-</Button>,
-<Button
-  // onClick={(() => { router.push('./dashboard') })}
-  className={styles.btn_pages2}
-  // key={page}
-  // onClick={handleCloseNavMenu}
-  sx={{ my: 2, display: 'block' }}
->
-  About us
-</Button>,
-<Button
-  // onClick={(() => { router.push('./dashboard') })}
-  className={styles.btn_pages2}
-  // key={page}
-  // onClick={handleCloseNavMenu}
-  sx={{ my: 2, display: 'block' }}
->
-  Contact
-</Button>];
+// const pages = [<Button
+//   // onClick={(() => { router.push('./dashboard') })}
+//   className={styles.btn_pages2}
+//   // key={page}
+//   // onClick={handleCloseNavMenu}
+//   sx={{ my: 2, display: 'block' }}
+// >
+//   Home
+// </Button>,
+// <Button
+//   // onClick={(() => { router.push('./dashboard') })}
+//   className={styles.btn_pages2}
+//   // key={page}
+//   // onClick={handleCloseNavMenu}
+//   sx={{ my: 2, display: 'block' }}
+// >
+//   About us
+// </Button>,
+// <Button
+//   // onClick={(() => { router.push('./dashboard') })}
+//   className={styles.btn_pages2}
+//   // key={page}
+//   // onClick={handleCloseNavMenu}
+//   sx={{ my: 2, display: 'block' }}
+// >
+//   Contact
+// </Button>];
 
 const main = () => {
   const [anchorElNav, setAnchorElNav] = React.useState < null | HTMLElement > (null);
@@ -98,7 +98,7 @@ const main = () => {
                       display: { xs: 'block', md: 'none' },
                     }}
                   >
-
+{/* 
                     {pages.map((page) => (
                       <MenuItem 
                       // key={page}
@@ -106,12 +106,12 @@ const main = () => {
 
                         <Typography textAlign="center" className={styles.page_listmenu}>{page}</Typography>
                       </MenuItem>
-                    ))}
+                    ))} */}
                   </Menu>
                 </Box>
                 <Box className={styles.boxlistyyy} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                   {/* {pages.map((page) => ( */}
-                  <Button
+                  {/* <Button
                     // onClick={(() => { router.push('./dashboard') })}
                     className={styles.btn_pages2}
                     // key={page}
@@ -142,7 +142,7 @@ const main = () => {
                     >
                       Contact
                     </Button>
-                  </div>
+                  </div> */}
                   
                   {/* <Button
                     // onClick={(() => { router.push('./dashboard') })}

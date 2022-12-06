@@ -34,7 +34,7 @@ const main = () => {
               <Aboutus />
             </div>
             <div>
-              <Payment />
+              {/* <Payment /> */}
             </div>
             <div>
               <Footer />

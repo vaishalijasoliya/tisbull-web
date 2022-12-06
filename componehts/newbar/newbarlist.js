@@ -355,7 +355,9 @@ function ResponsiveAppBar(props) {
                 <div className={styles.Avatar_newbar}
                 >
                   <Avatar className={styles.btn_avtar_list}
-                    src={ props.profile.userData.logoUrl}
+                    // src={rowidlist == ''? props..profile.logoUrl:props.props.profile.currentAccount.logoUrl}
+                  
+                    src={props.profile.userData.logoUrl}
                   >
                   </Avatar>
                 </div>
@@ -364,6 +366,8 @@ function ResponsiveAppBar(props) {
                     {props.profile.userData.currentAccount.user_id }
                   </Typography>
                 </div>
+                {props.profile == '' ? "":
+
                 <div>
                   <Button className={styles.alt_list_ikon} onClick={handleClick}>
                     <ExpandMoreIcon />
@@ -447,7 +451,9 @@ function ResponsiveAppBar(props) {
                       </div>
                     </div>
                   </Menu>
-                </div>
+                  {/* </React.Fragment> */}
+
+                </div>}
               </div>
             </Box> : ''}
           </Grid>

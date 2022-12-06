@@ -110,7 +110,7 @@ const main = () => {
                 </Box>
                 <Box className={styles.boxlistyyy} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                   {/* {pages.map((page) => ( */}
-                  <Button
+                  {/* <Button
                     // onClick={(() => { router.push('./dashboard') })}
                     className={styles.btn_pages2}
                     // key={page}
@@ -141,7 +141,7 @@ const main = () => {
                     >
                       Contact
                     </Button>
-                  </div>
+                    </div> */}
                   <Button
                     // onClick={(() => { router.push('./dashboard') })}
                     className={styles.btn_pages}
@@ -150,7 +150,7 @@ const main = () => {
                     sx={{ my: 2, display: 'block' }}
                   >
                     Login
-                  </Button>
+                  </Button> 
 
                 </Box>
 
