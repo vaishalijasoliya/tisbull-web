@@ -93,8 +93,8 @@ const [datelist,setDatelist] =React.useState('')
             // formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("DD-mm-yyyy"))
             formik.setFieldValue('Address', patternDelete.data.address)
             formik.setFieldValue('Gender', patternDelete.data.gender)
-            setDatelist(moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
-            formik.setFieldValue('date',moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
+            // setDatelist(moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
+            // formik.setFieldValue('date',moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
 
             setPhonedata(patternDelete.data.phone_no)
             setAge(patternDelete.data.gender)
@@ -332,7 +332,11 @@ const [datelist,setDatelist] =React.useState('')
                             {/* */}
                             <div className={styles.uplodimgp}><Typography>Update your photo and personal detalis here.</Typography></div>
                         </div>
-                        <div className={styles.donebtn}><Button type='submit' onClick={()=>{edituser,uploadpohot()}}>Done</Button></div>
+                        <div className={styles.donebtn}>
+                        { formik.values.username == '' ||formik.values.email == '' ||phonedata == '' ||formik.values.date == '' ||formik.values.Address == ''||age == '' ?
+                        <Button disabled type='submit' style={{color:'#E31E24'}}>Done</Button>:
+                        <Button type='submit' onClick={()=>{edituser,uploadpohot()}}>Done</Button>}
+                        </div>
                     </div>
                 </Grid>
                 {/* <form> */}

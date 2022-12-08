@@ -136,7 +136,11 @@ const handleClickShowPassword = () => {
               {/* */}
               <div className={styles.uplodimgp2}><Typography>Update your photo and personal detalis here.</Typography></div>
             </div>
-            <div className={styles.donebtn2}><Button type='submit' onClick={onLoginPresslist}>Done</Button></div>
+            <div className={styles.donebtn2}>
+            {formik.values.oldPassword == '' ||formik.values.newPassword == '' ||formik.values.reTypePassword == '' ?
+            <Button disabled type='submit' style={{color:'#E31E24'}}>Done</Button>:
+            <Button type='submit' onClick={onLoginPresslist}>Done</Button>}
+            </div>
           </div>
           <div>
           <InputLabel className={styles.leballist44}>Old Password</InputLabel>

@@ -188,82 +188,8 @@ console.log(router.query.googleId,'gvvvvv');
         },
     });
 
-    // const onLoginPress = async () => {
-    //     var body = {
-    //       'user_name': formik.values.username,
-    //       'password': formik.values.password,
-    //       // 'listemail':
-    //     }
-    //     console.log(body, 'body');
-
-    //     var headers = {
-    //       "Content-Type": "application/json",
-    //     }
-    //     // console.log();
-
-    //     props.props.loaderRef(true)
-    //     var data = await ApiServices.PostApiCall(ApiEndpoint.LOGIN_USER, JSON.stringify(body), headers);
-    //     props.props.loaderRef(false)
-    //     console.log(data.token, 'listdata');
-    //     if (!!data) {
-    //       if (data.status == true) {
-    //         data.token = data.token
-    //         // elistdata
-    //         props.save_user_data({ user: data });
-    //         toast.success("Logged In Succesfully")
-    //         router.push('./dashboard')
-    //       } else {
-    //         // setErrorShow(true)
-    //         toast.error(data.message)
-    //       }
-    //     } else {
-    //       toast.error('Something went wrong.')
-    //     }
-    //   }
-    //   const formik = useFormik({
-    //     initialValues: {
-    //         // email: '',
-    //         // name: '',
-    //         userName: '',
-    //         password: '',
-    //         // policy: false
-    //     },
-    //     validationSchema: Yup.object({
-    //         email: Yup
-    //             .string()
-    //             .email(
-    //                 'Must be a valid email')
-    //             .max(255)
-    //             .required(
-    //                 'Email is required'),
-    //         name: Yup
-    //             .string()
-    //             .max(255)
-    //             .required(
-    //                 'Name is required'),
-    //         userName: Yup
-    //             .string()
-    //             .max(255)
-    //             .required(
-    //                 'Username is required'),
-    //         password: Yup
-    //             .string()
-    //             .max(255)
-    //             .matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/, "please enter 1 Special character")
-    //             .min(8, 'Password must be at least 8 characters')
-    //             .required(
-    //                 'Password is required'),
-    //         policy: Yup
-    //             .boolean()
-    //             .oneOf(
-    //                 [true],
-    //                 'This field must be checked'
-    //             )
-    //     }),
-    //     onSubmit: () => {
-    //         onLoginPress()
-    //     }
-    // });
+  
+  
     const onRegisterPress = async () => {
         var body = {
             // 'user_name': formik.values.userName,
@@ -294,63 +220,7 @@ console.log(router.query.googleId,'gvvvvv');
           }
     }
 
-    // console.log(formik.values.name, 'bodylist');
-
-    // const formik = useFormik({
-    //     initialValues: {
-    //         username: '',
-    //         password: '',
-    //     },
-    //     validationSchema: Yup.object({
-    //         username: Yup
-    //             .string()
-
-    //             .max(255)
-    //             .required(
-    //                 'User name is required'),
-    //         password: Yup
-    //             .string()
-    //             .min(6)
-    //             .max(255)
-    //             .required(
-    //                 'Password is required'),
-    //     }),
-    //     onSubmit: () => {
-    //         onLoginPress()
-    //     },
-    // });
-
-
-    //   console.log(elistdata,'elistdata');
-
-    // const [values, setValues] = React.useState<State>({
-    //     amount: '',
-    //     password: '',
-    //     weight: '',
-    //     weightRange: '',
-    //     showPassword: false,
-    // });
-    // const handleChange =
-    //     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    //         setValues({ ...values, [prop]: event.target.value });
-    //     };
-    // const handleClickShowPassword = () => {
-    //     setValues({
-    //         ...values,
-    //         showPassword: !values.showPassword,
-    //     });
-    // };
-    // const router = useRouter();
-    // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-    // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    //     setAnchorElNav(event.currentTarget);
-    // };
-    // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    //     setAnchorElUser(event.currentTarget);
-    // };
-
+   
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
@@ -359,14 +229,19 @@ console.log(router.query.googleId,'gvvvvv');
         setAnchorElUser(null);
     };
 
-    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     event.preventDefault();
-    // };
+ 
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar}>
   <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
-        <img width={360} className={styles.maenloginpegimg} src='../../Group 109.svg' />
+  <img
+              style={{width:'100%'}}
+
+        //  width={360}
+        //  className={styles.maenloginpegimg} 
+        //  src='../../Group 109.svg' 
+src='../../login bg.png'
+         />
       </Grid>
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
                 <div className={styles.baglistee}></div>
@@ -514,9 +389,15 @@ console.log(router.query.googleId,'gvvvvv');
                     </div>
                 </Box>
             </Grid>
-            <Grid item md={7} sm={12} xs={12} className={styles.bakimginpos}>
-                {/* <img className={styles.maenloginpegimg} src='../../Group 109.svg' /> */}
-            </Grid>
+            <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
+      <img
+      style={{width:'95%'}}
+      //  width={360}
+        //  className={styles.maenloginpegimg} 
+        //  src='../../Group 109.svg' 
+src='../../login bg.png'
+         />
+      </Grid>
         </Grid>
 
     )

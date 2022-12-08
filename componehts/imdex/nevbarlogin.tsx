@@ -60,9 +60,12 @@ const main = () => {
 
             <Toolbar disableGutters>
               <Grid item sm={6} md={6} xs={6}>
+              <a href='./'>
+
                 <div>
                   <img src='../../TISBULL 1.png'></img>
                 </div>
+                </a>
               </Grid>
               {/* <Grid item sm={0} md={2} xs={0} display={'flex'} justifyContent={'end'}>
           </Grid> */}

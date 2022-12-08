@@ -14,6 +14,13 @@
     font-family: roboto-600;
     src: url(../../styles/Roboto/Roboto-Bold.ttf);
 }
+.listdataclos{
+    margin-top: 10px !important;
+    color: black !important;
+    svg{
+    font-size: 20px !important;
+    }
+}
 .peregarflist{
     font-family: Poppins-400 !important;
 
@@ -109,8 +116,8 @@
 }
 
 .btn_all_buy {
-    padding: 10px 0px 0px 0px;
-    text-align: center;
+    padding: 10px 0px 0px 30px;
+    // text-align: center;
 
     button {
         margin: 0px 0px 0px 10px;
@@ -159,8 +166,8 @@
 // }
 
 .pustlebal {
-    padding: 20px 0px 0px 0px;
-    text-align: center;
+    padding: 20px 0px 0px 40px;
+    // text-align: center;
 
     p {
         font-family: roboto-600;
@@ -178,7 +185,7 @@
         font-size: 16px;
         font-family: Poppins-400;
         max-width: 300px;
-
+text-align: justify;
         color: #333333;
     }
 }
@@ -197,7 +204,8 @@
 }
 
 .cancelbtnlog {
-    padding-top: 20px;
+    padding: 40px 0px 20px 0px;
+    // padding-top: 20px;
     text-align: center;
 
     button {

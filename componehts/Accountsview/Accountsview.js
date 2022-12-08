@@ -22,16 +22,20 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 // import Newbar from '../componehts/newbar/newbar';
 // import Dashboard from '../componehts/dashboard/dashboard';
 const Home = (props) => {
-    console.log(props.profile.token, 'listpfffrosps');
+    console.log(props.profile, 'listpfffrosps');
     const [showPasswordlist, setShowPasswordlist] = useState(false)
     const [logo, setLogo] = useState([])
     const [userid, setUserid] = useState('')
     const [usertype, setType] = useState('')
+    const [listidacc,setListidacc] = useState('')
     console.log(userid, 'userid');
     const router = useRouter();
+    console.log(router.query.emailID,'jajjajajja');
 console.log(props,'lisyysg');
     useEffect(() => {
+        setListidacc(router.query.emailID)
         setData()
+
         // 
         // if (!!props.router && !!props.router.query && !!props.router.query.data) {
         //     setData(JSON.parse(props.router.query.data).id)UPLOAD_PROFILE
@@ -43,8 +47,16 @@ console.log(props,'lisyysg');
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
-        var obj = {
-            "id_account": props.profile.userData.currentAccount.id
+
+        // console.log(obj,'objobj');
+        if(router.query.emailID == undefined ){
+            var obj = {
+                'id_account':props.profile.userData.currentAccount.id
+            };
+        }else{
+            var obj = {
+                'id_account':router.query.emailID
+            }; 
         }
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_VIEW, JSON.stringify(obj), headers)
@@ -67,7 +79,7 @@ console.log(props,'lisyysg');
     const onLoginPress = async () => {
         var body = {
 
-            'id_account': props.profile.currentAccount.id,
+            'id_account': router.query.emailID,
             'consumer_key': formik.values.ConsumerKey,
             'consumer_secret': formik.values.ConsumerSecret,
             'userId': userid,
@@ -76,6 +88,29 @@ console.log(props,'lisyysg');
             'type': usertype,
             "env": "production"
             // 'listemail':
+        }
+        if(router.query.emailID == undefined ){
+            var body = {
+                'id_account':props.profile.userData.currentAccount.id,
+                'consumer_key': formik.values.ConsumerKey,
+                'consumer_secret': formik.values.ConsumerSecret,
+                'userId': userid,
+                'password': formik.values.reTypePassword,
+                // 'address': formik.values.Address,
+                'type': usertype,
+                "env": "production"
+            };
+        }else{
+            var body = {
+                'id_account':router.query.emailID,
+                'consumer_key': formik.values.ConsumerKey,
+                'consumer_secret': formik.values.ConsumerSecret,
+                'userId': userid,
+                'password': formik.values.reTypePassword,
+                // 'address': formik.values.Address,
+                'type': usertype,
+                "env": "production"
+            }; 
         }
         console.log(body, 'body');
 
@@ -171,9 +206,13 @@ console.log(props,'lisyysg');
                             {/* */}
                             {/* <div className={styles.uplodimgp2}><Typography>Update your photo and personal detalis here.</Typography></div> */}
                         </div>
-                        <div className={styles.donebtn22}><Button type='submit'
+                        <div className={styles.donebtn22}>
+                       {formik.values.ConsumerKey == '' ||formik.values.ConsumerSecret == '' ||formik.values.reTypePassword == '' ? 
+                       <Button disabled type='submit' style={{color:'#E31E24'}}>Done</Button>:
+                        <Button type='submit'
                             onClick={onLoginPress}
-                        >Done</Button></div>
+                        >Done</Button>}
+                        </div>
                     </div>
                     <div className={styles.avatarbank}>
                         <Avatar

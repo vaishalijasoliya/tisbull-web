@@ -10,7 +10,7 @@ import ApiEndpoint from '../config/ApiEndpoint';
 import Newbar from './newbarlist';
 import Accounttype from '../componehts/Stocks/accounttype';
 const ResponsiveAppBar = (props) => {
-  console.log(props.profile,'vssssir');
+  console.log(props.profile.accountId,'vssssir');
   const router = useRouter();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const ResponsiveAppBar = (props) => {
     }
     var body = {
       request_token: token,
-      id_account:props.profile.userData.id
+      id_account:props.profile.accountId
     }
     props.loaderRef(true)
     var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)

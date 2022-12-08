@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Constants from '../../config/Constants';
+import Dialog from '@mui/material/Dialog';
 
 import styles from './newbatlist.module.scss'
 import Grid from '@mui/material/Grid';
@@ -45,7 +46,7 @@ import SmsIcon from '@mui/icons-material/Sms';
 import { connect } from 'react-redux';
 import { Types } from '../../constants/actionTypes'
 // import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
+import DialogContent from '@mui/material/DialogContent';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 // import { useRouter } from 'next/router';
@@ -64,7 +65,20 @@ function ResponsiveAppBar(props) {
   const [data, setData] = React.useState([]);
   const [datalistlogin, setDatalistlogin] = React.useState([]);
   const [rowidlist, setRowidlist] = React.useState("")
-
+  const [rowidbtn, setRowidbtn] = React.useState('');
+  const [listuserid, setListuserid] = React.useState('')
+  const [idlistuse, setIdlistuse] = React.useState('')
+const[dartmenu,setDatamenu] =React.useState('')
+  const [com, setCom] = React.useState(false);
+  console.log(dartmenu,'dartmenu');
+    var handleClickOpenCom = () => {
+    setCom(true);
+    // console.log(advertiseMent, startDate, endDate, image, 'hello data')
+    // myprops = { advertiseMent }
+  };
+  const handleCloseCom = () => {
+    setCom(false);
+  }
   console.log(data, 'listdada');
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -98,6 +112,7 @@ function ResponsiveAppBar(props) {
             user_id: element.user_id,
             type: element.type,
             logoUrl: element.logoUrl,
+            loginUrllist: element.loginUrl,
 
           }
           console.log(object, 'object');
@@ -111,11 +126,8 @@ function ResponsiveAppBar(props) {
       }
     }
   }
-  console.log(props,'login Data');
+  console.log(props, 'login Data');
   const switchAccount = async (account) => {
-    // if (account.id == props.profile.userData.currentAccount.id) {
-    //   return;
-    // }
     var headers = {
       "Content-Type": "application/json",
       "x-access-token": props.profile.token
@@ -135,22 +147,8 @@ function ResponsiveAppBar(props) {
         newData.userData.currentAccount = data.data
         newData.token = data.token
         newData.userData.logoUrl = data.data.logoUrl
-        // data.userData = data.data;
-        // elistdata
-        // data.userData.currentAccount = data.data;
-
-
-        // // props.
-        // // var accountsArray = profile.userData.account;
-        // // profile.currentAccount = account;
-        // // profile.account = accountsArray;
-        // newData.token = newData.token;
-        // newData.userData.currentAccount = newData.data;
-        // // data.token = data.token
-        // // elistdata
-        // // data.data = data.data;
-         props.save_user_data({ user: newData });
-          router.reload(window.location.pathname)
+        props.save_user_data({ user: newData });
+        router.reload(window.location.pathname)
         Constants.EventEmitter.emit('change_account', router)
       } else {
         toast.error(data.message)
@@ -159,10 +157,56 @@ function ResponsiveAppBar(props) {
       toast.error('Something went wrong.')
     }
   }
-  // console.log(data[1], 'virang33');
+  const accountdelete = async () => {
 
+    var headers = {
+      "Content-Type": "application/json",
+      "x-access-token": props.profile.token
+    }
+    var body = {
+      "id_account": rowidbtn
+    }
 
-  // console.log(props.profile.userData.currentAccount.id, 'myyyydata')
+    var accountdelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_DELETE, JSON.stringify(body), headers)
+
+    console.log(accountdelete, 'accountdelete');
+    if (accountdelete.status == true) {
+  
+      toast.success('delete account')
+      chartloginuser()
+    }
+    else {
+      // setErrorShow(true)
+      toast.error(accountdelete.message)
+    }
+    // }
+  }
+  React.useEffect(() => {
+    getRequestToken();
+  }, [router.isReady])
+
+  const getRequestToken = () => {
+    const request_token = router.query.request_token;
+    console.log(request_token, 'request_token');
+    if (!!request_token) {
+      updateAccessToken(request_token)
+    }
+  }
+
+  const updateAccessToken = async (token) => {
+    var headers = {
+      "Content-Type": "application/json",
+      "x-access-token": props.profile.token
+    }
+    var body = {
+      request_token: token,
+      id_account:dartmenu
+    }
+    // props.loaderRef(true)
+    var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
+    // props.loaderRef(false)
+    console.log('updateAccount...', updateAccount)
+  }
 
 
 
@@ -179,7 +223,7 @@ function ResponsiveAppBar(props) {
       Dashboard
     </Button>,
     <Button
-      onClick={(() => { router.push('./accountteyp') })}
+      onClick={() => { router.push('./accountteyp') }}
 
       className={currentPath == '/accountteyp' ? styles.borderbottum : styles.btn_pages}>
       Account
@@ -188,7 +232,7 @@ function ResponsiveAppBar(props) {
       onClick={() => {
         router.push({
           pathname: './home',
-          query: { scripType: 'currency', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) }
+          // query: { scripType: 'currency', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) }
           // query: { type: 'currency' }
         });
       }}
@@ -307,76 +351,126 @@ function ResponsiveAppBar(props) {
     <AppBar position="static">
       <Container maxWidth="100%" className={styles.cantenar_list_caps}>
         <Toolbar disableGutters>
-          <Grid item sm={3} md={4} xs={3}>
-            <a href='./dashboard'>
+          <Grid item sm={3} md={3} xs={3}>
+            <a href='./'>
               <img src='../../TISBULL 1.png'></img>
             </a>
           </Grid>
           <Grid item sm={0} md={1} xs={0} >
           </Grid>
-          <Grid item sm={9} md={7} xs={9} display={'flex'} justifyContent={'end'}>
+          <Grid item sm={9} md={8} xs={9} display={'flex'} justifyContent={'end'}>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box className={styles.listahedar} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <Button
-                className={styles.newbtnrow}
+                <Typography
+                  className={styles.newbtnrow}
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page}
-                </Button>
+                  {/* <ButtonGroup
+              // orientation="vertical"
+              aria-label="vertical outlined button group"
+              className={styles.newbtnrow}
+            >
+                  {pages}
+                  </ButtonGroup> */}
+
+                </Typography>
               ))}
-            </Box> 
+            </Box>
             <div className={styles.btnicon2} ><Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon /></Button>
               <Button><NotificationsNoneIcon /></Button></div>
             {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
 
             <div>
-                {['left'].map((anchor) => (
-                  <React.Fragment key={anchor}>
+              {['left'].map((anchor) => (
+                <React.Fragment key={anchor}>
                   <div className={styles.listbatnmenu}>
-                  <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
-</div>
-                    <Drawer
-                      anchor={anchor}
-                      open={state[anchor]}
-                      onClose={toggleDrawer(anchor, false)}
-                    >
-                      {list(anchor)}
-                    </Drawer>
-                  </React.Fragment>
-                ))}
-              </div>
-           {!!props.profile ?  <Box sx={{ flexGrow: 0 }}>
-              <div className={styles.newbar_list}>
-                <div className={styles.Avatar_newbar}
-                >
-                  <Avatar className={styles.btn_avtar_list}
-                    // src={rowidlist == ''? props..profile.logoUrl:props.props.profile.currentAccount.logoUrl}
-                  
-                    src={props.profile.userData.logoUrl}
+                    <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
+                  </div>
+                  <Drawer
+                    anchor={anchor}
+                    open={state[anchor]}
+                    onClose={toggleDrawer(anchor, false)}
                   >
-                  </Avatar>
-                </div>
-                <div className={styles.user_list}>
-                  <Typography>
-                    {props.profile.userData.currentAccount.user_id }
-                  </Typography>
-                </div>
-                {props.profile == '' ? "":
+                    {list(anchor)}
+                  </Drawer>
+                </React.Fragment>
+              ))}
+            </div>
+            {!!props.profile ? <Box sx={{ flexGrow: 0 }}>
+              <div className={styles.newbar_list}>
+                <a style={{ display: 'flex', textDecoration: 'none' }}
+                // onClick={handleClick}
+                >
+                  <div className={styles.Avatar_newbar}
+                  >
+                    <Avatar className={styles.btn_avtar_list}
+                      // src={rowidlist == ''? props..profile.logoUrl:props.props.profile.currentAccount.logoUrl}
+
+                      src={props.profile.userData.logoUrl}
+                    >
+                    </Avatar>
+                  </div>
+                  <div className={styles.user_list}>
+                    <Typography>
+                      {props.profile.userData.currentAccount.user_id}
+                    </Typography>
+                  </div>
+                </a>
+                {/* {props.profile == '' ? "": */}
 
                 <div>
-                  <Button className={styles.alt_list_ikon} onClick={handleClick}>
+                  <Button className={styles.alt_list_ikon}
+                    //  onClick={()=>{handleClickOpenCom()}}
+                    onClick={handleClick}
+                  >
                     <ExpandMoreIcon />
                   </Button>
+                  <Dialog open={com}
+                    onClose={handleCloseCom}
+                    className={styles.borderredayasfor}
+                    style={{
+                      // borderRadius: '30px'
+                    }}
+                    // fullWidth
+                    maxWidth="sm"
+                  >
+                    <div>
+                      <DialogContent className={styles.popupcantenar}>
+                        <Box><div className={styles.delehedar}>
+                          <Typography>Delete Account</Typography>
+                        </div>
+                          <Divider>
+
+                          </Divider>
+                          <div className={styles.accoparegarf}>
+                            <Typography>Are you sure you want to delete {listuserid} this account?</Typography>
+                              {/* <Typography className={styles.accoparegarfff}>
+                             
+
+                              </Typography> */}
+                          </div>
+                          <div>
+                          </div>
+                          <Divider>
+
+                          </Divider>
+                          <div><Button className={styles.cancelbtn} onClick={handleCloseCom}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => { accountdelete(), handleCloseCom() }}>Delete</Button></div>
+                        </Box>
+                        {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                      </DialogContent>
+                    </div>
+                  </Dialog>
                   <Menu
                     anchorEl={anchorEl}
                     id="account-menu"
                     open={open}
-                    onClose={handleClose}
+                    // onClose={handleClose}
                     onClick={handleClose}
                     PaperProps={{
                       elevation: 0,
@@ -422,11 +516,42 @@ function ResponsiveAppBar(props) {
                           </div>
                         </div>
                         <div className={styles.menulistbtn} style={{ display: 'flex', justifyContent: 'end' }}>
-                          <Button onClick={handleCloseUserMenu} className={styles.listboxmass}>
+                        {item.type == "zerodha" ?
+                          <Button      
+                         onClick={() => {
+                                                                    var profile = props.props.profile;
+                                                                    profile.accountId = item.id
+                                                                    setDatamenu(item.id)
+                                                                    props.save_user_data({ user: profile });
+                                                                    window.location.href = `${item.loginUrllist}`
+                                                                
+                                                            }}
+                                                             className={styles.listboxmass}> 
                             <img width={21} height={21} src='../../History.svg' />
+                          </Button>:
+                          <Button disabled  onClick={() => {
+                                                                    handleCloseUserMenu()
+                                                                }} className={styles.listboxmass}>
+                            <img width={18} height={21} src='../../Vector (18).svg' />
                           </Button>
-                          <Button onClick={handleCloseUserMenu} className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
-                          <Button onClick={handleCloseUserMenu} className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
+                        }
+                          <Button 
+                          onClick={() => {
+                                                                    handleCloseUserMenu(),router.push({
+                                                                        pathname: './Accountsview',
+                                                                        // pathname:       
+
+                                                                        query: { emailID: item.id}
+                                                                    });
+                                                                }}
+                          // onClick={()=>{handleCloseUserMenu(),setIdlistuse(item.id)}} 
+                          className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
+                          <Button
+                          
+                            onClick={() => { handleClickOpenCom(), setRowidbtn(item.id), setListuserid(item.user_id) }}
+                            // onClick={() => {setRowidbtn(item.id),handleClickOpenCom() }}
+                            className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
+
                         </div>
                       </div>
                     ))}
@@ -453,7 +578,7 @@ function ResponsiveAppBar(props) {
                   </Menu>
                   {/* </React.Fragment> */}
 
-                </div>}
+                </div>
               </div>
             </Box> : ''}
           </Grid>

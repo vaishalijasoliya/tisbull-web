@@ -8,9 +8,10 @@ import Setting from '../componehts/Setting/Setting';
 import { connect } from 'react-redux';
 // import { useRouter } from 'next/router';
 import { Types } from '../constants/actionTypes'
+import Dashboard from '../componehts/Stocks/accounttype';
 
 
-import Dashboard from '../componehts/dashboard/dashboard';
+// import Dashboard from '../componehts/dashboard/dashboard';
 const ResponsiveAppBar = (props) => {
     console.log(props,'userId');
 
@@ -26,7 +27,8 @@ const ResponsiveAppBar = (props) => {
                 <Setting props={props}/>
                 {/* </div> */}
             </Grid>
-            <Grid item sm={12} md={9} xs={12}>
+            <Grid  item sm={12} md={9} xs={12}>
+            {/* <Dashboard style={{padding:'60px'}} props={props} /> */}
                 <Accountsadd props={props}/>
             </Grid>
             {/* <Newbar />

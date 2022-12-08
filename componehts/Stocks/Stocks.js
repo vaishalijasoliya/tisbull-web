@@ -46,7 +46,7 @@ import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled'
 import { styled } from '@mui/material/styles';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';import { useRouter } from 'next/router';
 import Collapse from '@mui/material/Collapse';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -295,6 +295,8 @@ const Home = (props) => {
     const [search, setSearch] = React.useState(false);
     const [datatebalpettan, setDatatebalpettan] = React.useState([]);
     const [data, setData] = React.useState([]);
+    const [datamenu, setDatamenu] = React.useState([]);
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [age, setAge] = React.useState('');
     const [datasars, setDatasars] = React.useState([]);
@@ -312,7 +314,7 @@ const Home = (props) => {
     const [btnlistnamelist, setBtnlistnamelist] = React.useState('')
     const [accounttype, setAccounttype] = React.useState('')
     const [reviewStatus, setReviewStatus] = React.useState("none");
-
+const[distiddata,setDistiddata] = React.useState('')
     // const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
     const [listdara, setLlistdata] = useState('');
@@ -327,7 +329,7 @@ const Home = (props) => {
   const [approveReviewList, setApproveReviewList] = React.useState([]);
   const [rejectReviewList, setRejectReviewList] = React.useState([]);
   const [flagReviewList, setFlageReviewList] = React.useState([]);
-    console.log(btnlistdata, 'swishlist');
+    console.log(distiddata, 'swishlist');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -360,6 +362,10 @@ const Home = (props) => {
                 const datalogo = []
                 const listdata = []
                 const idlist = []
+                var pendingarr = [];
+                var approvearr = [];
+                var rejectarr = [];
+                var flagearr = [];
                 const datalog = []
                 const script = []
                 for (let index = 0; index < data.data.length; index++) {
@@ -375,8 +381,19 @@ const Home = (props) => {
                         created_at: element.created_at,
                         status: element.status
                     }
+                    if (element.type_pattern == "BasicPattern") {
+                        pendingarr.push(JSON.parse(JSON.stringify(object)));
+                      } else if (element.type_pattern == "lisst") {
+                        approvearr.push(object);
+                      } 
+                    //   else if (element.status == "reject") {
+                    //     rejectarr.push(object);
+                    //   } 
+                      else {
+                        flagearr.push(object);
+                      }
                     console.log(element.id, 'object.id');
-                    datalog.push(object)
+                    datalog.push(JSON.parse(JSON.stringify(object)))
                     listdata.push(JSON.parse(JSON.stringify(object)))
                     datalogo.push(JSON.parse(JSON.stringify(object.status)))
                     idlist.push(JSON.parse(JSON.stringify(element.id)))
@@ -392,73 +409,30 @@ const Home = (props) => {
                 setData(datalog)
                 setIduser(idlist)
                 setScripdata(script)
+                setPendingReviewList(pendingarr);
+                setApproveReviewList(approvearr);
+                setRejectReviewList(flagearr);
             }
 
         }
     }
     const tabChange = (status) => {
         setReviewStatus(status);
-        if (status == "pending") {
+        if (status == "BasicPattern") {
             setDatatebalpettan(pendingReviewList);
-            setUserSearch(pendingReviewList);
-        } else if (status == "approve") {
+            // setUserSearch(pendingReviewList);
+        } else if (status == "BasicPattern") {
             setDatatebalpettan(approveReviewList);
-            setUserSearch(approveReviewList);
-        } else if (status == "reject") {
-            setDatatebalpettan(rejectReviewList);
-            setUserSearch(rejectReviewList);
+            // setUserSearch(approveReviewList);
+        } else if (status == "all") {
+            setDatatebalpettan(data);
+            // setUserSearch(rejectReviewList);
         } else {
             setDatatebalpettan(flagReviewList);
-            setUserSearch(flagReviewList);
+            // setUserSearch(flagReviewList);
         }
     };
-    // onFliterApply={(datalist, type) => {
-    //     var statusString = '';
-    //     if (datalist.active) {
-    //       statusString = 'active'
-    //     }
-    //     if (datalist.pause) {
-    //       if (!!statusString) {
-    //         statusString += ',paused'
-    //       } else {
-    //         statusString = 'paused'
-    //       }
-    //     }
-    //     if (datalist.delete) {
-    //       if (!!statusString) {
-    //         statusString += ',exit'
-    //       } else {
-    //         statusString = 'exit'
-    //       }
-    //     }
 
-    //     var typeString = '';
-    //     if (type.basic) {
-    //       typeString = 'BasicPattern'
-    //     }
-    //     if (type.magic) {
-    //       if (!!typeString) {
-    //         typeString += ',MagicPattern'
-    //       } else {
-    //         typeString = 'MagicPattern'
-    //       }
-    //     }
-    //     if (type.pyramid) {
-    //       if (!!typeString) {
-    //         typeString += ',PyramidPattern'
-    //       } else {
-    //         typeString = 'PyramidPattern'
-    //       }
-    //     }
-    //     if (type.custom) {
-    //       if (!!typeString) {
-    //         typeString += ',CustomPattern'
-    //       } else {
-    //         typeString = 'CustomPattern'
-    //       }
-    //     }
-    //     getPattern(dataType, 1, 10, statusString, typeString, null, null, false)
-    //   }}
     const playpattern = async () => {
 
         var headers = {
@@ -493,6 +467,38 @@ const Home = (props) => {
 
         // }
 
+    }
+    const patternlistviwe = async () => {
+
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.props.profile.token
+        }
+        var body = {
+            "id_pattern": distiddata,
+            // props.idlist,
+            // email: props.email,
+            // otp: outField
+        }
+        console.log(body, 'body');
+
+        props.props.loaderRef(true)
+        // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
+        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
+
+        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
+        props.props.loaderRef(false)
+        console.log(patternDelete, 'datalistddd');
+
+        if (!!patternDelete) {
+            if (patternDelete.status == true) {
+                // setListpatt(patternDelete.pattern.quote)
+                setDatamenu(patternDelete.pattern)
+             
+            } 
+      
+
+        }
     }
     const deletepattern = async () => {
 
@@ -610,6 +616,7 @@ const Home = (props) => {
         if (!!props.props.profile && !!props.props.profile.token) {
             // playpattern()
             patternlist()
+            patternlistviwe()
             // Pausepattern()
         }
     }, [])
@@ -659,92 +666,7 @@ const Home = (props) => {
         setDeleteMenukk(false);
     }
 
-    // const accounttype = async () => {
-
-    //     var headers = {
-    //         "Content-Type": "application/json",
-    //         "x-access-token": props.props.profile.token
-    //     }
-    //     // var body = { type: 'active' }
-    //     // if (!!startDate && !!endDate) {
-    //     //     body.start_day = moment(startDate).format("MM/DD/YYYY")
-    //     //     body.end_day = moment(endDate).format("MM/DD/YYYY")
-    //     // }
-    //     // console.log(body, 'body');
-    //     props.props.loaderRef(true)
-    //     var data = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
-
-    //     // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
-    //     props.props.loaderRef(false)
-    //     console.log(props.props.profile.token, 'datadfsf');
-
-    //     if (!!data) {
-    //         if (data.status == true && data.data.length > 0) {
-    //             const accoyty = [];
-    //             const csvall = [];
-    //             for (let index = 0; index < data.data.length; index++) {
-    //                 const element = data.data[index];
-    //                 const object = {
-    //                     id: element.id,
-    //                     logoUrl: element.logoUrl,
-    //                     password: element.password,
-    //                     // type: element.type,
-    //                     user_id: element.user_id,
-    //                     consumer_key: element.consumer_key,
-    //                     consumer_secret: element.consumer_secret,
-    //                     id_user: element.id_user,
-    //                     zerodha_token_update: element.zerodha_token_update
-    //                 }
-    //                 console.log(element, 'password');
-
-    //                 accoyty.push(JSON.parse(JSON.stringify(object)))
-    //             }
-    //             setDatatebal(accoyty)
-    //             setTeballist(accoyty)
-    //         }
-    //     }
-    // }
-    // const accountdelete = async () => {
-
-    //     var headers = {
-    //         "Content-Type": "application/json",
-    //         "x-access-token": props.props.profile.token
-    //     }
-    //     var body = {
-    //         "id_account": rowid
-    //     }
-    //     // console.log(body, 'lkahuaah');
-
-    //     props.props.loaderRef(true)
-    //     var accountdelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_DELETE, JSON.stringify(body), headers)
-    //     // var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_PLAY, headers)
-
-    //     // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
-    //     props.props.loaderRef(false)
-    //     console.log(accountdelete, 'accountdelete');
-    //     // if (!!data) {
-    //     if (accountdelete.status == true) {
-    //         // patternDelete.token = patternDelete.token
-    //         // elistdata
-    //         // props.save_user_data({ user: data });
-    //         toast.success("Successfully Updated Personal Information lisgg")
-    //         // router.push('./dashboard')
-    //     }
-    //     else {
-    //         // setErrorShow(true)
-    //         toast.error(accountdelete.message)
-    //     }
-    //     // }
-    // }
-    // // let inloglist=datatebal.zerodha_token_update
-
-    // console.log(datatebal, 'datatebal');
-
-    // React.useEffect(() => {
-    //     if (!!props.props.profile && !!props.props.profile.token) {
-    //         accounttype()
-    //     }
-    // }, [])
+   
     const handleChange = (event) => {
         setAge(event.target.value);
     };
@@ -950,7 +872,7 @@ const Home = (props) => {
                                                     console.log(filteredData);
                                                 }
                                             }
-                                            refRBSheet.current.close();
+                                            // refRBSheet.current.close();
                                         }}
                                     >Save</Button></div>
                             </div>
@@ -963,11 +885,11 @@ const Home = (props) => {
                                     <Button className={styles.Basiclistbtn}  onClick={()=>{setBtnlist('basic')}} >Basic</Button>
                                     <Button className={styles.Customlistbtn}  onClick={()=>{setBtnlist('custom')}}>Custom</Button> */}
                                     <Button onClick={() => {
-                                        tabChange("none"),setBtnlist('none')
-                                    }} className={btnlistdata == 'none' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
+                                        tabChange("all"),setBtnlist('all')
+                                    }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
                                     <Button onClick={() => {
-                                        tabChange("basic"), setBtnlist('basic')
-                                    }} className={btnlistdata == 'basic' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
+                                        tabChange("BasicPattern"), setBtnlist('BasicPattern')
+                                    }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
                                     <Button onClick={() => {
                                         tabChange("Custom"), setBtnlist('Custom')
                                     }}  className={btnlistdata == 'Custom' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
@@ -978,15 +900,15 @@ const Home = (props) => {
 
                                 <Select
                                     className={styles.listsekater}
-                                    value={listscirip}
+                                    value={age}
                                     onChange={handleChange}
                                     displayEmpty
                                     inputProps={{ 'aria-label': 'Without label' }}
                                 >
-                                    {/* {listscirip.map((item, idx) => ( */}
-                                    <MenuItem value={listscirip}>{listscirip}</MenuItem>
+                                 {/* {listscirip.map((item, idx) => (
+                                    <MenuItem value={item}>{item}</MenuItem>
 
-                                    {/* ))} */}
+                                    ))}  */}
 
                                     {/* {listscirip.map(scripdata)=>
                                     <MenuItem value={listscirip}>listscirip</MenuItem>
@@ -1083,7 +1005,6 @@ const Home = (props) => {
                                                             </TableCell>
 
                                                             <TableCell
-                                                            // align="right"
                                                             > {row.type_pattern}</TableCell>
                                                             <TableCell ><div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /><Typography>{row.investment}</Typography></div></TableCell>
                                                             <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
@@ -1164,7 +1085,7 @@ const Home = (props) => {
                                                                         // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button onClick={handleCloseComdeletlog}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button className={styles.listdataclos}  onClick={handleCloseComdeletlog}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
@@ -1348,13 +1269,13 @@ const Home = (props) => {
                                                                         // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img  width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
 
                                                                                     <div className={styles.delehedar}>
-                                                                                        <Typography>Pause Pattern</Typography>
+                                                                                        <Typography> Play Pattern</Typography>
                                                                                     </div>
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 47124 (1).svg" />
@@ -1365,7 +1286,7 @@ const Home = (props) => {
                                                                                         <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
                                                                                     </div>
                                                                                     <div className={styles.pustlebal}>
-                                                                                        <Typography>Pause with </Typography>
+                                                                                        <Typography>Play with  </Typography>
                                                                                     </div>
                                                                                     <div className={styles.btn_all_buy}>
                                                                                         <Button onClick={() => { setLlistdatapush('All') }} className={listdarapush == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
@@ -1377,15 +1298,15 @@ const Home = (props) => {
                                                                                     <div className={styles.divpopupspn}>
                                                                                         {listdarapush == '' ? <span className={styles.otperr}>Please Enter Valid list</span> : ''}
                                                                                     </div>
-                                                                                    <div className={styles.cancelbtnlog} style={{ padding: '25px 0px 0px 0px' }}>
+                                                                                    <div className={styles.cancelbtnlog} style={{ padding: '40px 0px 10px 0px' }}>
                                                                                         {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
-                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComplay}>Cancel</Button>
+                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX' }} onClick={handleCloseComplay}>Cancel</Button>
 
                                                                                         {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
                                                                                         {/* <Button>Cancel</Button> */}
                                                                                         {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                        {listdarapush == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} >SAVE </Button> :
-                                                                                            <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituser(), handleCloseComplay() }}>SAVE </Button>}
+                                                                                        {listdarapush == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 42PX 7PX 42PX' }} className={styles.cofimbatn} >SAVE </Button> :
+                                                                                            <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={styles.cofimbatn} onClick={() => { edituser(), handleCloseComplay() }}>SAVE </Button>}
                                                                                     </div>
                                                                                 </Box>
                                                                                 {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -1402,13 +1323,13 @@ const Home = (props) => {
                                                                         // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img  width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
 
                                                                                     <div className={styles.delehedar}>
-                                                                                        <Typography>Play Pattern</Typography>
+                                                                                        <Typography>Pause Pattern</Typography>
                                                                                     </div>
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 47124 (2).svg" />
@@ -1419,7 +1340,7 @@ const Home = (props) => {
                                                                                         <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
                                                                                     </div>
                                                                                     <div className={styles.pustlebal}>
-                                                                                        <Typography>Pause with </Typography>
+                                                                                        <Typography>Pause with  </Typography>
                                                                                     </div>
                                                                                     <div className={styles.btn_all_buy}>
                                                                                         {/* {btnlistnamelist == 'All' ? }   */}
@@ -1436,7 +1357,7 @@ const Home = (props) => {
                                                                                         {/* /> */}
                                                                                     </div>
                                                                                     <div className={styles.divpopupspn}>
-                                                                                        {isoutField == '' ? '' : <span className={styles.otperr}>Please Enter Valid list</span>}
+                                                                                        {listdara == '' ? <span className={styles.otperr}>Please Enter Valid list</span> : ''}
                                                                                     </div>
                                                                                     {/* </Box> */}
                                                                                     <div className={styles.cancelbtnlog}>
@@ -1459,7 +1380,7 @@ const Home = (props) => {
                                                                     className={styles.listiconhh}
                                                                     aria-label="expand row"
                                                                     size="small"
-                                                                    onClick={() => setOpen(!openlist)}
+                                                                    onClick={() =>{setOpen(!openlist),setDistiddata(row.id)}}
                                                                 >
                                                                     {openlist ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                                                                 </IconButton>
@@ -1486,41 +1407,34 @@ const Home = (props) => {
                                             )}
 
                                         </TableBody>
+
+                                        
                                         <TableRow>
                                             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
                                                 <Collapse in={openlist} timeout="auto" unmountOnExit>
-                                                    {/* <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography> */}
+
                                                     <Table size="small" aria-label="purchases">
-                                                        {/* <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead> */}
-                                                        <TableBody>
-                                                            {/* {row.map((historyRow) => ( */}
+                        <TableBody>                                               
+
+                                                            {/* {datamenu.map((item) => ( */}
                                                             <TableRow
                                                             //  key={historyRow.date}
                                                             >
+
                                                                 <TableCell scope="row">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Type</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>600</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.target_price}</Typography>
                                                                     {/* ajjaa */}
                                                                     {/* {historyRow.date} */}
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>StopLoss</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>600</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>{datamenu.exitPrice}</Typography>
                                                                     {/* {historyRow.customerId} */}
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Todays Profit</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>600</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.todayprofit}</Typography>
                                                                     {/* {historyRow.amount} */}
                                                                 </TableCell>
                                                                 <TableCell align="right">
@@ -1529,16 +1443,18 @@ const Home = (props) => {
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Created At</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>12/10/2022 10:10:12</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>{ moment(datamenu.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Edited At</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>12/10/2022 10:10:12</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>{ moment(datamenu.updatedAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                                                                 </TableCell>
                                                             </TableRow>
                                                             {/* ))} */}
                                                         </TableBody>
                                                     </Table>
+                                                    {/* ))} */}
+
                                                     {/* </Box> */}
                                                 </Collapse>
                                             </TableCell>

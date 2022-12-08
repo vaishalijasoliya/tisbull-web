@@ -26,6 +26,8 @@ import styles from './accounttype.module.scss'
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Settings from '@mui/icons-material/Settings';
 
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Menu from '@mui/material/Menu';
@@ -45,13 +47,14 @@ import Dialog from '@mui/material/Dialog';
 import { CSVLink, CSVDownload } from 'react-csv';
 
 import DialogContent from '@mui/material/DialogContent';
-function createData(name, calories, fat, carbs, protein) {
+function createData(name, calories, fat, carbs, Action, protein) {
     return {
         name,
         calories,
         fat,
         carbs,
         protein,
+        Action
     };
 }
 
@@ -106,18 +109,24 @@ const headCells = [
         label: 'Consumer Key',
     },
     {
-        id: 'Profit',
-        numeric: true,
-        disablePadding: false,
-        label: 'Consumer Secret',
-    },
-
-    {
         id: 'Created',
         numeric: true,
         disablePadding: false,
         label: 'Last Login',
     },
+    {
+        id: 'Profit',
+        numeric: true,
+        disablePadding: false,
+        label: 'Consumer Secret',
+    },
+    {
+        id: 'Action',
+        numeric: true,
+        disablePadding: false,
+        label: 'Update Date',
+    },
+
     {
         id: 'Action',
         numeric: true,
@@ -185,7 +194,7 @@ EnhancedTableHead.propTypes = {
 
 
 const Home = (props) => {
-    console.log(props.props.profile.userData.id, 'propsprovvvps');
+    console.log(props, 'propsprovvvps');
     const router = useRouter();
 
     const [order, setOrder] = React.useState('asc');
@@ -205,7 +214,14 @@ const Home = (props) => {
     const [teballist, setTeballist] = React.useState([])
     const [com, setCom] = React.useState(false);
     const [rowid, setRowid] = React.useState('')
-
+    // const [anchorEl, setAnchorEl] = React.useState(null);
+    // const open = Boolean(anchorEl);
+    // const handleClicklistdata = (event) => {
+    //   setAnchorEl(event.currentTarget);
+    // };
+    // const handleClose = () => {
+    //   setAnchorEl(null);
+    // };
     var handleClickOpenCom = () => {
         setCom(true);
         // console.log(advertiseMent, startDate, endDate, image, 'hello data')
@@ -231,7 +247,7 @@ const Home = (props) => {
 
         // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        console.log(props.props.profile.token, 'datadfsf');
+        console.log(data, 'datadfsf');
 
         if (!!data) {
             if (data.status == true && data.data.length > 0) {
@@ -285,6 +301,7 @@ const Home = (props) => {
             // elistdata
             // props.save_user_data({ user: data });
             toast.success("Successfully Updated Personal Information lisgg")
+            accounttype()
             // router.push('./dashboard')
         }
         else {
@@ -491,31 +508,91 @@ const Home = (props) => {
                                                     // align="right"
                                                     >{row.user_id}</TableCell>
                                                     <TableCell >{row.consumer_key.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_key.length - 10)}</TableCell>
+
+                                                    <TableCell>
+                                                        {row.type == 'zerodha' ?
+                                                            <Button onClick={() => {
+                                                                if (row.type == 'zerodha') {
+                                                                    var profile = props.props.profile;
+                                                                    profile.accountId = row.id
+                                                                    props.save_user_data({ user: profile });
+                                                                    window.location.href = `${row.loginUrllist}`
+                                                                }
+                                                            }}
+                                                            >
+                                                                <img width={25} height={30} src='../../History.svg' /></Button> :
+                                                            <Button disabled
+                                                            >
+                                                                <img width={25} height={20} src='../../Vector (18).svg' /></Button>}
+                                                        {/* {row.zerodha_token_update} */}
+                                                    </TableCell>
                                                     <TableCell >{row.consumer_secret.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_secret.length - 10)}</TableCell>
                                                     {/* <TableCell >{row.id_user}</TableCell> */}
                                                     {/* <TableCell >
                                                         {row.password}
                                                     </TableCell> */}
-                                                    <TableCell>
-                                                        <Button onClick={() => {
-                                                            if (row.type == 'zerodha') {
-                                                                var profile = props.props.profile;
-                                                                profile.accountId = row.id
-                                                                props.save_user_data({ user: profile });
-                                                                window.location.href = `${row.loginUrllist}`
-                                                            }
-                                                        }}
-                                                        ><img src='../../History.svg' /></Button>
-                                                        {/* {row.zerodha_token_update} */}
-                                                    </TableCell>
+
                                                     {/* <TableCell> */}
                                                     {/* <Button className={styles.listststu}>{row.Status}</Button></TableCell> */}
+                                                    <TableCell>
+                                                        {row.zerodha_token_update == '' ? '-' : moment(row.zerodha_token_update).format("DD/MM/YYYY h:mm:ss")}
 
+
+                                                    </TableCell>
                                                     <TableCell >
-                                                        <Button className={styles.menu2btn} onClick={() => { setRowid(row.id), handleClickOpenCom() }}>
-
+                                                        <Button className={styles.menu2btn}
+                                                            id="demo-customized-button"
+                                                            aria-controls={open ? 'demo-customized-menu' : undefined}
+                                                            aria-haspopup="true"
+                                                            aria-expanded={open ? 'true' : undefined}
+                                                            // variant="contained"
+                                                            // disableElevation
+                                                            onClick={handleClicklist}
+                                                        // endIcon={<KeyboardArrowDownIcon />}
+                                                        //  onClick={() => {handleClicklist()}}>
+                                                        >
                                                             <MoreVertIcon />
                                                         </Button>
+                                                        <Menu
+                                                            anchorEl={anchorEl}
+                                                            id="account-menu"
+                                                            open={open}
+                                                            onClose={handleClose}
+                                                            onClick={handleClose}
+                                                            PaperProps={{
+                                                                elevation: 0,
+                                                                sx: {
+                                                                    overflow: 'visible',
+                                                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                                    mt: 1.5,
+                                                                    '& .MuiAvatar-root': {
+                                                                        width: 32,
+                                                                        height: 32,
+                                                                        ml: -0.5,
+                                                                        mr: 1,
+                                                                    },
+                                                                    '&:before': {
+                                                                        content: '""',
+                                                                        display: 'block',
+                                                                        position: 'absolute',
+                                                                        top: 0,
+                                                                        right: 14,
+                                                                        width: 10,
+                                                                        height: 10,
+                                                                        bgcolor: 'background.paper',
+                                                                        transform: 'translateY(-50%) rotate(45deg)',
+                                                                        zIndex: 0,
+                                                                    },
+                                                                },
+                                                            }}
+                                                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                                        >
+
+                                                            <MenuItem className={styles.detemenu} onClick={handleClickOpenCom}>
+
+                                                                Delete Account        </MenuItem>
+                                                        </Menu>
                                                         <div>
                                                             <Dialog open={com} onClose={handleCloseCom}
                                                                 className={styles.borderredayasfor}
@@ -607,11 +684,11 @@ const Home = (props) => {
 // export default ;
 const mapStateToProps = (state) => ({
     profile: state.user.profile
-  });
-  
-  const mapDispatchToProps = (dispatch) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
     save_user_data: (data) =>
         dispatch({ type: Types.LOGIN, payload: data }),
-  });
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Home);
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

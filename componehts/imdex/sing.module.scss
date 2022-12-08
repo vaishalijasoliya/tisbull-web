@@ -14,14 +14,14 @@
 
 
 .boxsinglist {
-    background: rgba(0, 153, 71, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    // background: rgba(0, 153, 71, 0.04);
+    // border: 1px solid rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     // margin-top: 50px;
     margin: 0px 0px 0px 40px;
     // margin: 60px 0px 30px 80px;
-    padding: 77px 60px 69px 60px;
+    padding: 20px 0px 20px 45px;
 }
 
 .boxsinglist2 {
@@ -36,43 +36,43 @@
 }
 
 .boxsinglist3 {
-    background: rgba(0, 153, 71, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    // background: rgba(0, 153, 71, 0.04);
+    // border: 1px solid rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     // margin-top: 50px;
     // height: 800px;
     margin: 0px 0px 0px 40px;
     // margin: 60px 0px 30px 80px;
-    padding: 120px 60px 200px 60px;
+    padding: 60px 60px 50px 60px;
 }
 
 .boxsinglist44 {
-    background: rgba(0, 153, 71, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    // background: rgba(0, 153, 71, 0.04);
+    // border: 1px solid rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     // margin-top: 50px;
     // height: 800px;
     margin: 0px 0px 0px 40px;
     // margin: 60px 0px 30px 80px;
-    padding: 170px 60px 110px 60px;
+    padding: 40px 60px 30px 60px;
 }
 
 .boxsinglist33 {
-    background: rgba(0, 153, 71, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    // background: rgba(0, 153, 71, 0.04);
+    // border: 1px solid rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     // margin-top: 50px;
     // height: 800px;
     margin: 0px 0px 0px 40px;
     // margin: 60px 0px 30px 80px;
-    padding: 180px 60px 150px 60px;
+    padding: 60px 60px 30px 60px;
 }
 
 .submitbyn {
-    padding: 50px 0px 0px 0px;
+    padding: 20px 0px 0px 0px;
 }
 
 .submitbyn31 {
@@ -80,7 +80,7 @@
 }
 
 .listdataform {
-    padding: 60px 0px 0px 0px !important;
+    padding: 30px 0px 0px 0px !important;
 }
 
 .newbar_list {
@@ -163,7 +163,7 @@
 
 .optreset {
     display: flex;
-    padding: 50px 0px 0px 0px;
+    padding: 25px 0px 0px 0px;
 
     p {
         font-family: roboto-400 !important;
@@ -182,7 +182,7 @@
 }
 
 .pleslist {
-    padding: 15px 0px;
+    padding: 5px 0px 15px 0px;
 
     p {
         font-family: roboto-400 !important;
@@ -244,7 +244,8 @@
 }
 
 .userinput {
-    width: 100%;
+    width: 83%;
+    margin-bottom: 10px !important;
     // input{
     // height: 41px !important;
     // }
@@ -253,6 +254,7 @@
     input {
         font-family: roboto-400 !important;
         font-size: 14px;
+        height: 7px;
     }
 
     p {
@@ -295,12 +297,13 @@
 }
 
 .passoutinput {
-    width: 100%;
+    width: 83%;
     background: #FFFFFF !important;
-
+margin-bottom: 10px !important;
     input {
         font-family: roboto-400 !important;
         font-size: 14px;
+        height: 7px;
     }
 }
 
@@ -329,7 +332,7 @@
 .forgotlistmenu {
     display: flex;
     justify-content: end;
-    width: 69%;
+    width: 57%;
 
     a {
         color: #4F4F4F !important;
@@ -340,20 +343,21 @@
 }
 
 .singbtn {
-    width: 100% !important;
+    width: 83% !important;
     background: #009947 !important;
     border-radius: 50px !important;
-    height: 56px !important;
+    height: 40px !important;
     text-transform: capitalize !important;
-    font-size: 20px !important;
+    font-size: 16px !important;
     color: #FFFFFF !important;
+
     font-family: roboto-400 !important;
     margin-top: 8px;
 }
 
 .bodarleft {
     border-bottom: 1px solid #858789;
-    width: 110px;
+    width: 120px;
     // padding: 0px 0px 0px 30px;
 }
 
@@ -371,7 +375,7 @@
 .borderimline {
     display: flex;
     align-items: center;
-    padding: 20px 0px 0px 35px;
+    padding: 20px 0px 0px 28px;
 }
 
 .goolloginid {
@@ -379,7 +383,7 @@
     border: 1px solid rgba(0, 0, 0, 0.25) !important;
     box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25) !important;
     border-radius: 9px !important;
-    width: 80%;
+    width: 74%;
     justify-content: center;
     color: #525252 !important;
     font-size: 14px !important;
@@ -394,14 +398,15 @@ padding: 0px !important;
 
 .gooleogdiv {
     display: flex;
-    justify-content: center;
-    padding: 20px 0px 0px 0px;
+    // justify-content: center;
+    padding: 20px 0px 0px 45px;
 }
 
 .alreadylist {
     display: flex;
-    justify-content: center;
-    padding-top: 80px;
+    // justify-content: center;
+    // padding-top: 30px;
+    padding: 20px 0px 0px 80px;
 
     p {
         color: #4F4F4F;
@@ -435,20 +440,20 @@ padding: 0px !important;
     }
 }
 
-.cantenar_pegsingcantenar3 {
-    background-image: url('../../public/baklongin.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-position: -52px -105px;
+// .cantenar_pegsingcantenar3 {
+//     background-image: url('../../public/baklongin.png');
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     background-position: -52px -105px;
 
-}
+// }
 
-.cantenar_pegsingcantenar {
-    background-image: url('../../public/baklongin.png');
-    background-repeat: no-repeat;
-    background-position: center;
+// .cantenar_pegsingcantenar {
+//     background-image: url('../../public/baklongin.png');
+//     background-repeat: no-repeat;
+//     background-position: center;
 
-}
+// }
 
 .btn_pages2 {
     font-family: Poppins-400 !important;
@@ -483,8 +488,8 @@ padding: 0px !important;
 }
 
 .batnbacklist {
-    text-align: center;
-    padding-top: 30px;
+    // text-align: center;
+    padding: 30px 0px 0px 61px;
 }
 
 .otpinput33 input {
@@ -493,7 +498,7 @@ padding: 0px !important;
     background: #FFFFFF;
     border: 1px solid #C4C4C4;
     border-radius: 12px;
-    margin: 0px 0px 0px 15px;
+    margin: 0px 15px 0px 0px;
     text-align: center;
     font-size: 25px;
     font-family: roboto-400 !important;
@@ -501,9 +506,9 @@ padding: 0px !important;
     // padding:3px;
 }
 
-.otpinput {
-    padding: 0px 0px 0px 3px;
-}
+// .otpinput {
+//     padding: 0px 0px 0px 3px;
+// }
 
 .leballist36 {
     padding: 10px 0px 10px 0px !important;
@@ -527,6 +532,19 @@ padding: 0px !important;
     width: 164px;
 }
 @media only screen and (max-width: 900px) {
+    .boxsinglist44{
+        padding: 0px 60px 30px 35px;
+
+    }
+    .alreadylist{
+        display: flex;
+        justify-content: center;
+        padding: 20px 83px 0px 0px;
+        /* padding: 20px 0px 0px 80px; */
+    }
+    .singpeglogo{
+        display: none;
+    }
    .boxsinglist2{
         margin: 0px 35px 0px 37px;
 
@@ -540,14 +558,16 @@ padding: 0px !important;
     }
 
     .boxsinglist {
-        margin: 30px;
-        padding: 30px 40px 30px 40px;
+        margin: 0px;
+        padding: 0px 0px 0px 60px;
     }
 
-    .borderimline {
-        padding: 20px 0px 0px 0px;
-    }
-
+    // .borderimline {
+    //     padding: 20px 0px 0px 0px;
+    // }
+.bodarleft{
+    width: 237px;
+}
     .optreset {
         justify-content: center;
     }
@@ -555,18 +575,18 @@ padding: 0px !important;
     .boxsinglist33 {
         margin: 30px;
         text-align: center;
-        padding: 60px 90px 60px 90px;
+        padding: 0px 90px 0px 90px;
     }
 
     .fargotpasslist {
         display: flex !important;
-        justify-content: space-between !important;
+        // justify-content: space-evenly !important;
         align-items: center;
     }
 
     .borderimline {
         display: flex;
-        justify-content: center;
+        padding: 20px 0px 0px 20px;
     }
 
     .listdataform {
@@ -600,17 +620,36 @@ padding: 0px !important;
     }
     .boxsinglist3{
         margin: 30px ;
+        padding: 0px 60px 50px 60px;
+    }
+    .batnbacklist {
+        padding: 30px 0px 0px 0px;
     }
 }
 @media only screen and (max-width: 500px) {
+    .userinput{
+        width: 95%;
+    }
+    .passoutinput{
+        width: 95%;
+    }
+    .singpeglogo{
+        display: none;
+    }
     .boxsinglist2{
         margin: 0px !important;
         padding: 30px 20px 30px 20px
     }
-    .forgotlistmenu {
-        padding: 0px 0px 0px 60px;
+    .singbtn{
+        width: 95% !important;
     }
-
+    .forgotlistmenu {
+        width: 97px;
+        // padding: 0px 0px 0px 60px;
+    }
+.goolloginid{
+    width: 85% !important;
+}
     .maenloginpegimg {
         width: 100% !important;
     }
@@ -621,13 +660,13 @@ padding: 0px !important;
 
     .boxsinglist44 {
         margin: 20px !important;
-        padding: 100px 30px 100px 30px;
+        padding: 0px 2px 0px 10px;
 
     }
 
     .boxsinglist {
         margin: 0px;
-        padding: 30px !important;
+        padding: 0px 0px 30px 0px !important;
     }
 
     .cantenar_list_caps {
@@ -654,7 +693,7 @@ padding: 0px !important;
     }
 
     .listdataform {
-        padding: 30px 0px 0px 0px !important;
+        padding: 0px 0px 0px 0px !important;
     }
 
     .cantenar_pegsingcantenar {
@@ -671,12 +710,13 @@ padding: 0px !important;
 
     .boxsinglist3 {
         margin: 0px;
-        padding: 30px;
+        // padding: 30px;
+        padding: 0px 0px 30px 0px;
     }
 
     .boxsinglist33 {
         margin: 0px;
-        padding: 100px 30px 100px 30px;
+        padding: 0px 30px 0px 30px;
     }
 
     .otpinput33 input {

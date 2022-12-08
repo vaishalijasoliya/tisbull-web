@@ -186,7 +186,11 @@ text-align: center;
     justify-content: end;
     padding: 40px 60px 40px 0px;
 }
-
+.detemenu{
+    font-family: Poppins-400 !important;
+    color: #E31E24 !important;
+font-size: 14px !important;
+}
 @media only screen and (max-width: 500px) {
     .searchbtn{
         width: 200px !important;

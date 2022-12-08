@@ -60,15 +60,19 @@
     color: black !important;
     min-width: 20px !important;
 }
-
+.listahedar{
+    padding:0px 0px 0px 32px;
+}
 .btnicon2 {
     display: flex;
 
     button {
         min-width: 40px;
-        min-height: 40px;
+        margin: 22px 10px 0px 0px;
+
+        height: 42px;
         color: #444444 !important;
-        margin: 0px 10px 0px 0px;
+        // margin: 0px 10px 0px 0px;
     }
 
     a {
@@ -293,21 +297,79 @@
 
 .newbtnrow {
     display: block !important;
+    margin: 20px 0px 0px 12px !important;
+
 }
-.listmenuoncc {
-    display: none !important; 
+.newbtnrow:hover {
+    display: block !important;
 }
+// .listmenuoncc {
+
+// background:none !important;
+// }
 .listmenuoncc {
     // background: #405E7A;
     color: black !important;
     border-radius: 25px;
+    display: none !important;
     // background: linear-gradient(180deg, #053159 0%, rgba(14, 26, 37, 0.71) 100%);
 }
+.borderredayasfor {
+    div {
 
-.btn_pages2:hover {
-    background: #405E7A !important;
-    border-radius: 25px 25px 25px 25px !important;
+        // background: #FFFFFF;
+        div {
+            padding: 0px;
+
+            border-radius: 30px !important;
+            background: #FFFFFF;
+            // box-shadow: 0px -10px 50px rgba(0, 0, 0, 0.1);
+        }
+    }
 }
+.delehedar {
+    padding: 22px 43px 15px 43px !important;
+
+    p {
+        text-align: center;
+        font-family: roboto-400;
+        font-size: 22px;
+        color: #303030;
+    }
+}
+.accoparegarf {
+    padding: 33px 43px !important;
+
+    p {
+        text-align: center;
+        max-width: 257px;
+        font-family: roboto-400;
+        font-size: 18px;
+        color: #858789;
+    }
+}
+.cancelbtn {
+    font-size: 20px !important;
+    font-family: roboto-400 !important;
+
+    text-transform: capitalize !important;
+    text-align: center !important;
+width: 170px;
+    color: #4285F4 !important;
+}
+.cancelbtn2{
+    font-size: 20px !important;
+    font-family: roboto-400 !important;
+
+    text-transform: capitalize !important;
+    text-align: center !important;
+width: 160px;
+    color: #E31E24 !important;
+}
+// .btn_pages2:hover {
+//     background: #405E7A !important;
+//     border-radius: 25px 25px 25px 25px !important;
+// }
 @media only screen and (max-width: 880px) {
     .menu_icom {
         display: none !important;

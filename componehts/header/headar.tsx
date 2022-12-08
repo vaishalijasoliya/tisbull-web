@@ -43,8 +43,8 @@ import MenuItem from '@mui/material/MenuItem';
 // </Button>];
 
 const main = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState < null | HTMLElement > (null);
-  const [anchorElUser, setAnchorElUser] = React.useState < null | HTMLElement > (null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const router = useRouter();
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -61,9 +61,12 @@ const main = () => {
 
             <Toolbar disableGutters>
               <Grid item sm={6} md={4} xs={6}>
-                <div>
-                  <img src='../../TISBULL 1.png'></img>
-                </div>
+                <a href='./'>
+                  <div>
+                    <img src='../../TISBULL 1.png'></img>
+                  </div>
+                </a>
+
               </Grid>
               {/* <Grid item sm={0} md={2} xs={0} display={'flex'} justifyContent={'end'}>
           </Grid> */}
@@ -98,7 +101,7 @@ const main = () => {
                       display: { xs: 'block', md: 'none' },
                     }}
                   >
-{/* 
+                    {/* 
                     {pages.map((page) => (
                       <MenuItem 
                       // key={page}
@@ -143,7 +146,7 @@ const main = () => {
                       Contact
                     </Button>
                   </div> */}
-                  
+
                   {/* <Button
                     // onClick={(() => { router.push('./dashboard') })}
                     className={styles.btn_pages221}
@@ -155,17 +158,17 @@ const main = () => {
                   </Button>
                 </Box> */}
 
-                {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
+                  {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
                 </Box>
                 <Button
-                    onClick={(() => { router.push('./login') })}
-                    className={styles.btn_pages221}
-                    // key={page}
-                    // onClick={handleCloseNavMenu}
-                    sx={{ my: 2, display: 'block' }}
-                  >
-                    Login
-                  </Button>
+                  onClick={(() => { router.push('./login') })}
+                  className={styles.btn_pages221}
+                  // key={page}
+                  // onClick={handleCloseNavMenu}
+                  sx={{ my: 2, display: 'block' }}
+                >
+                  Login
+                </Button>
               </Grid>
             </Toolbar>
           </Container>

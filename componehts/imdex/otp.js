@@ -173,8 +173,14 @@ const Home = (props) => {
 
         <Grid container className={styles.cantenar_pegsingcantenar3}>
  <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
-        <img width={360} className={styles.maenloginpegimg} src='../../Group 109.svg' />
-      </Grid>
+ <img
+              style={{width:'100%'}}
+
+        //  width={360}
+        //  className={styles.maenloginpegimg} 
+        //  src='../../Group 109.svg' 
+src='../../login bg.png'
+         />      </Grid>
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
                 <div className={styles.baglistee}></div>
                 <Box className={styles.boxsinglist33}>
@@ -206,9 +212,16 @@ const Home = (props) => {
                     </div>
                 </Box>
             </Grid>
-            <Grid item md={7} sm={12} xs={12} className={styles.bakimginpos}>
-                {/* <img className={styles.maenloginpegimg} src='../../Group 109.svg' /> */}
-            </Grid>
+        
+            <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
+      <img
+      style={{width:'95%'}}
+      //  width={360}
+        //  className={styles.maenloginpegimg} 
+        //  src='../../Group 109.svg' 
+src='../../login bg.png'
+         />
+      </Grid>
         </Grid>
 
     )
