@@ -506,12 +506,14 @@ color: #4285F4 !important;
 }
 
 .typetext {
-    padding: 8px 0px 22px 27px;
+    padding: 8px 0px 10px 27px;
 
     p {
-        font-size: 14px;
-        font-family: roboto-400;
-        color: #000000;
+        font-size: 14px !important;
+        font-family: roboto-400 !important;
+        color: #000000 !important;
+        // font-weight: bold !important;
+
 
     }
 }
@@ -524,7 +526,7 @@ color: #4285F4 !important;
     height: 26px;
     border: 1px solid #858789 !important;
     border-radius: 20px !important;
-    margin-left: 27px !important;
+    margin-right: 15px !important;
 
 }
 
@@ -556,13 +558,15 @@ color: #4285F4 !important;
     font-family: roboto-400 !important;
         // color: #000000 !important;
             border-radius: 20px !important;
-            margin-left: 27px !important;
+            margin-right: 15px !important;
             height: 26px;
 
         font-size: 11px !important;
         text-transform: capitalize !important;
 }
-
+.listadarara{
+    padding: 0px 0px 0px 20px;
+}
 .patternlebal {
     font-size: 14px !important;
     font-family: roboto-400 !important;
@@ -588,8 +592,8 @@ color: #4285F4 !important;
 .filtarlist {
     display: flex;
     align-items: center;
-    padding: 11px 20px 8px 27px;
-    width: 305px;
+    padding: 0px 20px 8px 27px;
+    width: 281px;
 
     p {
         font-family: Poppins-400;

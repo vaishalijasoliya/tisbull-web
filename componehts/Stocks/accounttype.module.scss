@@ -78,6 +78,86 @@ width: 170px;
 width: 160px;
     color: #E31E24 !important;
 }
+.menufiltarbtn {
+    div {
+        border-radius: 15px !important;
+    }
+}
+.filtarlist {
+    display: flex;
+    align-items: center;
+    padding: 0px 20px 8px 27px;
+    width: 281px;
+
+    p {
+        font-family: Poppins-400;
+
+        font-size: 14px;
+        color: #000000;
+
+    }
+}
+.listbtnsot {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+
+    .censbatnsot {
+        font-size: 14px;
+        font-family: Poppins-400;
+        text-transform: capitalize;
+        color: #E31E24;
+    }
+
+    .savebatnsot {
+        font-size: 14px;
+        font-family: Poppins-400;
+        text-transform: capitalize;
+        color: #009947;
+    }
+}
+.typetext {
+    padding: 8px 0px 10px 27px;
+
+    p {
+        font-size: 14px !important;
+        font-family: roboto-400 !important;
+        color: #000000 !important;
+        // font-weight: bold !important;
+
+
+    }
+}
+.listadarara{
+    padding: 0px 0px 0px 20px;
+}
+.Customlistbtn {
+    background: #06335C !important;
+    color: white !important;
+    font-family: roboto-400 !important;
+        // color: #000000 !important;
+            border-radius: 20px !important;
+            margin-right: 15px !important;
+            height: 26px;
+
+        font-size: 11px !important;
+        text-transform: capitalize !important;
+}
+
+.divlistsivijan {
+    height: 10px;
+}
+.nonelistbtn {
+    font-family: roboto-400 !important;
+    color: #000000 !important;
+    font-size: 11px !important;
+    text-transform: capitalize !important;
+    height: 26px;
+    border: 1px solid #858789 !important;
+    border-radius: 20px !important;
+    margin-right: 15px !important;
+
+}
 .cantenar_list22 {
 
 

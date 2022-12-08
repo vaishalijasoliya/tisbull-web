@@ -302,7 +302,7 @@ const Home = (props) => {
     const [datasars, setDatasars] = React.useState([]);
     const [datalist, setDatalist] = React.useState([]);
     const [datatebal, setDatatebal] = React.useState([]);
-    const [btnlistdata, setBtnlist] = React.useState('')
+    const [btnlistdata, setBtnlist] = React.useState('all')
     const [com, setCom] = React.useState(false);
     const [rowid, setRowid] = React.useState('')
     const [deletbtn, setDelebtn] = React.useState(false);
@@ -386,9 +386,7 @@ const[distiddata,setDistiddata] = React.useState('')
                       } else if (element.type_pattern == "lisst") {
                         approvearr.push(object);
                       } 
-                    //   else if (element.status == "reject") {
-                    //     rejectarr.push(object);
-                    //   } 
+                 
                       else {
                         flagearr.push(object);
                       }
@@ -822,108 +820,37 @@ const[distiddata,setDistiddata] = React.useState('')
                             <div className={styles.filtarlist}>
                                 <div><Typography>Pattern</Typography></div>
                                 <div className={styles.listbtnsot}>
-                                    <Button className={styles.censbatnsot} onClick={() => { handleClose, setIsClear(data) }}>Cancel</Button>
+                                    <Button className={styles.censbatnsot}  onClick={() => {
+                                        tabChange("all"),handleClose(),setBtnlist('all')
+                                    }}>Cancel</Button>
                                     <Button className={styles.savebatnsot}
-                                        onClick={() => {
-                                            console.log('helllo');
-                                            if (
-                                                // selectedLanguage == 'none' &&
-                                                btnlistdata == 'none'
-                                            ) {
-                                                setDatatebalpettan(isClear);
-                                                // setAllbtn('active');
-                                                // setPatternType('none');
-                                            } else {
-                                                if (!!btnlistdata
-                                                    //  && selectedLanguage == 'none'
-                                                ) {
-                                                    console.log('filterData>>>>>>None');
-                                                    if (btnlistdata == 'none') {
-                                                        setDatatebalpettan(isClear);
-                                                        // setUserSearch(resetData);
-                                                    } else if (btnlistdata == 'Basic') {
-                                                        setDatatebalpettan(basicPatterntList);
-                                                        // setUserSearch(basicPatterntList);
-                                                    } else if (btnlistdata == 'Custom') {
-                                                        setDatatebalpettan(customPatterntList);
-                                                        // setUserSearch(customPatterntList);
-                                                    }
-                                                } else if (
-                                                    // selectedLanguage != 'none' &&
-                                                    !!btnlistdata
-                                                ) {
-                                                    console.log('filteredData>>>>other');
-                                                    var filteredData = datatebalpettan.filter(item => {
-                                                        console.log(item, 'item');
-
-                                                        // let filterValue = selectedLanguage.toLowerCase();
-
-                                                        console.log(filterValue, 'filterValue');
-                                                        // console.log(userSearch, 'userSearch');
-
-                                                        return filterValue.includes(
-                                                            item.script.toString().toLowerCase(),
-                                                        );
-                                                    });
-                                                    // console.log(userSearch, 'userSearch');
-                                                    console.log(filteredData, 'filteredData');
-                                                    // if(selectedLanguage == filterValue)
-                                                    setDatatebalpettan(filteredData);
-                                                    console.log(filteredData);
-                                                }
-                                            }
-                                            // refRBSheet.current.close();
-                                        }}
+                                     onClick={() => {
+                                        tabChange(btnlistdata)
+                                    }}
                                     >Save</Button></div>
                             </div>
                             <Divider></Divider>
                             <div>
                                 <div className={styles.typetext}><Typography>Type</Typography></div>
-                                <div>
+                                <div className={styles.listadarara}>
                                     {/* {btnlistdata == '' ? }
                                     <Button className={styles.nonelistbtn} onClick={()=>{setBtnlist('none')}}>None</Button>
                                     <Button className={styles.Basiclistbtn}  onClick={()=>{setBtnlist('basic')}} >Basic</Button>
                                     <Button className={styles.Customlistbtn}  onClick={()=>{setBtnlist('custom')}}>Custom</Button> */}
-                                    <Button onClick={() => {
-                                        tabChange("all"),setBtnlist('all')
+                                    <Button 
+                                    onClick={() => {
+                                      setBtnlist('all')
                                     }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
                                     <Button onClick={() => {
-                                        tabChange("BasicPattern"), setBtnlist('BasicPattern')
+                                        setBtnlist('BasicPattern')
                                     }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
                                     <Button onClick={() => {
-                                        tabChange("Custom"), setBtnlist('Custom')
+                                        // tabChange("Custom")
+                                        setBtnlist('Custom')
                                     }}  className={btnlistdata == 'Custom' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
                                 </div>
                             </div>
-                            <div className={styles.maendivselect}>
-                                <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
-
-                                <Select
-                                    className={styles.listsekater}
-                                    value={age}
-                                    onChange={handleChange}
-                                    displayEmpty
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                >
-                                 {/* {listscirip.map((item, idx) => (
-                                    <MenuItem value={item}>{item}</MenuItem>
-
-                                    ))}  */}
-
-                                    {/* {listscirip.map(scripdata)=>
-                                    <MenuItem value={listscirip}>listscirip</MenuItem>
-
-                                } */}
-                                    {/* <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={'Ten'}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem> */}
-                                </Select>
-
-                            </div>
-                            <Divider className={styles.divaydarten}></Divider>
+                         
                             <div className={styles.divlistsivijan}></div>
                         </Menu>
                     </Grid>

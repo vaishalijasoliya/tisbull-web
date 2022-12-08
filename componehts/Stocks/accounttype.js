@@ -209,19 +209,25 @@ const Home = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [age, setAge] = React.useState('');
     const [datasars, setDatasars] = React.useState([]);
-    const [datalist, setDatalist] = React.useState([]);
+    const [datalist, setDatalist] = React.useState(null);
     const [datatebal, setDatatebal] = React.useState([]);
     const [teballist, setTeballist] = React.useState([])
     const [com, setCom] = React.useState(false);
+    const [reviewStatus, setReviewStatus] = React.useState("none");
+
+    const [btnlistdata, setBtnlist] = React.useState('all')
+    const [pendingReviewList, setPendingReviewList] = React.useState([]);
+    const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rowid, setRowid] = React.useState('')
     // const [anchorEl, setAnchorEl] = React.useState(null);
-    // const open = Boolean(anchorEl);
-    // const handleClicklistdata = (event) => {
-    //   setAnchorEl(event.currentTarget);
-    // };
-    // const handleClose = () => {
-    //   setAnchorEl(null);
-    // };
+    const openliost = Boolean(datalist);
+    const menulist = (event) => {
+        setDatalist(event.currentTarget);  
+
+    };
+    const handleCloselisyys = () => {
+        setDatalist(null);
+    };
     var handleClickOpenCom = () => {
         setCom(true);
         // console.log(advertiseMent, startDate, endDate, image, 'hello data')
@@ -253,6 +259,8 @@ const Home = (props) => {
             if (data.status == true && data.data.length > 0) {
                 const accoyty = [];
                 const csvall = [];
+                var pendingarr = [];
+                var approvearr = [];
                 for (let index = 0; index < data.data.length; index++) {
                     const element = data.data[index];
                     const object = {
@@ -267,15 +275,35 @@ const Home = (props) => {
                         loginUrllist: element.loginUrl,
                         zerodha_token_update: element.zerodha_token_update
                     }
+                    if (element.type == "kotak") {
+                        pendingarr.push(JSON.parse(JSON.stringify(object)));
+                      } else if (element.type == "zerodha") {
+                        approvearr.push(object);
+                      } 
                     console.log(element, 'password');
 
                     accoyty.push(JSON.parse(JSON.stringify(object)))
                 }
                 setDatatebal(accoyty)
                 setTeballist(accoyty)
+                setPendingReviewList(pendingarr);
+                setApproveReviewList(approvearr);
             }
         }
     }
+    const tabChange = (status) => {
+        setReviewStatus(status);
+        if (status == "kotak") {
+            setDatatebal(pendingReviewList);
+            // setUserSearch(pendingReviewList);
+        } else if (status == "zerodha") {
+            setDatatebal(approveReviewList);
+            // setUserSearch(approveReviewList);
+        } else if (status == "all") {
+            setDatatebal(teballist);
+            // setUserSearch(rejectReviewList);
+        } 
+    };
     console.log(datatebal, 'datatebal');
     const accountdelete = async () => {
 
@@ -441,7 +469,85 @@ const Home = (props) => {
                 {/* </CSVDownload> */}
                 {/* </Button> */}
                 {/* </CsvDownloader> */}
-                <Button><img src='../../Vector (3).svg' /></Button>
+                <Button
+                 id="demo-customized-button"
+                                                            aria-controls={openliost ? 'demo-customized-menu' : undefined}
+                                                            aria-haspopup="true"
+                                                            aria-expanded={openliost ? 'true' : undefined}
+                  onClick={menulist}><img src='../../Vector (3).svg' /></Button>
+                <Menu
+                            className={styles.menufiltarbtn}
+                            anchorEl={datalist}
+
+                            id="account-menu"
+                            open={openliost}
+                            onClose={handleCloselisyys}
+                            // onClick={handleClose}
+                            PaperProps={{
+                                elevation: 0,
+                                sx: {
+                                    overflow: 'visible',
+                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                    mt: 1.5,
+                                    '& .MuiAvatar-root': {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                    },
+                                    '&:before': {
+                                        content: '""',
+                                        display: 'block',
+                                        position: 'absolute',
+                                        top: 0,
+                                        right: 14,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: 'background.paper',
+                                        transform: 'translateY(-50%) rotate(45deg)',
+                                        zIndex: 0,
+                                    },
+                                },
+                            }}
+                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                        >
+                            <div className={styles.filtarlist}>
+                                <div><Typography>Account</Typography></div>
+                                <div className={styles.listbtnsot}>
+                                    <Button className={styles.censbatnsot}  onClick={() => {
+                                        tabChange("all"),handleClose(),setBtnlist('all')
+                                    }}>Cancel</Button>
+                                    <Button className={styles.savebatnsot}
+                                     onClick={() => {
+                                        tabChange(btnlistdata)
+                                    }}
+                                    >Save</Button></div>
+                            </div>
+                            <Divider></Divider>
+                            <div>
+                                <div className={styles.typetext}><Typography>Type</Typography></div>
+                                <div className={styles.listadarara}>
+                                    {/* {btnlistdata == '' ? }
+                                    <Button className={styles.nonelistbtn} onClick={()=>{setBtnlist('none')}}>None</Button>
+                                    <Button className={styles.Basiclistbtn}  onClick={()=>{setBtnlist('basic')}} >Basic</Button>
+                                    <Button className={styles.Customlistbtn}  onClick={()=>{setBtnlist('custom')}}>Custom</Button> */}
+                                    <Button 
+                                    onClick={() => {
+                                      setBtnlist('all')
+                                    }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
+                                    <Button onClick={() => {
+                                        setBtnlist('kotak')
+                                    }} className={btnlistdata == 'kotak' ? styles.Customlistbtn : styles.nonelistbtn}>KOTAK</Button>
+                                    <Button onClick={() => {
+                                        // tabChange("Custom")
+                                        setBtnlist('zerodha')
+                                    }}  className={btnlistdata == 'zerodha' ? styles.Customlistbtn : styles.nonelistbtn}>ZERODHA</Button>
+                                </div>
+                            </div>
+                         
+                            <div className={styles.divlistsivijan}></div>
+                        </Menu>
             </Grid>
             <Grid item md={12} sm={12} xs={12} >
                 <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
