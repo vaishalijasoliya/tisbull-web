@@ -25,14 +25,14 @@
 }
 
 .boxsinglist2 {
-    background: rgba(0, 153, 71, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    // background: rgba(0, 153, 71, 0.04);
+    // border: 1px solid rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     // margin-top: 50px;
-    margin: 0px 0px 0px 40px;
+    margin: 0px 0px 0px 90px;
     // margin: 60px 0px 30px 80px;
-    padding: 30px 60px 30px 60px;
+    // padding: 30px 60px 30px 60px;
 }
 
 .boxsinglist3 {
@@ -120,7 +120,7 @@
 }
 
 .cantenar_list_caps {
-    padding: 5px 50px 5px 80px !important;
+    padding: 5px 50px 5px 90px !important;
     background-color: white;
 
 }
@@ -197,7 +197,7 @@
 
     p {
         font-family: roboto-400 !important;
-        font-size: 18px;
+        font-size: 16px;
 
         color: #878787;
     }
@@ -230,7 +230,7 @@
 
     p {
         font-family: roboto-400 !important;
-        font-size: 20px;
+        font-size: 16px;
 
         color: #878787;
     }
@@ -258,7 +258,25 @@
     }
 
     p {
-        background: rgba(0, 153, 71, 0.04) !important;
+        background: transparent !important;
+    }
+}
+.userinput22 {
+    width: 66%;
+    margin-bottom: 10px !important;
+    // input{
+    // height: 41px !important;
+    // }
+    background: #FFFFFF !important;
+
+    input {
+        font-family: roboto-400 !important;
+        font-size: 14px;
+        height: 7px;
+    }
+
+    p {
+        background: transparent !important;
     }
 }
 
@@ -306,10 +324,20 @@ margin-bottom: 10px !important;
         height: 7px;
     }
 }
-
+.passoutinput22 {
+    width: 66%;
+    background: #FFFFFF !important;
+margin-bottom: 10px !important;
+    input {
+        font-family: roboto-400 !important;
+        font-size: 14px;
+        height: 7px;
+    }
+}
 .menolistlogo {
     color: black !important;
     min-width: 0px !important;
+    padding: 6px 8px 6px 0px !important;
 }
 
 .btncekpass {
@@ -341,6 +369,18 @@ margin-bottom: 10px !important;
         font-family: roboto-400 !important;
     }
 }
+.forgotlistmenu22 {
+    display: flex;
+    justify-content: end;
+    width: 42%;
+
+    a {
+        color: #4F4F4F !important;
+        text-decoration: none !important;
+        font-size: 12px;
+        font-family: roboto-400 !important;
+    }
+}
 
 .singbtn {
     width: 83% !important;
@@ -354,13 +394,28 @@ margin-bottom: 10px !important;
     font-family: roboto-400 !important;
     margin-top: 8px;
 }
+.singbtn22 {
+    width: 66% !important;
+    background: #009947 !important;
+    border-radius: 50px !important;
+    height: 40px !important;
+    text-transform: capitalize !important;
+    font-size: 16px !important;
+    color: #FFFFFF !important;
 
+    font-family: roboto-400 !important;
+    margin-top: 25px !important;
+}
 .bodarleft {
     border-bottom: 1px solid #858789;
     width: 120px;
     // padding: 0px 0px 0px 30px;
 }
-
+.bodarleft22 {
+    border-bottom: 1px solid #858789;
+    width: 80px;
+    // padding: 0px 0px 0px 30px;
+}
 .singbodar {
     // padding-top: 20px;
 
@@ -377,7 +432,11 @@ margin-bottom: 10px !important;
     align-items: center;
     padding: 20px 0px 0px 28px;
 }
-
+.borderimline22 {
+    display: flex;
+    align-items: center;
+    padding: 30px 0px 0px 20px;
+}
 .goolloginid {
     background: rgba(0, 153, 71, 0.04) !important;
     border: 1px solid rgba(0, 0, 0, 0.25) !important;
@@ -395,13 +454,33 @@ margin-bottom: 10px !important;
 padding: 0px !important;
     }
 }
+.goolloginid22 {
+    background: rgba(0, 153, 71, 0.04) !important;
+    border: 1px solid rgba(0, 0, 0, 0.25) !important;
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 9px !important;
+    width: 66%;
+    justify-content: center;
+    color: #525252 !important;
+    font-size: 14px !important;
+    font-family: roboto-400 !important;
 
+    div {
+        background: rgba(0, 153, 71, 0.04) !important;
+        margin: 5px 10px 0px 0px !important;
+padding: 0px !important;
+    }
+}
 .gooleogdiv {
     display: flex;
     // justify-content: center;
     padding: 20px 0px 0px 45px;
 }
-
+.gooleogdiv22 {
+    display: flex;
+    // justify-content: center;
+    padding: 30px 0px 0px 0px;
+}
 .alreadylist {
     display: flex;
     // justify-content: center;
@@ -439,7 +518,26 @@ padding: 0px !important;
         font-family: roboto-400 !important;
     }
 }
+.alreadylist22 {
+    display: flex;
+    padding-left: 30px;
+    // justify-content: center;
+    padding-top: 45px;
+    padding-bottom: 0px;
 
+    p {
+        color: #4F4F4F;
+        font-size: 14px;
+        font-family: roboto-400 !important;
+    }
+
+    a {
+        padding: 0px 4px 0px 4px;
+        color: #009947;
+        font-size: 14px;
+        font-family: roboto-400 !important;
+    }
+}
 // .cantenar_pegsingcantenar3 {
 //     background-image: url('../../public/baklongin.png');
 //     background-repeat: no-repeat;
@@ -489,7 +587,7 @@ padding: 0px !important;
 
 .batnbacklist {
     // text-align: center;
-    padding: 30px 0px 0px 61px;
+    padding: 40px 0px 0px 0px;
 }
 
 .otpinput33 input {
@@ -568,6 +666,9 @@ padding: 0px !important;
 .bodarleft{
     width: 237px;
 }
+.bodarleft22{
+    width: 237px;
+}
     .optreset {
         justify-content: center;
     }
@@ -588,7 +689,10 @@ padding: 0px !important;
         display: flex;
         padding: 20px 0px 0px 20px;
     }
-
+    .borderimline22 {
+        display: flex;
+        padding: 20px 0px 0px 20px;
+    }
     .listdataform {
         padding: 30px 0px 0px 0px !important;
     }
@@ -633,12 +737,21 @@ padding: 0px !important;
     .passoutinput{
         width: 95%;
     }
+    .userinput22{
+        width: 95%;
+    }
+    .passoutinput22{
+        width: 95%;
+    }
     .singpeglogo{
         display: none;
     }
     .boxsinglist2{
         margin: 0px !important;
         padding: 30px 20px 30px 20px
+    }
+    .singbtn22{
+        width: 95% !important;
     }
     .singbtn{
         width: 95% !important;
@@ -647,7 +760,14 @@ padding: 0px !important;
         width: 97px;
         // padding: 0px 0px 0px 60px;
     }
+    .forgotlistmenu22 {
+        width: 97px;
+        // padding: 0px 0px 0px 60px;
+    }
 .goolloginid{
+    width: 85% !important;
+}
+.goolloginid22{
     width: 85% !important;
 }
     .maenloginpegimg {
@@ -676,7 +796,9 @@ padding: 0px !important;
     .borderimline {
         padding: 20px 0px 0px 0px;
     }
-
+    .borderimline22 {
+        padding: 20px 0px 0px 0px;
+    }
     .singbodar {
         text-align: center;
         padding: 0px;

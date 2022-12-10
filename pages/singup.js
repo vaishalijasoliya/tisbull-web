@@ -19,7 +19,7 @@ export default function Home(props) {
     <Grid container className={styles.cantenar_list}>
       <Grid item sm={12} md={12} xs={12}>
       <Nevbarlogin />
-      <div className={styles.singlistpsdii}>
+      <div className={styles.singlistpsdii22}>
       <Sing props={props}/>
       </div>
         {/* <Newbar />

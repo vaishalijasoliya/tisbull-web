@@ -89,7 +89,7 @@ const TemporaryDrawer = (props) => {
                                 </AccordionDetails>
                             </Accordion>
                         </div>
-                        <div className={styles.accontbtn}>
+                        {/* <div className={styles.accontbtn}>
                             <Button className={currentPath == '/Accountsview' ? styles.accontbtn22 : styles.personlist22}
                  onClick={() => {
         router.push({
@@ -98,7 +98,7 @@ const TemporaryDrawer = (props) => {
                                                                     });
                                                                 }}
     ><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
-                    </div>
+                    </div> */}
                     <div className={styles.accontbtn}>
                         <Button className={currentPath == '/Support' ? styles.accontbtn22 : styles.personlist22}><div className={styles.pandicon}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
@@ -159,9 +159,9 @@ const TemporaryDrawer = (props) => {
                             </AccordionDetails>
                         </Accordion>
                     </div>
-                    <div className={styles.accontbtn}>
+                    {/* <div className={styles.accontbtn}>
                         <Button className={currentPath == '/Accountsview' ? styles.accontbtn22 : styles.personlist22} onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
-                    </div>
+                    </div> */}
                     <div className={styles.accontbtn}>
                         <Button className={currentPath == '/Support' ? styles.accontbtn22 : styles.personlist22} onClick={(() => { router.push('./Support') })}><div className={styles.pandicon} ><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
@@ -171,12 +171,8 @@ const TemporaryDrawer = (props) => {
                     <div className={styles.accontbtn}>
                         <Button><div className={styles.pandicon}><SmsIcon /><Typography>FAQ</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
-                    {/* <div><Button><HeadsetMicIcon />Support<ArrowForwardIosIcon /></Button></div> */}
-                    {/* <div><Button><PaymentIcon />Payment Settings<ArrowForwardIosIcon /></Button></div> */}
-                    {/* <div><SmsIcon /><Button>FAQ<ArrowForwardIosIcon /></Button></div> */}
+                   
                 </Box>
-                {/* </div> */}
-
             </Grid>
         </Grid>
     );

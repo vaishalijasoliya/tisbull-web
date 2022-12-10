@@ -29,4 +29,8 @@ export default {
     ACCOUNT_EDIT:Constants.BASE_API_URL+'account/edit',
     UPDATE_ACCESS_TOKEN: Constants.BASE_API_URL + 'zerodha/access/update',
     ORDER_DELETE:Constants.BASE_API_URL+'order/delete',
+    GET_STOCK_PRICE: Constants.BASE_API_URL + 'stock/price',
+    ADD_PATTERN: Constants.BASE_API_URL + 'Pattern/create',
+    // SCRIP_LIST: Constants.BASE_API_URL + 'stock/instrumnetlist/search',
+
 }

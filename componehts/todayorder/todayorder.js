@@ -366,19 +366,13 @@ console.log(today,'today');
 
     console.log(patternDelete, 'datalist');
     if (patternDelete.status) {
-        // patternDelete.token = patternDelete.token
         toast.success(patternDelete.message)
-        // toast.success("Successfully Updated Personal Information lisgg")
-        // patternlist()
+      
     }
     else {
         toast.error(patternDelete.message)
     }
-    // }
-    // else{
-    //     toast.error("Successfully nformation lisgg")
-
-    // }
+ 
 
 }
   // let inloglist=datatebal.zerodha_token_update

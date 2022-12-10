@@ -10,6 +10,17 @@
   
 
 }
+.singlistpsdii22{
+  background-image:url('../public/signup bg new.png');
+  background-repeat: no-repeat;
+
+}
+.singlistpsdii33{
+  background-image:url('../public/forget password bg.png');
+  background-repeat: no-repeat;
+
+}
+
 .listpattbek{
   margin: 20px 0px 0px 40px !important;
   text-transform: capitalize !important;
@@ -364,7 +375,12 @@ width: 100%;
   .singlistpsdii {
     padding: 20px !important;
   }
-
+  .singlistpsdii22 {
+    padding: 20px !important;
+  }
+  .singlistpsdii33 {
+    padding: 20px !important;
+  }
   .dasnod_camponat3 {
     padding: 30px 30px 0px 30px;
   }
@@ -453,6 +469,12 @@ width: 100%;
     padding: 0px 30px 0px 30px;
   }
   .singlistpsdii{
+    padding: 20px !important;
+  }
+  .singlistpsdii22{
+    padding: 20px !important;
+  }
+  .singlistpsdii33{
     padding: 20px !important;
   }
   .dasnod_camponat3{

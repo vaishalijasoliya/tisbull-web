@@ -159,7 +159,7 @@ console.log(data,'loginData');
 
         .max(255)
         .required(
-          'User name is required'),
+          'Email is required'),
       password: Yup
         .string()
         .min(6)
@@ -262,7 +262,7 @@ src='../../login bg.png'
                 <Typography>Remember me</Typography>
               </div>
               <div className={styles.forgotlistmenu}>
-                <Link href='./forgotpass' className={styles.linkfaragot}>Forgot password?</Link>
+                <Link href='./forgotpassword' className={styles.linkfaragot}>Forgot password?</Link>
               </div>
             </div>
             <button type="submit" className={styles.singbtn} >Log in</button>
@@ -320,7 +320,7 @@ src='../../login bg.png'
           <div className={styles.alreadylist}>
             <Typography>
               Don't have an account?           </Typography>
-            <a href='./sing'>Sign Up</a>
+            <a href='./singup'>Sign Up</a>
             <Typography>
               for free
             </Typography>

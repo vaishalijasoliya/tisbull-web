@@ -22,12 +22,12 @@ const ResponsiveAppBar = (props) => {
             <Grid item sm={12} md={12} xs={12}>
                 <Newbar />
             </Grid>
-            <Grid item sm={12} md={3} xs={12} className={styles.newbarend}>
+            {/* <Grid item sm={12} md={3} xs={12} className={styles.newbarend}> */}
                 {/* <div className={styles.singlistpsdii}> */}
-                <Setting props={props}/>
+                {/* <Setting props={props}/> */}
                 {/* </div> */}
-            </Grid>
-            <Grid  item sm={12} md={9} xs={12}>
+            {/* </Grid> */}
+            <Grid  item sm={12} md={12} xs={12}>
             {/* <Dashboard style={{padding:'60px'}} props={props} /> */}
                 <Accountsadd props={props}/>
             </Grid>

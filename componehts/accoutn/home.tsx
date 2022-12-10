@@ -29,7 +29,7 @@ const main = () => {
             </div>
             <div className={styles.btn_get_learn}>
               <div className={styles.btnno1}>
-                <Button className={styles.getbtn}   onClick={(() => { router.push('./login') })}>Get Started</Button>
+                <Button className={styles.getbtn2}   onClick={(() => { router.push('./login') })}>Get Started</Button>
               </div>
               <div>
                 <Button className={styles.getbtn}>Learn More</Button>

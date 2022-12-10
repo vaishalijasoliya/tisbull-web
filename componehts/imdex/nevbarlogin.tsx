@@ -63,8 +63,7 @@ const main = () => {
               <a href='./'>
 
                 <div>
-                  <img src='../../TISBULL 1.png'></img>
-                </div>
+                <img src='../../new logo.png' width={190}></img>                </div>
                 </a>
               </Grid>
               {/* <Grid item sm={0} md={2} xs={0} display={'flex'} justifyContent={'end'}>

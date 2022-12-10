@@ -139,10 +139,10 @@
 }
 .btn_all_buy22 {
     padding: 10px 0px 0px 0px;
-    text-align: center;
+    // text-align: center;
 
     button {
-        margin: 0px 0px 0px 10px;
+        margin: 0px 10px 0px 0px;
         border: 1px solid #053159;
         border-radius: 20px;
         color: #053159;
@@ -193,6 +193,7 @@ text-align: justify;
 .borderredayasfor {
     div {
         div {
+            padding: 0px;
             // background: #FFFFFF;
             // box-shadow: 0px 0px 22px rgba(0, 0, 0, 0.1);
             border-radius: 20px !important;
@@ -202,9 +203,12 @@ text-align: justify;
 
     // 
 }
+.borderredayasfor{
+    // padding: 0px 20px 25px 20px!important;
+}
 
 .cancelbtnlog {
-    padding: 40px 0px 20px 0px;
+    padding: 40px 0px 20px 0px !important;
     // padding-top: 20px;
     text-align: center;
 

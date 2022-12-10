@@ -220,6 +220,7 @@ const Home = (props) => {
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rowid, setRowid] = React.useState('')
     // const [anchorEl, setAnchorEl] = React.useState(null);
+    console.log(rowid,'rowidrowid');
     const openliost = Boolean(datalist);
     const menulist = (event) => {
         setDatalist(event.currentTarget);  
@@ -625,8 +626,8 @@ const Home = (props) => {
                                                                     window.location.href = `${row.loginUrllist}`
                                                                 }
                                                             }}
-                                                            >
-                                                                <img width={25} height={30} src='../../History.svg' /></Button> :
+                                                            >{row.zerodha_token_update == '' ? 
+                                                                <img width={25} height={30} src='../../History.svg' />:<img width={25} height={20} src='../../Vector (19).svg' />}</Button> :
                                                             <Button disabled
                                                             >
                                                                 <img width={25} height={20} src='../../Vector (18).svg' /></Button>}
@@ -695,9 +696,26 @@ const Home = (props) => {
                                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                                         >
 
-                                                            <MenuItem className={styles.detemenu} onClick={handleClickOpenCom}>
+                                                            <Button className={styles.detemenu} onClick={()=>{router.push({
+                                                                        pathname: './Accountsview',
+                                                                        // pathname:       
 
-                                                                Delete Account        </MenuItem>
+                                                                        query: { emailID:row.id}
+                                                                    });}}>
+                                                            <div style={{display:'flex'}}>
+                                                            <div>
+                                                            <img width={21} height={19} src='../../Vector (1).svg' />
+                                                            </div>
+                                                            <div style={{padding:'2px 0px 0px 7px',color:'#4285F4'}}>
+                                                                Edit Account </div>    </div>   </Button>
+                                                                <MenuItem className={styles.detemenu} onClick={()=>{handleClickOpenCom(),setRowid(row.id)}}>
+                                                                <Button>
+                                                            <div style={{display:'flex'}}>
+                                                            <div>
+                                                            <img width={19} height={19} src='../../Vector (2).svg ' />
+                                                            </div>
+                                                            <div style={{padding:'2px 0px 0px 7px'}}>
+                                                                Delete Account </div>    </div> </Button>  </MenuItem>
                                                         </Menu>
                                                         <div>
                                                             <Dialog open={com} onClose={handleCloseCom}

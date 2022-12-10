@@ -186,7 +186,7 @@ src='../../login bg.png'
                 <Box className={styles.boxsinglist33}>
 
                     <div className={styles.welcamrlist}><Typography>Verify your email</Typography></div>
-                    <div className={styles.pleslist3}><Typography>Please Enter The 4 Digit Code Sent to</Typography></div>
+                    <div className={styles.pleslist3}><Typography>Please enter 4 digit code sent to </Typography></div>
                     <div className={styles.pleslist33}><Typography>{props.email}</Typography></div>
                     {/* <form onSubmit={formik.handleSubmit}> */}
                     <InputLabel className={styles.leballist33}>One-Time Password </InputLabel>

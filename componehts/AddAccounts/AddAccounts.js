@@ -194,7 +194,7 @@ const Home = (props) => {
             </Grid>
             <Grid item sm={6} md={6} xs={6} display={'flex'} alignItems={'center'} justifyContent={'end'}>
                 <div>
-                    <Button className={styles.cancelbtn}>Cancel</Button>
+                    {/* <Button className={styles.cancelbtn}>Cancel</Button> */}
                     {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password  == '' || formik.values.consumer_secret == '' || formik.values.userId == '' ? 
                 
                     <Button  type="submit"  className={styles.donebtn} >Done</Button>:<Button  type="submit"  className={styles.donebtn} onClick={accountadd}>Done</Button>}
@@ -209,7 +209,7 @@ const Home = (props) => {
                         <Typography >ZERODHA </Typography>
                         <div className={styles.listapichek}>
                             <Typography>Zerodha can charge of API, please check it</Typography>
-                            <Link href="https://mui.com/material-ui/react-divider/">here</Link>
+                            <Link href="#">here</Link>
                         </div>
                     </div>
                     <div className={styles.switchadd}>
@@ -390,7 +390,7 @@ const Home = (props) => {
                         <Typography>By ticking, you are confirming that you have read,  understand and agree to  our</Typography>
                     </div>
                     <div>
-                        <a> terms and conditions.</a>
+                        <a href='#'> terms and conditions.</a>
                     </div>
                 </div>
             </Grid>

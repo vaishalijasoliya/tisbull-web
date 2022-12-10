@@ -46,7 +46,7 @@ import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled'
 import { styled } from '@mui/material/styles';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { toast } from 'react-toastify';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';import { useRouter } from 'next/router';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'; import { useRouter } from 'next/router';
 import Collapse from '@mui/material/Collapse';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -314,21 +314,21 @@ const Home = (props) => {
     const [btnlistnamelist, setBtnlistnamelist] = React.useState('')
     const [accounttype, setAccounttype] = React.useState('')
     const [reviewStatus, setReviewStatus] = React.useState("none");
-const[distiddata,setDistiddata] = React.useState('')
+    const [distiddata, setDistiddata] = React.useState('')
     // const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
     const [listdara, setLlistdata] = useState('');
     const [listdarapush, setLlistdatapush] = useState('');
-    const [logvvmog, setLogvvmog] = useState('')
+    const [logvvmog, setLogvvmog] = useState('Stock')
     const [checked, setChecked] = React.useState(false);
     const [openlist, setOpen] = React.useState(false);
     const [isClear, setIsClear] = useState(true);
     const [listscirip, setScripdata] = React.useState('')
     const [deletemenukk, setDeleteMenukk] = React.useState(false);
- const [pendingReviewList, setPendingReviewList] = React.useState([]);
-  const [approveReviewList, setApproveReviewList] = React.useState([]);
-  const [rejectReviewList, setRejectReviewList] = React.useState([]);
-  const [flagReviewList, setFlageReviewList] = React.useState([]);
+    const [pendingReviewList, setPendingReviewList] = React.useState([]);
+    const [approveReviewList, setApproveReviewList] = React.useState([]);
+    const [rejectReviewList, setRejectReviewList] = React.useState([]);
+    const [flagReviewList, setFlageReviewList] = React.useState([]);
     console.log(distiddata, 'swishlist');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
@@ -383,13 +383,13 @@ const[distiddata,setDistiddata] = React.useState('')
                     }
                     if (element.type_pattern == "BasicPattern") {
                         pendingarr.push(JSON.parse(JSON.stringify(object)));
-                      } else if (element.type_pattern == "lisst") {
+                    } else if (element.type_pattern == "lisst") {
                         approvearr.push(object);
-                      } 
-                 
-                      else {
+                    }
+
+                    else {
                         flagearr.push(object);
-                      }
+                    }
                     console.log(element.id, 'object.id');
                     datalog.push(JSON.parse(JSON.stringify(object)))
                     listdata.push(JSON.parse(JSON.stringify(object)))
@@ -448,6 +448,7 @@ const[distiddata,setDistiddata] = React.useState('')
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
         props.props.loaderRef(false)
+        // console.log();
         // if (!!patternDelete) {
 
         console.log(patternDelete, 'datalist');
@@ -492,9 +493,9 @@ const[distiddata,setDistiddata] = React.useState('')
             if (patternDelete.status == true) {
                 // setListpatt(patternDelete.pattern.quote)
                 setDatamenu(patternDelete.pattern)
-             
-            } 
-      
+
+            }
+
 
         }
     }
@@ -664,7 +665,7 @@ const[distiddata,setDistiddata] = React.useState('')
         setDeleteMenukk(false);
     }
 
-   
+
     const handleChange = (event) => {
         setAge(event.target.value);
     };
@@ -742,7 +743,15 @@ const[distiddata,setDistiddata] = React.useState('')
                         </div>
                     </Grid>
                     <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
-                        <Button className={styles.cerbatn}>
+                        <Button
+                              onClick={() => {
+                                                                    router.push({
+                                                                        pathname: './addPattern',
+                                                                        query: { scripType: 'currency', patternType: 'basic', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
+                                                                    }});
+                                                                }}
+                        //  onClick={()=>{ { pathname: '/addPattern',}}
+                          className={styles.cerbatn}>
                             <Avatar className={styles.cerbatn2}>
                                 <img src="../../Vector (5).svg" />
                             </Avatar>
@@ -820,13 +829,13 @@ const[distiddata,setDistiddata] = React.useState('')
                             <div className={styles.filtarlist}>
                                 <div><Typography>Pattern</Typography></div>
                                 <div className={styles.listbtnsot}>
-                                    <Button className={styles.censbatnsot}  onClick={() => {
-                                        tabChange("all"),handleClose(),setBtnlist('all')
+                                    <Button className={styles.censbatnsot} onClick={() => {
+                                        tabChange("all"), handleClose(), setBtnlist('all')
                                     }}>Cancel</Button>
                                     <Button className={styles.savebatnsot}
-                                     onClick={() => {
-                                        tabChange(btnlistdata)
-                                    }}
+                                        onClick={() => {
+                                            tabChange(btnlistdata)
+                                        }}
                                     >Save</Button></div>
                             </div>
                             <Divider></Divider>
@@ -837,20 +846,20 @@ const[distiddata,setDistiddata] = React.useState('')
                                     <Button className={styles.nonelistbtn} onClick={()=>{setBtnlist('none')}}>None</Button>
                                     <Button className={styles.Basiclistbtn}  onClick={()=>{setBtnlist('basic')}} >Basic</Button>
                                     <Button className={styles.Customlistbtn}  onClick={()=>{setBtnlist('custom')}}>Custom</Button> */}
-                                    <Button 
-                                    onClick={() => {
-                                      setBtnlist('all')
-                                    }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
+                                    <Button
+                                        onClick={() => {
+                                            setBtnlist('all')
+                                        }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
                                     <Button onClick={() => {
                                         setBtnlist('BasicPattern')
                                     }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
                                     <Button onClick={() => {
                                         // tabChange("Custom")
                                         setBtnlist('Custom')
-                                    }}  className={btnlistdata == 'Custom' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
+                                    }} className={btnlistdata == 'Custom' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
                                 </div>
                             </div>
-                         
+
                             <div className={styles.divlistsivijan}></div>
                         </Menu>
                     </Grid>
@@ -1012,7 +1021,7 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                         // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button className={styles.listdataclos}  onClick={handleCloseComdeletlog}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
+                                                                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button className={styles.listdataclos} onClick={handleCloseComdeletlog}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
@@ -1021,46 +1030,41 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                                         <Typography>Delete Pattern</Typography>
                                                                                     </div>
                                                                                     <div style={{ textAlign: 'center' }}>
-                                                                                        <img src="../../Group 1000002845.svg" />
+                                                                                        <img width={130} src="../../Group 1000002845.svg" />
                                                                                     </div>
-                                                                                    {/* <Box className={styles.listboxiduser}>
-                                                                        //    <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                                  
                                                                                     <div style={{ padding: '0px 40px 0px 40px' }}>
                                                                                         <div>
                                                                                             <Typography className={styles.texstcolor} style={{ 'color': '#333333', 'font-size': '15px', padding: '0px 0px 7px 0px' }}>Exit with  </Typography>
                                                                                         </div>
                                                                                         <div className={styles.btn_all_buy22} style={{ padding: '0px 0px 20px 0px' }}>
-                                                                                            {/* <ButtonGroup
-                                                                                            style={{ margin: '0px 0px 0px 10px' }}
-                                                                                            value={phonedata}
-                                                                                            buttons={["Stock", "Without Stock"]}
-                                                                                            doSomethingAfterClick={printButtonLabel}
-                                                                                        /> */}
+                                                                                         
                                                                                             {/* <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button> */}
                                                                                             <Button onClick={() => { setLogvvmog('Stock') }} className={logvvmog == 'Stock' ? styles.listdatlog : styles.list2data}>Stock</Button>
                                                                                             <Button onClick={() => { setLogvvmog('WithoutStock') }} className={logvvmog == 'WithoutStock' ? styles.listdatlog : styles.list2data}>Without Stock</Button>
 
                                                                                         </div>
+                                                                                        {logvvmog == 'WithoutStock' ? '':
+
                                                                                         <div style={{ padding: '0px 0px 20px 0px' }}>
                                                                                             <Typography className={styles.texstcolor} style={{ 'color': '#333333', fontSize: '12px' }}>Clean up Stock from this pattern</Typography>
-                                                                                        </div>
+                                                                                        </div>}
+                                                                                        {logvvmog == 'WithoutStock' ? '':
+
                                                                                         <div style={{ display: 'flex', }}>
                                                                                             <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (16).svg" /></Avatar>
                                                                                             <div>
                                                                                                 <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
                                                                                                     Sell holding stock with fixed price
                                                                                                 </Typography>
-                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
+                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
                                                                                             </div>
                                                                                             {checked == false ? <SwitchUnstyled component={Root}
-                                                                                                // onChange={console.log('virang')} 
                                                                                                 {...label} id='switch'
                                                                                                 style={{ padding: '0px 0px 0px 32px' }}
 
-                                                                                                // checked={row.Publication} 
                                                                                                 onChange={((e) => {
                                                                                                     setSwishlist(e.target.checked)
-                                                                                                    // setLogvvmog('exit for fixedPrice')
                                                                                                     setAccounttype('exit for fixedPrice')
                                                                                                 })}
                                                                                             /> : <SwitchUnstyled component={Root}
@@ -1075,26 +1079,32 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                                                 })}
                                                                                             />}
 
-                                                                                        </div>
+                                                                                        </div>}
+                                                                                        {logvvmog == 'WithoutStock' ? '':
+
                                                                                         <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
                                                                                             <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
                                                                                             <TextField
                                                                                                 onChange={handlePinChangelist}
                                                                                                 value={listpires}
+                                                                                                type='number'
                                                                                                 className={styles.textfiladligb}
                                                                                                 style={{ padding: '0px 0px 0px 0px', width: '100px' }}
                                                                                             />
                                                                                         </div>
+                                                                                        }
                                                                                         {/* <div style={{ padding: '0px 0px 20px 0px' }}>
                                                                                     <Typography className={styles.texstcolor}  style={{'color':'#333333',fontSize:'12px'}}>Clean up Stock from this pattern</Typography>
                                                                                 </div> */}
+                                                                                {logvvmog == 'WithoutStock' ? '':
+
                                                                                         <div style={{ display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                                                             <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
                                                                                             <div>
                                                                                                 <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
                                                                                                     Sell holding stock with market price
                                                                                                 </Typography>
-                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
+                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
                                                                                             </div>
                                                                                             {swishlist == false ? <SwitchUnstyled component={Root}  {...label} id='switch'
                                                                                                 style={{ padding: '0px 0px 0px 20px' }}
@@ -1118,21 +1128,20 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                                             />}
 
 
-                                                                                        </div>
+                                                                                        </div>}
+                                                                                        
                                                                                     </div>
+                                                
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
-                                                                                        {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'}
+                                                                                        {/* {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'} */}
 
-                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
+                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
                                                                                         {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button> : ''}
                                                                                         {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ?
-                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >SAVE </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
-                                                                                        {/* <Button>Cancel</Button> */}
-                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                        {/* <Button className={styles.cofimbatn} onClick={deletepattern}>Confirm</Button> */}
+                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >SAVE </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
+                                                                                   
                                                                                     </div>
                                                                                 </Box>
-                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                             </DialogContent>
                                                                         </div>
                                                                     </Dialog>
@@ -1196,7 +1205,7 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                         // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img  width={25} src="../../icon-close-512.webp" /></Button>  </div>
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
@@ -1210,7 +1219,7 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                                     {/* <Box className={styles.listboxiduser}>
                                                                            <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
                                                                                     <div className={styles.paregarafnsg}>
-                                                                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                        <Typography>Are you sure you want to Play this AAPL ( NSE ) from zerodha ?</Typography>
                                                                                     </div>
                                                                                     <div className={styles.pustlebal}>
                                                                                         <Typography>Play with  </Typography>
@@ -1250,7 +1259,7 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                         // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img  width={25} src="../../icon-close-512.webp" /></Button>  </div>
+                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
@@ -1264,7 +1273,7 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                                     {/* <Box className={styles.listboxiduser}>
                                                                            <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
                                                                                     <div className={styles.paregarafnsg}>
-                                                                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                        <Typography>Are you sure you want to Pause this AAPL ( NSE ) from zerodha ?</Typography>
                                                                                     </div>
                                                                                     <div className={styles.pustlebal}>
                                                                                         <Typography>Pause with  </Typography>
@@ -1275,13 +1284,6 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                                         <Button onClick={() => { setLlistdata('Buy') }} className={listdara == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
                                                                                         <Button onClick={() => { setLlistdata('Sell') }} className={listdara == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
 
-                                                                                        {/* <ButtonGroup */}
-                                                                                        {/* onClick={()=>{setLlistdata(true)}} */}
-                                                                                        {/* buttons={["All", "Buy", "Sell"]} */}
-                                                                                        {/* doSomethingAfterClick={printButtonLabellist} */}
-                                                                                        {/* // style={} */}
-                                                                                        {/* // className={btnlistname == 'Buy' ? styles.buylist : styles.buylist2} */}
-                                                                                        {/* /> */}
                                                                                     </div>
                                                                                     <div className={styles.divpopupspn}>
                                                                                         {listdara == '' ? <span className={styles.otperr}>Please Enter Valid list</span> : ''}
@@ -1291,12 +1293,10 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseCompause}>Cancel</Button>
                                                                                         {listdara == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn}  >SAVE </Button> :
                                                                                             <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituserlistpause(), handleCloseCompause() }}>SAVE </Button>}
-                                                                                        {/* <Button >Cancel</Button> */}
-                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
-                                                                                        {/* <Button className={styles.cofimbatn} onClick={edituserlistpause}>Confirm</Button> */}
+                                                            
                                                                                     </div>
                                                                                 </Box>
-                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                                       
                                                                             </DialogContent>
                                                                         </div>
                                                                     </Dialog>
@@ -1307,7 +1307,7 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                     className={styles.listiconhh}
                                                                     aria-label="expand row"
                                                                     size="small"
-                                                                    onClick={() =>{setOpen(!openlist),setDistiddata(row.id)}}
+                                                                    onClick={() => { setOpen(!openlist), setDistiddata(row.id) }}
                                                                 >
                                                                     {openlist ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                                                                 </IconButton>
@@ -1335,34 +1335,29 @@ const[distiddata,setDistiddata] = React.useState('')
 
                                         </TableBody>
 
-                                        
+
                                         <TableRow>
                                             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
                                                 <Collapse in={openlist} timeout="auto" unmountOnExit>
 
                                                     <Table size="small" aria-label="purchases">
-                        <TableBody>                                               
+                                                        <TableBody>
 
-                                                            {/* {datamenu.map((item) => ( */}
                                                             <TableRow
-                                                            //  key={historyRow.date}
                                                             >
 
                                                                 <TableCell scope="row">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Type</Typography>
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.target_price}</Typography>
-                                                                    {/* ajjaa */}
-                                                                    {/* {historyRow.date} */}
+                                                              
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>StopLoss</Typography>
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>{datamenu.exitPrice}</Typography>
-                                                                    {/* {historyRow.customerId} */}
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Todays Profit</Typography>
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.todayprofit}</Typography>
-                                                                    {/* {historyRow.amount} */}
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Today Orders</Typography>
@@ -1370,44 +1365,20 @@ const[distiddata,setDistiddata] = React.useState('')
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Created At</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>{ moment(datamenu.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>{moment(datamenu.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Edited At</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>{ moment(datamenu.updatedAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#4F4F4F' }}>{moment(datamenu.updatedAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                                                                 </TableCell>
                                                             </TableRow>
-                                                            {/* ))} */}
                                                         </TableBody>
                                                     </Table>
-                                                    {/* ))} */}
-
-                                                    {/* </Box> */}
                                                 </Collapse>
                                             </TableCell>
                                         </TableRow>
-                                        {/* <TableRow> */}
-                                        {/* <TableFooter> */}
                                         <TableRow>
-
-                                            {/* <TablePagination
-                                                className={styles.tablePagination}
-                                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                                                count={datatebalpettan.length}
-                                                rowsPerPage={rowsPerPage}
-                                                page={page}
-                                                SelectProps={{
-                                                    inputProps: {
-                                                        "aria-label": "rows per page",
-                                                    },
-                                                    native: false,
-                                                }}
-                                                onPageChange={handleChangePage}
-                                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                            // ActionsComponent={TablePaginationActions}
-                                            /> */}
                                         </TableRow>
-                                        {/* </TableFooter> */}
                                     </Table>
                                 </TableContainer>
                                 <TablePagination
@@ -1420,21 +1391,10 @@ const[distiddata,setDistiddata] = React.useState('')
                                     onPageChange={handleChangePage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                 />
-                                {/* <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            /> */}
+                             
                             </Paper>
                         </React.Fragment>
-                        {/* <FormControlLabel
-            control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
-          /> */}
+                
                     </Box>
                 </Grid>
             </Grid>

@@ -172,7 +172,7 @@ const[dartmenu,setDatamenu] =React.useState('')
     console.log(accountdelete, 'accountdelete');
     if (accountdelete.status == true) {
   
-      toast.success('delete account')
+      toast.success(accountdelete.message)
       chartloginuser()
     }
     else {
@@ -223,9 +223,9 @@ const[dartmenu,setDatamenu] =React.useState('')
       Dashboard
     </Button>,
     <Button
-      onClick={() => { router.push('./accountteyp') }}
+      onClick={() => { router.push('./accountlist') }}
 
-      className={currentPath == '/accountteyp' ? styles.borderbottum : styles.btn_pages}>
+      className={currentPath == '/accountlist' ? styles.borderbottum : styles.btn_pages}>
       Account
     </Button>,
     <Button
@@ -280,7 +280,7 @@ const[dartmenu,setDatamenu] =React.useState('')
           Dashboard
         </Button>
         <Button
-          onClick={(() => { router.push('./accountteyp') })}
+          onClick={(() => { router.push('./accountlist') })}
 
           className={styles.btn_pages2}
           // key={page}
@@ -353,7 +353,7 @@ const[dartmenu,setDatamenu] =React.useState('')
         <Toolbar disableGutters>
           <Grid item sm={3} md={3} xs={3}>
             <a href='./'>
-              <img src='../../TISBULL 1.png'></img>
+              <img src='../../new logo.png' width={190}></img>
             </a>
           </Grid>
           <Grid item sm={0} md={1} xs={0} >
@@ -405,7 +405,7 @@ const[dartmenu,setDatamenu] =React.useState('')
             {!!props.profile ? <Box sx={{ flexGrow: 0 }}>
               <div className={styles.newbar_list}>
                 <a style={{ display: 'flex', textDecoration: 'none' }}
-                // onClick={handleClick}
+                onClick={handleClick}
                 >
                   <div className={styles.Avatar_newbar}
                   >

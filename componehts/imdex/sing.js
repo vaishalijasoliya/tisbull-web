@@ -120,10 +120,10 @@ console.log(router.query.googleId,'gvvvvv');
     // const router = useRouter();
     const onLoginPress = async () => {
         var body = {
-            'user_name': formik.values.username,
+            // 'user_name': formik.values.username,
             'password': formik.values.password,
             'email': formik.values.email,
-            'name': formik.values.Name,
+            // 'name': formik.values.Name,
             'social_id':router.query.googleId
             // 'listemail':
         }
@@ -171,7 +171,7 @@ console.log(router.query.googleId,'gvvvvv');
             email: Yup
                 .string()
                 .max(30)
-                .required('emaika'),
+                .required('Email is required'),
             Name: Yup
                 .string()
                 .max(30)
@@ -194,7 +194,7 @@ console.log(router.query.googleId,'gvvvvv');
         var body = {
             // 'user_name': formik.values.userName,
             'password': formik.values.password,
-            'name': formik.values.name,
+            // 'name': formik.values.name,
             'email': formik.values.email
         }
         console.log(formik.values.password, 'bodylist');
@@ -233,7 +233,7 @@ console.log(router.query.googleId,'gvvvvv');
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar}>
-  <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
+  {/* <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
   <img
               style={{width:'100%'}}
 
@@ -242,7 +242,7 @@ console.log(router.query.googleId,'gvvvvv');
         //  src='../../Group 109.svg' 
 src='../../login bg.png'
          />
-      </Grid>
+      </Grid> */}
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
                 <div className={styles.baglistee}></div>
                 <Box className={styles.boxsinglist2}>
@@ -251,7 +251,7 @@ src='../../login bg.png'
                     <div className={styles.pleslist2}><Typography>Let’s get started
                     </Typography></div>
                     <form onSubmit={formik.handleSubmit}>
-                        <InputLabel className={styles.leballist}>Name</InputLabel>
+                        {/* <InputLabel className={styles.leballist}>Name</InputLabel>
                         <TextField
                             error={Boolean(formik.touched.Name && formik.errors.Name)}
                             helperText={formik.touched.Name && formik.errors.Name}
@@ -265,8 +265,8 @@ src='../../login bg.png'
                             style={{
                                 margin: '0px'
                             }}
-                        />
-                        <InputLabel className={styles.leballist}>username</InputLabel>
+                        /> */}
+                        {/* <InputLabel className={styles.leballist}>username</InputLabel>
                         <TextField
                             error={Boolean(formik.touched.username && formik.errors.username)}
                             helperText={formik.touched.username && formik.errors.username}
@@ -281,7 +281,7 @@ src='../../login bg.png'
                             style={{
                                 margin: '0px'
                             }}
-                        />
+                        /> */}
 
 
                         <InputLabel className={styles.leballist}>Email</InputLabel>
@@ -294,7 +294,7 @@ src='../../login bg.png'
                             value={formik.values.email}
                             // placeholder='Email ID'
                             type="text"
-                            className={styles.userinput}
+                            className={styles.userinput22}
                             // type='text'
                             style={{
                                 margin: '0px'
@@ -310,10 +310,10 @@ src='../../login bg.png'
                             value={formik.values.password}
                             lable='Password'
                             placeholder='Confirm Password'
-                            className={styles.passoutinput}
+                            className={styles.passoutinput22}
                             type={showPassword ? 'text' : 'password'}
                         />
-                        <div className={styles.fargotpasslist}>
+                        {/* <div className={styles.fargotpasslist}>
                             <div className={styles.btncekpass}>
                                 <Button className={styles.menolistlogo}
                                     onClick={() => setShowPassword(!showPassword)}>
@@ -323,73 +323,45 @@ src='../../login bg.png'
                                 </Button>
                                 <Typography>Remember me</Typography>
                             </div>
-                            <div className={styles.forgotlistmenu}>
+                            <div className={styles.forgotlistmenu22}>
                                 <Link href='./forgotpass' className={styles.linkfaragot}>Forgot password?</Link>
                             </div>
-                        </div>
-                        <Button type="submit" className={styles.singbtn} >Create account</Button>
+                        </div> */}
+                        <Button type="submit" onClick={onLoginPress} className={styles.singbtn22} >Create account</Button>
 
                     </form>
-                    <div className={styles.borderimline}>
-                        <div className={styles.bodarleft}></div>
+                    <div className={styles.borderimline22}>
+                        <div className={styles.bodarleft22}></div>
                         <div className={styles.singbodar}><Typography>Or Sign Up with</Typography></div>
-                        <div className={styles.bodarleft}></div>
+                        <div className={styles.bodarleft22}></div>
                     </div>
-                    <div className={styles.gooleogdiv}>
+                    <div className={styles.gooleogdiv22}>
                         {showLoginButton && (
                             <>
                                 <GoogleLogin
-                                    className={styles.goolloginid}
+                                    className={styles.goolloginid22}
                                     // className="google-item"
                                     clientId={client_id}
                                     onSuccess={loginHandler}
                                     onFailure={failureHandler}
                                     cookiePolicy={"single_host_origin"}
                                 />
-                                {/* <GoogleLogin
-            clientId={client_id}
-            render={(renderProps) => (
-              <button
-                className="btn button btn-outline"
-                onClick={renderProps.onClick}
-                // disabled={renderProps.disabled}
-              >
-                <img  /> Sign Up with Google
-              </button>
-            )}
-            onSuccess={loginHandler}
-            onFailure={failureHandler}
-            cookiePolicy={"single_host_origin"}
-          /> */}
+                    
                             </>
                         )}
-                        {/* {showLogoutButton && (
-              <GoogleLogout
-                clientId={client_id}
-                render={(renderProps) => (
-                  <button
-                    className="btn button btn-outline"
-                    onClick={renderProps.onClick}
-                  // disabled={renderProps.disabled}
-                  >
-                    <img /> logout
-                  </button>
-                )}
-                onLogoutSuccess={logoutHandler}
-              ></GoogleLogout>
-            )} */}
+                
                     </div>
-                    <div className={styles.alreadylist2}>
+                    <div className={styles.alreadylist22}>
                         <Typography>
                             Don't have an account?           </Typography>
-                        <a href='./sing'>Sign Up</a>
+                        <a href='./login'>Sign Up</a>
                         <Typography>
                             for free
                         </Typography>
                     </div>
                 </Box>
             </Grid>
-            <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
+            {/* <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
       <img
       style={{width:'95%'}}
       //  width={360}
@@ -397,7 +369,7 @@ src='../../login bg.png'
         //  src='../../Group 109.svg' 
 src='../../login bg.png'
          />
-      </Grid>
+      </Grid> */}
         </Grid>
 
     )

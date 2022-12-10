@@ -13,6 +13,7 @@
 .img_text_div1 {
     display: flex;
     justify-content: end;
+    align-items: center;
     padding: 0px 30px 40px 0px;
 
 }
@@ -42,11 +43,11 @@
 }
 
 .chart_text{
-padding: 0px 0px 0px 20px;
+padding: 0px 0px 10px 20px;
 p {
     font-size: 19px;
     color: #4F4F4F;
-    text-align: center;
+    // text-align: center;
     // padding: 0px 0px 0px 14px;
     max-width: 163px;
 }

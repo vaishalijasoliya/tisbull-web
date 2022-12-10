@@ -63,8 +63,7 @@ const main = () => {
               <Grid item sm={6} md={4} xs={6}>
                 <a href='./'>
                   <div>
-                    <img src='../../TISBULL 1.png'></img>
-                  </div>
+                  <img src='../../new logo.png' width={190}></img>                   </div>
                 </a>
 
               </Grid>

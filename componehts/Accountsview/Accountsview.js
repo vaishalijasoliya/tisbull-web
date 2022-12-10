@@ -61,12 +61,13 @@ console.log(props,'lisyysg');
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_VIEW, JSON.stringify(obj), headers)
         props.props.loaderRef(false)
-        console.log(patternDelete.data, 'vvvvvvv');
+        console.log(patternDelete.data.logoUrl, 'vvvvvvv');
 
         if (!!patternDelete && patternDelete.status == true) {
             formik.setFieldValue('ConsumerKey', patternDelete.data.consumer_key);
             formik.setFieldValue('ConsumerSecret', patternDelete.data.consumer_secret);
             formik.setFieldValue('reTypePassword', patternDelete.data.password);
+            setLogo(patternDelete.data.logoUrl)
             setUserid(patternDelete.data.user_id)
             setType(patternDelete.data.type)
             //     setLogo(patternDelete.data.profileUrl)

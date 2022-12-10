@@ -118,7 +118,7 @@ const Home = (props) => {
 
                 .max(255)
                 .required(
-                    'User name is required'),
+                    'Email is required'),
             //   password: Yup
             //     .string()
             //     .min(6)
@@ -176,7 +176,7 @@ const Home = (props) => {
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar3}>
-            <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
+            {/* <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
             <img
               style={{width:'100%'}}
 
@@ -185,7 +185,7 @@ const Home = (props) => {
         //  src='../../Group 109.svg' 
 src='../../login bg.png'
          />
-            </Grid>
+            </Grid> */}
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
                 <div className={styles.baglistee}></div>
                 <Box className={styles.boxsinglist3}>
@@ -222,7 +222,7 @@ src='../../login bg.png'
                     </div>
                 </Box>
             </Grid>
-            <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
+            {/* <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
       <img
       style={{width:'95%'}}
       //  width={360}
@@ -230,7 +230,7 @@ src='../../login bg.png'
         //  src='../../Group 109.svg' 
 src='../../login bg.png'
          />
-      </Grid>
+      </Grid> */}
 
         </Grid>
 
