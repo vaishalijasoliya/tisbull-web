@@ -220,6 +220,7 @@ src='../../login bg.png'
                     <div className={styles.batnbacklist}>
                         <Button href='./login' className={styles.backbtn}><KeyboardBackspaceIcon />Back to login</Button>
                     </div>
+                    <div style={{height:'62px'}}></div>
                 </Box>
             </Grid>
             {/* <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>

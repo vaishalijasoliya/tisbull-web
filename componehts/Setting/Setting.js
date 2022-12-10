@@ -163,7 +163,9 @@ const TemporaryDrawer = (props) => {
                         <Button className={currentPath == '/Accountsview' ? styles.accontbtn22 : styles.personlist22} onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div> */}
                     <div className={styles.accontbtn}>
-                        <Button className={currentPath == '/Support' ? styles.accontbtn22 : styles.personlist22} onClick={(() => { router.push('./Support') })}><div className={styles.pandicon} ><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
+                        <Button className={currentPath == '/Support' ? styles.accontbtn22 : styles.personlist22} 
+                        // onClick={(() => { router.push('./Support') })}
+                        ><div className={styles.pandicon} ><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
                     <div className={styles.accontbtn}>
                         <Button><div className={styles.pandicon}><PaymentIcon /><Typography>Payment Settings</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>

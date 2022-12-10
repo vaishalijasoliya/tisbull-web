@@ -353,11 +353,11 @@ src='../../login bg.png'
                     </div>
                     <div className={styles.alreadylist22}>
                         <Typography>
-                            Don't have an account?           </Typography>
-                        <a href='./login'>Sign Up</a>
-                        <Typography>
+                        Already have an account ?        </Typography>
+                        <a href='./login'>Login here</a>
+                        {/* <Typography>
                             for free
-                        </Typography>
+                        </Typography> */}
                     </div>
                 </Box>
             </Grid>

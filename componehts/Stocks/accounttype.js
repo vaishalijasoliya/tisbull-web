@@ -45,6 +45,7 @@ import moment from 'moment'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dialog from '@mui/material/Dialog';
 import { CSVLink, CSVDownload } from 'react-csv';
+import { styled } from '@mui/material/styles';
 
 import DialogContent from '@mui/material/DialogContent';
 function createData(name, calories, fat, carbs, Action, protein) {
@@ -112,7 +113,7 @@ const headCells = [
         id: 'Created',
         numeric: true,
         disablePadding: false,
-        label: 'Last Login',
+        label: 'Update token',
     },
     {
         id: 'Profit',
@@ -192,7 +193,46 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired,
 };
 
-
+const StyledMenu = styled((props) => (
+    <Menu
+      elevation={0}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      {...props}
+    />
+  ))(({ theme }) => ({
+    '& .MuiPaper-root': {
+      borderRadius: 6,
+      marginTop: theme.spacing(1),
+      minWidth: 180,
+      color:
+        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+      boxShadow:
+        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+      '& .MuiMenu-list': {
+        padding: '4px 0',
+      },
+      '& .MuiMenuItem-root': {
+        '& .MuiSvgIcon-root': {
+          fontSize: 18,
+          color: theme.palette.text.secondary,
+          marginRight: theme.spacing(1.5),
+        },
+        '&:active': {
+          backgroundColor: alpha(
+            theme.palette.primary.main,
+            theme.palette.action.selectedOpacity,
+          ),
+        },
+      },
+    },
+  }));
 const Home = (props) => {
     console.log(props, 'propsprovvvps');
     const router = useRouter();
@@ -279,7 +319,7 @@ const Home = (props) => {
                     if (element.type == "kotak") {
                         pendingarr.push(JSON.parse(JSON.stringify(object)));
                       } else if (element.type == "zerodha") {
-                        approvearr.push(object);
+                        approvearr.push(JSON.parse(JSON.stringify(object)))
                       } 
                     console.log(element, 'password');
 
@@ -475,6 +515,7 @@ const Home = (props) => {
                                                             aria-controls={openliost ? 'demo-customized-menu' : undefined}
                                                             aria-haspopup="true"
                                                             aria-expanded={openliost ? 'true' : undefined}
+                                                            style={{padding:'0px 0px 0px 20px'}}
                   onClick={menulist}><img src='../../Vector (3).svg' /></Button>
                 <Menu
                             className={styles.menufiltarbtn}
@@ -517,11 +558,11 @@ const Home = (props) => {
                                 <div><Typography>Account</Typography></div>
                                 <div className={styles.listbtnsot}>
                                     <Button className={styles.censbatnsot}  onClick={() => {
-                                        tabChange("all"),handleClose(),setBtnlist('all')
+                                        tabChange("all"),handleCloselisyys(),setBtnlist('all')
                                     }}>Cancel</Button>
                                     <Button className={styles.savebatnsot}
                                      onClick={() => {
-                                        tabChange(btnlistdata)
+                                        tabChange(btnlistdata),handleCloselisyys()
                                     }}
                                     >Save</Button></div>
                             </div>
@@ -646,56 +687,8 @@ const Home = (props) => {
 
 
                                                     </TableCell>
-                                                    <TableCell >
-                                                        <Button className={styles.menu2btn}
-                                                            id="demo-customized-button"
-                                                            // aria-controls={open ? 'demo-customized-menu' : undefined}
-                                                            // aria-haspopup="true"
-                                                            // aria-expanded={open ? 'true' : undefined}
-                                                            // variant="contained"
-                                                            // disableElevation
-                                                            onClick={handleClicklist}
-                                                        // endIcon={<KeyboardArrowDownIcon />}
-                                                        //  onClick={() => {handleClicklist()}}>
-                                                        >
-                                                            <MoreVertIcon />
-                                                        </Button>
-                                                        <Menu
-                                                            anchorEl={anchorEl}
-                                                            id="account-menu"
-                                                            open={open}
-                                                            onClose={handleClose}
-                                                            onClick={handleClose}
-                                                            PaperProps={{
-                                                                elevation: 0,
-                                                                sx: {
-                                                                    overflow: 'visible',
-                                                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                                                    mt: 1.5,
-                                                                    '& .MuiAvatar-root': {
-                                                                        width: 32,
-                                                                        height: 32,
-                                                                        ml: -0.5,
-                                                                        mr: 1,
-                                                                    },
-                                                                    '&:before': {
-                                                                        content: '""',
-                                                                        display: 'block',
-                                                                        position: 'absolute',
-                                                                        top: 0,
-                                                                        right: 14,
-                                                                        width: 10,
-                                                                        height: 10,
-                                                                        bgcolor: 'background.paper',
-                                                                        transform: 'translateY(-50%) rotate(45deg)',
-                                                                        zIndex: 0,
-                                                                    },
-                                                                },
-                                                            }}
-                                                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                                        >
-
+                                                    <TableCell>
+                                               
                                                             <Button className={styles.detemenu} onClick={()=>{router.push({
                                                                         pathname: './Accountsview',
                                                                         // pathname:       
@@ -706,17 +699,16 @@ const Home = (props) => {
                                                             <div>
                                                             <img width={21} height={19} src='../../Vector (1).svg' />
                                                             </div>
-                                                            <div style={{padding:'2px 0px 0px 7px',color:'#4285F4'}}>
-                                                                Edit Account </div>    </div>   </Button>
-                                                                <MenuItem className={styles.detemenu} onClick={()=>{handleClickOpenCom(),setRowid(row.id)}}>
-                                                                <Button>
+                                                               </div>   </Button>
+                                                                {/* <MenuItem className={styles.detemenu} > */}
+                                                                <Button className={styles.detemenu} onClick={()=>{handleClickOpenCom(),setRowid(row.id)}}>
                                                             <div style={{display:'flex'}}>
                                                             <div>
                                                             <img width={19} height={19} src='../../Vector (2).svg ' />
                                                             </div>
-                                                            <div style={{padding:'2px 0px 0px 7px'}}>
-                                                                Delete Account </div>    </div> </Button>  </MenuItem>
-                                                        </Menu>
+                                                              </div> </Button>  
+                                                              {/* </MenuItem> */}
+                                                              
                                                         <div>
                                                             <Dialog open={com} onClose={handleCloseCom}
                                                                 className={styles.borderredayasfor}

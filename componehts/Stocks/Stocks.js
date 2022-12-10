@@ -322,7 +322,8 @@ const Home = (props) => {
     const [logvvmog, setLogvvmog] = useState('Stock')
     const [checked, setChecked] = React.useState(false);
     const [openlist, setOpen] = React.useState(false);
-    const [isClear, setIsClear] = useState(true);
+    const [isClear, setListscrip] = useState('');
+const[listmenudata,setListnse] =useState('')
     const [listscirip, setScripdata] = React.useState('')
     const [deletemenukk, setDeleteMenukk] = React.useState(false);
     const [pendingReviewList, setPendingReviewList] = React.useState([]);
@@ -342,7 +343,7 @@ const Home = (props) => {
         }
 
         props.props.loaderRef(true)
-        var data = data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
+        var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
         props.props.loaderRef(false)
         console.log(data, 'datalist');
         // if (!isClear) {
@@ -414,6 +415,7 @@ const Home = (props) => {
 
         }
     }
+    console.log(isClear,'isClear');
     const tabChange = (status) => {
         setReviewStatus(status);
         if (status == "BasicPattern") {
@@ -548,7 +550,7 @@ const Home = (props) => {
             if (patternDelete.status) {
 
 
-                toast.success("Successfully Updated Personal Information lisgg")
+                toast.success(patternDelete.message)
                 patternlist()
                 // router.push('./dashboard')
             }
@@ -960,7 +962,7 @@ const Home = (props) => {
                                             
                                                         </TableCell> */}
 
-                                                            <TableCell >
+                                                            <TableCell>
 
                                                                 <div className={styles.listtebal}>
                                                                     <Button className={styles.viwebtnmm}
@@ -968,7 +970,7 @@ const Home = (props) => {
                                                                     // onClick={() => { setRowid(row.id) }}
                                                                     > <img height={18} src="../../edit_square.svg" /> </Button>
 
-                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
+                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script),setListnse(row.exchange),row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
                                                                         {/* <PauseCircleOutlineIcon /> */}
                                                                         {/* <Touchable>dilet</Touchable> */}
                                                                         {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
@@ -998,7 +1000,7 @@ const Home = (props) => {
                                                                                     {/* <Box className={styles.listboxiduser}>
                                                                            <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
                                                                                     <div className={styles.paregarafnsg}>
-                                                                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                        <Typography>Are you sure you want to pause this {isClear} ( NSE ) from zerodha ?</Typography>
                                                                                     </div>
 
 
@@ -1021,7 +1023,7 @@ const Home = (props) => {
                                                                         // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button className={styles.listdataclos} onClick={handleCloseComdeletlog}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
+                                                                        {/* <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button className={styles.listdataclos} onClick={handleCloseComdeletlog}><img width={25} src="../../icon-close-512.webp" /></Button>  </div> */}
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
@@ -1059,15 +1061,7 @@ const Home = (props) => {
                                                                                                 </Typography>
                                                                                                 <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
                                                                                             </div>
-                                                                                            {checked == false ? <SwitchUnstyled component={Root}
-                                                                                                {...label} id='switch'
-                                                                                                style={{ padding: '0px 0px 0px 32px' }}
-
-                                                                                                onChange={((e) => {
-                                                                                                    setSwishlist(e.target.checked)
-                                                                                                    setAccounttype('exit for fixedPrice')
-                                                                                                })}
-                                                                                            /> : <SwitchUnstyled component={Root}
+                                                                                            {checked == true ? <SwitchUnstyled component={Root}
                                                                                                 // onChange={console.log('virang')}
                                                                                                 {...label} id='switch'
                                                                                                 disabled
@@ -1077,7 +1071,15 @@ const Home = (props) => {
                                                                                                 onChange={((e) => {
                                                                                                     setSwishlist(e.target.checked)
                                                                                                 })}
-                                                                                            />}
+                                                                                            />:<SwitchUnstyled component={Root}
+                                                                                                {...label} id='switch'
+                                                                                                style={{ padding: '0px 0px 0px 32px' }}
+
+                                                                                                onChange={((e) => {
+                                                                                                    setSwishlist(e.target.checked)
+                                                                                                    setAccounttype('exit for fixedPrice')
+                                                                                                })}
+                                                                                            /> }
 
                                                                                         </div>}
                                                                                         {logvvmog == 'WithoutStock' ? '':
@@ -1106,16 +1108,7 @@ const Home = (props) => {
                                                                                                 </Typography>
                                                                                                 <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
                                                                                             </div>
-                                                                                            {swishlist == false ? <SwitchUnstyled component={Root}  {...label} id='switch'
-                                                                                                style={{ padding: '0px 0px 0px 20px' }}
-                                                                                                // checked={row.Publication} 
-                                                                                                onChange={((e) => {
-                                                                                                    // setChecked('ZERODHA')
-                                                                                                    setChecked(e.target.checked)
-                                                                                                    setAccounttype('exit for market')
-
-                                                                                                })}
-                                                                                            /> : <SwitchUnstyled component={Root}
+                                                                                            {swishlist == true ? <SwitchUnstyled component={Root}
                                                                                                 // onChange={console.log('virang')}
                                                                                                 {...label} id='switch'
                                                                                                 disabled
@@ -1125,7 +1118,16 @@ const Home = (props) => {
                                                                                                 onChange={((e) => {
                                                                                                     setChecked(e.target.checked)
                                                                                                 })}
-                                                                                            />}
+                                                                                            />:<SwitchUnstyled component={Root}  {...label} id='switch'
+                                                                                                style={{ padding: '0px 0px 0px 20px' }}
+                                                                                                // checked={row.Publication} 
+                                                                                                onChange={((e) => {
+                                                                                                    // setChecked('ZERODHA')
+                                                                                                    setChecked(e.target.checked)
+                                                                                                    setAccounttype('exit for market')
+
+                                                                                                })}
+                                                                                            /> }
 
 
                                                                                         </div>}
@@ -1136,9 +1138,9 @@ const Home = (props) => {
                                                                                         {/* {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'} */}
 
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
-                                                                                        {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button> : ''}
+                                                                                        {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : ''}
                                                                                         {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ?
-                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >SAVE </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
+                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
                                                                                    
                                                                                     </div>
                                                                                 </Box>
@@ -1219,7 +1221,7 @@ const Home = (props) => {
                                                                                     {/* <Box className={styles.listboxiduser}>
                                                                            <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
                                                                                     <div className={styles.paregarafnsg}>
-                                                                                        <Typography>Are you sure you want to Play this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                        <Typography>Are you sure you want to Play this {isClear} ({listmenudata}) Pattern ?</Typography>
                                                                                     </div>
                                                                                     <div className={styles.pustlebal}>
                                                                                         <Typography>Play with  </Typography>
@@ -1273,7 +1275,7 @@ const Home = (props) => {
                                                                                     {/* <Box className={styles.listboxiduser}>
                                                                            <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
                                                                                     <div className={styles.paregarafnsg}>
-                                                                                        <Typography>Are you sure you want to Pause this AAPL ( NSE ) from zerodha ?</Typography>
+                                                                                        <Typography>Are you sure you want to Pause this {isClear} ({listmenudata}) Pattern?</Typography>
                                                                                     </div>
                                                                                     <div className={styles.pustlebal}>
                                                                                         <Typography>Pause with  </Typography>
@@ -1348,16 +1350,16 @@ const Home = (props) => {
 
                                                                 <TableCell scope="row">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Type</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.target_price}</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.target_price == '' ? '-' :datamenu.target_price}</Typography>
                                                               
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>StopLoss</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>{datamenu.exitPrice}</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>{datamenu.exitPrice == '' ? '-' :datamenu.exitPrice}</Typography>
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Todays Profit</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.todayprofit}</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.todayprofit  == '' ? '-' :datamenu.todayprofit }</Typography>
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Today Orders</Typography>

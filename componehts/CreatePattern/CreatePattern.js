@@ -288,13 +288,14 @@ console.log(router.query.data,'props.router.query.data');
     }
 
     const getScirp = async (text) => {
-        // var body = {
-        //     "name":text.target.value
-        //     // "tatamotors"
-        //     // accountmenu
-        //     // accountmenu
-        // }
-        console.log(text.target.value,'typetype');
+       //     "name":text.target.value
+          var body = {
+            "name":text.target
+           // "tatamotors"
+            // accountmenu
+            // accountmenu
+        }
+        // console.log(text.target.value,'typetype');
         var headers = {
             "Content-Type": "application/json",
             "x-access-token": props.props.profile.token
