@@ -129,10 +129,10 @@ console.log(props,'lisyysg');
         console.log(data, 'onLoginPress');
         if (!!data) {
             if (data.status == true) {
-                data.token = data.token
+                // data.token = data.token
                 // elistdata
-                props.props.save_user_data({ user: data });
-                toast.success("Successfully Updated Personal Information")
+                // props.props.save_user_data({ user: data });
+                toast.success(data.message)
                 // router.push('./dashboard')
             }
             else {
@@ -198,7 +198,7 @@ console.log(props,'lisyysg');
     return (
         <Grid container className={styles.cantenar_list}>
             <form className={styles.formcenjpasss} onSubmit={formik.handleSubmit}>
-                <Grid item sm={12} md={6} xs={12} className={styles.cengpass2}>
+                <Grid item sm={12} md={5} xs={12} className={styles.cengpass2}>
 
                     <div className={styles.hedingdiv}>
 
@@ -217,8 +217,10 @@ console.log(props,'lisyysg');
                     </div>
                     <div className={styles.avatarbank}>
                         <Avatar
-                            src={logo}
-                            className={styles.avatarbank2} />
+                            
+                            className={styles.avatarbank2} >
+<img width={45} height={30} src={logo} />
+                            </Avatar>
                     </div>
                     <div>
                         <InputLabel className={styles.leballist443}>Consumer Key </InputLabel>
@@ -290,11 +292,12 @@ console.log(props,'lisyysg');
 
 
                         </Button>
+                        <div style={{height:'40px'}}></div>
                     </div>
                 </Grid>
-                <Grid item md={6} sm={12} xs={12}>
+                {/* <Grid item md={6} sm={12} xs={12}>
                     <img src='../../cengpass.svg' />
-                </Grid>
+                </Grid> */}
             </form>
 
         </Grid>

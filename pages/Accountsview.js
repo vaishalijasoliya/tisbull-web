@@ -18,18 +18,21 @@ const ResponsiveAppBar = (props) => {
     // const router = useRouter();
     // console.log(router.query.email,'router.query.email');
     return (
-        <Grid container className={styles.cantenar_list36}>
+        <Grid container className={styles.cantenar_list363}>
             <Grid item sm={12} md={12} xs={12}>
                 <Newbar />
-            </Grid>
+            {/* </Grid> */}
             {/* <Grid item sm={12} md={3} xs={12} className={styles.newbarend}> */}
                 {/* <div className={styles.singlistpsdii}> */}
                 {/* <Setting props={props}/> */}
                 {/* </div> */}
             {/* </Grid> */}
-            <Grid  item sm={12} md={12} xs={12}>
+            {/* <Grid  item sm={12} md={12} xs={12}> */}
             {/* <Dashboard style={{padding:'60px'}} props={props} /> */}
+            <div className={styles.singlistpsdii2233}>
+
                 <Accountsadd props={props}/>
+                </div>
             </Grid>
             {/* <Newbar />
         <div className={styles.dasnod_camponat}>

@@ -317,8 +317,8 @@ const Home = (props) => {
     const [distiddata, setDistiddata] = React.useState('')
     // const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
-    const [listdara, setLlistdata] = useState('');
-    const [listdarapush, setLlistdatapush] = useState('');
+    const [listdara, setLlistdata] = useState('All');
+    const [listdarapush, setLlistdatapush] = useState('All');
     const [logvvmog, setLogvvmog] = useState('Stock')
     const [checked, setChecked] = React.useState(false);
     const [openlist, setOpen] = React.useState(false);
