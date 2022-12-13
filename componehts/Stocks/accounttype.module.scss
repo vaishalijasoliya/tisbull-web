@@ -191,7 +191,9 @@ text-align: center;
 .btnsaveic svg {
     color: #BDBDBD;
 }
-
+.btnsaveic{
+    min-width: 0px !important;
+}
 .searchbtn {
     width: 320px;
     box-sizing: border-box;

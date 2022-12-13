@@ -87,13 +87,13 @@ padding: 80px 80px;
 .accolistmenu{
   padding: 60px;
 }
-.cantenar_list88{
+/* .cantenar_list88{
   background-image: url('../public/background.png'); 
   background-repeat: no-repeat !important;
   background-size: cover;
   /* background-position: 0px 50px; */
   /* background-size: 100% 100%; */
-}
+/* } */ 
 .cantenar_list883{
   background-image: url('../public/background.png'); 
   background-repeat: no-repeat !important;
@@ -302,6 +302,15 @@ width: 100%;
 .dasnod_camponat366{
   background-image: url("../public/background.png");
   background-repeat: no-repeat !important;
+  /* padding: 60px 80px; */
+  /* background-position: 0px 50px;
+  background-size: 100% 100%; */
+  background-size: cover;
+}
+.dasnod_camponat36655{
+  background-image: url("../public/background.png");
+  background-repeat: no-repeat !important;
+  padding: 60px 80px;
   /* background-position: 0px 50px;
   background-size: 100% 100%; */
   background-size: cover;
@@ -318,13 +327,13 @@ width: 100%;
   background-size: cover;
 } */
 .cantenar_list265{
-  background-image: url("../public/background.png");
+  /* background-image: url("../public/background.png"); */
   /* margin: 26px 80px 50px 80px; */
 
-  background-repeat: no-repeat !important;
+  /* background-repeat: no-repeat !important; */
   /* background-position: 0px 50px;
   background-size: 100% 100%; */
-  background-size: cover;
+  /* background-size: cover; */
 }
 
 .cantenar_list36 {

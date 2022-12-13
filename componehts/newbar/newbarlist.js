@@ -231,19 +231,20 @@ const[dartmenu,setDatamenu] =React.useState('')
     <Button
       onClick={() => {
         router.push({
-          pathname: './home',
+          pathname: './pattanlist',
           // query: { scripType: 'currency', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) }
           // query: { type: 'currency' }
         });
       }}
-      className={currentPath == '/home' ? styles.borderbottum : styles.btn_pages}>
+      className={currentPath == '/pattanlist' ? styles.borderbottum : styles.btn_pages}>
       Pattern
     </Button>,
     <Button
+    onClick={()=>{router.push('./AllOrder')}}
       className={styles.btn_pages}
     >
-      Reports
-      <KeyboardArrowDownIcon />
+        All Order
+
     </Button>,];
 
   const [state, setState] = React.useState({
@@ -290,7 +291,7 @@ const[dartmenu,setDatamenu] =React.useState('')
           Account
         </Button>
         <Button
-          onClick={(() => { router.push('./home') })}
+          onClick={(() => { router.push('./pattanlist') })}
           className={styles.btn_pages2}
           // key={page}
           // onClick={handleCloseNavMenu}
@@ -306,8 +307,9 @@ const[dartmenu,setDatamenu] =React.useState('')
           onClick={handleClick}
           sx={{ my: 2, display: 'block' }}
         >
-          Reports
-          <ArrowForwardIosIcon />
+        All Order
+          {/* Reports */}
+          {/* <ArrowForwardIosIcon /> */}
           {/* <KeyboardArrowDownIcon /> */}
         </Button>
         <Button
@@ -412,13 +414,14 @@ const[dartmenu,setDatamenu] =React.useState('')
                     <Avatar className={styles.btn_avtar_list}
                       // src={rowidlist == ''? props..profile.logoUrl:props.props.profile.currentAccount.logoUrl}
 
-                      src={props.profile.userData.logoUrl}
+                      
                     >
+                    <img width={30} src={props.profile.userData.logoUrl} />
                     </Avatar>
                   </div>
                   <div className={styles.user_list}>
                     <Typography>
-                      {props.profile.userData.currentAccount.user_id}
+                      {!!props.profile.userData.currentAccount ? props.profile.userData.currentAccount.user_id:'Login'}
                     </Typography>
                   </div>
                 </a>

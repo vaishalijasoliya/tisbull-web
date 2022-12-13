@@ -32,13 +32,16 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Types } from '../../constants/actionTypes'
 import { connect } from 'react-redux';
-import ApiServices from '../../config/ApiServices';
 import { useRouter } from 'next/router';
-
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import Avatar from '@mui/material/Avatar';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import moment from 'moment'
+import { toast } from 'react-toastify';
+
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -51,7 +54,6 @@ function createData(name, calories, fat, carbs, protein) {
     protein,
   };
 }
-
 
 
 function descendingComparator(a, b, orderBy) {
@@ -186,7 +188,12 @@ EnhancedTableHead.propTypes = {
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
-
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 // function EnhancedTableToolbar(props) {
 //   const { numSelected } = props;
 
@@ -243,9 +250,8 @@ EnhancedTableHead.propTypes = {
 // };
 
 const Home = (props) => {
-  console.log(props, 'propsprops');
   const router = useRouter();
-
+console.log(props.listdsts,'listdstslistdsts');
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -255,20 +261,29 @@ const Home = (props) => {
   const [search, setSearch] = React.useState(false);
   const [datatebalpettan, setDatatebalpettan] = React.useState([]);
   const [data, setData] = React.useState([]);
+  const [value, setValue] = React.useState(0);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState('');setListid
+  const [listdarta, setListid] = React.useState('');
+const[idlist,setIdlist] = React.useState('')
   const [datasars, setDatasars] = React.useState([]);
   const [datalist, setDatalist] = React.useState([]);
   const [com, setCom] = React.useState(false);
   const [play, setPlay] = React.useState(false);
   const [pause, setPause] = React.useState(false)
   const [diletbtn, setDiletbtn] = React.useState(false)
-  const [teballist, setTeballist] = React.useState([])
-  const [reviewStatus, setReviewStatus] = React.useState("pending");
-
   const [btnlistdata, setBtnlist] = React.useState('pending')
   const [pendingReviewList, setPendingReviewList] = React.useState([]);
   const [approveReviewList, setApproveReviewList] = React.useState([]);
+  const [reviewStatus, setReviewStatus] = React.useState("pending");
+  console.log(idlist,'idlistidlist');
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
+console.log(datasars,'listdarta');
+  const today = new Date();
+
   var handleClickOpenComdilet = () => {
     setDiletbtn(true);
   };
@@ -293,23 +308,22 @@ const Home = (props) => {
   const handleCloseComplay = () => {
     setPlay(false);
   }
-  console.log(router.query.emailID,'today');
-  const patternlist = async () => {
-
+  console.log(datatebalpettan, 'datatebalpettan');
+ const patternlist = async () => {
     var headers = {
       "Content-Type": "application/json",
       "x-access-token": props.props.profile.token
     }
     var body = {
-      "id_pattern": [parseInt(props.listdata)],
-      "type": [
-        "active","cancelled"
-    ]
+    //   "pattern_id":[parseInt(props.listdsts)],
+    //   "start_date": moment(today).format("MM/DD/YYYY"),
+    //   "end_date":moment(today).format("MM/DD/YYYY"),
       // props.idlist,
       // email: props.email,
       // otp: outField
     }
-    console.log(body, 'bodybody');
+    console.log(body, 'body');
+    // moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
 
     // props.loaderRef(true)
     // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
@@ -317,16 +331,15 @@ const Home = (props) => {
 
     // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
     // props.loaderRef(false)
-    console.log(patternDelete, 'datalistddllld');
+    console.log(patternDelete, 'dassstalissssstddd');
 
     if (!!patternDelete) {
-      if (patternDelete.status == true && patternDelete.data.length > 0) {
+      if (patternDelete.status == true) {
         const accoyty = [];
         const datalist = [];
         const datalogo = []
         var approvearr = [];
         var pendingarr = [];
-var listopen = [];
         const listdata = []
         for (let index = 0; index < patternDelete.data.length; index++) {
           const element = patternDelete.data[index];
@@ -342,8 +355,12 @@ var listopen = [];
             status: element.status,
             orderId:element.orderId
           }
-        
-       
+          if (element.status == "pending") {
+            pendingarr.push(JSON.parse(JSON.stringify(object)));
+          } 
+           else if (element.status == "cancelled" || element.status == "active" ) {
+            approvearr.push(JSON.parse(JSON.stringify(object)))
+          }
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
@@ -352,16 +369,51 @@ var listopen = [];
         }
         setDatasars(listdata)
         setDatalist(datalogo)
-        setDatatebalpettan(accoyty)
+        // setDatatebalpettan(accoyty)
         setData(data)
-        setBtnlist(listopen)
         setPendingReviewList(pendingarr);
         setApproveReviewList(approvearr);
       }
 
     }
   }
+  const tabChange = (status) => {
+    setReviewStatus(status);
+    if (status == "pending") {
+      setDatatebalpettan(pendingReviewList);
+        // setUserSearch(pendingReviewList);
+    } else if ( status == "cancelled" || status == "active") {
+      setDatatebalpettan(approveReviewList);
+        // setUserSearch(approveReviewList);
+    } 
+};
+  const playpattern = async () => {
+
+    var headers = {
+        "Content-Type": "application/json",
+        "x-access-token": props.props.profile.token
+    }
+    var body = {
+      "id_order" :idlist
+  }
+  console.log(body,'bodybody');
+    props.props.loaderRef(true)
+    var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
+    props.props.loaderRef(false)
+    console.log(patternDelete,'patternDeletepatternDelete');
+    // if (!!patternDelete) {
+
+    console.log(patternDelete, 'datalist');
+    if (patternDelete.status) {
+        toast.success(patternDelete.message)
+      
+    }
+    else {
+        toast.error(patternDelete.message)
+    }
  
+
+}
   // let inloglist=datatebal.zerodha_token_update
 
   // console.log(datatebalpettan, 'datatebalpettan');
@@ -436,23 +488,31 @@ var listopen = [];
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebalpettan.length) : 0;
 
   return (
-    <Grid container spacing={0} className={styles.cantenar_list57}>
-
-      <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
-        <div style={{ display: 'flex' }}>
+    <Grid container spacing={0} className={styles.cantenar_list57221} style={{padding:'40px 0px 0px 0px'}}>
+{/* <div style={{display:'flex'}}> */}
+      <Grid item md={6} sm={6} xs={12} >
+        {/* <div style={{ display: 'flex' }}> */}
           <div className={styles.maendivhpline}>
             {/* <Grid item md={12} sm={12} xs={12}> */}
             <div className={styles.inlinemanediv}>
               <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
-            
-                                    {/* <Button onClick={() => {
-                                        // tabChange("Custom")
-                                        setBtnlist('zerodha')
-                                    }}  className={btnlistdata == 'zerodha' ? styles.Customlistbtn : styles.nonelistbtn}>ZERODHA</Button> */}
+              
+              <Button       onClick={() => {
+                                        setBtnlist('pending')
+                                        tabChange('pending')
+                                    }} 
+                                     className={btnlistdata == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>Open</Button>
+                                    <Button onClick={() => {
+                                        setBtnlist('cancelled')
+                                        tabChange('cancelled')
+                                    }} className={btnlistdata == 'cancelled' ? styles.Customlistbtn : styles.nonelistbtn}>Trade</Button>
             </div>
 
           </div>
-          <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', width: '72%' }}>
+          </Grid>
+          <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 60px 0px 0px'}}>
+
+          <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
             {search ?
               <div>
                 <input type="text" name="search"
@@ -504,7 +564,7 @@ var listopen = [];
                         </Typography> */}
             <FilterListIcon />
           </Button>
-        </div>
+        {/* </div> */}
         <Menu
           className={styles.menufiltarbtn}
           anchorEl={anchorEl}
@@ -586,6 +646,9 @@ var listopen = [];
           {/* <Divider className={styles.divaydarten}></Divider> */}
           <div className={styles.divlistsivijan}></div>
         </Menu>
+        </Grid>
+        {/* </div> */}
+        <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
         <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
           <Paper sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
             {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
@@ -649,7 +712,8 @@ var listopen = [];
                               </div><div className={styles.listperegaf}>
                                 <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.script}</Typography>
 
-                                <div className={styles.nselist}><Typography>{row.exchange}</Typography></div></div>
+                                {/* <div className={styles.nselist}><Typography>{row.exchange}</Typography></div></div> */}
+                                </div>
                             </div>
                           </TableCell>
 
@@ -668,10 +732,10 @@ var listopen = [];
                             } </Typography></TableCell>
 
                           <TableCell>
-                            <Button disabled className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}>
+                            {/* <Button className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}> */}
                               {/* {row.status == 'pause' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}> */}
                               <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
-                            </Button>
+                            {/* </Button> */}
 
 
                           </TableCell>
@@ -679,9 +743,7 @@ var listopen = [];
                           <TableCell className={styles.btnmenubar}>
 
                             <div >
-                              <Button className={styles.viwebtnmm22}
-                              //  onClick={handleClickOpenComdilet}
-                               > <MoreVertIcon /></Button>
+                              <Button className={styles.viwebtnmm22} onClick={()=>{setIdlist(row.id),row.status == 'pending' ? handleClickOpenComdilet() : ''}}> <MoreVertIcon /></Button>
 
 
                             </div>
@@ -705,7 +767,7 @@ var listopen = [];
                                       <div className={styles.accoparegarf}>
                                         <Typography>
                                           Are you sure you want to delete
-                                          this order( #123DR5HKGF )?
+                                          this order(#{row.orderId})?
                                         </Typography>
                                         <Typography className={styles.peregara_itbtn}>It will delete from 3rd party broker </Typography>
                                       </div>
@@ -713,7 +775,9 @@ var listopen = [];
                                       <Divider>
 
                                       </Divider>
-                                      <div><Button className={styles.cancelbtn} onClick={handleCloseComdelet}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2}>Delete</Button></div>
+                                      <div style={{textAlign:'center',padding:"10px 0px 0px 0px"}}>
+                                      <Button onClick={()=>{playpattern,handleCloseComdelet}}   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }}>Cancel</Button>
+                                      <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
@@ -744,12 +808,12 @@ var listopen = [];
                                         {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
                                         <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{row.orderId}) from zerodha ?</Typography></div>
                                         <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.orderId}</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#12345</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.id}</Typography></div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
                                         <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
                                         <img src="../../Line 17.svg" />
-                                        <div className={styles.cancelbtnlog2} onClick={handleClickOpenComplay}><Button >Confirm</Button></div>
+                                        <div className={styles.cancelbtnlog2}  onClick={()=>{handleClickOpenComplay}}><Button >Confirm</Button></div>
                                       </div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -780,7 +844,7 @@ var listopen = [];
                                       <Box className={styles.listboxiduser223}>
                                         <div className={styles.listmaendivid}>
                                           <div className={styles.oderidpopup}><InputLabel>ORDER ID</InputLabel>
-                                            <Typography>{row.orderId}</Typography>
+                                            <Typography>NF123444</Typography>
                                           </div>
                                           <div className={styles.oderidpopup}><InputLabel>TIS ORDER ID</InputLabel>
                                             <Typography>12322SSDFDF</Typography>
@@ -831,7 +895,7 @@ var listopen = [];
                                       </div>
                                       <div className={styles.btn_all_buy}><Button>All</Button><Button>Buy</Button><Button>Sell</Button></div>
                                       {/* </Box> */}
-                                      <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn}>Confirm</Button></div>
+                                      <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn} onClick={playpattern}>Confirm</Button></div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
@@ -843,6 +907,7 @@ var listopen = [];
                         </TableRow>
                       );
                     })}
+                
                   {emptyRows > 0 && (
                     <TableRow
                       style={{
@@ -890,7 +955,8 @@ var listopen = [];
             label="Dense padding"
           /> */}
         </Box>
-      </Grid>
+        </Grid>
+      {/* </Grid> */}
     </Grid>
   );
 }

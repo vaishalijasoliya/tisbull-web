@@ -456,7 +456,7 @@ const[listmenudata,setListnse] =useState('')
         console.log(patternDelete, 'datalist');
         if (patternDelete.status) {
             patternDelete.token = patternDelete.token
-            toast.success("Successfully Updated Personal Information lisgg")
+            toast.success(patternDelete.message)
             patternlist()
         }
         else {
@@ -1064,7 +1064,7 @@ const[listmenudata,setListnse] =useState('')
                                                                                             {checked == true ? <SwitchUnstyled component={Root}
                                                                                                 // onChange={console.log('virang')}
                                                                                                 {...label} id='switch'
-                                                                                                disabled
+                                                                                                // disabled
                                                                                                 style={{ padding: '0px 0px 0px 32px' }}
 
                                                                                                 // checked={row.Publication} 
@@ -1108,10 +1108,12 @@ const[listmenudata,setListnse] =useState('')
                                                                                                 </Typography>
                                                                                                 <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
                                                                                             </div>
-                                                                                            {swishlist == true ? <SwitchUnstyled component={Root}
+                                                                                            {swishlist == true 
+                                                                                            ? 
+                                                                                            <SwitchUnstyled component={Root}
                                                                                                 // onChange={console.log('virang')}
                                                                                                 {...label} id='switch'
-                                                                                                disabled
+                                                                                                // disabled
                                                                                                 style={{ padding: '0px 0px 0px 20px' }}
 
                                                                                                 // checked={row.Publication} 
@@ -1311,7 +1313,8 @@ const[listmenudata,setListnse] =useState('')
                                                                     size="small"
                                                                     onClick={() => { setOpen(!openlist), setDistiddata(row.id) }}
                                                                 >
-                                                                    {openlist ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                                                                    {openlist ? <KeyboardArrowUpIcon /> :
+                                                                     <KeyboardArrowDownIcon />}
                                                                 </IconButton>
                                                             </TableCell>
 

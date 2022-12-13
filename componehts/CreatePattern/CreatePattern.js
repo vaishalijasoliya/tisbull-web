@@ -268,6 +268,7 @@ console.log(router.query.data,'props.router.query.data');
             "x-access-token": props.props.profile.token
         }
         var accountList = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
+        console.log(accountList,'accountList');
         if (!!accountList && !!accountList.data) {
             var accountLableList = []
             for (let index = 0; index < accountList.data.length; index++) {
@@ -290,12 +291,12 @@ console.log(router.query.data,'props.router.query.data');
     const getScirp = async (text) => {
        //     "name":text.target.value
           var body = {
-            "name":text.target
+            "name":text.target.value
            // "tatamotors"
             // accountmenu
             // accountmenu
         }
-        // console.log(text.target.value,'typetype');
+        console.log(body,'typetype');
         var headers = {
             "Content-Type": "application/json",
             "x-access-token": props.props.profile.token
@@ -481,15 +482,16 @@ console.log(router.query.data,'props.router.query.data');
         }
     }
 console.log( props.props.profile.userData.currentAccount.id,' props.props.profile.currentAccount.id');
-    // const filterScrip = (text) => {
-    //     if (text.target.value.length >= 2) {
-    //         var filterArray = scripList.filter((item) => item.label.toLowerCase().includes(text.target.value.toLowerCase()));
-    //         console.log('filterArray', filterArray)
-    //         setFilterScripList(filterArray)
-    //     } else {
-    //         setFilterScripList(defaultScripList)
-    //     }
-    // }
+    const filterScrip = (text) => {
+        console.log(text.target.value,'text.target.value');
+        if (text.target.value.length >= 2) {
+            var filterArray = scripList.filter((item) => item.label.toLowerCase().includes(text.target.value.toLowerCase()));
+            console.log('filterArray', filterArray)
+            setFilterScripList(filterArray)
+        } else {
+            setFilterScripList(defaultScripList)
+        }
+    }
 
     const getScripPrice = async (value) => {
         console.log('getScripPrice...', value)
@@ -589,7 +591,7 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
                                                 />
                                             </Box>}
                                             <Box sx={{ flex: 2 }}>
-                                                <Autocomplete
+                                            <Autocomplete
                                                     sx={{ flex: 1, paddingRight: 1 }}
                                                     fullWidth
                                                     disablePortal={false}
@@ -618,11 +620,9 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
                                                         setFilterScripList(defaultScripList)
                                                     }}
                                                     renderInput={(params) => <TextField {...params}
-                                                    onChange={(text) => {
-                                                        console.log(text.target.value,'texttext')
-                                                        setAccountlistmenu(text.target.value)
-                                                        getScirp(text)
-                                                            // filterScrip(text)
+                                                        onChange={(text) => {
+                                                            filterScrip(text)
+                                                            getScirp(text)
                                                         }}
                                                         error={scriptError}
                                                         helperText={scriptError ? 'Scrip is required' : undefined}

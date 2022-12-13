@@ -34,10 +34,15 @@ const ResponsiveAppBar = (props) => {
       request_token: token,
       id_account:props.profile.accountId
     }
+    console.log(props.profile.accountId,'props.profile.accountId');
     props.loaderRef(true)
     var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
     props.loaderRef(false)
     console.log('updateAccount...', updateAccount)
+    // if(updateAccount.status == true){
+      // router.reload(window.location.pathname)
+
+    // }
   }
   return (
     <Grid container className={styles.cantenar_list88}>

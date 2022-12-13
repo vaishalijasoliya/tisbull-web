@@ -254,13 +254,13 @@ const Home = (props) => {
     const [teballist, setTeballist] = React.useState([])
     const [com, setCom] = React.useState(false);
     const [reviewStatus, setReviewStatus] = React.useState("none");
-
+const[listuserid,setListuserid] =React.useState('')
     const [btnlistdata, setBtnlist] = React.useState('all')
     const [pendingReviewList, setPendingReviewList] = React.useState([]);
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rowid, setRowid] = React.useState('')
     // const [anchorEl, setAnchorEl] = React.useState(null);
-    console.log(rowid,'rowidrowid');
+    console.log(listuserid,'listuserid');
     const openliost = Boolean(datalist);
     const menulist = (event) => {
         setDatalist(event.currentTarget);  
@@ -500,7 +500,9 @@ const Home = (props) => {
 
             <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
                 {/* <CsvDownloader data={list}> */}
-                <CSVLink className={styles.btnsaveic} data={datatebal} filename={"account.csv"}> <SaveAltIcon /></CSVLink>
+                <Button className={styles.btnsaveic}
+                //  data={datatebal} filename={"account.csv"}
+                 > <SaveAltIcon /></Button>
                 {/* <Button className={styles.btnsaveic}>  */}
 
 
@@ -515,7 +517,7 @@ const Home = (props) => {
                                                             aria-controls={openliost ? 'demo-customized-menu' : undefined}
                                                             aria-haspopup="true"
                                                             aria-expanded={openliost ? 'true' : undefined}
-                                                            style={{padding:'0px 0px 0px 20px'}}
+                                                            // style={{padding:'0px 0px 0px 20px'}}
                   onClick={menulist}><img src='../../Vector (3).svg' /></Button>
                 <Menu
                             className={styles.menufiltarbtn}
@@ -701,7 +703,7 @@ const Home = (props) => {
                                                             </div>
                                                                </div>   </Button>
                                                                 {/* <MenuItem className={styles.detemenu} > */}
-                                                                <Button className={styles.detemenu} onClick={()=>{handleClickOpenCom(),setRowid(row.id)}}>
+                                                                <Button className={styles.detemenu} onClick={()=>{handleClickOpenCom(),setRowid(row.id),setListuserid(row.user_id)}}>
                                                             <div style={{display:'flex'}}>
                                                             <div>
                                                             <img width={19} height={19} src='../../Vector (2).svg ' />
@@ -727,8 +729,7 @@ const Home = (props) => {
 
                                                                             </Divider>
                                                                             <div className={styles.accoparegarf}>
-                                                                                <Typography>Are you sure you want to delete
-                                                                                    this account?</Typography>
+                                                                                <Typography>Are you sure you want to delete {listuserid} this account?</Typography>
                                                                             </div>
                                                                             <Divider>
 

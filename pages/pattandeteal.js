@@ -79,7 +79,7 @@ const ResponsiveAppBar = (props) => {
           <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
             onClick={() => {
               router.push({
-                pathname: './home',
+                pathname: './pattanlist',
                 // query: { emailID: row.id,namescoka:row.script }
               });
             }}
@@ -222,7 +222,7 @@ const ResponsiveAppBar = (props) => {
             <TodayOrder props={props} listdsts={router.query.emailID} />
           </TabPanel>
           <TabPanel style={{ padding: '30px 0px 0px 0px' }} value={value} index={2}>
-            <OrderHistory props={props} />
+            <OrderHistory props={props} listdata={router.query.emailID}/>
           </TabPanel>
           <TabPanel value={value} index={3}>
             <Chart />

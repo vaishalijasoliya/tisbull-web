@@ -22,6 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import Grid from '@mui/material/Grid';
+
 import styles from '../Stocks/Stocks.module.scss'
 import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -39,6 +40,8 @@ import ApiEndpoint from '../../config/ApiEndpoint';
 import Avatar from '@mui/material/Avatar';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import moment from 'moment'
+import { toast } from 'react-toastify';
+
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -263,6 +266,11 @@ const[idlist,setIdlist] = React.useState('')
   const [play, setPlay] = React.useState(false);
   const [pause, setPause] = React.useState(false)
   const [diletbtn, setDiletbtn] = React.useState(false)
+  const [btnlistdata, setBtnlist] = React.useState('pending')
+  const [pendingReviewList, setPendingReviewList] = React.useState([]);
+  const [approveReviewList, setApproveReviewList] = React.useState([]);
+  const [reviewStatus, setReviewStatus] = React.useState("pending");
+
 console.log(idlist,'listdarta');
   const today = new Date();
 console.log(today,'today');
@@ -308,13 +316,13 @@ console.log(today,'today');
     console.log(body, 'body');
     // moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
 
-    // props.loaderRef(true)
+    props.props.loaderRef(true)
     // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDERLIST, JSON.stringify(body), headers)
 
     // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
-    // props.loaderRef(false)
-    console.log(patternDelete, 'datalistddd');
+    props.props.loaderRef(false)
+    console.log(patternDelete, 'datalissssstddd');
 
     if (!!patternDelete) {
       if (patternDelete.status == true && patternDelete.data.length > 0) {
@@ -322,6 +330,8 @@ console.log(today,'today');
         const datalist = [];
         const datalogo = []
         const listdata = []
+        var approvearr = [];
+        var pendingarr = [];
         for (let index = 0; index < patternDelete.data.length; index++) {
           const element = patternDelete.data[index];
           const object = {
@@ -336,6 +346,12 @@ console.log(today,'today');
             status: element.status,
             orderId:element.orderId
           }
+          if (element.status == "pending") {
+            pendingarr.push(JSON.parse(JSON.stringify(object)));
+          } 
+           else if (element.status == "cancelled" || element.status == "active" ) {
+            approvearr.push(JSON.parse(JSON.stringify(object)))
+          }
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
@@ -344,12 +360,24 @@ console.log(today,'today');
         }
         setDatasars(listdata)
         setDatalist(datalogo)
-        setDatatebalpettan(accoyty)
+        // setDatatebalpettan(accoyty)
         setData(data)
+        setPendingReviewList(pendingarr);
+        setApproveReviewList(approvearr);
       }
 
     }
   }
+  const tabChange = (status) => {
+    setReviewStatus(status);
+    if (status == "pending") {
+      setDatatebalpettan(pendingReviewList);
+        // setUserSearch(pendingReviewList);
+    } else if ( status == "cancelled" || status == "active") {
+      setDatatebalpettan(approveReviewList);
+        // setUserSearch(approveReviewList);
+    } 
+};
   const playpattern = async () => {
 
     var headers = {
@@ -359,6 +387,7 @@ console.log(today,'today');
     var body = {
       "id_order" :idlist
   }
+  console.log(body,'virangid');
     props.props.loaderRef(true)
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
     props.props.loaderRef(false)
@@ -457,8 +486,17 @@ console.log(today,'today');
             {/* <Grid item md={12} sm={12} xs={12}> */}
             <div className={styles.inlinemanediv}>
               <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
-              <div className={styles.openbtn_today}><Button>Open</Button></div>
-              <div className={styles.openbtn_today}><Button>Trade</Button></div>
+              <Button 
+                 onClick={() => {
+                  tabChange("pending");
+                  setBtnlist('pending')
+                }}
+                                  
+                                    className={btnlistdata == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>Open</Button>
+                                    <Button onClick={() => {
+                                        setBtnlist('cancelled')
+                                        tabChange('cancelled')
+                                    }} className={btnlistdata == 'cancelled' ? styles.Customlistbtn : styles.nonelistbtn}>Trade</Button>
             </div>
 
           </div>
@@ -671,7 +709,7 @@ console.log(today,'today');
 
                           <TableCell
                           // align="right"
-                          >{row.type_pattern}</TableCell>
+                          >#{row.type_pattern}</TableCell>
                           <TableCell ><Typography className={styles.rowlistpement}>{row.investment}</Typography></TableCell>
                           <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
                             <div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /> {row.profit}</div>
@@ -695,7 +733,9 @@ console.log(today,'today');
                           <TableCell className={styles.btnmenubar}>
 
                             <div >
-                              <Button className={styles.viwebtnmm22} onClick={()=>{handleClickOpenCom(),setIdlist(row.id)}}> <MoreVertIcon /></Button>
+                              <Button className={styles.viwebtnmm22} onClick={()=>{
+                                handleClickOpenCom(),
+                                setIdlist(row.id)}}> <MoreVertIcon /></Button>
 
 
                             </div>
@@ -807,7 +847,7 @@ console.log(today,'today');
                                       <div className={styles.listbtnimpoo}>
                                         <div className={styles.cancelbtnlog} onClick={handleCloseComplay}><Button >Cancel</Button></div>
                                         <img src="../../Line 17.svg" />
-                                        <div className={styles.cancelbtnlog2}><Button >Confirm</Button></div>
+                                        <div className={styles.cancelbtnlog2} onClick={playpattern}><Button >Confirm</Button></div>
                                       </div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}

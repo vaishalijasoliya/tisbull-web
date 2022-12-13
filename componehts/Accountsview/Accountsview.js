@@ -211,7 +211,7 @@ console.log(props,'lisyysg');
                        {formik.values.ConsumerKey == '' ||formik.values.ConsumerSecret == '' ||formik.values.reTypePassword == '' ? 
                        <Button disabled type='submit' style={{color:'#E31E24'}}>Done</Button>:
                         <Button type='submit'
-                            onClick={onLoginPress}
+                            onClick={()=>{onLoginPress(),router.push('./accountlist')}}
                         >Done</Button>}
                         </div>
                     </div>
@@ -219,7 +219,7 @@ console.log(props,'lisyysg');
                         <Avatar
                             
                             className={styles.avatarbank2} >
-<img width={45} height={30} src={logo} />
+<img width={45} height={40} src={logo} />
                             </Avatar>
                     </div>
                     <div>

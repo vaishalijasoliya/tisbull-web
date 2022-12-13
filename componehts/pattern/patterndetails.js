@@ -40,10 +40,11 @@ const ResponsiveAppBar = (props) => {
                 setListpatt(patternDelete.pattern.quote)
                 setData(patternDelete.pattern)
              
-            } else{
-                toast.error(patternDelete.message)
+            } 
+            // else{
+            //     toast.error(patternDelete.message)
 
-            }
+            // }
       
 
         }
