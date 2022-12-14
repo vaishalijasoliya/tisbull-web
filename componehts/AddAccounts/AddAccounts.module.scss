@@ -12,11 +12,18 @@
 }
 
 .contenat_listaddacc{
-    padding: 60px;
+    padding: 20px 60px 60px 60px;
     background: #FFFFFF;
 box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.13);
 border-radius: 20px;
 }
+.listpattbek{
+    margin: 0px 0px 20px 0px !important;
+    text-transform: capitalize !important;
+    font-size: 16px !important;
+    font-family: Poppins-400 !important;
+  color: #009947 !important;
+  }
 .addaclist {
 p{
     font-family: Poppins-400;

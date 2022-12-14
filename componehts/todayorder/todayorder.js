@@ -273,8 +273,12 @@ const[idlist,setIdlist] = React.useState('')
   const [listuseridlist, setListuserid] = React.useState('');
   const[listdatadelete,setListdeletdata] = React.useState('')
   const[sassaliusgs,setSasasdata] =React.useState("")
+const[listsell,setListsell] =React.useState([])
+const[listsellmenu,setListsellmenu] =React.useState([])
 
-console.log(idlist,'listdarta');
+const [btnlistdatalist, setBtnlistlist] = React.useState('SELL')
+
+console.log(listsell,'listsell');
   const today = new Date();
 console.log(today,'today');
 
@@ -333,6 +337,8 @@ console.log(today,'today');
         const datalist = [];
         const datalogo = []
         const listdata = []
+        const listDatamej=[];
+        const buyorder =[]
         var approvearr = [];
         var pendingarr = [];
         for (let index = 0; index < patternDelete.data.length; index++) {
@@ -357,6 +363,12 @@ console.log(today,'today');
            else if (element.status == "cancelled" || element.status == "active" ) {
             approvearr.push(JSON.parse(JSON.stringify(object)))
           }
+          if(element.transactionType == 'SELL'){
+            listDatamej.push(JSON.parse(JSON.stringify(object)))
+          }else if(element.transactionType =='BUY'){
+            buyorder.push(JSON.parse(JSON.stringify(object)))
+          }
+          console.log(element.transactionType,'element.stock');
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
@@ -365,7 +377,9 @@ console.log(today,'today');
         setDatasars(listdata)
         setDatalist(datalogo)
         setDatatebalpettan(accoyty)
+        setListsellmenu(buyorder)
         setData(data)
+        setListsell(listDatamej)
         setPendingReviewList(pendingarr);
         setApproveReviewList(approvearr);
       }
@@ -376,11 +390,30 @@ console.log(today,'today');
     setReviewStatus(status);
     if (status == "pending") {
       setDatatebalpettan(pendingReviewList);
+ 
         // setUserSearch(pendingReviewList);
     } else if ( status == "cancelled" || status == "active") {
       setDatatebalpettan(approveReviewList);
         // setUserSearch(approveReviewList);
     } 
+    if (status == "SELL") {
+      setDatatebalpettan(listsell);
+        // setUserSearch(pendingReviewList);
+    }
+    if (status == "BUY") {
+      setDatatebalpettan(listsellmenu);
+        // setUserSearch(pendingReviewList);
+    }
+};
+const tabChangelist = (status) => {
+  setReviewStatus(status);
+  if (status == "SELL") {
+    setPendingReviewList(listsell);
+      // setUserSearch(pendingReviewList);
+  } else if ( status == "cancelled" || status == "active") {
+    setDatatebalpettan(approveReviewList);
+      // setUserSearch(approveReviewList);
+  } 
 };
   const playpattern = async () => {
 
@@ -604,46 +637,29 @@ console.log(today,'today');
 
             <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
             <div className={styles.listbtnsot}>
-              <Button className={styles.censbatnsot22} onClick={handleClose}>RESET </Button>
-              <Button className={styles.savebatnsot223}>Save</Button></div>
+              <Button className={styles.censbatnsot22} onClick={()=>{handleClose,tabChange("pending"),setBtnlist('pending')}}>RESET </Button>
+              <Button className={styles.savebatnsot223} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
           </div>
           <Divider className={styles.filtar_divaydar}></Divider>
 
           <div>
-            <div className={styles.filatahedinh22}><Typography>Patterns</Typography></div>
             <div className={styles.typetext222}><Typography>Type</Typography></div>
-            <div>
-              <Button className={styles.nonelistbtn}>None</Button>
-              <Button className={styles.Basiclistbtn}>Basic</Button>
-              <Button className={styles.Customlistbtn}>Custom</Button>
-            </div>
-            <div className={styles.maendivselect}>
-              <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
-
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-
-            </div>
-            <div className={styles.filatahedinh22}><Typography>Accounts</Typography></div>
-            <div className={styles.typetext222}><Typography>Type</Typography></div>
-            <div>
-              <Button className={styles.nonelistbtn}>None</Button>
-              <Button className={styles.Basiclistbtn}>Kotak</Button>
-              <Button className={styles.Customlistbtn}>Zerodha</Button>
-            </div>
+           
           </div>
+          <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
+                                    onClick={() => {
+                                      setBtnlistlist('SELL')
+                                    
+                                    }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
+                                    <Button onClick={() => {
+                                        setBtnlistlist('BUY')
+                                         
+                                    }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
+
           {/* <Divider className={styles.divaydarten}></Divider> */}
-          <div className={styles.divlistsivijan}></div>
+          <div className={styles.divlistsivijan}> 
+  
+                                   </div>
         </Menu>
         </Grid>
         {/* </div> */}
@@ -704,9 +720,10 @@ console.log(today,'today');
                                 <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'cancelled' ? styles.avtarlistyes398 : ''}>
                                   {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}
                                   {row.stock == 'SELL' ?
-                                    <img src="../../ftGySSa - Imgur.svg" />
-
-                                    : row.stock == 'BUY' ? <img src="../../2Nk5d5p - Imgur.svg" /> : ''}
+'S'
+                                    : row.stock == 'BUY' ? 
+                                    'B'
+                                    : ''}
                                 </Avatar>
                               </div><div className={styles.listperegaf}>
                                 <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.script}</Typography>

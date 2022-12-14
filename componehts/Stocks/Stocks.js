@@ -454,13 +454,13 @@ const[listmenudata,setListnse] =useState('')
         // if (!!patternDelete) {
 
         console.log(patternDelete, 'datalist');
-        if (patternDelete.status) {
+        if (patternDelete.status == true) {
             patternDelete.token = patternDelete.token
-            toast.success(patternDelete.message)
+            toast.success(patternDelete.data)
             patternlist()
         }
         else {
-            toast.error(patternDelete.message)
+            toast.error(patternDelete.data)
         }
         // }
         // else{
@@ -547,15 +547,15 @@ const[listmenudata,setListnse] =useState('')
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_DELETE, JSON.stringify(body), headers)
         props.props.loaderRef(false)
         if (!!patternDelete) {
-            if (patternDelete.status) {
+            if (patternDelete.status == true) {
 
 
-                toast.success(patternDelete.message)
+                toast.success(patternDelete.data)
                 patternlist()
                 // router.push('./dashboard')
             }
             else {
-                toast.error(patternDelete.message)
+                toast.error(patternDelete.data)
             }
         }
         else {
@@ -582,15 +582,22 @@ const[listmenudata,setListnse] =useState('')
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PAUSE, JSON.stringify(body), headers)
         props.props.loaderRef(false)
-        // console.log(patternDelete, 'datalist444');
-        // if (!!patternDelete) {
-        if (patternDelete.status) {
-            toast.success("Successfully Updated Personal list")
+
+        console.log(patternDelete, 'datalist444');
+        if (!!patternDelete) {
+        if (patternDelete.status == true) {
+            toast.success(patternDelete.data)
             patternlist()
         }
         else {
-            toast.error(patternDelete.message)
+            toast.error(patternDelete.data)
         }
+    }
+        else{
+                toast.error('Something is working')
+    
+            // }
+    }
         // }else{
         //     toast.error('list')
 

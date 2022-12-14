@@ -275,6 +275,9 @@ const[idlist,setIdlist] = React.useState('')
   const [pause, setPause] = React.useState(false)
   const [diletbtn, setDiletbtn] = React.useState(false)
   const [btnlistdata, setBtnlist] = React.useState('pending')
+  const [btnlistdatalist, setBtnlistlist] = React.useState('SELL')
+  const[listsell,setListsell] =React.useState([])
+  const[listsellmenu,setListsellmenu] =React.useState([])
   const [pendingReviewList, setPendingReviewList] = React.useState([]);
   const [approveReviewList, setApproveReviewList] = React.useState([]);
   const [reviewStatus, setReviewStatus] = React.useState("pending");
@@ -359,6 +362,8 @@ console.log(datasars,'listdarta');
         var approvearr = [];
         var pendingarr = [];
         const listdata = []
+        const listDatamej=[];
+        const buyorder =[]
         for (let index = 0; index < patternDelete.data.length; index++) {
           const element = patternDelete.data[index];
           const object = {
@@ -381,6 +386,11 @@ console.log(datasars,'listdarta');
            else if (element.status == "cancelled" || element.status == "active" ) {
             approvearr.push(JSON.parse(JSON.stringify(object)))
           }
+          if(element.transactionType == 'SELL'){
+            listDatamej.push(JSON.parse(JSON.stringify(object)))
+          }else if(element.transactionType =='BUY'){
+            buyorder.push(JSON.parse(JSON.stringify(object)))
+          }
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
@@ -390,7 +400,9 @@ console.log(datasars,'listdarta');
         setDatasars(listdata)
         setDatalist(datalogo)
         setDatatebalpettan(accoyty)
+        setListsellmenu(buyorder)
         setData(data)
+        setListsell(listDatamej)
         setPendingReviewList(pendingarr);
         setApproveReviewList(approvearr);
       }
@@ -406,6 +418,14 @@ console.log(datasars,'listdarta');
       setDatatebalpettan(approveReviewList);
         // setUserSearch(approveReviewList);
     } 
+    if (status == "SELL") {
+      setDatatebalpettan(listsell);
+        // setUserSearch(pendingReviewList);
+    }
+    if (status == "BUY") {
+      setDatatebalpettan(listsellmenu);
+        // setUserSearch(pendingReviewList);
+    }
 };
   const playpattern = async () => {
 
@@ -633,43 +653,30 @@ console.log(datasars,'listdarta');
 
             <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
             <div className={styles.listbtnsot}>
-              <Button className={styles.censbatnsot22} onClick={handleClose}>RESET </Button>
-              <Button className={styles.savebatnsot223}>Save</Button></div>
+              <Button className={styles.censbatnsot22} onClick={()=>{handleClose,tabChange("pending"),setBtnlist('pending')}}>RESET </Button>
+              <Button className={styles.savebatnsot223} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
           </div>
           <Divider className={styles.filtar_divaydar}></Divider>
 
           <div>
-            <div className={styles.filatahedinh22}><Typography>Patterns</Typography></div>
+            {/* <div className={styles.filatahedinh22}><Typography>Patterns</Typography></div> */}
             <div className={styles.typetext222}><Typography>Type</Typography></div>
-            <div>
-              <Button className={styles.nonelistbtn}>None</Button>
-              <Button className={styles.Basiclistbtn}>Basic</Button>
-              <Button className={styles.Customlistbtn}>Custom</Button>
-            </div>
-            <div className={styles.maendivselect}>
-              <InputLabel className={styles.patternlebal} id="demo-simple-select-helper-label">Patterns</InputLabel>
-
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-
-            </div>
-            <div className={styles.filatahedinh22}><Typography>Accounts</Typography></div>
-            <div className={styles.typetext222}><Typography>Type</Typography></div>
-            <div>
+            <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
+                                    onClick={() => {
+                                      setBtnlistlist('SELL')
+                                    
+                                    }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
+                                    <Button onClick={() => {
+                                        setBtnlistlist('BUY')
+                                         
+                                    }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
+            {/* <div className={styles.filatahedinh22}><Typography>Accounts</Typography></div>
+            <div className={styles.typetext222}><Typography>Type</Typography></div> */}
+            {/* <div>
               <Button className={styles.nonelistbtn}>None</Button>
               <Button className={styles.Basiclistbtn}>Kotak</Button>
               <Button className={styles.Customlistbtn}>Zerodha</Button>
-            </div>
+            </div> */}
           </div>
           {/* <Divider className={styles.divaydarten}></Divider> */}
           <div className={styles.divlistsivijan}></div>
@@ -733,9 +740,11 @@ console.log(datasars,'listdarta');
                                 <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'cancelled' ? styles.avtarlistyes398 : ''}>
                                   {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}
                                   {row.stock == 'SELL' ?
-                                    <img src="../../ftGySSa - Imgur.svg" />
+                                  'S'
 
-                                    : row.stock == 'BUY' ? <img src="../../2Nk5d5p - Imgur.svg" /> : ''}
+                                    : row.stock == 'BUY' ?
+                                    'B'
+                                     : ''}
                                 </Avatar>
                               </div><div className={styles.listperegaf}>
                                 <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.script}</Typography>

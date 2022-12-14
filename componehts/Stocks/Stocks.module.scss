@@ -53,6 +53,23 @@
     color: red;
 }
 
+.searchbtn {
+    width: 200px;
+    box-sizing: border-box;
+    height: 30px;
+    border: 1px solid #F0F0F0;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #F9F9F9;
+    background-image: url(../../public/Search.svg);
+    background-position: 18px 50%;
+    background-repeat: no-repeat;
+    padding: 18px 0px 18px 56px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    cursor: text;
+    box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.02);
+}
 .divpopupspn {
     text-align: center;
     padding: 6px 0px 0px 0px;
@@ -352,6 +369,7 @@ text-align: justify;
 
 .avtarlistyes96 {
     border: 1.5px solid #F59606;
+    color: #F59606 !important;
     // border-radius: 10px !important;
     background: linear-gradient(180deg, #F8D7A5 0%, #FFFFFF 100%);
     height: 30px !important;
@@ -362,6 +380,7 @@ text-align: justify;
 }
 .avtarlistyes233 {
     border: 1.5px solid #009947;
+    color: #009947 !important;
 
     // border-radius: 10px !important;
     background: linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%);
@@ -375,7 +394,7 @@ color: #4285F4 !important;
 }
 .avtarlistyes398 {
     background: linear-gradient(180deg, #FAD7D8 0%, #FFFFFF 100%) !important;
-
+color: #E31E24 !important;
     border: 1.5px solid #E31E24;
     border-radius: 10px;
     height: 30px !important;

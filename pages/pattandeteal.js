@@ -24,6 +24,8 @@ import { Types } from '../constants/actionTypes'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 // import { connect } from 'react-redux';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+let stockInterval = null;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -73,7 +75,8 @@ const ResponsiveAppBar = (props) => {
   const [data, setData] = useState([])
     const [listpatt, setListpatt] = useState([])
     const[listless,setLisee] = React.useState([])
-    console.log(listless, 'data55');
+    const[listidmenu,setIdlistdata] = React.useState('')
+    console.log(listidmenu, 'data55');
 
     const patternlist = async () => {
 
@@ -101,7 +104,7 @@ const ResponsiveAppBar = (props) => {
             if (patternDelete.status == true) {
                 setListpatt(patternDelete.pattern.quote)
                 setData(patternDelete.pattern)
-             
+            setIdlistdata(patternDelete.pattern.script)
             } 
             // else{
             //     toast.error(patternDelete.message)
@@ -149,12 +152,14 @@ const ResponsiveAppBar = (props) => {
     var body = {
         "instrumentToken": data.script
     }
-        props.loaderRef(true)
+    console.log(body,'listbody');
+        // props.loaderRef(true)
 
     var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
-    props.loaderRef(false)
-    if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0) {
-        console.log('stockPrice', stockPrice)
+
+    console.log(stockPrice,'stockPrice');
+    // props.loaderRef(false)
+    if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0 ){
         setLisee(stockPrice.success[0])
     }
 }
@@ -163,8 +168,22 @@ const ResponsiveAppBar = (props) => {
 
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
+          // props.loaderRef(true)
+          // getScripPrice()
+          // props.loaderRef(false)
+
             patternlist()
-            getScripPrice()
+  getScripPrice()
+            
+          //   if (!!listless) {
+          //     clearInterval(listless)
+          // }
+          // getScripPrice()
+          // // setLotSize(parseFloat(value.lotSize))
+          // listless = setInterval(() => {
+          //     getScripPrice()
+          // }, 3000);
+        
         }
     }, [])
   return (

@@ -16,6 +16,8 @@ import ApiServices from '../../config/ApiServices';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import React, { useState } from "react";
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { useRouter } from 'next/router';
 
 import ApiEndpoint from '../../config/ApiEndpoint';
 // import Login from '../componehts/imdex/login';
@@ -99,6 +101,7 @@ const blue = {
 };
 // export default function Home(props) {
 const Home = (props) => {
+    const router = useRouter();
 
     const [checked, setChecked] = React.useState(false);
     const [swishlist, setSwishlist] = React.useState(false);
@@ -189,6 +192,15 @@ const Home = (props) => {
     });
     return (
         <Grid container className={styles.contenat_listaddacc}>
+         <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
+            onClick={() => {
+              router.push({
+                pathname: './accountlist',
+                // query: { emailID: row.id,namescoka:row.script }
+              });
+            }}
+
+          ><KeyboardReturnIcon />Account</Button>
             <Grid item sm={6} md={12} xs={6}>
                 <div className={styles.addaclist}><Typography>Add Accounts</Typography></div>
             </Grid>
