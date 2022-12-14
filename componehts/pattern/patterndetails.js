@@ -8,54 +8,8 @@ import React, { useState } from "react";
 import moment from 'moment';
 
 const ResponsiveAppBar = (props) => {
-    console.log(props.listlodar, 'propsprops');
-    const [data, setData] = useState([])
-    const [listpatt, setListpatt] = useState([])
-    console.log(data, 'data55');
-
-    const patternlist = async () => {
-
-        var headers = {
-            "Content-Type": "application/json",
-            "x-access-token": props.profile.token
-        }
-        var body = {
-            "id_pattern": props.proidlists,
-            // props.idlist,
-            // email: props.email,
-            // otp: outField
-        }
-        console.log(body, 'body');
-
-        props.props.loaderRef(true)
-        // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
-        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
-
-        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
-        props.props.loaderRef(false)
-        // console.log(patternDelete.pattern.buy, 'datalistddd');
-
-        if (!!patternDelete) {
-            if (patternDelete.status == true) {
-                setListpatt(patternDelete.pattern.quote)
-                setData(patternDelete.pattern)
-             
-            } 
-            // else{
-            //     toast.error(patternDelete.message)
-
-            // }
-      
-
-        }
-    }
-    console.log(data, 'listkkk');
-
-    React.useEffect(() => {
-        if (!!props.profile && !!props.profile.token) {
-            patternlist()
-        }
-    }, [])
+    console.log(props.listdatamenu, 'propsprops');
+    
     return (
         <Grid  className={styles.cantenatdata} container>
 
@@ -70,7 +24,7 @@ const ResponsiveAppBar = (props) => {
                 >
                     <div >
                         <Typography className={styles.peregarflist33} >Script</Typography>
-                        <Typography className={styles.peregarflist44} >{data.script}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.listdatamenu}</Typography>
                     </div>
                     <div style={{ padding: '0px 0px 0px 25px' }}>
                         <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>NSE</Typography></Box>
@@ -81,7 +35,7 @@ const ResponsiveAppBar = (props) => {
                 {/* <Grid item sm={12} md={3} xs={12} style={{display:'flex'}}> */}
                 <div className={styles.datadivcallaloo}  style={{ padding: '10px 80px 0px 0px' }}>
                     <Typography className={styles.peregarflist33} >Type</Typography>
-                    <Typography className={styles.peregarflist44} >{data.type}</Typography>
+                    <Typography className={styles.peregarflist44} >{props.data.type}</Typography>
                 </div>
                 </Grid>
 
@@ -96,11 +50,11 @@ const ResponsiveAppBar = (props) => {
             
             <div className={styles.datadivcallaloo}>
                     <Typography className={styles.peregarflist33}>Entry</Typography>
-                    <Typography className={styles.peregarflist44} >{data.enterPrice == null ? '-' : data.enterPrice}</Typography>
+                    <Typography className={styles.peregarflist44} >{props.data.enterPrice == null ? '-' : props.data.enterPrice}</Typography>
                 </div>
                 <div className={styles.datadivcallaloo}  >
                     <Typography className={styles.peregarflist33} >Exit</Typography>
-                    <Typography className={styles.peregarflist44} >{data.exitPrice == null ? '-' : data.exitPrice}</Typography>
+                    <Typography className={styles.peregarflist44} >{props.data.exitPrice == null ? '-' : props.data.exitPrice}</Typography>
                 </div>
             {/* </Grid> */}
             {/* <Grid item sm={2} md={2} xs={2}> */}
@@ -110,11 +64,12 @@ const ResponsiveAppBar = (props) => {
             <Grid item sm={12} md={4} xs={12} className={styles.flexlisjjs} style={{display:'flex'}}>
             <div style={{ padding: '10px 80px 0px 0px' }}>
                     <Typography className={styles.peregarflist33} >Buy Diffrerance</Typography>
-                    <Typography className={styles.peregarflist44} >{data.buy == null ? '-' : data.buy}</Typography>
+                    <Typography className={styles.peregarflist44} >{props.data.buy == null ? '-' : props.data.buy}</Typography>
                 </div>
             <div style={{ padding: '10px 80px 0px 0px' }}>
                 <Typography className={styles.peregarflist33} >Sell Diffrerance</Typography>
-                <Typography className={styles.peregarflist44} >{data.sell == null ? '-' : data.sell}</Typography>
+                <Typography className={styles.peregarflist44} >{
+                    props.data.sell == null ? '-' : props.data.sell}</Typography>
             </div>
            
             </Grid>
@@ -133,11 +88,11 @@ const ResponsiveAppBar = (props) => {
 
               <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >StopLoss</Typography>
-                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#E31E24'}}>{data.exitPrice == null ? '-':data.exitPrice}</Typography>
+                        <Typography className={styles.peregarflist} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#E31E24'}}>{props.data.exitPrice == null ? '-':props.data.exitPrice}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px',}}>
                         <Typography className={styles.peregarflist33} >Investment</Typography>
-                        <Typography className={styles.peregarflist44} >{data.investment == '' ?'-':data.investment}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.data.investment == '' ?'-':props.data.investment}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12}  className={styles.listpading} style={{display:'flex',padding:'50px 0px 0px 0px'}}>
@@ -148,25 +103,25 @@ const ResponsiveAppBar = (props) => {
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Enter Point</Typography>
-                        <Typography className={styles.peregarflist44} >{data.enterPrice == '' ? '-':data.enterPrice}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.data.enterPrice == '' ? '-':props.data.enterPrice}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12}  className={styles.listpading} style={{display:'flex',padding:'50px 0px 30px 0px'}}>
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Tick Type</Typography>
-                        <Typography className={styles.peregarflist44} >{data.tickSize == null ? '-':data.tickSize}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.data.tickSize == null ? '-':props.data.tickSize}</Typography>
                     </div>
                     <div style={{padding:'0px 0px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Created At</Typography>
-                        <Typography className={styles.peregarflist44} >{ moment(data.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
+                        <Typography className={styles.peregarflist44} >{ moment(props.data.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12}  className={styles.listpading}  style={{display:'flex',padding:'50px 0px 30px 0px'}}>
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Edited At</Typography>
-                        <Typography className={styles.peregarflist44} >{ moment(data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
+                        <Typography className={styles.peregarflist44} >{ moment(props.data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
                     </div>
                     </Grid>
               {/* </div> */}
@@ -189,7 +144,7 @@ const ResponsiveAppBar = (props) => {
 
                 <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Profit</Typography>
-                        <Typography className={data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold"}}>{data.todayprofit == null ? '-':data.todayprofit }</Typography>
+                        <Typography className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold"}}>{props.data.todayprofit == null ? '-':props.data.todayprofit }</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Loss</Typography>
@@ -200,22 +155,22 @@ const ResponsiveAppBar = (props) => {
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Pending orders</Typography>
-                        <Typography className={styles.peregarflist44} >{data.pendingOrder == null ? '-':data.pendingOrder}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.data.pendingOrder == null ? '-':props.data.pendingOrder}</Typography>
                     </div>
                     <div style={{padding:'0px 0px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Executed Orders</Typography>
-                        <Typography className={styles.peregarflist44} >{data.executedOrder == null ? '-' :data.executedOrder}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.data.executedOrder == null ? '-' :props.data.executedOrder}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'20px 0px 40px 30px'}}>
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Stock</Typography>
-                        <Typography className={styles.peregarflist44} >{data.stock == null ? '-':data.stock }</Typography>
+                        <Typography className={styles.peregarflist44} >{props.data.stock == null ? '-':props.data.stock }</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33}>Profit</Typography>
-                        <Typography className={data.profit >=0 ? styles.peregarflistlist:styles.redline} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>{data.profit == null ? '-' :data.profit}</Typography>
+                        <Typography className={props.data.profit >=0 ? styles.peregarflistlist:styles.redline} style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>{props.data.profit == null ? '-' :props.data.profit}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'20px 0px 40px 0px'}}>
@@ -245,7 +200,7 @@ const ResponsiveAppBar = (props) => {
                 style={{padding:'0px 70px 0px 0px'}}
                 >
                         <Typography className={styles.peregarflist33}>Open</Typography>
-                        <Typography className={styles.peregarflist44} >{listpatt.open_price}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.listpatt.open_price}</Typography>
                     </div>
                     <div
                     //  style={{padding:'0px 70px 0px 0px'}}
@@ -259,19 +214,19 @@ const ResponsiveAppBar = (props) => {
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33}>High</Typography>
                         <Typography className={styles.peregarflist44} >
-                            {listpatt.high_price == null ? '-':listpatt.high_price}
+                            {props.listpatt.high_price == null ? '-':props.listpatt.high_price}
                             </Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Low</Typography>
-                        <Typography className={styles.peregarflist44} >{listpatt.low_price ==null ?"-":listpatt.low_price  }</Typography>
+                        <Typography className={styles.peregarflist44} >{props.listpatt.low_price ==null ?"-":props.listpatt.low_price  }</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 0px 0px'}}>
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Volumn</Typography>
-                        <Typography className={styles.peregarflist44}>{listpatt.wtoken == null ? '-' :listpatt.wtoken}</Typography>
+                        <Typography className={styles.peregarflist44}>{props.listpatt.wtoken == null ? '-' :props.listpatt.wtoken}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Market Cap </Typography>

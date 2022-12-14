@@ -164,6 +164,10 @@
 //     color: #E31E24 !important;
 
 // }
+.cofimbatn{
+    font-family: Poppins-400 !important;
+
+}
 
 .pustlebal {
     padding: 20px 0px 0px 40px;
@@ -257,7 +261,7 @@ text-align: justify;
     // background: rgba(0, 153, 71, 0.17);
     opacity: 0.8;
     width: 312px;
-    margin: 20px 40px 0px 40px;
+    margin: 20px 25px 0px 25px;
     // filter: blur(1px);
     border-radius: 20px;
 }
@@ -339,6 +343,7 @@ text-align: justify;
     display: flex;
     align-items: center;
     padding: 0px 0px 0px 30px;
+    cursor: pointer;
 }
 
 .listperegaf {

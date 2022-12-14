@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import styles from "../styles/index.module.css";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -18,8 +18,11 @@ import { useRouter } from 'next/router';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import TodayOrder from '../componehts/todayorder/todayorder'
 import Chart from '../componehts/chart/chart'
-
-
+import ApiServices from '../config/ApiServices';
+import ApiEndpoint from '../config/ApiEndpoint';
+import { Types } from '../constants/actionTypes'
+// import { connect } from 'react-redux';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -54,7 +57,7 @@ function a11yProps(index) {
 }
 const ResponsiveAppBar = (props) => {
   const router = useRouter();
-  console.log(router.query.emailID, 'propsprops');
+  console.log(props,'propsprops');
 
   console.log(router.query.namescoka, 'gvvvvv');
 
@@ -66,6 +69,103 @@ const ResponsiveAppBar = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [data, setData] = useState([])
+    const [listpatt, setListpatt] = useState([])
+    const[listless,setLisee] = React.useState([])
+    console.log(listless, 'data55');
+
+    const patternlist = async () => {
+
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        var body = {
+            "id_pattern": router.query.emailID,
+            // props.idlist,
+            // email: props.email,
+            // otp: outField
+        }
+        console.log(body, 'body');
+
+        props.loaderRef(true)
+        // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
+        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
+
+        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
+        props.loaderRef(false)
+        // console.log(patternDelete.pattern.buy, 'datalistddd');
+
+        if (!!patternDelete) {
+            if (patternDelete.status == true) {
+                setListpatt(patternDelete.pattern.quote)
+                setData(patternDelete.pattern)
+             
+            } 
+            // else{
+            //     toast.error(patternDelete.message)
+
+            // }
+      
+
+        }
+    }
+  //   const palsless = async () => {
+
+  //     var headers = {
+  //         "Content-Type": "application/json",
+  //         "x-access-token": props.profile.token
+  //     }
+  //     var body = {
+  //       "instrumentToken" :data.script
+  //   }
+  //   console.log(body,'bodybody');
+  //     props.loaderRef(true)
+  //     var patternDeletelist = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
+  //     props.loaderRef(false)
+
+  //           // if (!!patternDeletelist) {
+
+  //     setLisee(patternDeletelist.success[0].ltp);
+  //           // }
+  //     // if (!!patternDelete) {
+  
+  //     // console.log(patternDelete, 'datalist');
+  //   //   if (patternDelete.status == true) {
+  //   //     setLisee(patternDelete.pattern.quote)
+  //   //     // setData(patternDelete.pattern)
+     
+  //   // } 
+   
+  
+  // }
+  const getScripPrice = async () => {
+    // console.log('getScripPrice...', value)
+    var headers = {
+        "Content-Type": "application/json",
+        "x-access-token": props.profile.token
+    }
+    var body = {
+        "instrumentToken": data.script
+    }
+        props.loaderRef(true)
+
+    var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
+    props.loaderRef(false)
+    if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0) {
+        console.log('stockPrice', stockPrice)
+        setLisee(stockPrice.success[0])
+    }
+}
+
+    console.log(data, 'listkkk');
+
+    React.useEffect(() => {
+        if (!!props.profile && !!props.profile.token) {
+            patternlist()
+            getScripPrice()
+        }
+    }, [])
   return (
     <Grid container className={styles.cantenar_list265}>
       <Grid item sm={12} md={12} xs={12}>
@@ -92,20 +192,33 @@ const ResponsiveAppBar = (props) => {
           <Box className={styles.flex}>
 
             <Box className={styles.wid_1 + " " + styles.pad_12}>
+            {/* { value == 2 ||value == 1 ? "ddd " : 'ddd' } */}
+            {parseFloat(listless.ltp) !== parseFloat(listless.closing_price)  ? 
+            <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex' }}>
+                                        <Typography sx={{ color: '#524ddc' }} className={styles.typo}>{router.query.namescoka} {parseFloat(listless.ltp).toFixed(2)}</Typography>
+                                        {((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />}
+                                        {/* <Typography sx={{ color: (((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography> */}
+                                    </Box> :
+                                     <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex' }}>
+                                        <Typography sx={{ color: '#524ddc' }} className={styles.typo}>{router.query.namescoka} {parseFloat(listless.ltp).toFixed(2)}</Typography>
+                                        {((parseFloat(listless.closing_price) - parseFloat(listless.open_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />}
+                                        <Typography sx={{ color: (((parseFloat(listless.closing_price) - parseFloat(listless.open_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.closing_price) - parseFloat(listless.open_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography>
+                                    </Box>}
               {value == 2 || value == 1 ?
                 <Typography variant="h5" className={styles.typo}>
 
                   {router.query.namescoka}
                 </Typography> : <Typography variant="h5" style={{ display: 'flex', alignItems: 'center' }} className={styles.typo}>
-                  {router.query.namescoka}
-                  <ArrowDropUpIcon
-                    fontSize={"large"}
-                    className={styles.dropup_icon}
-                  />
+                  
+                  {/* <ArrowDropUpIcon */}
+                    {/* fontSize={"large"} */}
+                    {/* className={styles.dropup_icon} */}
+                  {/* /> */}
                   <span className={styles.span_1}>
-                    97.75
+                  {listless.ltp}
                   </span>
-                  <span className={styles.span}> (0.66%)</span>
+                  {((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />}
+                  <span className={styles.span}> <Typography className={styles.listfonfl} sx={{ color: (((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography></span>
                 </Typography>}
             </Box>
 
@@ -216,7 +329,7 @@ const ResponsiveAppBar = (props) => {
         <Grid item sm={12} md={12} xs={12}>
 
           <TabPanel value={value} index={0}>
-            <Summary proidlists={router.query.emailID} props={props} />
+            <Summary proidlists={router.query.emailID} data={data} listpatt={listpatt} listdatamenu={router.query.namescoka} props={props} />
           </TabPanel>
           <TabPanel style={{ padding: '30px 0px 0px 0px' }} className={styles.tbapenalist} value={value} index={1}>
             <TodayOrder props={props} listdsts={router.query.emailID} />

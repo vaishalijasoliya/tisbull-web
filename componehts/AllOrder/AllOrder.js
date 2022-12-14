@@ -41,7 +41,7 @@ import Avatar from '@mui/material/Avatar';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import moment from 'moment'
 import { toast } from 'react-toastify';
-
+import { styled } from '@mui/material/styles';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -194,6 +194,7 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
 // function EnhancedTableToolbar(props) {
 //   const { numSelected } = props;
 
@@ -251,7 +252,7 @@ function a11yProps(index) {
 
 const Home = (props) => {
   const router = useRouter();
-console.log(props.listdsts,'listdstslistdsts');
+// console.log(,'listdstslistdsts');
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -261,7 +262,7 @@ console.log(props.listdsts,'listdstslistdsts');
   const [search, setSearch] = React.useState(false);
   const [datatebalpettan, setDatatebalpettan] = React.useState([]);
   const [data, setData] = React.useState([]);
-  const [value, setValue] = React.useState(0);
+  const [listuseridlist, setListuserid] = React.useState('');
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [age, setAge] = React.useState('');setListid
@@ -277,10 +278,27 @@ const[idlist,setIdlist] = React.useState('')
   const [pendingReviewList, setPendingReviewList] = React.useState([]);
   const [approveReviewList, setApproveReviewList] = React.useState([]);
   const [reviewStatus, setReviewStatus] = React.useState("pending");
+const[listdatadelete,setListdeletdata] = React.useState('')
+  const [anchorEllist, setAnchorEllist] = React.useState(null);
+  const [value, setValue] = React.useState(0);
+const[sassaliusgs,setSasasdata] =React.useState("")
+  const handleChangelisggs = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleClosemenu = () => {
+    setAnchorEllist(null);
+  };
+  
+  const  handleClickmenu= (event) => {
+    setAnchorEllist(event.currentTarget);
+  };
   console.log(idlist,'idlistidlist');
   // const handleChange = (event, newValue) => {
   //   setValue(newValue);
   // };
+  
+
+
 console.log(datasars,'listdarta');
   const today = new Date();
 
@@ -357,6 +375,8 @@ console.log(datasars,'listdarta');
           }
           if (element.status == "pending") {
             pendingarr.push(JSON.parse(JSON.stringify(object)));
+            accoyty.push(JSON.parse(JSON.stringify(object)))
+
           } 
            else if (element.status == "cancelled" || element.status == "active" ) {
             approvearr.push(JSON.parse(JSON.stringify(object)))
@@ -364,12 +384,12 @@ console.log(datasars,'listdarta');
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
-          accoyty.push(JSON.parse(JSON.stringify(object)))
+          // accoyty.push(JSON.parse(JSON.stringify(object)))
           // csvall.push(objectcsv)
         }
         setDatasars(listdata)
         setDatalist(datalogo)
-        // setDatatebalpettan(accoyty)
+        setDatatebalpettan(accoyty)
         setData(data)
         setPendingReviewList(pendingarr);
         setApproveReviewList(approvearr);
@@ -404,12 +424,16 @@ console.log(datasars,'listdarta');
     // if (!!patternDelete) {
 
     console.log(patternDelete, 'datalist');
-    if (patternDelete.status) {
+    if (patternDelete.status == true) {
         toast.success(patternDelete.message)
-      
+      setListdeletdata(patternDelete.data)
+      setSasasdata(patternDelete)
+      handleClickOpenComplay()
+      patternlist()
     }
     else {
         toast.error(patternDelete.message)
+
     }
  
 
@@ -495,12 +519,16 @@ console.log(datasars,'listdarta');
           <div className={styles.maendivhpline}>
             {/* <Grid item md={12} sm={12} xs={12}> */}
             <div className={styles.inlinemanediv}>
-              <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
-              
-              <Button       onClick={() => {
+              <div className={styles.hadingbtn}><Typography>All orders</Typography> </div>
+              {/* <Tabs value={value} onChange={handleChangelisggs} aria-label="basic tabs example"> */}
+          {/* <Tab   label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} />
+        </Tabs>   */}
+              <Button  onClick={() => {
                                         setBtnlist('pending')
                                         tabChange('pending')
-                                    }} 
+                                    }}     
                                      className={btnlistdata == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>Open</Button>
                                     <Button onClick={() => {
                                         setBtnlist('cancelled')
@@ -740,15 +768,23 @@ console.log(datasars,'listdarta');
 
                           </TableCell>
 
-                          <TableCell className={styles.btnmenubar}>
+                          <TableCell >
 
                             <div >
-                              <Button className={styles.viwebtnmm22} onClick={()=>{setIdlist(row.id),row.status == 'pending' ? handleClickOpenComdilet() : ''}}> <MoreVertIcon /></Button>
-
-
+                            <Button className={styles.viwebtnmm22}
+                               onClick={()=>{setIdlist(row.id),setListuserid(row.type_pattern),row.status == 'pending' ?
+                              //  handleClickOpenCom()
+                              handleClickOpenCom(): ''}}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
+</Button>
+                
+  {/* <Menulist menuButton={<MenuButton>Open menu</MenuButton>} transition>
+<MenuItemlist>New File</MenuItemlist>
+      <MenuItemlist>Save</MenuItemlist>
+      <MenuItemlist>Close Window</MenuItemlist>
+      </Menulist> */}
                             </div>
                             <div>
-                              <Dialog open={diletbtn} onClose={handleCloseComdelet}
+                              {/* <Dialog open={diletbtn} onClose={handleCloseComdelet}
                                 className={styles.borderredayasfor}
                                 style={{
                                   // borderRadius: '30px'
@@ -772,17 +808,17 @@ console.log(datasars,'listdarta');
                                         <Typography className={styles.peregara_itbtn}>It will delete from 3rd party broker </Typography>
                                       </div>
                                       {/* <div></div> */}
-                                      <Divider>
+                                      {/* <Divider> */}
 
-                                      </Divider>
-                                      <div style={{textAlign:'center',padding:"10px 0px 0px 0px"}}>
-                                      <Button onClick={()=>{playpattern,handleCloseComdelet}}   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }}>Cancel</Button>
-                                      <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div>
-                                    </Box>
+                                      {/* </Divider> */}
+                                      {/* <div style={{textAlign:'center',padding:"10px 0px 0px 0px"}}> */}
+                                      {/* <Button onClick={()=>{playpattern,handleCloseComdelet}}   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX',margin:'0px 20px 0px 0px' }}>Cancel</Button> */}
+                                      {/* <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div> */}
+                                    {/* </Box> */}
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                  </DialogContent>
-                                </div>
-                              </Dialog>
+                                  {/* </DialogContent> */}
+                                {/* </div> */}
+                              {/* </Dialog> */} 
                             </div>
                             <div>
                               <Dialog open={com} onClose={handleCloseCom}
@@ -793,7 +829,7 @@ console.log(datasars,'listdarta');
                                 // fullWidth
                                 maxWidth="sm"
                               >
-                                <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                {/* <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div> */}
                                 <div>
                                   <DialogContent className={styles.popupcantenar}>
                                     <Box className={styles.lisrmaenbox}>
@@ -806,14 +842,16 @@ console.log(datasars,'listdarta');
                                       </div>
                                       <Box className={styles.listboxiduser28}>
                                         {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
-                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{row.orderId}) from zerodha ?</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.orderId}</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.id}</Typography></div>
+                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{listuseridlist}) from {props.props.profile.userData.currentAccount.type}?</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>{props.props.profile.userData.currentAccount.type}</Typography>:<Typography>#{listuseridlist}</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{idlist}</Typography></div>
                                       </Box>
-                                      <div className={styles.listbtnimpoo}>
-                                        <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
-                                        <img src="../../Line 17.svg" />
-                                        <div className={styles.cancelbtnlog2}  onClick={()=>{handleClickOpenComplay}}><Button >Confirm</Button></div>
+                                      <div className={styles.listbtnimpoo} style={{paddingTop:"30px",paddingBottom:"20px"}}>
+                                      <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseCom}  className={styles.cofimbatn}>Cancel</Button>
+
+                                                                                            <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 30PX 7PX 30PX',textTransform:'capitalize' }} className={styles.cofimbatn}  onClick={()=>{playpattern(),handleCloseCom()}}>Confirm</Button>
+                           
+                                        
                                       </div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -844,20 +882,20 @@ console.log(datasars,'listdarta');
                                       <Box className={styles.listboxiduser223}>
                                         <div className={styles.listmaendivid}>
                                           <div className={styles.oderidpopup}><InputLabel>ORDER ID</InputLabel>
-                                            <Typography>NF123444</Typography>
+                                            <Typography>{listdatadelete.orderId}</Typography>
                                           </div>
                                           <div className={styles.oderidpopup}><InputLabel>TIS ORDER ID</InputLabel>
-                                            <Typography>12322SSDFDF</Typography>
+                                            <Typography>{listdatadelete.id}</Typography>
                                           </div>
                                         </div>
                                         <div className={styles.oderidpopup2}><InputLabel>Type</InputLabel>
-                                          <Typography>Zerodha</Typography>
+                                          <Typography>{props.props.profile.userData.currentAccount.type}</Typography>
                                         </div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
-                                        <div className={styles.cancelbtnlog} onClick={handleCloseComplay}><Button >Cancel</Button></div>
-                                        <img src="../../Line 17.svg" />
-                                        <div className={styles.cancelbtnlog2}><Button >Confirm</Button></div>
+                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseComplay}  className={styles.cofimbatn}>Cancel</Button>
+                                        
+                          
                                       </div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -865,43 +903,7 @@ console.log(datasars,'listdarta');
                                 </div>
                               </Dialog>
                             </div>
-                            <div>
-                              <Dialog open={pause} onClose={handleCloseCompause}
-                                className={styles.borderredayasfor}
-                                style={{
-                                  // borderRadius: '30px'
-                                }}
-                                // fullWidth
-                                maxWidth="sm"
-                              >
-                                <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                <div>
-                                  <DialogContent className={styles.popupcantenar}>
-                                    <Box className={styles.lisrmaenbox}>
-
-                                      <div className={styles.delehedar}>
-                                        <Typography>Play Pattern</Typography>
-                                      </div>
-                                      <div className={styles.listimgyes}>
-                                        <img src="../../Group 47124 (2).svg" />
-                                      </div>
-                                      {/* <Box className={styles.listboxiduser}>
-                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                      <div className={styles.paregarafnsg}>
-                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
-                                      </div>
-                                      <div className={styles.pustlebal}>
-                                        <Typography>Pause with </Typography>
-                                      </div>
-                                      <div className={styles.btn_all_buy}><Button>All</Button><Button>Buy</Button><Button>Sell</Button></div>
-                                      {/* </Box> */}
-                                      <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn} onClick={playpattern}>Confirm</Button></div>
-                                    </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                  </DialogContent>
-                                </div>
-                              </Dialog>
-                            </div>
+                         
                           </TableCell>
 
                         </TableRow>

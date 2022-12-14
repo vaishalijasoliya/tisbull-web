@@ -241,8 +241,8 @@ const[dartmenu,setDatamenu] =React.useState('')
     </Button>,
     <Button
     onClick={()=>{router.push('./AllOrder')}}
-      className={styles.btn_pages}
-    >
+    className={currentPath == '/AllOrder' ? styles.borderbottum : styles.btn_pages}>
+  
         All Order
 
     </Button>,];
@@ -301,9 +301,8 @@ const[dartmenu,setDatamenu] =React.useState('')
         </Button>
         <Button
           className={styles.btn_pages22}
-          aria-controls={open ? 'demo-positioned-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          onClick={(() => { router.push('./AllOrder') })}
+
           onClick={handleClick}
           sx={{ my: 2, display: 'block' }}
         >

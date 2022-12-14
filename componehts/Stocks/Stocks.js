@@ -916,6 +916,8 @@ const[listmenudata,setListnse] =useState('')
                                                                 />
                                                             </TableCell>
                                                             <TableCell
+                                                                
+
                                                                 // component="th"
                                                                 id={labelId}
                                                                 scope="row"
@@ -927,7 +929,8 @@ const[listmenudata,setListnse] =useState('')
                                                                     });
                                                                 }}
                                                             >
-                                                                <div className={styles.typefild}>
+                                                                <div className={styles.typefild}
+                                                                >
                                                                     <div>
                                                                         {row.status == 'pause' ? <Avatar className={styles.avtarlistyes}>
                                                                             <img src="../../Vector (10).svg" />

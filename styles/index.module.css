@@ -3,6 +3,10 @@
   src: url(../styles/popins/Poppins-Regular.ttf);
 
 }
+.listfonfl{
+  font-family: Poppins-400 !important;
+
+}
 .listmenustrok{
   margin: 60px 120px!important;
 }

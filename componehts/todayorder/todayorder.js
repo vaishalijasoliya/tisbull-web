@@ -270,6 +270,9 @@ const[idlist,setIdlist] = React.useState('')
   const [pendingReviewList, setPendingReviewList] = React.useState([]);
   const [approveReviewList, setApproveReviewList] = React.useState([]);
   const [reviewStatus, setReviewStatus] = React.useState("pending");
+  const [listuseridlist, setListuserid] = React.useState('');
+  const[listdatadelete,setListdeletdata] = React.useState('')
+  const[sassaliusgs,setSasasdata] =React.useState("")
 
 console.log(idlist,'listdarta');
   const today = new Date();
@@ -348,6 +351,8 @@ console.log(today,'today');
           }
           if (element.status == "pending") {
             pendingarr.push(JSON.parse(JSON.stringify(object)));
+            accoyty.push(JSON.parse(JSON.stringify(object)))
+
           } 
            else if (element.status == "cancelled" || element.status == "active" ) {
             approvearr.push(JSON.parse(JSON.stringify(object)))
@@ -355,12 +360,11 @@ console.log(today,'today');
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
-          accoyty.push(JSON.parse(JSON.stringify(object)))
           // csvall.push(objectcsv)
         }
         setDatasars(listdata)
         setDatalist(datalogo)
-        // setDatatebalpettan(accoyty)
+        setDatatebalpettan(accoyty)
         setData(data)
         setPendingReviewList(pendingarr);
         setApproveReviewList(approvearr);
@@ -395,7 +399,11 @@ console.log(today,'today');
 
     console.log(patternDelete, 'datalist');
     if (patternDelete.status) {
-        toast.success(patternDelete.message)
+      toast.success(patternDelete.message)
+      setListdeletdata(patternDelete.data)
+      setSasasdata(patternDelete)
+      handleClickOpenComplay()
+      patternlist()
       
     }
     else {
@@ -730,12 +738,14 @@ console.log(today,'today');
 
                           </TableCell>
 
-                          <TableCell className={styles.btnmenubar}>
+                          <TableCell>
 
                             <div >
-                              <Button className={styles.viwebtnmm22} onClick={()=>{
-                                handleClickOpenCom(),
-                                setIdlist(row.id)}}> <MoreVertIcon /></Button>
+                            <Button className={styles.viwebtnmm22}
+                               onClick={()=>{setIdlist(row.id),setListuserid(row.type_pattern),row.status == 'pending' ?
+                              //  handleClickOpenCom()
+                              handleClickOpenCom(): ''}}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
+</Button>
 
 
                             </div>
@@ -767,7 +777,8 @@ console.log(today,'today');
                                       <Divider>
 
                                       </Divider>
-                                      <div><Button  onClick={handleCloseComdelet} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }}>Cancel</Button><img src='../../Line 17.png' /><Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div>
+                                      <div>
+                                      <Button  onClick={handleCloseComdelet} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }}>Cancel</Button><img src='../../Line 17.png' /><Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
@@ -783,7 +794,7 @@ console.log(today,'today');
                                 // fullWidth
                                 maxWidth="sm"
                               >
-                                <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
+                                {/* <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div> */}
                                 <div>
                                   <DialogContent className={styles.popupcantenar}>
                                     <Box className={styles.lisrmaenbox}>
@@ -796,14 +807,14 @@ console.log(today,'today');
                                       </div>
                                       <Box className={styles.listboxiduser28}>
                                         {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
-                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{row.orderId}) from zerodha ?</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.orderId}</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.id}</Typography></div>
+                                        <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{listuseridlist}) from {props.props.profile.userData.currentAccount.type} ?</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>{props.props.profile.userData.currentAccount.type}</Typography>:<Typography>#{listuseridlist}</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{idlist}</Typography></div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
-                                        <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
-                                        <img src="../../Line 17.svg" />
-                                        <div className={styles.cancelbtnlog2} onClick={handleClickOpenComplay}><Button >Confirm</Button></div>
+                                      <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseCom}  className={styles.cofimbatn}>Cancel</Button>
+
+<Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 30PX 7PX 30PX',textTransform:'capitalize' }} className={styles.cofimbatn}  onClick={()=>{playpattern(),handleCloseCom()}}>Confirm</Button>
                                       </div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -855,43 +866,7 @@ console.log(today,'today');
                                 </div>
                               </Dialog>
                             </div>
-                            <div>
-                              <Dialog open={pause} onClose={handleCloseCompause}
-                                className={styles.borderredayasfor}
-                                style={{
-                                  // borderRadius: '30px'
-                                }}
-                                // fullWidth
-                                maxWidth="sm"
-                              >
-                                <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                <div>
-                                  <DialogContent className={styles.popupcantenar}>
-                                    <Box className={styles.lisrmaenbox}>
-
-                                      <div className={styles.delehedar}>
-                                        <Typography>Play Pattern</Typography>
-                                      </div>
-                                      <div className={styles.listimgyes}>
-                                        <img src="../../Group 47124 (2).svg" />
-                                      </div>
-                                      {/* <Box className={styles.listboxiduser}>
-                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
-                                      <div className={styles.paregarafnsg}>
-                                        <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
-                                      </div>
-                                      <div className={styles.pustlebal}>
-                                        <Typography>Pause with </Typography>
-                                      </div>
-                                      <div className={styles.btn_all_buy}><Button>All</Button><Button>Buy</Button><Button>Sell</Button></div>
-                                      {/* </Box> */}
-                                      <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn}>Confirm</Button></div>
-                                    </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                  </DialogContent>
-                                </div>
-                              </Dialog>
-                            </div>
+                           
                           </TableCell>
 
                         </TableRow>

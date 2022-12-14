@@ -443,7 +443,7 @@ var listopen = [];
           <div className={styles.maendivhpline}>
             {/* <Grid item md={12} sm={12} xs={12}> */}
             <div className={styles.inlinemanediv}>
-              <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
+              <div className={styles.hadingbtn}><Typography>Orders History</Typography> </div>
             
                                     {/* <Button onClick={() => {
                                         // tabChange("Custom")
