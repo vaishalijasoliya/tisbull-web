@@ -40,7 +40,7 @@ function TabPanel(props) {
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </div> 
   );
 }
 
