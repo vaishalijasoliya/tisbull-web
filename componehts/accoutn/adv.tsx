@@ -1,4 +1,4 @@
-// import { Button } from '@mui/material';
+
 import { Avatar, Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import styles from './adv.module.scss'
@@ -26,12 +26,8 @@ const adv = () => {
                 We are trusted and supported for multi broker
               </Typography>
             </div>
-            {/* <div> */}
             <div className={styles.Avatar_userlistbox}>
-              {/* <Avatar className={styles.Avatar_user} white={30} height={20} src='../../employee 3.png' /> */}
-
             </div>
-            {/* // </div> */}
           </Box>
         </Grid>
         <Grid item sm={12} md={4} xs={12}>
@@ -48,10 +44,10 @@ const adv = () => {
             </div>
             {/* <div> */}
             <div className={styles.Avatar_userlistbox}>
-              {/* <Avatar className={styles.Avatar_user2} white={30} height={20} src='../../Icon.png' /> */}
+           
 
             </div>
-            {/* // </div> */}
+
           </Box>
         </Grid>
       </Grid>

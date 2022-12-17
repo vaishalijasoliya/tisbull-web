@@ -2,32 +2,19 @@
     font-family: Poppins-500;
     font-family: Poppins-400;
     src: url(../../styles/popins/Poppins-Regular.ttf);
-    // src: url(../../styles/popins//Poppins-Regular.ttf);
-    // src: url(../../popins/Poppins-Regular.ttf)
 }
 .personlist{
     background-color: red;
 }
-// .cantenar_list100{
-//     height: 100vh;
-// }
-
 .listseting {
-    // background: linear-gradient(180deg, #053159 0%, rgba(14, 26, 37, 0.71) 100%);
     box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.18);
     border-radius: 0px;
-    // height: 100vh;
     height: 100vh;
     padding: 0px 10px;
 }
 
-// .megolist{
-//     display: none;
-// }
 .listcomhed {
     background: #053159 !important;
-    // max-width: 0px 0px 10px 0px;
-    // background: #405E7A !important;
     border-radius: 20px !important;
 
     p {
@@ -38,7 +25,6 @@
     }
 
     .settingfast {
-        // margin-bottom: 10px;
         min-height: 46px !important;
         background: #405E7A !important;
         border-radius: 25px !important;
@@ -52,8 +38,6 @@
     .personicon {
         margin: 0px 20px 0px 0px;
     }
-
-    // height: 46px;
 }
 
 .imgboxse {
@@ -63,12 +47,10 @@
 }
 
 .personlist {
-    // height: 46px;
     width: 96%;
     font-family: Poppins-400 !important;
     font-size: 16px !important;
     color: #FFFFFF !important;
-    // margin: 0px 0px 10px 12px !important;
     text-transform: capitalize !important;
     background: #405E7A !important;
     border-radius: 20px !important;
@@ -87,12 +69,6 @@
     text-transform: capitalize !important;
     border-radius: 20px !important;
 }
-
-// .personlist2:hover {
-//     background: #405E7A !important;
-
-// }
-
 .accontbtn22 {
     background: #405E7A !important;
 
@@ -117,10 +93,8 @@
         padding: 0px 17px;
         margin-bottom: 10px;
         border-radius: 20px !important;
-        // padding: 0px 10px;
         display: flex;
         align-items: center;
-        // background-color: red;
         width: 100%;
         justify-content: space-between;
         height: 46px;
@@ -145,16 +119,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    // width: 35%;
 }
 
 .calsslistbag {
     div {
-        // div {
         background: none;
-        // box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.18);
-        // border-radius: 0px;
-        // }
+      
     }
 }
 

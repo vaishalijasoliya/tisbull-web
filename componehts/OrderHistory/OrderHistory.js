@@ -69,9 +69,6 @@ function getComparator(order, orderBy) {
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -155,22 +152,16 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            // align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            {/* <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            > */}
+         
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
               ) : null}
-            {/* </TableSortLabel> */}
           </TableCell>
         ))}
       </TableRow>
@@ -187,60 +178,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-// function EnhancedTableToolbar(props) {
-//   const { numSelected } = props;
 
-//   return (
-//     <Toolbar
-//       sx={{
-//         pl: { sm: 2 },
-//         pr: { xs: 1, sm: 1 },
-//         ...(numSelected > 0 && {
-//           bgcolor: (theme) =>
-//             alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-//         }),
-//       }}
-//     >
-//       {numSelected > 0 ? (
-//         <Typography
-//           sx={{ flex: '1 1 100%' }}
-//           color="inherit"
-//           variant="subtitle1"
-//           component="div"
-//         >
-//           {numSelected} selected
-//         </Typography>
-//       ) : (
-//         <Typography
-//           sx={{ flex: '1 1 100%' }}
-//           variant="h6"
-//           id="tableTitle"
-//           component="div"
-//         >
-//           Nutrition
-//         </Typography>
-//       )}
-
-//       {numSelected > 0 ? (
-//         <Tooltip title="Delete">
-//           <IconButton>
-//             <DeleteIcon />
-//           </IconButton>
-//         </Tooltip>
-//       ) : (
-//         <Tooltip title="Filter list">
-//           <IconButton>
-//             <FilterListIcon />
-//           </IconButton>
-//         </Tooltip>
-//       )}
-//     </Toolbar>
-//   );
-// }
-
-// EnhancedTableToolbar.propTypes = {
-//   numSelected: PropTypes.number.isRequired,
-// };
 
 const Home = (props) => {
   console.log(props, 'propsprops');
@@ -308,18 +246,10 @@ const Home = (props) => {
       "type": [
         "active","cancelled"
     ]
-      // props.idlist,
-      // email: props.email,
-      // otp: outField
     }
     console.log(body, 'bodybody');
 
-    // props.loaderRef(true)
-    // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDERLIST, JSON.stringify(body), headers)
-
-    // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
-    // props.loaderRef(false)
     console.log(patternDelete, 'datalistddllld');
 
     if (!!patternDelete) {
@@ -357,7 +287,6 @@ const buyorder =[]
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
           accoyty.push(JSON.parse(JSON.stringify(object)))
-          // csvall.push(objectcsv)
         }
         setDatasars(listdata)
         setDatalist(datalogo)
@@ -372,27 +301,14 @@ const buyorder =[]
 
     }
   }
- 
-  // let inloglist=datatebal.zerodha_token_update
 
-  // console.log(datatebalpettan, 'datatebalpettan');
   const tabChange = (status) => {
     setReviewStatus(status);
-    // if (status == "pending") {
-    //   setDatatebalpettan(pendingReviewList);
- 
-    //     // setUserSearch(pendingReviewList);
-    // } else if ( status == "cancelled" || status == "active") {
-    //   setDatatebalpettan(approveReviewList);
-    //     // setUserSearch(approveReviewList);
-    // } 
     if (status == "SELL") {
       setDatatebalpettan(listsell);
-        // setUserSearch(pendingReviewList);
     }
     if (status == "BUY") {
       setDatatebalpettan(listsellmenu);
-        // setUserSearch(pendingReviewList);
     }
     if( status == 'ALL'){
       setDatatebalpettan(pendingReviewList)
@@ -462,8 +378,6 @@ const buyorder =[]
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebalpettan.length) : 0;
 
@@ -473,14 +387,9 @@ const buyorder =[]
       <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
         <div style={{ display: 'flex' }}>
           <div className={styles.maendivhpline}>
-            {/* <Grid item md={12} sm={12} xs={12}> */}
             <div className={styles.inlinemanediv}>
               <div className={styles.hadingbtn}><Typography>Orders History</Typography> </div>
-            
-                                    {/* <Button onClick={() => {
-                                        // tabChange("Custom")
-                                        setBtnlist('zerodha')
-                                    }}  className={btnlistdata == 'zerodha' ? styles.Customlistbtn : styles.nonelistbtn}>ZERODHA</Button> */}
+          
             </div>
 
           </div>
@@ -489,10 +398,7 @@ const buyorder =[]
               <div>
                 <input type="text" name="search"
                   className={styles.searchbtn}
-                  // onClick={display:b}
-                  // onChange={(e) => {
                   onChange={(e) => {
-                    //   setPage(0)
                     var value = e.target.value
                     if (typeof value !== 'object') {
                       if (!value || value == '') {
@@ -506,20 +412,7 @@ const buyorder =[]
                       }
                     }
                   }}
-                  // patternlistcccc(e)
-                  //     var value = e.target.value
-                  //     if (typeof value !== 'object') {
-                  //         if (!value || value == '') {
-                  //             setDatatebalpettan(datasars)
-                  //         } else {
-                  //             var filteredData = datasars.filter((item) => {
-                  //                 let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
-                  //                 return searchValue.includes(value.toString().toLowerCase())
-                  //             })
-                  //             setDatatebalpettan(filteredData)
-                  //         }
-                  //     }
-                  // }}
+               
                   autoComplete="off" /></div> : <style>{`
                           display: none;
                         `}</style>}
@@ -531,9 +424,6 @@ const buyorder =[]
           </div>
           <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
           >
-            {/* <Typography>
-                            Filter
-                        </Typography> */}
             <FilterListIcon />
           </Button>
         </div>
@@ -543,7 +433,6 @@ const buyorder =[]
           id="account-menu"
           open={open}
           onClose={handleClose}
-          // onClick={handleClose}
           PaperProps={{
             elevation: 0,
             sx: {
@@ -595,16 +484,13 @@ const buyorder =[]
                                          
                                     }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
           </div>
-          {/* <Divider className={styles.divaydarten}></Divider> */}
           <div className={styles.divlistsivijan}></div>
         </Menu>
         <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
           <Paper sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
-            {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
             <TableContainer style={{borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX"}} >
               <Table
                  className={styles.tablelist}
-                // sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 size={dense ? 'small' : 'medium'}
               >
@@ -621,13 +507,10 @@ const buyorder =[]
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
                       const isItemSelected = isSelected(row.id);
-                      // const isItemSelected = isSelected(row.id_account);
                       const labelId = `enhanced-table-checkbox-${index}`;
 
                       return (
                         <TableRow
-                          // hover
-                          // onClick={(event) => handleClick(event, row.name)}
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
@@ -644,7 +527,6 @@ const buyorder =[]
                             />
                           </TableCell>
                           <TableCell
-                            // component="th"
                             id={labelId}
                             scope="row"
                             padding="none"
@@ -652,7 +534,6 @@ const buyorder =[]
                             <div className={styles.typefild}>
                               <div>
                                 <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'cancelled' ? styles.avtarlistyes398 : ''}>
-                                  {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}
                                   {row.stock == 'SELL' ?
                                 'S'
 
@@ -671,9 +552,7 @@ const buyorder =[]
                           <TableCell ><Typography className={styles.rowlistpement}>{row.investment}</Typography></TableCell>
                           <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
                             <div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /> {row.profit}</div>
-                            {/* 100 */}
                           </TableCell>
-                          {/* <TableCell >{row.stock}</TableCell> */}
                           <TableCell >
                             <Typography className={styles.dateone}>{
                               moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
@@ -681,7 +560,6 @@ const buyorder =[]
 
                           <TableCell>
                             <Button disabled className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}>
-                              {/* {row.status == 'pause' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}> */}
                               <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
                             </Button>
 
@@ -721,13 +599,11 @@ const buyorder =[]
                                         </Typography>
                                         <Typography className={styles.peregara_itbtn}>It will delete from 3rd party broker </Typography>
                                       </div>
-                                      {/* <div></div> */}
                                       <Divider>
 
                                       </Divider>
                                       <div><Button className={styles.cancelbtn} onClick={handleCloseComdelet}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2}>Delete</Button></div>
                                     </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
                                 </div>
                               </Dialog>
@@ -736,9 +612,7 @@ const buyorder =[]
                               <Dialog open={com} onClose={handleCloseCom}
                                 className={styles.borderredayasfor}
                                 style={{
-                                  // borderRadius: '30px'
                                 }}
-                                // fullWidth
                                 maxWidth="sm"
                               >
                                 <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
@@ -753,7 +627,6 @@ const buyorder =[]
                                         <img src="../../Group 1000002845.svg" />
                                       </div>
                                       <Box className={styles.listboxiduser28}>
-                                        {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
                                         <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{row.orderId}) from zerodha ?</Typography></div>
                                         <div className={styles.listmenutypoo}><Typography>Zerodha</Typography>:<Typography>#{row.orderId}</Typography></div>
                                         <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#12345</Typography></div>
@@ -764,7 +637,6 @@ const buyorder =[]
                                         <div className={styles.cancelbtnlog2} onClick={handleClickOpenComplay}><Button >Confirm</Button></div>
                                       </div>
                                     </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
                                 </div>
                               </Dialog>
@@ -773,7 +645,6 @@ const buyorder =[]
                               <Dialog open={play} onClose={handleCloseComplay}
                                 className={styles.borderredayasfor}
                                 style={{
-                                  // borderRadius: '30px'
                                 }}
                                 // fullWidth
                                 maxWidth="sm"
@@ -808,7 +679,6 @@ const buyorder =[]
                                         <div className={styles.cancelbtnlog2}><Button >Confirm</Button></div>
                                       </div>
                                     </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
                                 </div>
                               </Dialog>
@@ -817,7 +687,6 @@ const buyorder =[]
                               <Dialog open={pause} onClose={handleCloseCompause}
                                 className={styles.borderredayasfor}
                                 style={{
-                                  // borderRadius: '30px'
                                 }}
                                 // fullWidth
                                 maxWidth="sm"
@@ -833,8 +702,7 @@ const buyorder =[]
                                       <div className={styles.listimgyes}>
                                         <img src="../../Group 47124 (2).svg" />
                                       </div>
-                                      {/* <Box className={styles.listboxiduser}>
-                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                    
                                       <div className={styles.paregarafnsg}>
                                         <Typography>Are you sure you want to pause this AAPL ( NSE ) from zerodha ?</Typography>
                                       </div>
@@ -845,7 +713,7 @@ const buyorder =[]
                                       {/* </Box> */}
                                       <div className={styles.cancelbtnlog}><Button >Cancel</Button><img className={styles.linelinjk} src='../../Line 17.svg'></img><Button className={styles.cofimbatn}>Confirm</Button></div>
                                     </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                 
                                   </DialogContent>
                                 </div>
                               </Dialog>
@@ -881,26 +749,13 @@ const buyorder =[]
                                                 }}
                                                 onPageChange={handleChangePage}
                                                 onRowsPerPageChange={handleChangeRowsPerPage}
-                                                // ActionsComponent={TablePaginationActions}
                                             />
                                         </TableRow>
-                                    {/* </TableFooter> */}
               </Table>
             </TableContainer>
-            {/* <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            /> */}
+      
           </Paper>
-          {/* <FormControlLabel
-            control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
-          /> */}
+     
         </Box>
       </Grid>
     </Grid>

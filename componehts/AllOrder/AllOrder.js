@@ -295,14 +295,6 @@ const[sassaliusgs,setSasasdata] =React.useState("")
   const  handleClickmenu= (event) => {
     setAnchorEllist(event.currentTarget);
   };
-  console.log(idlist,'idlistidlist');
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
-  
-
-
-console.log(datasars,'listdarta');
   const today = new Date();
 
   var handleClickOpenComdilet = () => {
@@ -336,24 +328,12 @@ console.log(datasars,'listdarta');
       "x-access-token": props.props.profile.token
     }
     var body = {
-    //   "pattern_id":[parseInt(props.listdsts)],
-    //   "start_date": moment(today).format("MM/DD/YYYY"),
-    //   "end_date":moment(today).format("MM/DD/YYYY"),
-      // props.idlist,
-      // email: props.email,
-      // otp: outField
+    
     }
     console.log(body, 'body');
-    // moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
 
-    // props.loaderRef(true)
-    // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
+
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDERLIST, JSON.stringify(body), headers)
-
-    // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
-    // props.loaderRef(false)
-    console.log(patternDelete, 'dassstalissssstddd');
-
     if (!!patternDelete) {
       if (patternDelete.status == true) {
         const accoyty = [];
@@ -394,8 +374,6 @@ console.log(datasars,'listdarta');
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
-          // accoyty.push(JSON.parse(JSON.stringify(object)))
-          // csvall.push(objectcsv)
         }
         setDatasars(listdata)
         setDatalist(datalogo)
@@ -413,18 +391,14 @@ console.log(datasars,'listdarta');
     setReviewStatus(status);
     if (status == "pending") {
       setDatatebalpettan(pendingReviewList);
-        // setUserSearch(pendingReviewList);
     } else if ( status == "cancelled" || status == "active") {
       setDatatebalpettan(approveReviewList);
-        // setUserSearch(approveReviewList);
     } 
     if (status == "SELL") {
       setDatatebalpettan(listsell);
-        // setUserSearch(pendingReviewList);
     }
     if (status == "BUY") {
       setDatatebalpettan(listsellmenu);
-        // setUserSearch(pendingReviewList);
     }
 };
   const playpattern = async () => {
@@ -441,8 +415,6 @@ console.log(datasars,'listdarta');
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
     props.props.loaderRef(false)
     console.log(patternDelete,'patternDeletepatternDelete');
-    // if (!!patternDelete) {
-
     console.log(patternDelete, 'datalist');
     if (patternDelete.status == true) {
         toast.success(patternDelete.message)
@@ -458,9 +430,6 @@ console.log(datasars,'listdarta');
  
 
 }
-  // let inloglist=datatebal.zerodha_token_update
-
-  // console.log(datatebalpettan, 'datatebalpettan');
 
   React.useEffect(() => {
     if (!!props.props.profile && !!props.props.profile.token) {
@@ -526,25 +495,15 @@ console.log(datasars,'listdarta');
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebalpettan.length) : 0;
 
   return (
     <Grid container spacing={0} className={styles.cantenar_list57221} style={{padding:'40px 0px 0px 0px'}}>
-{/* <div style={{display:'flex'}}> */}
       <Grid item md={6} sm={6} xs={12} >
-        {/* <div style={{ display: 'flex' }}> */}
           <div className={styles.maendivhpline}>
-            {/* <Grid item md={12} sm={12} xs={12}> */}
             <div className={styles.inlinemanediv}>
               <div className={styles.hadingbtn}><Typography>All orders</Typography> </div>
-              {/* <Tabs value={value} onChange={handleChangelisggs} aria-label="basic tabs example"> */}
-          {/* <Tab   label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-        </Tabs>   */}
               <Button  onClick={() => {
                                         setBtnlist('pending')
                                         tabChange('pending')
@@ -565,8 +524,6 @@ console.log(datasars,'listdarta');
               <div>
                 <input type="text" name="search"
                   className={styles.searchbtn}
-                  // onClick={display:b}
-                  // onChange={(e) => {
                   onChange={(e) => {
                     //   setPage(0)
                     var value = e.target.value
@@ -582,20 +539,6 @@ console.log(datasars,'listdarta');
                       }
                     }
                   }}
-                  // patternlistcccc(e)
-                  //     var value = e.target.value
-                  //     if (typeof value !== 'object') {
-                  //         if (!value || value == '') {
-                  //             setDatatebalpettan(datasars)
-                  //         } else {
-                  //             var filteredData = datasars.filter((item) => {
-                  //                 let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
-                  //                 return searchValue.includes(value.toString().toLowerCase())
-                  //             })
-                  //             setDatatebalpettan(filteredData)
-                  //         }
-                  //     }
-                  // }}
                   autoComplete="off" /></div> : <style>{`
                           display: none;
                         `}</style>}
@@ -607,9 +550,6 @@ console.log(datasars,'listdarta');
           </div>
           <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
           >
-            {/* <Typography>
-                            Filter
-                        </Typography> */}
             <FilterListIcon />
           </Button>
         {/* </div> */}
@@ -619,7 +559,6 @@ console.log(datasars,'listdarta');
           id="account-menu"
           open={open}
           onClose={handleClose}
-          // onClick={handleClose}
           PaperProps={{
             elevation: 0,
             sx: {
@@ -659,7 +598,6 @@ console.log(datasars,'listdarta');
           <Divider className={styles.filtar_divaydar}></Divider>
 
           <div>
-            {/* <div className={styles.filatahedinh22}><Typography>Patterns</Typography></div> */}
             <div className={styles.typetext222}><Typography>Type</Typography></div>
             <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
                                     onClick={() => {
@@ -670,27 +608,17 @@ console.log(datasars,'listdarta');
                                         setBtnlistlist('BUY')
                                          
                                     }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
-            {/* <div className={styles.filatahedinh22}><Typography>Accounts</Typography></div>
-            <div className={styles.typetext222}><Typography>Type</Typography></div> */}
-            {/* <div>
-              <Button className={styles.nonelistbtn}>None</Button>
-              <Button className={styles.Basiclistbtn}>Kotak</Button>
-              <Button className={styles.Customlistbtn}>Zerodha</Button>
-            </div> */}
+         
           </div>
-          {/* <Divider className={styles.divaydarten}></Divider> */}
           <div className={styles.divlistsivijan}></div>
         </Menu>
         </Grid>
-        {/* </div> */}
         <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
         <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
           <Paper sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
-            {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
             <TableContainer style={{borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX"}} >
               <Table
                  className={styles.tablelist}
-                // sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 size={dense ? 'small' : 'medium'}
               >
@@ -707,13 +635,11 @@ console.log(datasars,'listdarta');
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
                       const isItemSelected = isSelected(row.id);
-                      // const isItemSelected = isSelected(row.id_account);
                       const labelId = `enhanced-table-checkbox-${index}`;
 
                       return (
                         <TableRow
-                          // hover
-                          // onClick={(event) => handleClick(event, row.name)}
+                      
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
@@ -730,7 +656,6 @@ console.log(datasars,'listdarta');
                             />
                           </TableCell>
                           <TableCell
-                            // component="th"
                             id={labelId}
                             scope="row"
                             padding="none"
@@ -738,7 +663,7 @@ console.log(datasars,'listdarta');
                             <div className={styles.typefild}>
                               <div>
                                 <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'cancelled' ? styles.avtarlistyes398 : ''}>
-                                  {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}
+                                 
                                   {row.stock == 'SELL' ?
                                   'S'
 
@@ -749,28 +674,23 @@ console.log(datasars,'listdarta');
                               </div><div className={styles.listperegaf}>
                                 <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.script}</Typography>
 
-                                {/* <div className={styles.nselist}><Typography>{row.exchange}</Typography></div></div> */}
                                 </div>
                             </div>
                           </TableCell>
 
                           <TableCell
-                          // align="right"
                           >#{row.type_pattern}</TableCell>
                           <TableCell ><Typography className={styles.rowlistpement}>{row.investment}</Typography></TableCell>
                           <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
                             <div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /> {row.profit}</div>
                             {/* 100 */}
                           </TableCell>
-                          {/* <TableCell >{row.stock}</TableCell> */}
                           <TableCell >
                             <Typography className={styles.dateone}>{
                               moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
                             } </Typography></TableCell>
 
                           <TableCell>
-                            {/* <Button className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}> */}
-                              {/* {row.status == 'pause' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}> */}
                               <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
                             {/* </Button> */}
 
@@ -782,63 +702,20 @@ console.log(datasars,'listdarta');
                             <div >
                             <Button className={styles.viwebtnmm22}
                                onClick={()=>{setIdlist(row.id),setListuserid(row.type_pattern),row.status == 'pending' ?
-                              //  handleClickOpenCom()
                               handleClickOpenCom(): ''}}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
 </Button>
-                
-  {/* <Menulist menuButton={<MenuButton>Open menu</MenuButton>} transition>
-<MenuItemlist>New File</MenuItemlist>
-      <MenuItemlist>Save</MenuItemlist>
-      <MenuItemlist>Close Window</MenuItemlist>
-      </Menulist> */}
                             </div>
                             <div>
-                              {/* <Dialog open={diletbtn} onClose={handleCloseComdelet}
-                                className={styles.borderredayasfor}
-                                style={{
-                                  // borderRadius: '30px'
-                                }}
-                                // fullWidth
-                                maxWidth="sm"
-                              >
-                                <div>
-                                  <DialogContent className={styles.popupcantenar}>
-                                    <Box><div className={styles.delehedar2}>
-                                      <Typography>Delete Account</Typography>
-                                    </div>
-                                      <Divider>
-
-                                      </Divider>
-                                      <div className={styles.accoparegarf}>
-                                        <Typography>
-                                          Are you sure you want to delete
-                                          this order(#{row.orderId})?
-                                        </Typography>
-                                        <Typography className={styles.peregara_itbtn}>It will delete from 3rd party broker </Typography>
-                                      </div>
-                                      {/* <div></div> */}
-                                      {/* <Divider> */}
-
-                                      {/* </Divider> */}
-                                      {/* <div style={{textAlign:'center',padding:"10px 0px 0px 0px"}}> */}
-                                      {/* <Button onClick={()=>{playpattern,handleCloseComdelet}}   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX',margin:'0px 20px 0px 0px' }}>Cancel</Button> */}
-                                      {/* <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div> */}
-                                    {/* </Box> */}
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
-                                  {/* </DialogContent> */}
-                                {/* </div> */}
-                              {/* </Dialog> */} 
+                             
                             </div>
                             <div>
                               <Dialog open={com} onClose={handleCloseCom}
                                 className={styles.borderredayasfor}
                                 style={{
-                                  // borderRadius: '30px'
                                 }}
-                                // fullWidth
                                 maxWidth="sm"
                               >
-                                {/* <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div> */}
+      
                                 <div>
                                   <DialogContent className={styles.popupcantenar}>
                                     <Box className={styles.lisrmaenbox}>
@@ -850,7 +727,6 @@ console.log(datasars,'listdarta');
                                         <img src="../../Group 1000002845.svg" />
                                       </div>
                                       <Box className={styles.listboxiduser28}>
-                                        {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
                                         <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{listuseridlist}) from {props.props.profile.userData.currentAccount.type}?</Typography></div>
                                         <div className={styles.listmenutypoo}><Typography>{props.props.profile.userData.currentAccount.type}</Typography>:<Typography>#{listuseridlist}</Typography></div>
                                         <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{idlist}</Typography></div>
@@ -863,7 +739,7 @@ console.log(datasars,'listdarta');
                                         
                                       </div>
                                     </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                              
                                   </DialogContent>
                                 </div>
                               </Dialog>
@@ -872,9 +748,8 @@ console.log(datasars,'listdarta');
                               <Dialog open={play} onClose={handleCloseComplay}
                                 className={styles.borderredayasfor}
                                 style={{
-                                  // borderRadius: '30px'
                                 }}
-                                // fullWidth
+                                
                                 maxWidth="sm"
                               >
                                 <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
@@ -907,7 +782,7 @@ console.log(datasars,'listdarta');
                           
                                       </div>
                                     </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                  
                                   </DialogContent>
                                 </div>
                               </Dialog>
@@ -929,7 +804,6 @@ console.log(datasars,'listdarta');
                     </TableRow>
                   )}
                 </TableBody>
-                {/* <TableFooter> */}
                                         <TableRow >
                                             <TablePagination
                                                 className={styles.tablePagination}
@@ -945,26 +819,13 @@ console.log(datasars,'listdarta');
                                                 }}
                                                 onPageChange={handleChangePage}
                                                 onRowsPerPageChange={handleChangeRowsPerPage}
-                                                // ActionsComponent={TablePaginationActions}
                                             />
                                         </TableRow>
-                                    {/* </TableFooter> */}
               </Table>
             </TableContainer>
-            {/* <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            /> */}
+    
           </Paper>
-          {/* <FormControlLabel
-            control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
-          /> */}
+     
         </Box>
         </Grid>
       {/* </Grid> */}

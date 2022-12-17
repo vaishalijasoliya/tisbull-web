@@ -20,11 +20,6 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useRouter } from 'next/router';
 
 import ApiEndpoint from '../../config/ApiEndpoint';
-// import Login from '../componehts/imdex/login';
-// import Newbar from '../componehts/newbar/testnewbar';
-// import  Nevbarlogin  from '../componehts/imdex/nevbarlogin';
-
-// import Dashboard from '../componehts/dashboard/dashboard';
 const Root = styled('span')(
     ({ theme }) => `
                                 font-size: 0;
@@ -108,16 +103,6 @@ const Home = (props) => {
     const [accounttype, setAccounttype] = React.useState('')
     const [switchCheck, setSwitchcheck] = React.useState([])
     const [cekboxlist, setCekboxlist] = React.useState(false)
-    console.log(cekboxlist, 'checked');
-    console.log(accounttype, 'accounttype');
-
-    // const switchchange = (e) => {
-    //     // isChecked: !e.target.checked
-    //     setChecked(e.target.checked)
-    //     setSwitchcheck(e.target.checked)
-    //     console.log(switchCheck, 'myvaxrlueee')
-    // }
-
     const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
 
     // const router = useRouter();
@@ -219,33 +204,17 @@ const Home = (props) => {
                     </div>
                     <div className={styles.switchadd}>
                         {swishlist == true ? <SwitchUnstyled component={Root}
-                            //  onChange={console.log('virang')}
                             {...label} id='switch'
                             disabled
-                            // checked={row.Publication} 
                             onChange={((e) => {
                                 setChecked(e.target.checked)
-
-                                // editFAQ(e.target.checked, row.id)
-                                // setSwitchcheck(e.target.checked)
-                                // setIdItem(row.id,)
-                                // console.log(e.target.checked, 'checkedv');
-                                // console.log(row.id, 'myvalueee')
                             })}
                         /> : <SwitchUnstyled component={Root}
-                            // onChange={console.log('virang')}
-                            {...label} id='switch'
 
-                            // checked={row.Publication} 
+                            {...label} id='switch'
                             onChange={((e) => {
-                                // setChecked('ZERODHA')
                                 setChecked(e.target.checked)
                                 setAccounttype('zerodha')
-                                // editFAQ(e.target.checked, row.id)
-                                // setSwitchcheck(e.target.checked)
-                                // setIdItem(row.id,)
-                                // console.log(e.target.checked, 'checkedv');
-                                // console.log(row.id, 'myvalueee')
                             })}
                         />}
                     </div>
@@ -253,7 +222,6 @@ const Home = (props) => {
                 <Divider className={styles.divaydaravta}></Divider>
             </Grid>
             <Grid item sm={12} md={6} xs={12} className={styles.listdiver2}>
-                {/* <InputLabel className={styles.leballist}>Account Type </InputLabel> */}
                 <Divider className={styles.divaydaravta}></Divider>
                 <div className={styles.listdataaaco}>
                     <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group (1).svg'></Avatar></div>
@@ -261,41 +229,26 @@ const Home = (props) => {
                         <Typography >Kotak Securities  </Typography>
                         <div className={styles.listapichek}>
                             <Typography>Kotak are providing free API for the customers.</Typography>
-                            {/* <Link href="https://mui.com/material-ui/react-divider/">here</Link> */}
                         </div>
                     </div>
                     <div className={styles.switchadd}>
                         {checked == true ?
                             <SwitchUnstyled component={Root} {...label} id='switch'
-                                // checked={row.Publication} 
                                 disabled
                                 onChange={((e) => {
                                     setSwishlist(e.target.checked)
-
-                                    // editFAQ(e.target.checked, row.id)
-                                    // setSwitchcheck(e.target.checked)
-                                    // setIdItem(row.id,)
-                                    // console.log(e.target.checked, 'checkedv');
-                                    // console.log(row.id, 'myvalueee')
                                 })}
                             /> :
                             <SwitchUnstyled component={Root} {...label} id='switch'
-                                // checked={row.Publication} 
                                 onChange={((e) => {
                                     setSwishlist(e.target.checked)
                                     setAccounttype('kotak')
-                                    // editFAQ(e.target.checked, row.id)
-                                    // setSwitchcheck(e.target.checked)
-                                    // setIdItem(row.id,)
-                                    // console.log(e.target.checked, 'checkedv');
-                                    // console.log(row.id, 'myvalueee')
                                 })}
                             />}
                     </div>
                 </div>
                 <Divider className={styles.divaydaravta}></Divider>
             </Grid>
-            {/* <form onSubmit={formik.handleSubmit}> */}
             <Grid item sm={12} md={6} xs={12} className={styles.constomarlist}>
 
                 <InputLabel className={styles.leballist22}>USER ID </InputLabel>
@@ -309,16 +262,10 @@ const Home = (props) => {
                     value={formik.values.userId}
                     type="text"
                     className={styles.userinput}
-                    // type='text'
                     style={{
                         margin: '0px'
                     }}
                 />
-
-
-
-
-
             </Grid>
             <Grid item sm={12} md={6} xs={12} className={styles.constomarlist}>
                 <InputLabel className={styles.leballist22}>Consumer Key </InputLabel>
@@ -332,7 +279,6 @@ const Home = (props) => {
                     placeholder='Consumer Key '
                     type="text"
                     className={styles.userinput}
-                    // type='text'
                     style={{
                         margin: '0px'
                     }}
@@ -348,8 +294,6 @@ const Home = (props) => {
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values.password}
-                    // placeholder='Email ID'
-                    // type="text"
                     type={'password'}
                     className={styles.userinput}
 
@@ -367,7 +311,6 @@ const Home = (props) => {
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values.consumer_secret}
-                    // lable='Password'
                     placeholder='Consumer Secret'
                     className={styles.userinput}
                     type='text'
@@ -379,16 +322,8 @@ const Home = (props) => {
                     <div>
                         <Checkbox style={{ borderRadius: '15px' }}
                             onChange={((e) => {
-                                setCekboxlist(e.target.checked)
-                                // setChecked('ZERODHA')
-                                // setChecked(e.target.checked)
-                                // editFAQ(e.target.checked)
-                                // setSwitchcheck(e.target.checked)
-                                // setIdItem(row.id,)
-                                // console.log(e.target.checked, 'cvvvheckedv');
-                                // console.log(row.id, 'myvalueee')
+                            setCekboxlist(e.target.checked)        
                             })}
-                        //  defaultChecked
                         />
                     </div>
                     <div>
@@ -401,7 +336,6 @@ const Home = (props) => {
             </Grid>
             <Grid item sm={6} md={4} xs={6} display={'flex'} alignItems={'center'} justifyContent={'end'}>
                 <div style={{padding:'30px 60px 0px 0px'}}>
-                    {/* <Button className={styles.cancelbtn}>Cancel</Button> */}
                     {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password  == '' || formik.values.consumer_secret == '' || formik.values.userId == '' ? 
                 
                     <Button  type="submit" disabled  className={styles.donebtn22} >SAVE</Button>:<Button  type="submit"  className={styles.donebtn} onClick={accountadd}>SAVE</Button>}
@@ -411,9 +345,3 @@ const Home = (props) => {
     )
 }
 export default Home
-// const checkElement = async (selector: string) => {
-//     while (document.querySelector(selector) === null) {
-//       await new Promise(resolve => requestAnimationFrame(resolve))
-//     }
-//     return document.querySelector(selector);
-//   };

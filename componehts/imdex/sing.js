@@ -3,35 +3,18 @@ import styles from './sing.module.scss'
 import Grid from '@mui/material/Grid';
 import React, { useState,useEffect } from 'react';
 import { Box, Typography, Button, Link } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useRouter } from 'next/router';
-// import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import { Types } from '../../constants/actionTypes';
-// ../../constants/actionTypes'
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-// import InputLabel from '@mui/material/InputLabel';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useFormik } from 'formik';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
 import { max } from 'moment';
-// import Newbar from '../tis_admin_web/componehts/newbar/newbar';
-// import Dashboard from '../tis_admin_web/componehts/dashboard/dashboard';
-// export default function Home(props) {
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Home = (props) => {
@@ -39,9 +22,6 @@ const Home = (props) => {
 
 console.log(router.query.googleId,'gvvvvv');
 
-    // console.log(ApiEndpoint, "ApiEndpoint");
-
-    // console.log(props, "props");
 
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordicon, setShowPasswordicon] = useState("yes")
@@ -56,12 +36,6 @@ console.log(router.query.googleId,'gvvvvv');
         formik.setFieldValue('Name',router.query.name);
         formik.setFieldValue('username',router.query.givenName);
         formik.setFieldValue('email',router.query.listemail);
-
-        // setData()
-        // 
-        // if (!!props.router && !!props.router.query && !!props.router.query.data) {
-        //     setData(JSON.parse(props.router.query.data).id)UPLOAD_PROFILE
-        // }
     },[])
     const loginHandler = async (res) => {
         console.log(res.Ca, 'my res');
@@ -85,7 +59,6 @@ console.log(router.query.googleId,'gvvvvv');
             router.push('/dashboard')
           } else {
             if (data.status == false && data.message == 'Social id not found!') {
-              // props.save_user_data({ user: "" });
               router.push('/sing')
             }
           }
@@ -98,14 +71,6 @@ console.log(router.query.googleId,'gvvvvv');
         setElistdata(res.profileObj)
         setLogoutButton(true);
       };
-    // const loginHandler = (res) => {
-
-    //     console.log("res",);
-    //     console.log("this is my")
-    //     setLoginButton(false);
-    //     setElistdata(res.profileObj)
-    //     setLogoutButton(true);
-    // };
     const failureHandler = (res) => {
         console.log("login failed", res);
     };
@@ -115,24 +80,17 @@ console.log(router.query.googleId,'gvvvvv');
         setLogoutButton(false);
     };
     console.log(elistdata, 'res');
-
-    //   formik.values.username
-    // const router = useRouter();
     const onLoginPress = async () => {
         var body = {
-            // 'user_name': formik.values.username,
             'password': formik.values.password,
             'email': formik.values.email,
-            // 'name': formik.values.Name,
             'social_id':router.query.googleId
-            // 'listemail':
         }
         console.log(body, 'body');
 
         var headers = {
             "Content-Type": "application/json",
         }
-        // console.log();
 
         props.props.loaderRef(true)
         var data = await ApiServices.PostApiCall(ApiEndpoint.REGISTER_LIST, JSON.stringify(body), headers);
@@ -141,12 +99,10 @@ console.log(router.query.googleId,'gvvvvv');
         if (!!data) {
             if (data.status == true) {
                 data.token = data.token
-                // elistdata
                 props.save_user_data({ user: data });
                 toast.success("Logged In Succesfully")
                 router.push('./dashboard')
             } else {
-                // setErrorShow(true)
                 toast.error(data.message)
             }
         } else {
@@ -192,9 +148,7 @@ console.log(router.query.googleId,'gvvvvv');
   
     const onRegisterPress = async () => {
         var body = {
-            // 'user_name': formik.values.userName,
             'password': formik.values.password,
-            // 'name': formik.values.name,
             'email': formik.values.email
         }
         console.log(formik.values.password, 'bodylist');
@@ -233,16 +187,6 @@ console.log(router.query.googleId,'gvvvvv');
     return (
 
         <Grid container className={styles.cantenar_pegsingcantenar}>
-  {/* <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
-  <img
-              style={{width:'100%'}}
-
-        //  width={360}
-        //  className={styles.maenloginpegimg} 
-        //  src='../../Group 109.svg' 
-src='../../login bg.png'
-         />
-      </Grid> */}
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
                 <div className={styles.baglistee}></div>
                 <Box className={styles.boxsinglist2}>
@@ -251,38 +195,7 @@ src='../../login bg.png'
                     <div className={styles.pleslist2}><Typography>Let’s get started
                     </Typography></div>
                     <form onSubmit={formik.handleSubmit}>
-                        {/* <InputLabel className={styles.leballist}>Name</InputLabel>
-                        <TextField
-                            error={Boolean(formik.touched.Name && formik.errors.Name)}
-                            helperText={formik.touched.Name && formik.errors.Name}
-                            name="Name"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.Name}
-                            type="text"
-                            className={styles.userinput}
-                            // type='text'
-                            style={{
-                                margin: '0px'
-                            }}
-                        /> */}
-                        {/* <InputLabel className={styles.leballist}>username</InputLabel>
-                        <TextField
-                            error={Boolean(formik.touched.username && formik.errors.username)}
-                            helperText={formik.touched.username && formik.errors.username}
-                            name="username"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.username}
-                            placeholder='Email ID'
-                            type="text"
-                            className={styles.userinput}
-                            // type='text'
-                            style={{
-                                margin: '0px'
-                            }}
-                        /> */}
-
+                
 
                         <InputLabel className={styles.leballist}>Email</InputLabel>
                         <TextField
@@ -313,20 +226,7 @@ src='../../login bg.png'
                             className={styles.passoutinput22}
                             type={showPassword ? 'text' : 'password'}
                         />
-                        {/* <div className={styles.fargotpasslist}>
-                            <div className={styles.btncekpass}>
-                                <Button className={styles.menolistlogo}
-                                    onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-
-
-                                </Button>
-                                <Typography>Remember me</Typography>
-                            </div>
-                            <div className={styles.forgotlistmenu22}>
-                                <Link href='./forgotpass' className={styles.linkfaragot}>Forgot password?</Link>
-                            </div>
-                        </div> */}
+                      
                         <Button type="submit" onClick={onLoginPress} className={styles.singbtn22} >Create account</Button>
 
                     </form>
@@ -355,30 +255,18 @@ src='../../login bg.png'
                         <Typography>
                         Already have an account ?        </Typography>
                         <a href='./login'>Login here</a>
-                        {/* <Typography>
-                            for free
-                        </Typography> */}
+                
                     </div>
                 </Box>
             </Grid>
-            {/* <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
-      <img
-      style={{width:'95%'}}
-      //  width={360}
-        //  className={styles.maenloginpegimg} 
-        //  src='../../Group 109.svg' 
-src='../../login bg.png'
-         />
-      </Grid> */}
+         
         </Grid>
 
     )
 }
 const mapStateToProps = (state) => ({
     profile: state.user.profile,
-    // {console.log( state.user.profile,'profile')}
 });
-// {}
 
 const mapDispatchToProps = (dispatch) => ({
     save_user_data: (data) =>

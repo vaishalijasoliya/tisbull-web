@@ -24,12 +24,10 @@
     padding: 20px 0px 0px 50px;
 }
 
-// .boxeditpro {
 .cantenar_list {
     display: flex !important;
     width: 100% !important;
 
-    // margin: 60px;
     .formedit {
         background: #FFFFFF;
         box-shadow: 0px 2px 20px rgba(27, 29, 46, 0.18);
@@ -90,11 +88,6 @@
         right: 33px;
         top: 26px;
     }
-
-    // .imputname {
-    //     display: flex;
-    // }
-
     .leballiss {
         padding: 3px 0px;
         font-size: 18px;
@@ -183,8 +176,7 @@ width: 335px !important;
         width: 90% !important;
     }
     .inputoplist {
-        // display: block;
-        // display: flex;
+
         padding: 25px 0px 0px 0px;
         input{
             width: 100%;
@@ -192,14 +184,11 @@ width: 335px !important;
     }
     
     .pohelistmenu {
-        // display: block;
-        // display: flex;
+
         padding: 20px 0px 0px 0px;
     
     }
     .futtorlist{
-        // display: block;
-        // display: flex;
         padding: 20px 0px 0px 0px;
     }
     .formedit{
@@ -229,7 +218,6 @@ width: 335px !important;
     }
     .inputoplist {
         display: block;
-        // display: flex;
         padding: 25px 0px 0px 0px;
         input{
             width: 100%;
@@ -238,13 +226,11 @@ width: 335px !important;
     
     .pohelistmenu {
         display: block;
-        // display: flex;
         padding: 20px 0px 0px 0px;
     
     }
     .futtorlist{
         display: block;
-        // display: flex;
         padding: 20px 0px 0px 0px;
     }
     .formedit{

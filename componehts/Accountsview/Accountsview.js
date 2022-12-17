@@ -1,4 +1,3 @@
-
 import styles from '../ChangePassedit/ChangePassedit.module.scss'
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@material-ui/core';
@@ -11,16 +10,11 @@ import ApiEndpoint from '../../config/ApiEndpoint';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-// import { Types } from '../../constants/actionTypes'
 import { Types } from '../../constants/actionTypes'
-
 import * as Yup from 'yup';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-// import Createpattern from '../componehts/home/createpattern';
-// import Newbar from '../componehts/newbar/newbar';
-// import Dashboard from '../componehts/dashboard/dashboard';
 const Home = (props) => {
     console.log(props.profile, 'listpfffrosps');
     const [showPasswordlist, setShowPasswordlist] = useState(false)
@@ -28,18 +22,12 @@ const Home = (props) => {
     const [userid, setUserid] = useState('')
     const [usertype, setType] = useState('')
     const [listidacc,setListidacc] = useState('')
-    console.log(userid, 'userid');
+
     const router = useRouter();
-    console.log(router.query.emailID,'jajjajajja');
-console.log(props,'lisyysg');
+
     useEffect(() => {
         setListidacc(router.query.emailID)
         setData()
-
-        // 
-        // if (!!props.router && !!props.router.query && !!props.router.query.data) {
-        //     setData(JSON.parse(props.router.query.data).id)UPLOAD_PROFILE
-        // }
     }, [])
     const setData = async () => {
 
@@ -47,8 +35,6 @@ console.log(props,'lisyysg');
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
-
-        // console.log(obj,'objobj');
         if(router.query.emailID == undefined ){
             var obj = {
                 'id_account':props.profile.userData.currentAccount.id
@@ -61,8 +47,6 @@ console.log(props,'lisyysg');
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_VIEW, JSON.stringify(obj), headers)
         props.props.loaderRef(false)
-        console.log(patternDelete.data.logoUrl, 'vvvvvvv');
-
         if (!!patternDelete && patternDelete.status == true) {
             formik.setFieldValue('ConsumerKey', patternDelete.data.consumer_key);
             formik.setFieldValue('ConsumerSecret', patternDelete.data.consumer_secret);
@@ -85,10 +69,10 @@ console.log(props,'lisyysg');
             'consumer_secret': formik.values.ConsumerSecret,
             'userId': userid,
             'password': formik.values.reTypePassword,
-            // 'address': formik.values.Address,
+    
             'type': usertype,
             "env": "production"
-            // 'listemail':
+     
         }
         if(router.query.emailID == undefined ){
             var body = {
@@ -97,7 +81,7 @@ console.log(props,'lisyysg');
                 'consumer_secret': formik.values.ConsumerSecret,
                 'userId': userid,
                 'password': formik.values.reTypePassword,
-                // 'address': formik.values.Address,
+
                 'type': usertype,
                 "env": "production"
             };
@@ -108,7 +92,7 @@ console.log(props,'lisyysg');
                 'consumer_secret': formik.values.ConsumerSecret,
                 'userId': userid,
                 'password': formik.values.reTypePassword,
-                // 'address': formik.values.Address,
+            
                 'type': usertype,
                 "env": "production"
             }; 
@@ -119,51 +103,20 @@ console.log(props,'lisyysg');
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
-        // console.log(props.profile.token, 'TOKAN');
 
         props.props.loaderRef(true)
         var data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_EDIT, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        console.log(data, 'DATA');
-
-        console.log(data, 'onLoginPress');
         if (!!data) {
             if (data.status == true) {
-                // data.token = data.token
-                // elistdata
-                // props.props.save_user_data({ user: data });
                 toast.success(data.message)
-                // router.push('./dashboard')
             }
             else {
-                // setErrorShow(true)
                 toast.error(data.message)
             }
         }
-        // else {
-        //     toast.error('Something went wrong.')
-        // }
     }
-    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     event.preventDefault();
-    // };
-    // const [values, setValues] = React.useState<State>({
-    //     amount: '',
-    //     password: '',
-    //     weight: '',
-    //     weightRange: '',
-    //     showPassword: false,
-    // });
-    // const handleChange =
-    //     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    //         setValues({ ...values, [prop]: event.target.value });
-    //     };
-    // const handleClickShowPassword = () => {
-    //     setValues({
-    //         ...values,
-    //         showPassword: !values.showPassword,
-    //     });
-    // };
+
     const formik = useFormik({
         initialValues: {
             ConsumerKey: '',
@@ -187,7 +140,6 @@ console.log(props,'lisyysg');
                 .string()
                 .min(8)
                 .max(255)
-                // .oneOf([Yup.ref('newPassword')], 'Passwords does not match')
                 .required(
                     'Password is required'),
         }),
@@ -204,8 +156,6 @@ console.log(props,'lisyysg');
 
                         <div>
                             <div className={styles.personmenu23}><Typography>Accounts</Typography></div>
-                            {/* */}
-                            {/* <div className={styles.uplodimgp2}><Typography>Update your photo and personal detalis here.</Typography></div> */}
                         </div>
                         <div className={styles.donebtn22}>
                        {formik.values.ConsumerKey == '' ||formik.values.ConsumerSecret == '' ||formik.values.reTypePassword == '' ? 
@@ -233,19 +183,12 @@ console.log(props,'lisyysg');
                             value={formik.values.ConsumerKey}
                             placeholder='Consumer Key'
                             type={'text'}
-                            // type={showPasswordlistdata ? 'text' : 'password'}
                             className={styles.userinput}
 
                             style={{
                                 margin: '0px'
                             }}
                         />
-                        {/* <Button className={styles.menolistlogo}
-                            onClick={() => setShowPasswordlistdata(!showPasswordlistdata)}>
-                            {showPasswordlistdata ? <VisibilityIcon /> : <VisibilityOffIcon />}
-
-
-                        </Button> */}
                         <InputLabel className={styles.leballist443}>Consumer Secret</InputLabel>
                         <TextField
                             error={Boolean(formik.touched.ConsumerSecret && formik.errors.ConsumerSecret)}
@@ -262,13 +205,6 @@ console.log(props,'lisyysg');
                                 margin: '0px'
                             }}
                         />
-
-                        {/* <Button className={styles.menolistlogo}
-                            onClick={() => setShowPassword(!showPassword)}>
-                            {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-
-
-                        </Button> */}
                         <InputLabel className={styles.leballist443}> Password</InputLabel>
                         <TextField
                             error={Boolean(formik.touched.reTypePassword && formik.errors.reTypePassword)}
@@ -278,10 +214,8 @@ console.log(props,'lisyysg');
                             onChange={formik.handleChange}
                             value={formik.values.reTypePassword}
                             placeholder='Confirm Password'
-                            // type="password"
                             className={styles.userinput}
                             type={showPasswordlist ? 'text' : 'password'}
-                            // type='text'
                             style={{
                                 margin: '0px'
                             }}
@@ -295,9 +229,6 @@ console.log(props,'lisyysg');
                         <div style={{height:'40px'}}></div>
                     </div>
                 </Grid>
-                {/* <Grid item md={6} sm={12} xs={12}>
-                    <img src='../../cengpass.svg' />
-                </Grid> */}
             </form>
 
         </Grid>

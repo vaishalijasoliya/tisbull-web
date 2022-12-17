@@ -14,28 +14,19 @@ import React, { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 
 const pages = [<Button
-  // onClick={(() => { router.push('./dashboard') })}
   className={styles.btn_pages2}
-  // key={page}
-  // onClick={handleCloseNavMenu}
   sx={{ my: 2, display: 'block' }}
 >
   Home
 </Button>, 
 <Button
-  // onClick={(() => { router.push('./dashboard') })}
   className={styles.btn_pages2}
-  // key={page}
-  // onClick={handleCloseNavMenu}
   sx={{ my: 2, display: 'block' }}
 >
   About us
 </Button>, 
 <Button
-  // onClick={(() => { router.push('./dashboard') })}
   className={styles.btn_pages2}
-  // key={page}
-  // onClick={handleCloseNavMenu}
   sx={{ my: 2, display: 'block' }}
 >
   Contact
@@ -66,8 +57,6 @@ const main = () => {
                 <img src='../../new logo.png' width={190}></img>                </div>
                 </a>
               </Grid>
-              {/* <Grid item sm={0} md={2} xs={0} display={'flex'} justifyContent={'end'}>
-          </Grid> */}
               <Grid item sm={6} md={6} xs={6} className={styles.ivonnewbar} display={'flex'} justifyContent={'end'}>
                 <Box className={styles.menu_icom} sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                   <IconButton
@@ -77,7 +66,6 @@ const main = () => {
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
                     onClick={handleOpenNavMenu}
-                  // color="inherit"
                   >
                     <MenuIcon />
                   </IconButton>
@@ -111,44 +99,11 @@ const main = () => {
                   </Menu>
                 </Box>
                 <Box className={styles.boxlistyyy} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                  {/* {pages.map((page) => ( */}
-                  {/* <Button
-                    // onClick={(() => { router.push('./dashboard') })}
-                    className={styles.btn_pages2}
-                    // key={page}
-                    // onClick={handleCloseNavMenu}
-                    sx={{ my: 2, display: 'block' }}
-                  >
-                    Home
-                  </Button>
-                  <div className={styles.listinlog2}>
-
-                    <Button
-                      // onClick={(() => { router.push('./dashboard') })}
-                      className={styles.btn_pages2}
-                      // key={page}
-                      // onClick={handleCloseNavMenu}
-                      sx={{ my: 2, display: 'block' }}
-                    >
-                      About us
-                    </Button>
-                  </div>
-                  <div className={styles.listinlog}>
-                    <Button
-                      // onClick={(() => { router.push('./dashboard') })}
-                      className={styles.btn_pages2}
-                      // key={page}
-                      // onClick={handleCloseNavMenu}
-                      sx={{ my: 2, display: 'block' }}
-                    >
-                      Contact
-                    </Button>
-                    </div> */}
+                 
                   <Button
-                    // onClick={(() => { router.push('./dashboard') })}
                     className={styles.btn_pages}
-                    // key={page}
-                    // onClick={handleCloseNavMenu}
+      
+
                     sx={{ my: 2, display: 'block' }}
                   >
                     Login
@@ -156,7 +111,7 @@ const main = () => {
 
                 </Box>
 
-                {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
+         
 
               </Grid>
             </Toolbar>

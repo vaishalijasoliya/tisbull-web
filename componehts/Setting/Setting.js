@@ -2,14 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Grid from '@mui/material/Grid';
 import styles from './setting.module.scss'
 import Accordion from '@mui/material/Accordion';
@@ -19,9 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import HttpsIcon from '@mui/icons-material/Https';
-import ClassIcon from '@mui/icons-material/Class';
 import MenuIcon from '@mui/icons-material/Menu';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Typography from '@mui/material/Typography';
 import { connect } from 'react-redux';
 
@@ -32,21 +22,14 @@ import SmsIcon from '@mui/icons-material/Sms';
 import { useRouter } from 'next/router';
 const TemporaryDrawer = (props) => {
 
-// export default function TemporaryDrawer(props) {
-    // console.log(props.props.profile.userData.currentAccount.id, 'kakkakkak');
+
     const router = useRouter();
     var currentPath = router.pathname
     const [state, setState] = React.useState({
-        // top: false,
         left: false,
-        // bottom: false,
-        // right: false,
+
     });
-    //   onClick={() => {
-    //     handleCloseUserMenu(),router.push({
-    //         pathname: './Accountsview',
-    //         query: { emailID: item.id}
-    //     });
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -89,16 +72,7 @@ const TemporaryDrawer = (props) => {
                                 </AccordionDetails>
                             </Accordion>
                         </div>
-                        {/* <div className={styles.accontbtn}>
-                            <Button className={currentPath == '/Accountsview' ? styles.accontbtn22 : styles.personlist22}
-                 onClick={() => {
-        router.push({
-                                                                        pathname: './Accountsview',
-                                                                        query: { emailID:props.props.profile.userData.currentAccount.id}
-                                                                    });
-                                                                }}
-    ><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
-                    </div> */}
+             
                     <div className={styles.accontbtn}>
                         <Button className={currentPath == '/Support' ? styles.accontbtn22 : styles.personlist22}><div className={styles.pandicon}><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
@@ -108,11 +82,8 @@ const TemporaryDrawer = (props) => {
                     <div className={styles.accontbtn}>
                         <Button><div className={styles.pandicon}><SmsIcon /><Typography>FAQ</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
-                    {/* <div><Button><HeadsetMicIcon />Support<ArrowForwardIosIcon /></Button></div> */}
-                    {/* <div><Button><PaymentIcon />Payment Settings<ArrowForwardIosIcon /></Button></div> */}
-                    {/* <div><SmsIcon /><Button>FAQ<ArrowForwardIosIcon /></Button></div> */}
+
                 </Box>
-                {/* </div> */}
 
             </Grid>
         </Grid>
@@ -126,7 +97,6 @@ const TemporaryDrawer = (props) => {
                 {['left'].map((anchor) => (
                     <React.Fragment key={anchor}>
                         <Button className={styles.listmenuoncc} onClick={toggleDrawer(anchor, true)}> <MenuIcon /></Button>
-                        {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
                         <Drawer
                             anchor={anchor}
                             open={state[anchor]}
@@ -159,12 +129,9 @@ const TemporaryDrawer = (props) => {
                             </AccordionDetails>
                         </Accordion>
                     </div>
-                    {/* <div className={styles.accontbtn}>
-                        <Button className={currentPath == '/Accountsview' ? styles.accontbtn22 : styles.personlist22} onClick={(() => { router.push('./Accountsview') })}><div className={styles.pandicon}  ><ClassIcon /><Typography>Accounts</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
-                    </div> */}
+ 
                     <div className={styles.accontbtn}>
                         <Button className={currentPath == '/Support' ? styles.accontbtn22 : styles.personlist22} 
-                        // onClick={(() => { router.push('./Support') })}
                         ><div className={styles.pandicon} ><HeadsetMicIcon /><Typography>Support</Typography></div> <div className={styles.listnumlook}><KeyboardArrowRightIcon /></div></Button>
                     </div>
                     <div className={styles.accontbtn}>

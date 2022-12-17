@@ -15,7 +15,6 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-// import { getInitials } from '../../utils/get-initials';
 
 const CustomPatternList = (props ) => {
   console.log(props,'bbbbbbbb');
@@ -87,37 +86,25 @@ const patterns ={}
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.buyPrice} */}
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.sellPrice} */}
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.buy_qty} */}
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.sell_qty} */}
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.buyingPrice} */}
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.sellingPrice} */}
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.gross} */}
+                  </TableCell>
+                  <TableCell>                  </TableCell>
+                  <TableCell>
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.stock} */}
                   </TableCell>
                   <TableCell>
-                    {/* {pattern.investment} */}
-                  </TableCell>
-                  <TableCell>
-                    {/* {pattern.sDisc} */}
-                  </TableCell>
-                  <TableCell>
-                    {/* {pattern.Avg} */}
                   </TableCell>
                 </TableRow>
               {/* ))} */}

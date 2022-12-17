@@ -1,37 +1,23 @@
-import Head from 'next/head'
-import Image from 'next/image'
+
 import styles from './sing.module.scss'
 import Grid from '@mui/material/Grid';
 import React, { useState } from 'react';
 import { Box, Typography, Button, Link } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useRouter } from 'next/router';
-// import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import { Types } from '../../constants/actionTypes';
-// ../../constants/actionTypes'
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-// import InputLabel from '@mui/material/InputLabel';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useFormik } from 'formik';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
-// import Newbar from '../tis_admin_web/componehts/newbar/newbar';
-// import Dashboard from '../tis_admin_web/componehts/dashboard/dashboard';
-// export default function Home(props) {
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Home = (props) => {
@@ -49,11 +35,9 @@ const Home = (props) => {
   const [elistdata, setElistdata] = useState([])
 
   const loginHandler = async (res) => {
-    // console.log(res.Ca, 'my res');
     var body = {
       social_id: res.Ca
     }
-    // console.log(res, 'listbodylist');
 
     var headers = {
       'Content-Type': 'application/json',
@@ -70,20 +54,17 @@ const Home = (props) => {
         router.push('/dashboard')
       } else {
         if (data.status == false && data.message == 'Social id not found!') {
-          // props.save_user_data({ user: "" });
-          // onClick={() => {
+ 
           router.push({
             pathname: './sing',
             query: { listemail: res.kv.Wv, givenName: res.kv.wZ, name: res.kv.Af,googleId:res.profileObj.googleId}
           })
-          // }}
-          // router.push('/sing')
+       
         }
       }
     } else {
       toast.error('Something went wrong.');
     }
-    // console.log("res",);
     console.log("this is my")
     setLoginButton(false);
     setElistdata(res.profileObj)
@@ -92,25 +73,17 @@ const Home = (props) => {
   const failureHandler = () => {
     console.log("redddddds",res);
   };
-  // const loginHandler = (res) => {
-  //   console.log("redddddds",res);
-  // };
-  // console.log(elistdata, 'res');
 
-  //   formik.values.username
   const onLoginPress = async () => {
     var body = {
       'user_name': formik.values.username,
       'password': formik.values.password,
-      // 'listemail':
     }
     console.log(body, 'body');
 
     var headers = {
       "Content-Type": "application/json",
     }
-    // console.log();
-
     props.props.loaderRef(true)
     var data = await ApiServices.PostApiCall(ApiEndpoint.LOGIN_USER, JSON.stringify(body), headers);
     props.props.loaderRef(false)
@@ -118,29 +91,14 @@ const Home = (props) => {
     if (!!data) {
       if (data.status == true) {
         data.token = data.token
-        // elistdata
         data.userData.currentAccount = data.userData.account[0];
         
 console.log(data,'loginData');
         props.save_user_data({ user: data });
         toast.success("Logged In Succesfully")
         router.push('./dashboard')
-        // console.log(data.userData.token,'data.userData.token');
-
-
-        //         data.token = data.token
-        //         // elistdata
-        //         props.save_user_data({ user: data });
-        //         toast.success("Logged In Succesfully")
-
-        //         data.userData.token = data.token;
-        //         data.userData.currentAccount = data.userData.logoUrl
-        //         data.userData.currentAccount = data.userData.account[0];
-        //         props.save_user_data({ user: data.userData });
-        //         router.push('/dashboard');
-        //         toast.success(data.message)
+      
       } else {
-        // setErrorShow(true)
         toast.error(data.message)
       }
     } else {
@@ -172,41 +130,12 @@ console.log(data,'loginData');
     },
   });
 
-
-  // //   console.log(elistdata,'elistdata');
-
-  // // const router = useRouter();
-  // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
-  // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
-
-  // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
-  // };
   return (
 
     <Grid container className={styles.cantenar_pegsingcantenar}>
       <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
         <img
               style={{width:'100%'}}
-
-        //  width={360}
-        //  className={styles.maenloginpegimg} 
-        //  src='../../Group 109.svg' 
 src='../../login bg.png'
          />
       </Grid>
@@ -227,18 +156,11 @@ src='../../login bg.png'
               value={formik.values.username}
               placeholder='Email ID'
               type="text"
-              //  {...register('email')}
-              // placeholder='Username'
               className={styles.userinput}
               style={{
                 margin: '0px'
               }}
             />
-
-            {/* <FormControl sx={{ m: 1 }} variant="outlined"> */}
-            {/* <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel> */}
-            {/* <OutlinedInput
-                            < */}
             <InputLabel className={styles.leballist2}>Password</InputLabel>
             <TextField
               error={Boolean(formik.touched.password && formik.errors.password)}
@@ -278,44 +200,15 @@ src='../../login bg.png'
               <>
                 <GoogleLogin
                   className={styles.goolloginid}
-                  // className="google-item"
                   clientId={client_id}
                   onSuccess={loginHandler}
                   onFailure={failureHandler}
                   cookiePolicy={"single_host_origin"}
                 />
-                {/* <GoogleLogin
-            clientId={client_id}
-            render={(renderProps) => (
-              <button
-                className="btn button btn-outline"
-                onClick={renderProps.onClick}
-                // disabled={renderProps.disabled}
-              >
-                <img  /> Sign Up with Google
-              </button>
-            )}
-            onSuccess={loginHandler}
-            onFailure={failureHandler}
-            cookiePolicy={"single_host_origin"}
-          /> */}
+                
               </>
             )}
-            {/* {showLogoutButton && (
-              <GoogleLogout
-                clientId={client_id}
-                render={(renderProps) => (
-                  <button
-                    className="btn button btn-outline"
-                    onClick={renderProps.onClick}
-                  // disabled={renderProps.disabled}
-                  >
-                    <img /> logout
-                  </button>
-                )}
-                onLogoutSuccess={logoutHandler}
-              ></GoogleLogout>
-            )} */}
+           
           </div>
           <div className={styles.alreadylist}>
             <Typography>
@@ -329,10 +222,7 @@ src='../../login bg.png'
       </Grid>
       <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
       <img
-      style={{width:'95%'}}
-      //  width={360}
-        //  className={styles.maenloginpegimg} 
-        //  src='../../Group 109.svg' 
+      style={{width:'95%'}} 
 src='../../login bg.png'
          />
       </Grid>
@@ -342,9 +232,7 @@ src='../../login bg.png'
 }
 const mapStateToProps = (state) => ({
   profile: state.user.profile,
-  // {console.log( state.user.profile,'profile')}
 });
-// {}
 
 const mapDispatchToProps = (dispatch) => ({
   save_user_data: (data) =>
@@ -352,10 +240,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-
-// const checkElement = async (selector: string) => {
-//   while (document.querySelector(selector) === null) {
-//     await new Promise(resolve => requestAnimationFrame(resolve))
-//   }
-//   return document.querySelector(selector);
-// };

@@ -53,7 +53,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-// import Typography from '@mui/material/Typography';
 import Radio from '@mui/material/Radio';
 
 import DialogContent from '@mui/material/DialogContent';
@@ -158,8 +157,6 @@ function getComparator(order, orderBy) {
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
@@ -250,22 +247,16 @@ function EnhancedTableHead(props) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        // align={headCell.numeric ? 'right' : 'left'}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
-                        {/* <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            > */}
+                 
                         {headCell.label}
                         {orderBy === headCell.id ? (
                             <Box component="span" sx={visuallyHidden}>
                                 {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                             </Box>
                         ) : null}
-                        {/* </TableSortLabel> */}
                     </TableCell>
                 ))}
             </TableRow>
@@ -316,7 +307,6 @@ const Home = (props) => {
     const [accounttype, setAccounttype] = React.useState('')
     const [reviewStatus, setReviewStatus] = React.useState("none");
     const [distiddata, setDistiddata] = React.useState('')
-    // const [com, setCom] = React.useState(false);
     const [play, setPlay] = React.useState(false);
     const [listdara, setLlistdata] = useState('All');
     const [listdarapush, setLlistdatapush] = useState('All');
@@ -352,16 +342,7 @@ console.log(selectedValue,'selectedValue');
         var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
         props.props.loaderRef(false)
         console.log(data, 'datalist');
-        // if (!isClear) {
-        // if (btnlistdata == '') {
-        //     ;
-        //     data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
-
-        // } else {
-        //     data = ApiEndpoint.PATTERN_LIST + `?status=${btnlistdata}&type=${btnlistdata}`;
-
-        // }
-        //   } 
+    
         if (!!data) {
             if (data.status == true && data.data.length > 0) {
                 const accoyty = [];
@@ -426,16 +407,12 @@ console.log(selectedValue,'selectedValue');
         setReviewStatus(status);
         if (status == "BasicPattern") {
             setDatatebalpettan(pendingReviewList);
-            // setUserSearch(pendingReviewList);
         } else if (status == "BasicPattern") {
             setDatatebalpettan(approveReviewList);
-            // setUserSearch(approveReviewList);
         } else if (status == "all") {
             setDatatebalpettan(data);
-            // setUserSearch(rejectReviewList);
         } else {
             setDatatebalpettan(flagReviewList);
-            // setUserSearch(flagReviewList);
         }
     };
 
@@ -456,8 +433,6 @@ console.log(selectedValue,'selectedValue');
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
         props.props.loaderRef(false)
-        // console.log();
-        // if (!!patternDelete) {
 
         console.log(patternDelete, 'datalist');
         if (patternDelete.status == true) {
@@ -468,11 +443,7 @@ console.log(selectedValue,'selectedValue');
         else {
             toast.error(patternDelete.data)
         }
-        // }
-        // else{
-        //     toast.error("Successfully nformation lisgg")
 
-        // }
 
     }
     const patternlistviwe = async () => {
@@ -483,23 +454,16 @@ console.log(selectedValue,'selectedValue');
         }
         var body = {
             "id_pattern": distiddata,
-            // props.idlist,
-            // email: props.email,
-            // otp: outField
         }
         console.log(body, 'body');
 
         props.props.loaderRef(true)
-        // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
-
-        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
         console.log(patternDelete, 'datalistddd');
 
         if (!!patternDelete) {
             if (patternDelete.status == true) {
-                // setListpatt(patternDelete.pattern.quote)
                 setDatamenu(patternDelete.pattern)
 
             }
@@ -559,7 +523,6 @@ console.log(selectedValue,'selectedValue');
 
                 toast.success(patternDelete.data)
                 patternlist()
-                // router.push('./dashboard')
             }
             else {
                 toast.error(patternDelete.data)
@@ -603,12 +566,8 @@ console.log(selectedValue,'selectedValue');
         else{
                 toast.error('Something is working')
     
-            // }
     }
-        // }else{
-        //     toast.error('list')
-
-        // }
+      
     }
     const edituser = () => {
         if (listdarapush == '') {
@@ -629,10 +588,8 @@ console.log(selectedValue,'selectedValue');
 
     React.useEffect(() => {
         if (!!props.props.profile && !!props.props.profile.token) {
-            // playpattern()
             patternlist()
             patternlistviwe()
-            // Pausepattern()
         }
     }, [])
     const handlePinChangelist = (e) => {
@@ -741,8 +698,6 @@ console.log(selectedValue,'selectedValue');
     };
 
     const isSelected = (name) => selected.indexOf(name) !== -1;
-
-    // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebalpettan.length) : 0;
 
@@ -766,7 +721,6 @@ console.log(selectedValue,'selectedValue');
                                                                         query: { scripType: 'currency', patternType: 'basic', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
                                                                     }});
                                                                 }}
-                        //  onClick={()=>{ { pathname: '/addPattern',}}
                           className={styles.cerbatn}>
                             <Avatar className={styles.cerbatn2}>
                                 <img src="../../Vector (5).svg" />
@@ -812,7 +766,6 @@ console.log(selectedValue,'selectedValue');
                             id="account-menu"
                             open={open}
                             onClose={handleClose}
-                            // onClick={handleClose}
                             PaperProps={{
                                 elevation: 0,
                                 sx: {
@@ -858,10 +811,7 @@ console.log(selectedValue,'selectedValue');
                             <div>
                                 <div className={styles.typetext}><Typography>Type</Typography></div>
                                 <div className={styles.listadarara}>
-                                    {/* {btnlistdata == '' ? }
-                                    <Button className={styles.nonelistbtn} onClick={()=>{setBtnlist('none')}}>None</Button>
-                                    <Button className={styles.Basiclistbtn}  onClick={()=>{setBtnlist('basic')}} >Basic</Button>
-                                    <Button className={styles.Customlistbtn}  onClick={()=>{setBtnlist('custom')}}>Custom</Button> */}
+                              
                                     <Button
                                         onClick={() => {
                                             setBtnlist('all')
@@ -870,7 +820,6 @@ console.log(selectedValue,'selectedValue');
                                         setBtnlist('BasicPattern')
                                     }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
                                     <Button onClick={() => {
-                                        // tabChange("Custom")
                                         setBtnlist('Custom')
                                     }} className={btnlistdata == 'Custom' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
                                 </div>
@@ -885,7 +834,6 @@ console.log(selectedValue,'selectedValue');
                         <React.Fragment>
 
                             <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
-                                {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
                                 <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
                                     <Table
                                         className={styles.tablelist}
@@ -906,13 +854,11 @@ console.log(selectedValue,'selectedValue');
                                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                 .map((row, index) => {
                                                     const isItemSelected = isSelected(row.id);
-                                                    // const isItemSelected = isSelected(row.id_account);
                                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                                     return (
                                                         <TableRow
-                                                            // hover
-                                                            // onClick={(event) => handleClick(event, row.name)}
+                                         
                                                             role="checkbox"
                                                             aria-checked={isItemSelected}
                                                             tabIndex={-1}
@@ -932,7 +878,6 @@ console.log(selectedValue,'selectedValue');
                                                             <TableCell
                                                                 
 
-                                                                // component="th"
                                                                 id={labelId}
                                                                 scope="row"
                                                                 padding="none"
@@ -984,12 +929,9 @@ console.log(selectedValue,'selectedValue');
                                                                 <div className={styles.listtebal}>
                                                                     <Button className={styles.viwebtnmm}
 
-                                                                    // onClick={() => { setRowid(row.id) }}
                                                                     > <img height={18} src="../../edit_square.svg" /> </Button>
 
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script),setListnse(row.exchange),row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
-                                                                        {/* <PauseCircleOutlineIcon /> */}
-                                                                        {/* <Touchable>dilet</Touchable> */}
                                                                         {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
                                                                     </Button>}
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>}
@@ -998,9 +940,7 @@ console.log(selectedValue,'selectedValue');
                                                                     <Dialog open={deletbtn} onClose={handleCloseComdeletbtn}
                                                                         className={styles.borderredayasfor}
                                                                         style={{
-                                                                            // borderRadius: '30px'
                                                                         }}
-                                                                        // fullWidth
                                                                         maxWidth="sm"
                                                                     >
                                                                         <div className={styles.colosbatnlist}><Button onClick={handleCloseComdeletbtn}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
@@ -1014,8 +954,7 @@ console.log(selectedValue,'selectedValue');
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 1000002845.svg" />
                                                                                     </div>
-                                                                                    {/* <Box className={styles.listboxiduser}>
-                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                                
                                                                                     <div className={styles.paregarafnsg}>
                                                                                         <Typography>Are you sure you want to pause this {isClear} ( NSE ) from zerodha ?</Typography>
                                                                                     </div>
@@ -1023,10 +962,8 @@ console.log(selectedValue,'selectedValue');
 
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }}>Cancel</Button>
-                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
                                                                                         <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }} className={styles.cofimbatn} onClick={handleClickOpendeletbtnlog}>SAVE </Button></div>
                                                                                 </Box>
-                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                             </DialogContent>
                                                                         </div>
                                                                     </Dialog>
@@ -1035,12 +972,9 @@ console.log(selectedValue,'selectedValue');
                                                                     <Dialog open={deletemenukk} onClose={handleCloseComdeletlog}
                                                                         className={styles.borderredayasfor}
                                                                         style={{
-                                                                            // borderRadius: '30px'
                                                                         }}
-                                                                        // fullWidth
                                                                         maxWidth="sm"
                                                                     >
-                                                                        {/* <div style={{ display: 'flex', justifyContent: 'end', margin: '0px 10px 0px 0px' }}><Button className={styles.listdataclos} onClick={handleCloseComdeletlog}><img width={25} src="../../icon-close-512.webp" /></Button>  </div> */}
                                                                         <div>
                                                                             <DialogContent className={styles.popupcantenar}>
                                                                                 <Box className={styles.lisrmaenbox}>
@@ -1058,7 +992,6 @@ console.log(selectedValue,'selectedValue');
                                                                                         </div>
                                                                                         <div className={styles.btn_all_buy22} style={{ padding: '0px 0px 20px 0px' }}>
                                                                                          
-                                                                                            {/* <Button onClick={()=>{setLlistdata('All')}} className={listdara =='All' ? styles.listdatlog:styles.list2data }>All</Button> */}
                                                                                             <Button onClick={() => { setLogvvmog('Stock') }} className={logvvmog == 'Stock' ? styles.listdatlog : styles.list2data}>Stock</Button>
                                                                                             <Button onClick={() => { setLogvvmog('WithoutStock') }} className={logvvmog == 'WithoutStock' ? styles.listdatlog : styles.list2data}>Without Stock</Button>
 
@@ -1086,29 +1019,7 @@ console.log(selectedValue,'selectedValue');
         name="radio-buttons"
         inputProps={{ 'aria-label': 'B' }}
       />
-                                                                                         {/* {checked == true ? <SwitchUnstyled component={Root}
-                                                                                                // onChange={console.log('virang')}
-                                                                                                {...label} id='switch'
-                                                                                                disabled
-                                                                                                // style={{ padding: '0px 0px 0px 32px' }}
-
-                                                                                                // checked={row.Publication} 
-                                                                                                onChange={((e) => {
-                                                                                                    setSwishlist(e.target.checked)
-                                                                                                    setChecked(true)
-
-                                                                                                })}
-                                                                                            />: 
-                                                                                            <SwitchUnstyled component={Root}
-                                                                                                {...label} id='switch'
-                                                                                                // style={{ padding: '0px 0px 0px 32px' }}
-// onClick={()=>{setChecked(fl)}}
-                                                                                                onChange={((e) => {
-                                                                                                    
-                                                                                                    setSwishlist(e.target.checked)
-                                                                                                    setAccounttype('exit for fixedPrice')
-                                                                                                })}
-                                                                                            /> } */}
+                                                                                     
                                                                                             </div>
 
                                                                                         </div>}
@@ -1134,9 +1045,7 @@ console.log(selectedValue,'selectedValue');
                                                                                             />}
                                                                                         </div>
                                                                                         }
-                                                                                        {/* <div style={{ padding: '0px 0px 20px 0px' }}>
-                                                                                    <Typography className={styles.texstcolor}  style={{'color':'#333333',fontSize:'12px'}}>Clean up Stock from this pattern</Typography>
-                                                                                </div> */}
+                                                                                 
                                                                                 {logvvmog == 'WithoutStock' ? '':
 
                                                                                         <div style={{ display: 'flex', padding: "10px 0px 0px 0px" }}>
@@ -1155,31 +1064,7 @@ console.log(selectedValue,'selectedValue');
         name="radio-buttons"
         inputProps={{ 'aria-label': 'A' }}
       />
-                                                                                         {/* {swishlist == true 
-                                                                                            ?  
-                                                                                             <SwitchUnstyled component={Root}
-                                                                                                // onChange={console.log('virang')}
-                                                                                                {...label} id='switch'
-                                                                                                // disabled
-                                                                                                // style={{ padding: '0px 0px 0px 20px' }}
-disabled
-                                                                                                // checked={row.Publication} 
-                                                                                                onChange={((e) => {
-                                                                                                    setChecked(e.target.checked)
-                                                                                                    // setSwishlist(true)
-                                                                                                })}
-                                                                                            />: 
-                                                                                            <SwitchUnstyled component={Root}  {...label} id='switch'
-                                                                                                // style={{ padding: '0px 0px 0px 20px' }}
-                                                                                                // checked={row.Publication} 
-                                                                                                onChange={((e) => {
-                                                                                                    // setChecked('ZERODHA')
-                                                                                                    setChecked(e.target.checked)
-                                                                                                    // setSwishlist(true)
-                                                                                                    setAccounttype('exit for market')
-
-                                                                                                })}
-                                                                                            />}  */}
+                                                                                       
  </div>
 
                                                                                         </div>}
@@ -1245,24 +1130,20 @@ disabled
                                                                                     </Box>
                                                                                     <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
                                                                                 </Box>
-                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                             </DialogContent>
                                                                         </div>
                                                                     </Dialog>
                                                                 </div>
                                                                 <div>
                                                                     <Dialog open={play} onClose={handleCloseComplay}
-                                                                        className={styles.borderredayasfor}
-                                                                        style={{
-                                                                            // borderRadius: '30px'
-                                                                        }}
-                                                                        // fullWidth
+                                                                
                                                                         maxWidth="sm"
                                                                     >
-                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
-                                                                            <DialogContent className={styles.popupcantenar}>
-                                                                                <Box className={styles.lisrmaenbox}>
+                                                                            <DialogContent 
+                                                                            >
+                                                                                <Box 
+                                                                                >
 
                                                                                     <div className={styles.delehedar}>
                                                                                         <Typography> Play Pattern</Typography>
@@ -1270,8 +1151,7 @@ disabled
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 47124 (1).svg" />
                                                                                     </div>
-                                                                                    {/* <Box className={styles.listboxiduser}>
-                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                                  
                                                                                     <div className={styles.paregarafnsg}>
                                                                                         <Typography>Are you sure you want to Play this {isClear} ({listmenudata}) Pattern ?</Typography>
                                                                                     </div>
@@ -1289,17 +1169,13 @@ disabled
                                                                                         {listdarapush == '' ? <span className={styles.otperr}>Please Enter Valid list</span> : ''}
                                                                                     </div>
                                                                                     <div className={styles.cancelbtnlog} style={{ padding: '40px 0px 10px 0px' }}>
-                                                                                        {/* <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}> */}
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX' }} onClick={handleCloseComplay}>Cancel</Button>
 
-                                                                                        {/* <Button style={{background:'#E31E24',borderRadius:'5px',color: '#FFFFFF', padding:'3PX 31PX 3PX 31PX'}} className={styles.cofimbatn}  onClick={edituser}>SAVE </Button> */}
-                                                                                        {/* <Button>Cancel</Button> */}
-                                                                                        {/* <img className={styles.linelinjk} src='../../Line 17.svg'></img> */}
+                                                                                       
                                                                                         {listdarapush == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 42PX 7PX 42PX' }} className={styles.cofimbatn} >SAVE </Button> :
                                                                                             <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={styles.cofimbatn} onClick={() => { edituser(), handleCloseComplay() }}>SAVE </Button>}
                                                                                     </div>
                                                                                 </Box>
-                                                                                {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                             </DialogContent>
                                                                         </div>
                                                                     </Dialog>
@@ -1308,14 +1184,15 @@ disabled
                                                                     <Dialog open={pause} onClose={handleCloseCompause}
                                                                         className={styles.borderredayasfor}
                                                                         style={{
-                                                                            // borderRadius: '30px'
                                                                         }}
-                                                                        // fullWidth
+                                                                        
                                                                         maxWidth="sm"
                                                                     >
                                                                         <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
-                                                                            <DialogContent className={styles.popupcantenar}>
+                                                                            <DialogContent
+                                                                             className={styles.popupcantenar}
+                                                                             >
                                                                                 <Box className={styles.lisrmaenbox}>
 
                                                                                     <div className={styles.delehedar}>
@@ -1324,8 +1201,7 @@ disabled
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 47124 (2).svg" />
                                                                                     </div>
-                                                                                    {/* <Box className={styles.listboxiduser}>
-                                                                           <InputLabel className={styles.leballist}>ORDER ID </InputLabel> */}
+                                                                                 
                                                                                     <div className={styles.paregarafnsg}>
                                                                                         <Typography>Are you sure you want to Pause this {isClear} ({listmenudata}) Pattern?</Typography>
                                                                                     </div>
@@ -1333,7 +1209,6 @@ disabled
                                                                                         <Typography>Pause with  </Typography>
                                                                                     </div>
                                                                                     <div className={styles.btn_all_buy}>
-                                                                                        {/* {btnlistnamelist == 'All' ? }   */}
                                                                                         <Button onClick={() => { setLlistdata('All') }} className={listdara == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
                                                                                         <Button onClick={() => { setLlistdata('Buy') }} className={listdara == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
                                                                                         <Button onClick={() => { setLlistdata('Sell') }} className={listdara == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>

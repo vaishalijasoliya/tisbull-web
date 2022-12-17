@@ -7,7 +7,6 @@
     font-family: Poppins-400 !important;
     background-color: #fff !important;
     color: black !important;
-    // font-family: 'Poppins';
     font-style: normal;
     text-transform: capitalize !important;
     font-weight: 500 !important;
@@ -30,7 +29,6 @@
 .btn_meaincom{
     display: flex;
     justify-content: end;
-    // display={"flex"} justifyContent={'end'}
     padding: 16px 0px 0px 0px;
 }
 .line_btn{
@@ -49,8 +47,4 @@
     .btn_meaincom{
         padding: 6px 0px 0px 0px;
     }
-    // .btn_meaincom{
-    //     display: flex;
-    //     justify-content: end;
-    // }
 }

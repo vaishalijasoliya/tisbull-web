@@ -2,55 +2,30 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Constants from '../../config/Constants';
 import Dialog from '@mui/material/Dialog';
-
 import styles from './newbatlist.module.scss'
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/router';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LogoutIcon from '@mui/icons-material/Logout';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import { toast } from 'react-toastify';
 import Drawer from '@mui/material/Drawer';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import HttpsIcon from '@mui/icons-material/Https';
-import ClassIcon from '@mui/icons-material/Class';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
-import PaymentIcon from '@mui/icons-material/Payment';
-import SmsIcon from '@mui/icons-material/Sms';
-// import MenuIcon from '@mui/icons-material/Menu';
 import { connect } from 'react-redux';
 import { Types } from '../../constants/actionTypes'
-// import Tooltip from '@mui/material/Tooltip';
 import DialogContent from '@mui/material/DialogContent';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-// import { useRouter } from 'next/router';
-// import BorderColorIcon from '@mui/icons-mat/.erial/BorderColor';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -73,8 +48,7 @@ const[dartmenu,setDatamenu] =React.useState('')
   console.log(dartmenu,'dartmenu');
     var handleClickOpenCom = () => {
     setCom(true);
-    // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-    // myprops = { advertiseMent }
+  
   };
   const handleCloseCom = () => {
     setCom(false);
@@ -88,15 +62,10 @@ const[dartmenu,setDatamenu] =React.useState('')
     setAnchorEl(null);
   };
   const chartloginuser = async () => {
-
-    // console.log(id, 'id')
-
     var headers = {
       "Content-Type": "application/json",
       "x-access-token": props.profile.token
     }
-    // console.log( props.props.profile.token, 'kklist');
-
     var data = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
     console.log(data, 'mydataLIST');
 
@@ -176,10 +145,8 @@ const[dartmenu,setDatamenu] =React.useState('')
       chartloginuser()
     }
     else {
-      // setErrorShow(true)
       toast.error(accountdelete.message)
     }
-    // }
   }
   React.useEffect(() => {
     getRequestToken();
@@ -202,9 +169,7 @@ const[dartmenu,setDatamenu] =React.useState('')
       request_token: token,
       id_account:dartmenu
     }
-    // props.loaderRef(true)
     var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
-    // props.loaderRef(false)
     console.log('updateAccount...', updateAccount)
   }
 
@@ -232,8 +197,6 @@ const[dartmenu,setDatamenu] =React.useState('')
       onClick={() => {
         router.push({
           pathname: './pattanlist',
-          // query: { scripType: 'currency', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) }
-          // query: { type: 'currency' }
         });
       }}
       className={currentPath == '/pattanlist' ? styles.borderbottum : styles.btn_pages}>
@@ -243,15 +206,13 @@ const[dartmenu,setDatamenu] =React.useState('')
     onClick={()=>{router.push('./AllOrder')}}
     className={currentPath == '/AllOrder' ? styles.borderbottum : styles.btn_pages}>
   
-        All Order
+        Orders
 
     </Button>,];
 
   const [state, setState] = React.useState({
-    // top: false,
     left: false,
-    // bottom: false,
-    // right: false,
+
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -274,8 +235,6 @@ const[dartmenu,setDatamenu] =React.useState('')
         <Button
           onClick={(() => { router.push('./dashboard') })}
           className={styles.btn_pages2}
-          // key={page}
-          // onClick={handleCloseNavMenu}
           sx={{ my: 2, display: 'block' }}
         >
           Dashboard
@@ -284,8 +243,6 @@ const[dartmenu,setDatamenu] =React.useState('')
           onClick={(() => { router.push('./accountlist') })}
 
           className={styles.btn_pages2}
-          // key={page}
-          // onClick={handleCloseNavMenu}
           sx={{ my: 2, display: 'block' }}
         >
           Account
@@ -293,41 +250,32 @@ const[dartmenu,setDatamenu] =React.useState('')
         <Button
           onClick={(() => { router.push('./pattanlist') })}
           className={styles.btn_pages2}
-          // key={page}
-          // onClick={handleCloseNavMenu}
           sx={{ my: 2, display: 'block' }}
         >
           Pattern
         </Button>
         <Button
           className={styles.btn_pages22}
-          onClick={(() => { router.push('./AllOrder') })}
+          onClick={(() => { handleClick(),router.push('./AllOrder') })}
 
-          onClick={handleClick}
+          
           sx={{ my: 2, display: 'block' }}
         >
-        All Order
-          {/* Reports */}
-          {/* <ArrowForwardIosIcon /> */}
-          {/* <KeyboardArrowDownIcon /> */}
+        Orders
         </Button>
         <Button
           className={styles.btn_pages2}
-          // key={page}
           onClick={handleCloseNavMenu}
           sx={{ my: 2, display: 'block' }}
         >
           notification
-          {/* <KeyboardArrowDownIcon /> */}
         </Button>
         <Button
           className={styles.btn_pages2}
-          // key={page}
           onClick={(() => { router.push('./editprofileacc') })}
           sx={{ my: 2, display: 'block' }}
         >
           settings
-          {/* <KeyboardArrowDownIcon /> */}
         </Button>
       </div>
 
@@ -372,21 +320,11 @@ const[dartmenu,setDatamenu] =React.useState('')
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page}
-                  {/* <ButtonGroup
-              // orientation="vertical"
-              aria-label="vertical outlined button group"
-              className={styles.newbtnrow}
-            >
-                  {pages}
-                  </ButtonGroup> */}
-
                 </Typography>
               ))}
             </Box>
             <div className={styles.btnicon2} ><Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon /></Button>
               <Button><NotificationsNoneIcon /></Button></div>
-            {/* <Grid item sm={4} md={2} xs={4} display={'flex'} justifyContent={'end'}> */}
-
             <div>
               {['left'].map((anchor) => (
                 <React.Fragment key={anchor}>
@@ -411,9 +349,6 @@ const[dartmenu,setDatamenu] =React.useState('')
                   <div className={styles.Avatar_newbar}
                   >
                     <Avatar className={styles.btn_avtar_list}
-                      // src={rowidlist == ''? props..profile.logoUrl:props.props.profile.currentAccount.logoUrl}
-
-                      
                     >
                     <img width={30} src={props.profile.userData.logoUrl} />
                     </Avatar>
@@ -424,11 +359,8 @@ const[dartmenu,setDatamenu] =React.useState('')
                     </Typography>
                   </div>
                 </a>
-                {/* {props.profile == '' ? "": */}
-
                 <div>
                   <Button className={styles.alt_list_ikon}
-                    //  onClick={()=>{handleClickOpenCom()}}
                     onClick={handleClick}
                   >
                     <ExpandMoreIcon />
@@ -437,9 +369,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                     onClose={handleCloseCom}
                     className={styles.borderredayasfor}
                     style={{
-                      // borderRadius: '30px'
                     }}
-                    // fullWidth
                     maxWidth="sm"
                   >
                     <div>
@@ -452,11 +382,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                           </Divider>
                           <div className={styles.accoparegarf}>
                             <Typography>Are you sure you want to delete {listuserid} this account?</Typography>
-                              {/* <Typography className={styles.accoparegarfff}>
-                             
-
-                              </Typography> */}
-                          </div>
+                                                       </div>
                           <div>
                           </div>
                           <Divider>
@@ -464,7 +390,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                           </Divider>
                           <div><Button className={styles.cancelbtn} onClick={handleCloseCom}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => { accountdelete(), handleCloseCom() }}>Delete</Button></div>
                         </Box>
-                        {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                  
                       </DialogContent>
                     </div>
                   </Dialog>
@@ -472,7 +398,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                     anchorEl={anchorEl}
                     id="account-menu"
                     open={open}
-                    // onClose={handleClose}
+          
                     onClick={handleClose}
                     PaperProps={{
                       elevation: 0,
@@ -541,17 +467,17 @@ const[dartmenu,setDatamenu] =React.useState('')
                           onClick={() => {
                                                                     handleCloseUserMenu(),router.push({
                                                                         pathname: './Accountsview',
-                                                                        // pathname:       
+                                                      
 
                                                                         query: { emailID: item.id}
                                                                     });
                                                                 }}
-                          // onClick={()=>{handleCloseUserMenu(),setIdlistuse(item.id)}} 
+                        
                           className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
                           <Button
                           
                             onClick={() => { handleClickOpenCom(), setRowidbtn(item.id), setListuserid(item.user_id) }}
-                            // onClick={() => {setRowidbtn(item.id),handleClickOpenCom() }}
+                
                             className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
 
                         </div>
@@ -578,7 +504,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                       </div>
                     </div>
                   </Menu>
-                  {/* </React.Fragment> */}
+
 
                 </div>
               </div>
@@ -599,4 +525,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
-// export default ResponsiveAppBar;

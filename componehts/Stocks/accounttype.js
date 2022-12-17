@@ -28,7 +28,6 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
-
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Menu from '@mui/material/Menu';
 import Divider from '@mui/material/Divider';
@@ -161,22 +160,15 @@ function EnhancedTableHead(props) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        // align={headCell.numeric ? 'right' : 'left'}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
-                        {/* <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            > */}
                         {headCell.label}
                         {orderBy === headCell.id ? (
                             <Box component="span" sx={visuallyHidden}>
                                 {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                             </Box>
                         ) : null}
-                        {/* </TableSortLabel> */}
                     </TableCell>
                 ))}
             </TableRow>
@@ -288,12 +280,7 @@ console.log(props.props.profile.accountId,'listzorothatokan');
         var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
         props.props.loaderRef(false)
         console.log('updateAccount...', updateAccount)
-        // if(updateAccount.status == true){
-          // router.reload(window.location.pathname)
-    
-        // }
       }
-    // const [anchorEl, setAnchorEl] = React.useState(null);
     console.log(listuserid,'listuserid');
     const openliost = Boolean(datalist);
     const menulist = (event) => {
@@ -305,8 +292,6 @@ console.log(props.props.profile.accountId,'listzorothatokan');
     };
     var handleClickOpenCom = () => {
         setCom(true);
-        // console.log(advertiseMent, startDate, endDate, image, 'hello data')
-        // myprops = { advertiseMent }
     };
     const handleCloseCom = () => {
         setCom(false);
@@ -317,16 +302,9 @@ console.log(props.props.profile.accountId,'listzorothatokan');
             "Content-Type": "application/json",
             "x-access-token": props.props.profile.token
         }
-        // var body = { type: 'active' }
-        // if (!!startDate && !!endDate) {
-        //     body.start_day = moment(startDate).format("MM/DD/YYYY")
-        //     body.end_day = moment(endDate).format("MM/DD/YYYY")
-        // }
-        // console.log(body, 'body');
         props.props.loaderRef(true)
         var data = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
 
-        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
         console.log(data, 'datadfsf');
 
@@ -370,13 +348,10 @@ console.log(props.props.profile.accountId,'listzorothatokan');
         setReviewStatus(status);
         if (status == "kotak") {
             setDatatebal(pendingReviewList);
-            // setUserSearch(pendingReviewList);
         } else if (status == "zerodha") {
             setDatatebal(approveReviewList);
-            // setUserSearch(approveReviewList);
         } else if (status == "all") {
             setDatatebal(teballist);
-            // setUserSearch(rejectReviewList);
         } 
     };
     console.log(datatebal, 'datatebal');
@@ -389,31 +364,19 @@ console.log(props.props.profile.accountId,'listzorothatokan');
         var body = {
             "id_account": rowid
         }
-        // console.log(body, 'lkahuaah');
 
         props.props.loaderRef(true)
         var accountdelete = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_DELETE, JSON.stringify(body), headers)
-        // var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_PLAY, headers)
-
-        // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
         props.props.loaderRef(false)
         console.log(accountdelete, 'accountdelete');
-        // if (!!data) {
         if (accountdelete.status == true) {
-            // patternDelete.token = patternDelete.token
-            // elistdata
-            // props.save_user_data({ user: data });
             toast.success("Successfully Updated Personal Information lisgg")
             accounttype()
-            // router.push('./dashboard')
         }
         else {
-            // setErrorShow(true)
             toast.error(accountdelete.message)
         }
-        // }
     }
-    // let inloglist=datatebal.zerodha_token_update
 
     console.log(datatebal, 'datatebal');
 
@@ -482,13 +445,11 @@ console.log(props.props.profile.accountId,'listzorothatokan');
 
     const isSelected = (name) => selected.indexOf(name) !== -1;
 
-    // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebal.length) : 0;
 
     return (
         <Grid container className={styles.cantenar_list22}>
-            {/* <Divider className={styles.devatdar}/> */}
             <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal}>
 
                 <Typography className={styles.accolistp}>
@@ -500,7 +461,6 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                     <Button className={styles.addbtnkk} onClick={() => {
                         router.push({
                             pathname: './AddAccounts',
-                            // query: { emailID: row.id,namescoka:row.script }
                         });
                     }}>
                         Create account
@@ -533,25 +493,13 @@ console.log(props.props.profile.accountId,'listzorothatokan');
             </Grid>
 
             <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
-                {/* <CsvDownloader data={list}> */}
                 <Button className={styles.btnsaveic}
-                //  data={datatebal} filename={"account.csv"}
                  > <SaveAltIcon /></Button>
-                {/* <Button className={styles.btnsaveic}>  */}
-
-
-                {/* <CSVDownload  filename={"user.csv"} clssName={styles.csvlinkfor}> */}
-
-
-                {/* </CSVDownload> */}
-                {/* </Button> */}
-                {/* </CsvDownloader> */}
                 <Button
                  id="demo-customized-button"
                                                             aria-controls={openliost ? 'demo-customized-menu' : undefined}
                                                             aria-haspopup="true"
                                                             aria-expanded={openliost ? 'true' : undefined}
-                                                            // style={{padding:'0px 0px 0px 20px'}}
                   onClick={menulist}><img src='../../Vector (3).svg' /></Button>
                 <Menu
                             className={styles.menufiltarbtn}
@@ -560,7 +508,6 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                             id="account-menu"
                             open={openliost}
                             onClose={handleCloselisyys}
-                            // onClick={handleClose}
                             PaperProps={{
                                 elevation: 0,
                                 sx: {
@@ -606,10 +553,6 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                             <div>
                                 <div className={styles.typetext}><Typography>Type</Typography></div>
                                 <div className={styles.listadarara}>
-                                    {/* {btnlistdata == '' ? }
-                                    <Button className={styles.nonelistbtn} onClick={()=>{setBtnlist('none')}}>None</Button>
-                                    <Button className={styles.Basiclistbtn}  onClick={()=>{setBtnlist('basic')}} >Basic</Button>
-                                    <Button className={styles.Customlistbtn}  onClick={()=>{setBtnlist('custom')}}>Custom</Button> */}
                                     <Button 
                                     onClick={() => {
                                       setBtnlist('all')
@@ -618,7 +561,6 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                         setBtnlist('kotak')
                                     }} className={btnlistdata == 'kotak' ? styles.Customlistbtn : styles.nonelistbtn}>KOTAK</Button>
                                     <Button onClick={() => {
-                                        // tabChange("Custom")
                                         setBtnlist('zerodha')
                                     }}  className={btnlistdata == 'zerodha' ? styles.Customlistbtn : styles.nonelistbtn}>ZERODHA</Button>
                                 </div>
@@ -630,11 +572,9 @@ console.log(props.props.profile.accountId,'listzorothatokan');
             <Grid item md={12} sm={12} xs={12} >
                 <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
                     <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
-                        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
                         <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
                             <Table
                                 className={styles.tablelist}
-                                // sx={{ minWidth: 750 }}
                                 aria-labelledby="tableTitle"
                                 size={dense ? 'small' : 'medium'}
                             >
@@ -656,8 +596,6 @@ console.log(props.props.profile.accountId,'listzorothatokan');
 
                                             return (
                                                 <TableRow
-                                                    // hover
-                                                    // onClick={(event) => handleClick(event, row.name)}
                                                     role="checkbox"
                                                     aria-checked={isItemSelected}
                                                     tabIndex={-1}
@@ -675,21 +613,15 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                         />
                                                     </TableCell>
                                                     <TableCell
-                                                        // component="th"
                                                         className={styles.fasttebarow}
                                                         align="right"
                                                         id={labelId}
                                                         scope="row"
                                                         padding="none"
                                                     >
-                                                        {/* <div> */}
                                                         <Avatar className={styles.avtartype} src={row.logoUrl} />
-                                                        {/* {row.type} */}
-                                                        {/* </div> */}
-                                                        {/* <div className={styles.nselist}><Typography>{row.NSE}</Typography></div> */}
                                                     </TableCell>
                                                     <TableCell
-                                                    // align="right"
                                                     >{row.user_id}</TableCell>
                                                     <TableCell >{row.consumer_key.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_key.length - 10)}</TableCell>
 
@@ -709,16 +641,9 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                             <Button disabled
                                                             >
                                                                 <img width={25} height={20} src='../../Vector (18).svg' /></Button>}
-                                                        {/* {row.zerodha_token_update} */}
                                                     </TableCell>
                                                     <TableCell >{row.consumer_secret.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_secret.length - 10)}</TableCell>
-                                                    {/* <TableCell >{row.id_user}</TableCell> */}
-                                                    {/* <TableCell >
-                                                        {row.password}
-                                                    </TableCell> */}
 
-                                                    {/* <TableCell> */}
-                                                    {/* <Button className={styles.listststu}>{row.Status}</Button></TableCell> */}
                                                     <TableCell>
                                                         {row.zerodha_token_update == '' ? '-' : moment(row.zerodha_token_update).format("DD/MM/YYYY h:mm:ss")}
 
@@ -737,22 +662,18 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                             <img width={21} height={19} src='../../Vector (1).svg' />
                                                             </div>
                                                                </div>   </Button>
-                                                                {/* <MenuItem className={styles.detemenu} > */}
                                                                 <Button className={styles.detemenu} onClick={()=>{handleClickOpenCom(),setRowid(row.id),setListuserid(row.user_id)}}>
                                                             <div style={{display:'flex'}}>
                                                             <div>
                                                             <img width={19} height={19} src='../../Vector (2).svg ' />
                                                             </div>
                                                               </div> </Button>  
-                                                              {/* </MenuItem> */}
                                                               
                                                         <div>
                                                             <Dialog open={com} onClose={handleCloseCom}
                                                                 className={styles.borderredayasfor}
                                                                 style={{
-                                                                    // borderRadius: '30px'
                                                                 }}
-                                                                // fullWidth
                                                                 maxWidth="sm"
                                                             >
                                                                 <div>
@@ -771,7 +692,6 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                                             </Divider>
                                                                             <div><Button className={styles.cancelbtn} onClick={handleCloseCom}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => { accountdelete(), handleCloseCom() }}>Delete</Button></div>
                                                                         </Box>
-                                                                        {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                                                     </DialogContent>
                                                                 </div>
                                                             </Dialog>
@@ -808,26 +728,12 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                         }}
                                         onPageChange={handleChangePage}
                                         onRowsPerPageChange={handleChangeRowsPerPage}
-                                    // ActionsComponent={TablePaginationActions}
                                     />
                                 </TableRow>
-                                {/* </TableFooter> */}
                             </Table>
                         </TableContainer>
-                        {/* <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            /> */}
                     </Paper>
-                    {/* <FormControlLabel
-            control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
-          /> */}
+      
                 </Box>
             </Grid>
         </Grid>

@@ -1,5 +1,4 @@
-// import style from '../styles/login.module.css'
-// import Signin from '../component/signin.js'
+
 import { Button, Typography, Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
@@ -10,16 +9,13 @@ const main = () => {
 
             <Grid container>
                 <Grid item sm={12} md={4} xs={12}>
-                    {/* <div>
-                        <img src='../../Ellipse 16.png'/>
-                    </div> */}
+         
                     <div className={styles.affordable_text}>
                         <Typography>
                             Affordable Pricing
                         </Typography>
                     </div>
                 </Grid>
-                {/* <Grid item md={1} sm={0} xs={0}></Grid> */}
                 <Grid item sm={12} md={8} xs={12}>
                     <Box className={styles.box_com_mobali}>
                         <div className={styles.box_maen_peg}>

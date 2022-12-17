@@ -1,14 +1,11 @@
-// import Head from 'next/head'
-// import Image from 'next/image'
+
 import styles from './editprofileacc.module.scss'
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@material-ui/core';
 import { Avatar, Button } from '@mui/material';
 import { useState, useEffect } from "react";
 import TextField from '@mui/material/TextField';
-// import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-// import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import InputLabel from '@mui/material/InputLabel';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -20,10 +17,8 @@ import { Types } from '../../constants/actionTypes'
 import { connect } from 'react-redux';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import moment from 'moment';
 
 import PhoneInput from 'react-phone-input-2'
@@ -64,10 +59,7 @@ const [datelist,setDatelist] =React.useState('')
       };
     useEffect(() => {
         setData()
-        // 
-        // if (!!props.router && !!props.router.query && !!props.router.query.data) {
-        //     setData(JSON.parse(props.router.query.data).id)UPLOAD_PROFILE
-        // }
+      
     },[])
 
     const setData = async () => {
@@ -90,12 +82,8 @@ const [datelist,setDatelist] =React.useState('')
             formik.setFieldValue('username', patternDelete.data.name);
             formik.setFieldValue('email', patternDelete.data.email)
             formik.setFieldValue('phone', patternDelete.data.phone_no)
-            // formik.setFieldValue('date', moment(patternDelete.data.birth_date).format("DD-mm-yyyy"))
             formik.setFieldValue('Address', patternDelete.data.address)
             formik.setFieldValue('Gender', patternDelete.data.gender)
-            // setDatelist(moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
-            // formik.setFieldValue('date',moment(patternDelete.data.birth_date).format("dd-mm-yyyy"))
-
             setPhonedata(patternDelete.data.phone_no)
             setAge(patternDelete.data.gender)
             setCreateObjectURL(patternDelete.data.profileUrl)
@@ -112,7 +100,6 @@ const [datelist,setDatelist] =React.useState('')
             'birth_date':formik.values.date,
             'address': formik.values.Address,
             'gender': age,
-            // 'listemail':
         }
         console.log(body, 'body');
 
@@ -130,12 +117,9 @@ const [datelist,setDatelist] =React.useState('')
         console.log(data.toast, 'listdata');
         if (!!data) {
             if (data.status == true) {
-                // props.save_user_data({ user: data.userData});
                 toast.success(data.message)
-                // router.push('./dashboard')
             }
             else {
-                // setErrorShow(true)
                 toast.error(data.message)
             }
         }
@@ -145,7 +129,6 @@ const [datelist,setDatelist] =React.useState('')
     }
     const uploadpohot = async () => {
        
-        // console.log(body, 'body');
 
         var headers = {
             "Content-Type": "application/json",
@@ -159,26 +142,19 @@ const [datelist,setDatelist] =React.useState('')
             'birth_date': formik.values.date,
             'address': formik.values.Address,
             'gender': age,
-            // 'listemail':
         }
         console.log(body, 'TOKANfffff');
 
         props.props.loaderRef(true)
         var data = await ApiServices.PostApiCall(ApiEndpoint.UPLOAD_PROFILE, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        // console.log(data, 'DATA');
 
         console.log(data, 'dvdddddd');
         if (!!data) {
             if (data.status == true) {
-                // data.token = data.token
-                // elistdata
-                // props.save_user_data({ user: data });
                 toast.success("list")
-                // router.push('./dashboard')
             }
             else {
-                // setErrorShow(true)
                 toast.error(data.message)
             }
         }
@@ -200,9 +176,7 @@ const [datelist,setDatelist] =React.useState('')
         setAge(event.target.value);
     };
     console.log(createObjectURL, 'createObjectURL');
-    // const handlePinChange = moNumber => {
-    //     setPhonedata(moNumber);
-    // };
+  
     const handlePinChange = phonedata => {
         setPhonedata(phonedata);
     };
@@ -216,7 +190,6 @@ const [datelist,setDatelist] =React.useState('')
     };
     const handleChangeImage = (e) => {
         console.log(e.target.files[0], "myfile");
-        // console.log(e.target.files[0].type,"myfiletype");
         const filetypes = e.target.files[0].type;
         const extension = filetypes.substring(0, 5)
         setImgupload(extension)
@@ -229,7 +202,6 @@ const [datelist,setDatelist] =React.useState('')
             setImage(i);
             setCreateObjectURL(URL.createObjectURL(i));
         }
-        // extensionCheck()
       }
       const uploadItem = async (file, type) => {
 
@@ -271,11 +243,7 @@ const [datelist,setDatelist] =React.useState('')
             body
         });
     };
-    // constructor() {
-    //     super(props);
-    //     this.state = { phone: "" };
-    // }
-    // this.state = { phone: "" };
+
     console.log(gender, 'gender');
 
     const formik = useFormik({
@@ -287,11 +255,7 @@ const [datelist,setDatelist] =React.useState('')
             Address: '',
             Gender: ''
         },
-        validationSchema: Yup.object({
-            // username: Yup
-            //   .string()
-            //   .required(
-            //     'Upload images or videos is required'),
+        validationSchema: Yup.object({         
             username: Yup
                 .string()
                 .max(255)
@@ -355,8 +319,6 @@ const [datelist,setDatelist] =React.useState('')
                 </Grid>
                 <div className={styles.inputoplist}>
                     <Grid item md={6} sm={12} xs={12}>
-                        {/* <div className={styles.imputname}> */}
-                        {/* <div> */}
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Name</InputLabel>
                         <TextField
                             error={Boolean(formik.touched.username && formik.errors.username)}
@@ -367,12 +329,9 @@ const [datelist,setDatelist] =React.useState('')
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
                             value={formik.values.username}
-                        //  lable='password'
                         ></TextField>
-                        {/* </div> */}
                     </Grid>
                     <Grid item md={6} sm={12} xs={12}>
-                        {/* <div> */}
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Email</InputLabel>
                         <TextField
                             error={Boolean(formik.touched.email && formik.errors.email)}
@@ -384,7 +343,6 @@ const [datelist,setDatelist] =React.useState('')
                             onChange={formik.handleChange}
                             value={formik.values.email}
                         ></TextField>
-                        {/* </div> */}
                     </Grid>
                 </div>
                 <div className={styles.pohelistmenu}>
@@ -407,19 +365,10 @@ const [datelist,setDatelist] =React.useState('')
                             error={Boolean(formik.touched.date && formik.errors.date)}
                             helperText={formik.touched.date && formik.errors.date}
                             name="date"
-                            // className={styles.emailinput}
-                            // placeholder='Enter name '
+           
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
-                            // value={datelist}
-                            // id="date"
-                            // label="Birthday"
                             type="date"
-                        // defaultValue="MM/DD/YYYY"
-                        // className={classes.textField}
-                        // InputLabelProps={{
-                        //     shrink: true,
-                        // }}
                         />
                     </Grid>
                 </div>
@@ -431,28 +380,18 @@ const [datelist,setDatelist] =React.useState('')
                             error={Boolean(formik.touched.Address && formik.errors.Address)}
                             helperText={formik.touched.Address && formik.errors.Address}
                             name="Address"
-                            // className={styles.emailinput}
                             placeholder='Enter Address '
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
                             value={formik.values.Address}
-                            // id="date"
-                            // label="Birthday"
-                            // type="date"
+
                             type='text'
-                        // defaultValue="MM/DD/YYYY"
-                        // className={classes.textField}
-                        // InputLabelProps={{
-                        //     shrink: true,
-                        // }}
+        
                         />
                     </Grid>
                     <Grid item md={6} sm={12} xs={12}>
                         <InputLabel className={styles.leballiss} htmlFor="component-simple">Gender</InputLabel>
-                        {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-                        {/* <Box sx={{ minWidth: 120 }}> */}
                         <FormControl className={styles.slaydarinput}>
-                            {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -466,7 +405,6 @@ const [datelist,setDatelist] =React.useState('')
                         </FormControl>
                         {age == '' ? <div><span className={styles.otperr}>Please Enter Valid Gender
                         </span></div> : ""}
-                        {/* </Box> */}
                     </Grid>
                 </div>
             </form>
@@ -483,4 +421,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
-// export default ResponsiveAppBar;

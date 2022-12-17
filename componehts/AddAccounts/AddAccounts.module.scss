@@ -3,8 +3,7 @@
     font-family: Poppins-500;
     font-family: Poppins-400;
     src: url(../../styles/popins/Poppins-Regular.ttf);
-    // src: url(../../styles/popins//Poppins-Regular.ttf);
-    // src: url(../../popins/Poppins-Regular.ttf)
+
 }
 @font-face {
     font-family: roboto-400;
@@ -93,7 +92,6 @@ font-size: 14px;
 }
 .divaydaravta{
     border: 1px solid #E5E5E5;
-// padding: 10px 0px 10px 0px;
 }
 .listdiver{
     padding: 0px 43px 0px 0px ;
@@ -117,7 +115,6 @@ font-size: 14px;
         height: 46px;
     }
     fieldset{
-    // background: #FFFFFF;
     color: #393030;
 
 border: 1px solid #E5E5E5;
@@ -137,12 +134,7 @@ border-radius: 5px;
     display: flex;
     align-items: center;
     padding: 40px 0px 0px 0px;
-//     svg{
-//         background: #FFFFFF;
-// border: 1px solid rgba(0, 0, 0, 0.81);
-// border-radius: 3px;
-//     }
-    p{
+        p{
         font-size: 12px;
 color: #4F4F4F;
 font-family: roboto-400 !important;

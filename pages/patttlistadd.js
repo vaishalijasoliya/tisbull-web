@@ -34,7 +34,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { DatePicker, DesktopDatePicker } from '@mui/lab';
 import React, { useState, useEffect } from 'react';
-import { PatternList } from '../componehts/CreatePattern/pattdata';
+import { PatternList } from '../componehts/Stocks/pattdata';
 import ApiServices from '../config/ApiServices';
 import ApiEndpoint from '../config/ApiEndpoint';
 import { connect } from 'react-redux';
@@ -76,6 +76,7 @@ const AddPattern = (props) => {
     const [levelError, setLevelError] = useState(false);
     const [currentPriceError, setCurrentPriceError] = useState(false)
     const [scripLable, setScripLable] = useState('');
+    console.log(scripDetails, 'scripDetails');
     const [level, setLevel] = useState({
         label: '3',
         id: '3'
@@ -132,9 +133,9 @@ const AddPattern = (props) => {
     });
     console.log(patternList, 'patternList');
     const [patternError, setPatternError] = useState(false);
-    const[listarrobj,setListidzero] =useState([])
+    const [listarrobj, setListidzero] = useState([])
     const router = useRouter();
-    console.log(listarrobj,'listarrobSXSj');
+    console.log(listarrobj, 'listarrobSXSj');
     let isView = false;
     let serverData = {}
     const formik = useFormik({
@@ -148,7 +149,7 @@ const AddPattern = (props) => {
             sellPrice: '',
             Target: '',
             Stoploss: '',
-            Initailsell:''
+            Initailsell: ''
 
         },
         validationSchema: Yup.object({
@@ -187,11 +188,11 @@ const AddPattern = (props) => {
                 .max(255)
                 .required(
                     'Initail Buy Steps is required'),
-                    Initailsell: Yup
-                    .string()
-                    .max(255)
-                    .required(
-                        'Initail Sell Steps is required'),
+            Initailsell: Yup
+                .string()
+                .max(255)
+                .required(
+                    'Initail Sell Steps is required'),
             BuySteps: Yup
                 .string()
                 .max(255)
@@ -352,25 +353,25 @@ const AddPattern = (props) => {
             "x-access-token": props.profile.token
         }
         var accountList = await ApiServices.GetApiCall(ApiEndpoint.CUSTOM_ORDER, headers)
-        console.log(accountList,'accountListaccountList');
+        console.log(accountList, 'accountListaccountList');
         // {console.lon(accountList.state,'accountHHList');}
-    // if(!!accountList){
-        if(accountList.status){
-            console.log(accountList,'accountList.data.initail_buy');
+        // if(!!accountList){
+        if (accountList.status) {
+            console.log(accountList, 'accountList.data.initail_buy');
 
             formik.setFieldValue('Initail', accountList.data.initail_buy);
             formik.setFieldValue('BuySteps', accountList.data.amo_buy);
             formik.setFieldValue('SellSteps', accountList.data.amo_sell);
             formik.setFieldValue('NormalBuy', accountList.data.normal_buy);
             formik.setFieldValue('NormalSell', accountList.data.normal_sell);
-        
+
             // setListidzero(accountList.data)          // toast.success(accountList.message)amo_sell
         }
 
-    // }
-    // else{
-    //     toast.error('not data meash')
-    // }
+        // }
+        // else{
+        //     toast.error('not data meash')
+        // }
         // if (!!accountList && !!accountList.data) {
         //     var accountLableList = []
         //     for (let index = 0; index < accountList.data.length; index++) {
@@ -544,7 +545,7 @@ const AddPattern = (props) => {
             formik.submitForm()
         }
     }
-console.log(props,'sjhhshss');
+    console.log(props, 'sjhhshss');
     const onLockPatternClick = async () => {
         var body = {
             "script": parseFloat(script.id),
@@ -554,12 +555,12 @@ console.log(props,'sjhhshss');
             "enterPrice": parseFloat(formik.values.currentPrice),
             "sell": parseFloat(formik.values.sellPrice),
             "tickSize": tickSize,
-            "initail_buy":parseFloat(formik.values.Initail),
-            "initail_sell":0,
-            "amo_buy":parseFloat(formik.values.SellSteps),
-            "amo_sell":parseFloat(formik.values.BuySteps),
-            "normal_buy":parseFloat(formik.values.NormalBuy),
-            "normal_sell":parseFloat(formik.values.NormalSell),
+            "initail_buy": parseFloat(formik.values.Initail),
+            "initail_sell": 0,
+            "amo_buy": parseFloat(formik.values.SellSteps),
+            "amo_sell": parseFloat(formik.values.BuySteps),
+            "normal_buy": parseFloat(formik.values.NormalBuy),
+            "normal_sell": parseFloat(formik.values.NormalSell),
             "minRange": parseFloat(formik.values.minRange),
             "maxRange": parseFloat(formik.values.maxRange),
             "pattern_data": patternList,
@@ -674,21 +675,7 @@ console.log(props,'sjhhshss');
                     <Box sx={{ mt: 3, mb: 3 }}>
                         <Card className={styles.listcentenar}>
                             <CardContent>
-                                {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, marginBottom: 3 }}>
-                                    {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex' }}>
-                                        <Typography sx={{ color: '#524ddc' }}>Current: {parseFloat(scripDetails.ltp).toFixed(2)}</Typography>
-                                        {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />}
-                                        <Typography sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                    </Box> : <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex' }}>
-                                        <Typography sx={{ color: '#524ddc' }}>Current: {parseFloat(scripDetails.ltp).toFixed(2)}</Typography>
-                                        {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />}
-                                        <Typography sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                    </Box>}
-                                    <Typography sx={{ flex: 1, color: '#524ddc' }}>Open: {parseFloat(scripDetails.open_price).toFixed(2)}</Typography>
-                                    <Typography sx={{ flex: 1, color: '#524ddc' }}>High: {parseFloat(scripDetails.high_price).toFixed(2)}</Typography>
-                                    <Typography sx={{ flex: 1, color: '#524ddc' }}>Low: {parseFloat(scripDetails.low_price).toFixed(2)}</Typography>
-                                    <Typography sx={{ flex: 1, color: '#524ddc' }}>Prev. Close: {parseFloat(scripDetails.closing_price).toFixed(2)}</Typography>
-                                </Box>}
+
                                 <div style={{ display: 'flex' }}>
                                     <Grid item md={4}>
                                         <Box>
@@ -725,7 +712,7 @@ console.log(props,'sjhhshss');
                                                             }}
                                                             renderInput={(params) => <TextField {...params}
                                                                 onChange={(text) => {
-                                                                    // filterScrip(text)
+                                                                    filterScrip(text)
                                                                 }}
                                                                 error={scripItemError}
                                                                 helperText={scripItemError ? 'Scrip type is required' : undefined}
@@ -767,6 +754,21 @@ console.log(props,'sjhhshss');
                                                                 onChange={(text) => {
                                                                     console.log(text.target.value, 'jjahhahha')
                                                                     filterScrip(text.target.value)
+                                                                    // onChange={(e) => {
+                                                                    //   setPage(0)
+                                                                    var value = text.target.value
+                                                                    if (typeof value !== 'object') {
+                                                                        if (!value || value == '') {
+                                                                            setScripList(filterScripList);
+                                                                        } else {
+                                                                            var filteredData = filterScripList.filter((item) => {
+                                                                                let searchValue = item.label.toLowerCase();
+                                                                                return searchValue.includes(value.toString().toLowerCase())
+                                                                            })
+                                                                            setScripList(filteredData);
+                                                                        }
+                                                                    }
+
                                                                 }}
                                                                 className={styles.listtextfils22}
                                                                 error={scriptError}
@@ -861,7 +863,7 @@ console.log(props,'sjhhshss');
                                                 <Typography className={styles.typofonty}>Tick Size</Typography>
                                                 {/* </Grid> */}
                                                 {/* <Grid item md={2} > */}
-                                                <Box sx={{ flex: 1, paddingLeft: 2,display:"flex" ,justifyContent:'end' }}>
+                                                <Box sx={{ flex: 1, paddingLeft: 2, display: "flex", justifyContent: 'end' }}>
 
                                                     <RadioGroup
                                                         sx={{ flexDirection: 'row', display: 'flex' }}
@@ -872,13 +874,13 @@ console.log(props,'sjhhshss');
                                                             getBuyArray(formik.values.minRange, formik.values.maxRange, formik.values.buyPrice, value)
                                                         }}
                                                         defaultValue={tickSize}>
-                                                       <div style={{display:'flex',alignItems:'center'}}>
-                                                        <FormControlLabel style={{marginRight:'0px'}} value="%"  control={<Radio />} />
-                                                        <Typography className={styles.typofonty} style={{padding:"0px 8px 0px 0px"}}>%</Typography>
+                                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                            <FormControlLabel style={{ marginRight: '0px' }} value="%" control={<Radio />} />
+                                                            <Typography className={styles.typofonty} style={{ padding: "0px 8px 0px 0px" }}>%</Typography>
                                                         </div>
-                                                        <div style={{display:'flex',alignItems:'center'}}>
-                                                        <FormControlLabel value="fix" style={{marginRight:'0px'}}  control={<Radio />} />
-                                                        <Typography className={styles.typofonty}>FIX</Typography>
+                                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                            <FormControlLabel value="fix" style={{ marginRight: '0px' }} control={<Radio />} />
+                                                            <Typography className={styles.typofonty}>FIX</Typography>
                                                         </div>
                                                     </RadioGroup>
                                                 </Box>
@@ -1036,7 +1038,7 @@ console.log(props,'sjhhshss');
                                                 </Box>
                                             </Box>
                                             {/* </Grid> */}
-                                            
+
                                         </Box>
                                     </Grid>
                                     <Grid item md={5}>
@@ -1161,25 +1163,25 @@ console.log(props,'sjhhshss');
                                                     </Box> */}
                                                     <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                         <Box sx={{ flex: 1, paddingRight: '20px' }}>
-                                                        <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
-                                                        <TextField
-                                                            sx={{ flex: 1 }}
-                                                            error={Boolean(formik.touched.Initail && formik.errors.Initail)}
-                                                            fullWidth
-                                                            helperText={formik.touched.Initail && formik.errors.Initail}
-                                                            // label="Buy"
-                                                            type="number"
-                                                            className={styles.listtextfils2233}
-                                                            margin="normal"
-                                                            name="Initail"
-                                                            onBlur={formik.handleBlur}
-                                                            onChange={formik.handleChange}
+                                                            <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
+                                                            <TextField
+                                                                sx={{ flex: 1 }}
+                                                                error={Boolean(formik.touched.Initail && formik.errors.Initail)}
+                                                                fullWidth
+                                                                helperText={formik.touched.Initail && formik.errors.Initail}
+                                                                // label="Buy"
+                                                                type="number"
+                                                                className={styles.listtextfils2233}
+                                                                margin="normal"
+                                                                name="Initail"
+                                                                onBlur={formik.handleBlur}
+                                                                onChange={formik.handleChange}
 
-                                                            value={formik.values.Initail}
-                                                            variant="outlined"
-                                                        />
+                                                                value={formik.values.Initail}
+                                                                variant="outlined"
+                                                            />
                                                         </Box>
-                                               
+
 
                                                     </Box>
                                                     <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
@@ -1270,57 +1272,81 @@ console.log(props,'sjhhshss');
                                             </Accordion>
 
                                         </div>
-                                        <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
-                                                <Button
-                                                    style={{ backgroundColor: '#009947' }}
-                                                    // component="a"
-                                                    className={styles.batnpovedar22}
-                                                    size="medium"
-                                                    variant="contained"
-                                                    onClick={() => {
-                                                        if (!!patternList && patternList.length > 0) {
-                                                            setLockPattern(true)
-                                                        } else {
-                                                            toast.error('Pattern preview first.')
-                                                        }
-                                                    }}
-                                                >
-                                                    NEXT
-                                                </Button>
-                                                <Button
-                                                className={styles.batnpovedar}
-                                                style={{backgroundColor:'#C4C4C4'}}
-                                                    sx={{ marginRight: '20px' }}
-                                                    // component="a"
-                                                    size="medium"
-                                                    variant="contained"
-                                                    type="submit"
-                                                    onClick={() => {
-                                                        
-                                                        onAddPattern(),
-                                                        onPreviewClick()
-                                                    }}
-                                                >
-                                                    PREVIOUS
-                                                </Button>
-                                            </Box>
-                                    </Grid>
-                                    <Grid item md={4}>
-                                    <Accordion className={styles.acclistloddop}>
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel2a-content"
-                                                    className={styles.listbackdda}
-                                                    id="panel2a-header"
-                                                >
-                                                    <Typography className={styles.hedindrop}>Order</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
 
-                                                </AccordionDetails>
-                                                </Accordion>
+                                    </Grid>
+                                    <Grid item md={3}>
+                                        <Accordion className={styles.acclistloddop}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel2a-content"
+                                                className={styles.listbackdda}
+                                                id="panel2a-header"
+                                            >
+                                                <Typography className={styles.hedindrop}>Market Depth </Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', flex: 1, marginBottom: 3 }}>
+                                                    {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex', justifyContent: 'space-between' }}>
+                                                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                            {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                                        </Box></Box> : <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex', justifyContent: 'space-between' }}>
+                                                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                            {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                                        </Box>
+                                                    </Box>}
+                                                    <Box style={{ display: 'flex', justifyContent: "space-between", padding: '15px 0px 0px 0px' }}>
+                                                        <Box>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
+                                                        <Box>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+
+                                                    </Box>
+                                                    <Box style={{ display: 'flex', justifyContent: "space-between", padding: '15px 0px 0px 0px' }}>
+                                                        <Box>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
+                                                        <Box>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
+                                                    </Box>
+                                                </Box>}
+                                            </AccordionDetails>
+                                        </Accordion>
                                     </Grid>
                                 </div>
+                                <Grid item md={12}>
+                                    <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
+                                        <Button
+                                            style={{ backgroundColor: '#009947' }}
+                                            // component="a"
+                                            className={styles.batnpovedar22}
+                                            size="medium"
+                                            variant="contained"
+                                            onClick={() => {
+                                                if (!!patternList && patternList.length > 0) {
+                                                    setLockPattern(true)
+                                                } else {
+                                                    toast.error('Pattern preview first.')
+                                                }
+                                            }}
+                                        >
+                                            NEXT
+                                        </Button>
+                                        <Button
+                                            className={styles.batnpovedar}
+                                            style={{ backgroundColor: '#C4C4C4' }}
+                                            sx={{ marginRight: '20px' }}
+                                            // component="a"
+                                            size="medium"
+                                            variant="contained"
+                                            type="submit"
+                                            onClick={() => {
+
+                                                onAddPattern(),
+                                                    onPreviewClick()
+                                            }}
+                                        >
+                                            PREVIOUS
+                                        </Button>
+                                    </Box>
+
+                                </Grid>
                             </CardContent>
                         </Card>
                         {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>

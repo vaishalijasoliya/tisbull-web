@@ -1,5 +1,4 @@
-import Head from 'next/head'
-import Image from 'next/image'
+
 import styles from './ChangePassedit.module.scss'
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@material-ui/core';
@@ -9,24 +8,21 @@ import React, { useState } from 'react';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import FilledInput from '@mui/material/FilledInput';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Input from '@mui/material/Input';
+// import InputAdornment from '@mui/material/InputAdornment';
+// import IconButton from '@mui/material/IconButton';
+// import FilledInput from '@mui/material/FilledInput';
+// import Visibility from '@mui/icons-material/Visibility';
+// import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import Input from '@mui/material/Input';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { Types } from '../../constants/actionTypes'
-
 import * as Yup from 'yup';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-// import Createpattern from '../componehts/home/createpattern';
-// import Newbar from '../componehts/newbar/newbar';
-// import Dashboard from '../componehts/dashboard/dashboard';
+
 const Home = (props) => {
 
 console.log(props.props,'loghggygg');
@@ -38,11 +34,9 @@ console.log(props.props,'loghggygg');
   const router = useRouter();
   const onLoginPresslist = async () => {
     var body = {
-      // 'id_user': props.userid,
       'current_password':formik.values.oldPassword,
       'new_password': formik.values.newPassword,
 
-      // 'reTypePassword': formik.values.reTypePassword
     }
     console.log(body, 'body');
 
@@ -55,38 +49,16 @@ console.log(props.props,'loghggygg');
     var data = await ApiServices.PostApiCall(ApiEndpoint.USERCHANGEPASS, JSON.stringify(body), headers);
     props.props.loaderRef(false)
     console.log(data, 'data');
-    // if (!!data) {
       if (data.status == true) {
-        data.token = data.token
-        // elistdata
-        props.save_user_data({ user: data });
-        toast.success("Password Changed Succesfully")
-        // router.push('./dashboard')
+        // data.token = data.token
+        // props.save_user_data({ user: data });
+        toast.success(data.message)
       } 
       else {
-        // setErrorShow(true)
         toast.error(data.message)
       }
-    // } 
-    // else {
-    //   toast.error("Please Enter Correct Passwordtt")
-    // }
-
   }
-  // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
-  // };
-//   const [values, setValues] = React.useState<State>({
-//     amount: '',
-//     password: '',
-//     weight: '',
-//     weightRange: '',
-//     showPassword: false,
-// });
-// const handleChange =
-//     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-//         setValues({ ...values, [prop]: event.target.value });
-//     };
+
 const handleClickShowPassword = () => {
     setValues({
         ...values,
@@ -213,9 +185,7 @@ const handleClickShowPassword = () => {
               </Button>
           </div>
         </Grid>
-        {/* <Grid item md={6} sm={12} sx={12}>
-          <img src='../../cengpass.svg' />
-        </Grid> */}
+   
       </form>
 
     </Grid>

@@ -1,40 +1,18 @@
-// import Head from 'next/head'
-// import Image from 'next/image'
+
 import styles from './sing.module.scss'
 import Grid from '@mui/material/Grid';
 import React, { useState } from 'react';
 import { Box, Typography, Button, Link } from '@mui/material';
-// import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useRouter } from 'next/router';
-// import { useForm } from 'react-hook-form';
-// import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import ReactCodeInput from "react-code-input";
-
 import { toast } from 'react-toastify';
-// import Tooltip from '@mui/material/Tooltip';
-// import Avatar from '@mui/material/Avatar';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Types } from '../../constants/actionTypes';
-// ../../constants/actionTypes'
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-// import { GoogleLogin, GoogleLogout } from "react-google-login";
-// import InputLabel from '@mui/material/InputLabel';
-// import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { useFormik } from 'formik';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
-import * as Yup from 'yup';
-// import TextField from '@mui/material/TextField';
-// import Newbar from '../tis_admin_web/componehts/newbar/newbar';
-// import Dashboard from '../tis_admin_web/componehts/dashboard/dashboard';
-// export default function Home(props) {
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Home = (props) => {
@@ -49,35 +27,7 @@ const Home = (props) => {
     const [showLoginButton, setLoginButton] = useState(true);
     const [showLogoutButton, setLogoutButton] = useState(false);
     const [elistdata, setElistdata] = useState([])
-    // const [isoutField, setIsOutField] = useState(false);
-    // const [outField, setOutField] = useState('')
-
-    // const lihaa = async () => {
-    //     if (outField.length == 0) {
-    //         setIsOutField(true)
-    //     } else {
-    //         verifyCode()
-    //     }
-    // }
-    // const loginHandler = (res) => {
-
-    //     console.log("res",);
-    //     console.log("this is my")
-    //     setLoginButton(false);
-    //     setElistdata(res.profileObj)
-    //     setLogoutButton(true);
-    // };
-    // const failureHandler = (res) => {
-    //     console.log("login failed", res);
-    // };
-    // const logoutHandler = (res) => {
-    //     alert("logout sucessfully");
-    //     setLoginButton(true);
-    //     setLogoutButton(false);
-    // };
-    // console.log(elistdata, 'res');
-
-    //   formik.values.username
+   
     const [isoutField, setIsOutField] = useState(false);
     const [outField, setOutField] = useState('')
 
@@ -88,8 +38,6 @@ const Home = (props) => {
             verifyCode()
         }
     }
-    // console.log(outField,'body22');
-    // console.log(props.r);
 
     const verifyCode = async () => {
         var headers = {
@@ -103,18 +51,15 @@ const Home = (props) => {
         props.props.loaderRef(true)
         var data = await ApiServices.PostApiCall(ApiEndpoint.USER_VERIFYOTP, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        // console.log(,'liostdata');
 
         if (!!data) {
             if (data.status == true) {
-                toast.success('otp is successfully verify')
+                toast.success(data.message)
                 router.push({
                     pathname: './passwordupdated',
                     query: { id_user: data.data.id }
                 });
-                // router.push("./passwordupdated")
             } else {
-                // setErrorShow(true)
                 toast.error(data.message)
             }
         } else {
@@ -130,29 +75,14 @@ const Home = (props) => {
         var headers = {
             "Content-Type": "application/json",
         }
-        // console.log();
 
         props.props.loaderRef(true)
         var data = await ApiServices.PostApiCall(ApiEndpoint.USER_FORGOT_PASSWORD, JSON.stringify(body), headers);
         props.props.loaderRef(false)
-        // console.log(data.data.id, 'listdata');
         if (!!data) {
             if (data.status == true) {
-                // data.token = data.token
-                // elistdata
-                // props.save_user_data({ user: data });
-                toast.success("otp is sent successfully")
-                // console.log(formik.values.email,'emaillist');
-                
-                // router.push({
-                //     // pathname: './otp',
-                //     query: {  email:formik.values.email}
-                // });
-                // router.push{('./otp'
-                // query: { mobile: }
-                // )}
+                toast.success(data.message)
             } else {
-                // setErrorShow(true)
                 toast.error(data.message)
             }
         } else {
@@ -165,9 +95,6 @@ const Home = (props) => {
         setOutField(outField);
     };
   
-    // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
 
     return (
 
@@ -175,10 +102,6 @@ const Home = (props) => {
  <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
  <img
               style={{width:'100%'}}
-
-        //  width={360}
-        //  className={styles.maenloginpegimg} 
-        //  src='../../Group 109.svg' 
 src='../../login bg.png'
          />      </Grid>
             <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
@@ -216,9 +139,7 @@ src='../../login bg.png'
             <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
       <img
       style={{width:'95%'}}
-      //  width={360}
-        //  className={styles.maenloginpegimg} 
-        //  src='../../Group 109.svg' 
+ 
 src='../../login bg.png'
          />
       </Grid>
@@ -228,9 +149,7 @@ src='../../login bg.png'
 }
 const mapStateToProps = (state) => ({
     profile: state.user.profile,
-    // {console.log( state.user.profile,'profile')}
 });
-// {}
 
 const mapDispatchToProps = (dispatch) => ({
     save_user_data: (data) =>
