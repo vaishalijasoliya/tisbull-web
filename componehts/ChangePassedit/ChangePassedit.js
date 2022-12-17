@@ -213,9 +213,9 @@ const handleClickShowPassword = () => {
               </Button>
           </div>
         </Grid>
-        <Grid item md={6} sm={12} sx={12}>
+        {/* <Grid item md={6} sm={12} sx={12}>
           <img src='../../cengpass.svg' />
-        </Grid>
+        </Grid> */}
       </form>
 
     </Grid>

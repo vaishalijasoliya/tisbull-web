@@ -17,10 +17,11 @@ import {
 } from '@mui/material';
 // import { getInitials } from '../../utils/get-initials';
 
-export const CustomPatternList = ({ patterns, ...rest }) => {
-
+const CustomPatternList = (props ) => {
+  console.log(props,'bbbbbbbb');
+const patterns ={}
   return (
-    <Card {...rest}>
+    <Card>
       <PerfectScrollbar>
         <Box sx={{ width: '100%' }}>
           <Table>
@@ -65,9 +66,9 @@ export const CustomPatternList = ({ patterns, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {patterns.map((pattern, index) => (
+              {/* {patterns.map((pattern, index) => ( */}
                 <TableRow
-                  key={index + 1}
+                  // key={index + 1}
                   hover
                 >
                   <TableCell>
@@ -81,45 +82,45 @@ export const CustomPatternList = ({ patterns, ...rest }) => {
                         color="textPrimary"
                         variant="body1"
                       >
-                        {index + 1}
+                        {/* {index + 1} */}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {pattern.buyPrice}
+                    {/* {pattern.buyPrice} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.sellPrice}
+                    {/* {pattern.sellPrice} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.buy_qty}
+                    {/* {pattern.buy_qty} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.sell_qty}
+                    {/* {pattern.sell_qty} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.buyingPrice}
+                    {/* {pattern.buyingPrice} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.sellingPrice}
+                    {/* {pattern.sellingPrice} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.gross}
+                    {/* {pattern.gross} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.stock}
+                    {/* {pattern.stock} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.investment}
+                    {/* {pattern.investment} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.sDisc}
+                    {/* {pattern.sDisc} */}
                   </TableCell>
                   <TableCell>
-                    {pattern.Avg}
+                    {/* {pattern.Avg} */}
                   </TableCell>
                 </TableRow>
-              ))}
+              {/* ))} */}
             </TableBody>
           </Table>
         </Box>
@@ -127,7 +128,7 @@ export const CustomPatternList = ({ patterns, ...rest }) => {
     </Card>
   );
 };
-
-CustomPatternList.propTypes = {
-  patterns: PropTypes.array.isRequired
-};
+export default CustomPatternList
+// CustomPatternList.propTypes = {
+//   patterns: PropTypes.array.isRequired
+// };

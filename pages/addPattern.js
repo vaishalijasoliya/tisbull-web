@@ -7,13 +7,13 @@ import Grid from '@mui/material/Grid';
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Newbar from './newbarlist';
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
-import CreatePattern from '../componehts/CreatePattern/CreatePattern'
+import CreatePattern from './patttlistadd'
 import Addpattern from '../componehts/Custompatt/Custompatt'
-
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 function TabPanel(props) {
 
   const { children, value, index, ...other } = props;
@@ -61,12 +61,21 @@ const ResponsiveAppBar = (props) => {
       <Grid item sm={12} md={12} xs={12}>
         <Newbar />
         {/* <Home /> */}
+        </Grid>
+
+        <Grid item sm={12} md={12} xs={12} className={styles.listaddap2tt}>
+        <div className={styles.listaddaptt}> 
+        <div style={{display:'flex',padding:'30px 0px 0px 10px'}}>
+<Button className={styles.listsvgicom} onClick={()=>{router.push('./pattanlist')}}><KeyboardArrowLeftIcon  /></Button>
+          <Typography className={styles.listceaddpatt}>Create pattern</Typography>
+        </div>
+        <Grid item sm={12} md={9} xs={12}>
         <Box
           sx={{
             borderBottom: 1,
             borderColor: "rgba(0, 153, 71, 0.22)",
-            overflow: 'auto'
-            // width: 464,
+            overflow: 'auto',
+            padding:'0px 0px 0px 20px'            // width: 464,
           }}
         >
           <Tabs
@@ -89,7 +98,7 @@ const ResponsiveAppBar = (props) => {
             <Tab
               onClick={() => {
                 router.push({
-                  pathname: './addPattern',
+                  // pathname: './patttlistadd',
                   query: {
                     scripType: 'currency', patternType: 'basic', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
                   }
@@ -123,6 +132,7 @@ const ResponsiveAppBar = (props) => {
 
           </Tabs>
         </Box>
+        </Grid>
         {/* <Grid item sm={12} md={12} xs={12}> */}
 
         <TabPanel value={value} index={0}>
@@ -139,10 +149,9 @@ const ResponsiveAppBar = (props) => {
         {/* <TabPanel value={value} index={3}> */}
           {/* <Chart /> */}
         {/* </TabPanel> */} 
+</div>
 
-        <div className={styles.dasnod_camponat366}>
 
-        </div>
       </Grid>
     </Grid>
   )

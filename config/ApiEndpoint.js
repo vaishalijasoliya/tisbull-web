@@ -31,6 +31,8 @@ export default {
     ORDER_DELETE:Constants.BASE_API_URL+'order/delete',
     GET_STOCK_PRICE: Constants.BASE_API_URL + 'stock/price',
     ADD_PATTERN: Constants.BASE_API_URL + 'Pattern/create',
-    // SCRIP_LIST: Constants.BASE_API_URL + 'stock/instrumnetlist/search',
+    SCRIP_LIST: Constants.BASE_API_URL + 'stock/instrumnetlist/search',
+    CUSTOM_ORDER:Constants.BASE_API_URL+'order/step/CUSTOM',
+    // SCRIP_LIST: Constants.BASE_API_URL + 'stock/instrumnetlist',
 
 }

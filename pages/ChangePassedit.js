@@ -16,7 +16,7 @@ const ResponsiveAppBar = (props) => {
     // const router = useRouter();
     // console.log(router.query.email,'router.query.email');
     return (
-        <Grid container className={styles.cantenar_list36}>
+        <Grid container className={styles.cantenar_list3622}>
             <Grid item sm={12} md={12} xs={12}>
                 <Newbar />
             </Grid>
@@ -26,7 +26,9 @@ const ResponsiveAppBar = (props) => {
                 {/* </div> */}
             </Grid>
             <Grid item sm={12} md={9} xs={12}>
+            <div className={styles.singlistpsdii2233}>  
                 <ChangePassedit props={props}/>
+                </div>
             </Grid>
             {/* <Newbar />
         <div className={styles.dasnod_camponat}>

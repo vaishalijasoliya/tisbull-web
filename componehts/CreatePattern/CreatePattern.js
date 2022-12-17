@@ -18,8 +18,6 @@ import {
     DialogActions,
     DialogTitle,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import styles from './CreatePattern.module.scss'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -31,14 +29,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { DatePicker, DesktopDatePicker } from '@mui/lab';
 import React, { useState, useEffect } from 'react';
-// import { PatternList } from 'src/components/product/pattern-list-results';
+import { PatternList } from './pattdata';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useRouter, withRouter } from 'next/router';
-import Dashboard from './pattdata'
-// import { log } from 'console';
+import { Grid } from 'material-ui-core';
+
 let stockInterval = null;
 
 const AddPattern = (props) => {
@@ -50,8 +48,6 @@ const AddPattern = (props) => {
     const [scriptError, setScriptError] = useState(false);
     const [accountError, setAccountError] = useState(false);
     const [account, setAccount] = useState('')
-    const [accountmenu, setAccountlistmenu] = useState('')
-
     const [patternList, setPatternList] = useState([])
     const [accountList, setAccountList] = useState([])
     const [scripList, setScripList] = useState([])
@@ -62,7 +58,6 @@ const AddPattern = (props) => {
     const [levelError, setLevelError] = useState(false);
     const [currentPriceError, setCurrentPriceError] = useState(false)
     const [scripLable, setScripLable] = useState('');
-    console.log(accountmenu,'accountmenu');
     const [level, setLevel] = useState({
         label: '3',
         id: '3'
@@ -81,7 +76,7 @@ const AddPattern = (props) => {
             id: 'COMMODITY'
         },
         {
-            label: '',
+            label: 'CDS',
             id: 'CDS'
         },
         {
@@ -182,7 +177,7 @@ const AddPattern = (props) => {
             }
         }
     }, [])
-console.log(router.query.data,'props.router.query.data');
+
     useEffect(() => {
         async function fetchData() {
             if (!!router.query.scripType) {
@@ -197,12 +192,12 @@ console.log(router.query.data,'props.router.query.data');
                     props.props.loaderRef(false)
                 } else if (router.query.scripType == 'currency') {
                     setScripItem({
-                        label: '',
+                        label: 'CDS',
                         id: 'CDS'
                     })
                     props.props.loaderRef(true)
                     await getAccounts();
-                    await getScirp('')
+                    await getScirp('CDS')
                     props.props.loaderRef(false)
                 } else if (router.query.scripType == 'fo') {
                     setScripItem({
@@ -265,10 +260,9 @@ console.log(router.query.data,'props.router.query.data');
     const getAccounts = async () => {
         var headers = {
             "Content-Type": "application/json",
-            "x-access-token": props.props.profile.token
+            "x-access-token": props.profile.token
         }
         var accountList = await ApiServices.GetApiCall(ApiEndpoint.ACCOUNT_LIST, headers)
-        console.log(accountList,'accountList');
         if (!!accountList && !!accountList.data) {
             var accountLableList = []
             for (let index = 0; index < accountList.data.length; index++) {
@@ -288,27 +282,21 @@ console.log(router.query.data,'props.router.query.data');
         }
     }
 
-    const getScirp = async (text) => {
-       //     "name":text.target.value
-          var body = {
-            "name":text.target.value
-           // "tatamotors"
-            // accountmenu
-            // accountmenu
+    const getScirp = async (type) => {
+        var body = {
+            "type": type
         }
-        console.log(body,'typetype');
         var headers = {
             "Content-Type": "application/json",
-            "x-access-token": props.props.profile.token
+            "x-access-token": props.profile.token
         }
-        var accountList = await ApiServices.PostApiCall(ApiEndpoint.SEARCHLIST, JSON.stringify(body), headers)
+        var accountList = await ApiServices.PostApiCall(ApiEndpoint.SCRIP_LIST, JSON.stringify(body), headers)
         console.log('getScirp', accountList)
         if (!!accountList && !!accountList.length > 0) {
             var accountLableList = []
             let filterScripList = []
             for (let index = 0; index < accountList.length; index++) {
                 const element = accountList[index];
-                console.log(element,'element');
                 var lableObj = "";
                 if (!!element.name) {
                     lableObj = element.instrumentName + ` (${element.name}) (${element.exchange})`
@@ -453,17 +441,17 @@ console.log(router.query.data,'props.router.query.data');
             "minRange": parseFloat(formik.values.minRange),
             "maxRange": parseFloat(formik.values.maxRange),
             "pattern_data": patternList,
-            "id_account": props.props.profile.userData.currentAccount.id,
+            "id_account": props.profile.currentAccount.id,
             "pattern_type": patternItem.id
         }
         console.log('pattern data...', body)
         var headers = {
             "Content-Type": "application/json",
-            "x-access-token": props.props.profile.token
+            "x-access-token": props.profile.token
         }
-        props.props.loaderRef(true)
+        props.loaderRef(true)
         var patternAdd = await ApiServices.PostApiCall(ApiEndpoint.ADD_PATTERN, JSON.stringify(body), headers)
-        props.props.loaderRef(false)
+        props.loaderRef(false)
         console.log('patternAdd', patternAdd);
         if (!!patternAdd.success && patternAdd.success.length > 0) {
             console.log(patternAdd);
@@ -481,9 +469,8 @@ console.log(router.query.data,'props.router.query.data');
             toast.error(patternAdd.message)
         }
     }
-console.log( props.props.profile.userData.currentAccount.id,' props.props.profile.currentAccount.id');
+
     const filterScrip = (text) => {
-        console.log(text.target.value,'text.target.value');
         if (text.target.value.length >= 2) {
             var filterArray = scripList.filter((item) => item.label.toLowerCase().includes(text.target.value.toLowerCase()));
             console.log('filterArray', filterArray)
@@ -511,8 +498,7 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
 
     return (
         // <DashboardLayout>
-        <Grid container spacing={0} className={styles.cantenar_list57}>
-
+        <Grid md={12}>
             <Head>
                 <title>
                     Add Patterns | TISTrading
@@ -565,7 +551,6 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
                                                     value={scripItem}
                                                     onChange={(event, value, reason, details) => {
                                                         console.log('i m here scrip',);
-                                                        // setAccountlistmenu(event.target.value)
                                                         setLotSize(1)
                                                         setScripItemError(false)
                                                         if (value.id != 'none' || value.id != '') {
@@ -591,7 +576,7 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
                                                 />
                                             </Box>}
                                             <Box sx={{ flex: 2 }}>
-                                            <Autocomplete
+                                                <Autocomplete
                                                     sx={{ flex: 1, paddingRight: 1 }}
                                                     fullWidth
                                                     disablePortal={false}
@@ -622,7 +607,6 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
                                                     renderInput={(params) => <TextField {...params}
                                                         onChange={(text) => {
                                                             filterScrip(text)
-                                                            getScirp(text)
                                                         }}
                                                         error={scriptError}
                                                         helperText={scriptError ? 'Scrip is required' : undefined}
@@ -901,7 +885,7 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
                             </CardContent>
                         </Card>
                         {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
-                            <Dashboard
+                            <PatternList
                                 patterns={patternList} />
                         </Box>}
 
@@ -938,7 +922,8 @@ console.log( props.props.profile.userData.currentAccount.id,' props.props.profil
                     </Button>
                 </DialogActions>
             </Dialog>
-            </Grid>
+        {/* </DashboardLayout> */}
+        </Grid>
     );
 }
 

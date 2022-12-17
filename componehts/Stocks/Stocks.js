@@ -54,7 +54,8 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 // import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Radio from '@mui/material/Radio';
+
 import DialogContent from '@mui/material/DialogContent';
 function createData(name, calories, fat, carbs, protein) {
     return {
@@ -330,11 +331,16 @@ const[listmenudata,setListnse] =useState('')
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rejectReviewList, setRejectReviewList] = React.useState([]);
     const [flagReviewList, setFlageReviewList] = React.useState([]);
-    console.log(distiddata, 'swishlist');
+    console.log(listpires, 'swishlist');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
+    const [selectedValue, setSelectedValue] = React.useState('a');
+console.log(selectedValue,'selectedValue');
+    const handleChangemejej = (event) => {
+      setSelectedValue(event.target.value);
+    };
+  
     const patternlist = async () => {
 
         var headers = {
@@ -516,19 +522,19 @@ const[listmenudata,setListnse] =useState('')
 
         if (!!logvvmog) {
             if (logvvmog == 'Stock') {
-                if (!!accounttype) {
-                    if (accounttype == 'exit for fixedPrice') {
+                if (!!selectedValue) {
+                    if (selectedValue == 'exit for fixedPrice') {
                         console.log('withFixed price')
                         const withFixedPrice = {
                             pattern_id: rowid,
-                            action: accounttype,
+                            action: selectedValue,
                             price: listpires,
                         };
                         body.pattern.push(withFixedPrice);
                     } else {
                         const withMarketPrice = {
                             pattern_id: rowid,
-                            action: accounttype,
+                            action: selectedValue,
                         };
                         body.pattern.push(withMarketPrice);
                     }
@@ -546,6 +552,7 @@ const[listmenudata,setListnse] =useState('')
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_DELETE, JSON.stringify(body), headers)
         props.props.loaderRef(false)
+        console.log(patternDelete,'kskkskkskks');
         if (!!patternDelete) {
             if (patternDelete.status == true) {
 
@@ -1045,7 +1052,7 @@ const[listmenudata,setListnse] =useState('')
                                                                                         <img width={130} src="../../Group 1000002845.svg" />
                                                                                     </div>
                                                                                   
-                                                                                    <div style={{ padding: '0px 40px 0px 40px' }}>
+                                                                                    <div style={{ padding: '0px 10px 0px 10px' }}>
                                                                                         <div>
                                                                                             <Typography className={styles.texstcolor} style={{ 'color': '#333333', 'font-size': '15px', padding: '0px 0px 7px 0px' }}>Exit with  </Typography>
                                                                                         </div>
@@ -1071,38 +1078,60 @@ const[listmenudata,setListnse] =useState('')
                                                                                                 </Typography>
                                                                                                 <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
                                                                                             </div>
-                                                                                            {checked == true ? <SwitchUnstyled component={Root}
+                                                                                            <div style={{padding:'0px 0px 0px 39px'}}>
+                                                                                            <Radio
+        checked={selectedValue === 'exit for fixedPrice'}
+        onChange={handleChangemejej}
+        value="exit for fixedPrice"
+        name="radio-buttons"
+        inputProps={{ 'aria-label': 'B' }}
+      />
+                                                                                         {/* {checked == true ? <SwitchUnstyled component={Root}
                                                                                                 // onChange={console.log('virang')}
                                                                                                 {...label} id='switch'
-                                                                                                // disabled
-                                                                                                style={{ padding: '0px 0px 0px 32px' }}
+                                                                                                disabled
+                                                                                                // style={{ padding: '0px 0px 0px 32px' }}
 
                                                                                                 // checked={row.Publication} 
                                                                                                 onChange={((e) => {
                                                                                                     setSwishlist(e.target.checked)
-                                                                                                })}
-                                                                                            />:<SwitchUnstyled component={Root}
-                                                                                                {...label} id='switch'
-                                                                                                style={{ padding: '0px 0px 0px 32px' }}
+                                                                                                    setChecked(true)
 
+                                                                                                })}
+                                                                                            />: 
+                                                                                            <SwitchUnstyled component={Root}
+                                                                                                {...label} id='switch'
+                                                                                                // style={{ padding: '0px 0px 0px 32px' }}
+// onClick={()=>{setChecked(fl)}}
                                                                                                 onChange={((e) => {
+                                                                                                    
                                                                                                     setSwishlist(e.target.checked)
                                                                                                     setAccounttype('exit for fixedPrice')
                                                                                                 })}
-                                                                                            /> }
+                                                                                            /> } */}
+                                                                                            </div>
 
                                                                                         </div>}
                                                                                         {logvvmog == 'WithoutStock' ? '':
 
                                                                                         <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
                                                                                             <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
+                                                                                            {selectedValue == 'exit for fixedPrice'  ? 
                                                                                             <TextField
+                                                                                            
                                                                                                 onChange={handlePinChangelist}
                                                                                                 value={listpires}
                                                                                                 type='number'
                                                                                                 className={styles.textfiladligb}
                                                                                                 style={{ padding: '0px 0px 0px 0px', width: '100px' }}
-                                                                                            />
+                                                                                            /> : <TextField
+                                                                                            disabled
+                                                                                                onChange={handlePinChangelist}
+                                                                                                value={listpires}
+                                                                                                type='number'
+                                                                                                className={styles.textfiladligb}
+                                                                                                style={{ padding: '0px 0px 0px 0px', width: '100px' }}
+                                                                                            />}
                                                                                         </div>
                                                                                         }
                                                                                         {/* <div style={{ padding: '0px 0px 20px 0px' }}>
@@ -1118,32 +1147,43 @@ const[listmenudata,setListnse] =useState('')
                                                                                                 </Typography>
                                                                                                 <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
                                                                                             </div>
-                                                                                            {swishlist == true 
-                                                                                            ? 
-                                                                                            <SwitchUnstyled component={Root}
+                                                                                            <div style={{padding:'0px 0px 0px 20px'}}>
+                                                                                            <Radio
+        checked={selectedValue === 'exit for market'}
+        onChange={handleChangemejej}
+        value="exit for market"
+        name="radio-buttons"
+        inputProps={{ 'aria-label': 'A' }}
+      />
+                                                                                         {/* {swishlist == true 
+                                                                                            ?  
+                                                                                             <SwitchUnstyled component={Root}
                                                                                                 // onChange={console.log('virang')}
                                                                                                 {...label} id='switch'
                                                                                                 // disabled
-                                                                                                style={{ padding: '0px 0px 0px 20px' }}
-
+                                                                                                // style={{ padding: '0px 0px 0px 20px' }}
+disabled
                                                                                                 // checked={row.Publication} 
                                                                                                 onChange={((e) => {
                                                                                                     setChecked(e.target.checked)
+                                                                                                    // setSwishlist(true)
                                                                                                 })}
-                                                                                            />:<SwitchUnstyled component={Root}  {...label} id='switch'
-                                                                                                style={{ padding: '0px 0px 0px 20px' }}
+                                                                                            />: 
+                                                                                            <SwitchUnstyled component={Root}  {...label} id='switch'
+                                                                                                // style={{ padding: '0px 0px 0px 20px' }}
                                                                                                 // checked={row.Publication} 
                                                                                                 onChange={((e) => {
                                                                                                     // setChecked('ZERODHA')
                                                                                                     setChecked(e.target.checked)
+                                                                                                    // setSwishlist(true)
                                                                                                     setAccounttype('exit for market')
 
                                                                                                 })}
-                                                                                            /> }
-
+                                                                                            />}  */}
+ </div>
 
                                                                                         </div>}
-                                                                                        
+                                                                                       
                                                                                     </div>
                                                 
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
@@ -1151,8 +1191,8 @@ const[listmenudata,setListnse] =useState('')
 
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
                                                                                         {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : ''}
-                                                                                        {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ?
-                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>SAVE </Button>}
+                                                                                        {logvvmog == 'WithoutStock' || selectedValue == '' || listpires == '' ?
+                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>}
                                                                                    
                                                                                     </div>
                                                                                 </Box>

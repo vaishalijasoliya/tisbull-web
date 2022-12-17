@@ -259,6 +259,40 @@ const[listuserid,setListuserid] =React.useState('')
     const [pendingReviewList, setPendingReviewList] = React.useState([]);
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rowid, setRowid] = React.useState('')
+const[listzorothatokan,setListzrothaid] = React.useState('')
+console.log(props.props.profile.accountId,'listzorothatokan');
+// propsaccountId
+    React.useEffect(() => {
+        getRequestToken();
+      }, [router.isReady])
+    
+      const getRequestToken = () => {
+        const request_token = router.query.request_token;
+        console.log(request_token, 'request_token');
+        if (!!request_token) {
+          updateAccessToken(request_token)
+        }
+      }
+    
+      const updateAccessToken = async (token) => {
+        var headers = {
+          "Content-Type": "application/json",
+          "x-access-token": props.props.profile.token
+        }
+        var body = {
+          request_token: token,
+          id_account:props.props.profile.accountId
+        }
+        console.log(props.profile.accountId,'props.profile.accountId');
+        props.props.loaderRef(true)
+        var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
+        props.props.loaderRef(false)
+        console.log('updateAccount...', updateAccount)
+        // if(updateAccount.status == true){
+          // router.reload(window.location.pathname)
+    
+        // }
+      }
     // const [anchorEl, setAnchorEl] = React.useState(null);
     console.log(listuserid,'listuserid');
     const openliost = Boolean(datalist);
@@ -662,7 +696,8 @@ const[listuserid,setListuserid] =React.useState('')
                                                     <TableCell>
                                                         {row.type == 'zerodha' ?
                                                             <Button onClick={() => {
-                                                                if (row.type == 'zerodha') {
+                                                               setListzrothaid(row.id) 
+                                                               if (row.type == 'zerodha') {
                                                                     var profile = props.props.profile;
                                                                     profile.accountId = row.id
                                                                     props.save_user_data({ user: profile });

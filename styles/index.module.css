@@ -7,6 +7,20 @@
   font-family: Poppins-400 !important;
 
 }
+.listceaddpatt{
+  font-size: 30px !important;
+  font-family: Poppins-400 !important;
+
+
+color: #000000 !important;
+}
+.listsvgicom svg{
+  color: #333333;
+  font-size: 28px;
+}
+.listsvgicom{
+  min-width: 0px !important;
+}
 .listmenustrok{
   margin: 60px 120px!important;
 }
@@ -179,7 +193,19 @@ padding: 80px 80px;
   /* height: 620px !important; */
   /* background-size: 100% 100% !important; */
 }
+.listaddaptt{
+  background: #FFFFFF;
+box-shadow: 0px 0px 22px rgba(0, 0, 0, 0.1);
+border-radius: 20px;
+margin: 60px;
 
+
+}
+.listaddap2tt{
+  background-image: url('../public/background.png'); 
+  background-repeat: no-repeat !important;
+  background-size: cover;
+}
 .container_box {
   margin: 26px 80px 50px 80px;
   border-radius: 20px !important;
