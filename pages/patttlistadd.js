@@ -15,8 +15,6 @@ import {
     FormControlLabel,
     Dialog,
     DialogContent,
-    DialogActions,
-    DialogTitle,
     Table,
     TableHead,
     TableRow,
@@ -27,22 +25,16 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers'
-// import { DashboardLayout } from '../components/dashboard-layout';
-import NextLink from 'next/link';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { DatePicker, DesktopDatePicker } from '@mui/lab';
 import React, { useState, useEffect } from 'react';
-import { PatternList } from '../componehts/Stocks/pattdata';
 import ApiServices from '../config/ApiServices';
 import ApiEndpoint from '../config/ApiEndpoint';
 import { connect } from 'react-redux';
-// import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import DatePickerll from "react-datepicker";
-
+import Divider from '@mui/material/Divider';
 import "react-datepicker/dist/react-datepicker.css";
-
 import { toast } from 'react-toastify';
 import { useRouter, withRouter } from 'next/router';
 import { Grid } from 'material-ui-core';
@@ -51,13 +43,11 @@ import styles from '../styles/addpatt.module.scss'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-// import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 let stockInterval = null;
 
 const AddPattern = (props) => {
-    // const [startDate, setStartDate] = useState(new Date())
-    // const [endDate, setEndDate] = useState(new Date())
+
     const [script, setScript] = useState('')
     const [lotsize, setLotSize] = useState(1)
     const [tickSize, setTickSize] = useState('fix')
@@ -76,6 +66,7 @@ const AddPattern = (props) => {
     const [levelError, setLevelError] = useState(false);
     const [currentPriceError, setCurrentPriceError] = useState(false)
     const [scripLable, setScripLable] = useState('');
+    const[listnone,setListnone] = useState('')
     console.log(scripDetails, 'scripDetails');
     const [level, setLevel] = useState({
         label: '3',
@@ -673,7 +664,7 @@ const AddPattern = (props) => {
                         Patterns
                     </Button> */}
                     <Box sx={{ mt: 3, mb: 3 }}>
-                        <Card className={styles.listcentenar}>
+                        <Card className={listnone == 'bloack' ? styles.listcentenar:styles.bolkdatat} >
                             <CardContent>
 
                                 <div style={{ display: 'flex' }}>
@@ -962,50 +953,7 @@ const AddPattern = (props) => {
                                                         </LocalizationProvider>
                                                     </Box>
                                                 </Box>
-                                                {/* <Box sx={{ flex: 1, mt: 2 }}>
-                                            <Autocomplete
-                                                sx={{ flex: 1, paddingLeft: 1 }}
-                                                fullWidth
-                                                disablePortal={false}
-                                                options={[{
-                                                    label: 'Three',
-                                                    id: '3'
-                                                }, {
-                                                    label: 'All',
-                                                    id: 'all'
-                                                }]}
-                                                name="level"
-                                                value={level}
-                                                onChange={(event, value, reason, details) => {
-                                                    setLevelError(false)
-                                                    setLevel(value)
-                                                }}
-                                                renderInput={(params) => <TextField {...params}
-                                                    error={levelError}
-                                                    helperText={levelError ? 'level is required' : undefined}
-                                                    label="Select level" />}
-                                            />
-                                        </Box> */}
-                                                {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', paddingLeft: 1 }}>
-                                            <Box sx={{ flex: 1, mt: 2 }}>
-                                                <Autocomplete
-                                                    sx={{ flex: 1, paddingLeft: 1 }}
-                                                    fullWidth
-                                                    disablePortal={false}
-                                                    options={accountList}
-                                                    name="accounts"
-                                                    value={account}
-                                                    onChange={(event, value, reason, details) => {
-                                                        setAccountError(false)
-                                                        setAccount(value)
-                                                    }}
-                                                    renderInput={(params) => <TextField {...params}
-                                                        error={accountError}
-                                                        helperText={accountError ? 'account is required' : undefined}
-                                                        label="Select account" />}
-                                                />
-                                            </Box>
-                                                </Box> */}
+                                             
                                             </Box>
                                             {/* <Grid item md={4}> */}
                                             <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
@@ -1031,7 +979,6 @@ const AddPattern = (props) => {
                                                                 onChange={formik.handleChange}
                                                                 value={formik.values.currentPrice}
                                                                 helperText={currentPriceError ? 'currentPrice is required' : undefined}
-                                                            // label="Select Current Price"
                                                             />}
                                                         />
                                                     </Box>
@@ -1125,27 +1072,7 @@ const AddPattern = (props) => {
                                                             />
                                                         </Box>
                                                     </Box>
-                                                    {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', paddingLeft: 0 }}>
-                                            <Box sx={{ flex: 1, padding: '10px 0px 0px 0px' }}>
-                                                <Typography className={styles.typofonty}>Stoploss</Typography>
-                                                <TextField
-                                                    className={styles.listtextfils}
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.Stoploss && formik.errors.Stoploss)}
-                                                    fullWidth
-                                                    helperText={formik.touched.Stoploss && formik.errors.Stoploss}
-                                                    // label="Total Investment"
-                                                    margin="normal"
-                                                    type="number"
-                                                    name="Stoploss"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.Stoploss}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-
-                                        </Box> */}
+                                                
                                                 </AccordionDetails>
                                             </Accordion>
                                             <Accordion className={styles.acclistloddop}>
@@ -1310,7 +1237,118 @@ const AddPattern = (props) => {
                                         </Accordion>
                                     </Grid>
                                 </div>
-                                <Grid item md={12}>
+                             
+                            </CardContent>
+                        </Card>
+                        {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
+                            <Card>
+                                <PerfectScrollbar>
+                                    <Box sx={{ width: '100%' }}>
+                                        <Table>
+                                            <TableHead className={styles.hedarliath}>
+                                                <TableRow>
+                                                    <TableCell>
+                                                        Step
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Buy
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Sell
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Qty
+                                                    </TableCell>
+                                                    {/* <TableCell>
+                  Sell Qty
+                </TableCell> */}
+                                                    <TableCell>
+                                                    Buy  Value                                                     </TableCell>
+                                                    <TableCell>
+                                                    Sell Value                                                    </TableCell>
+                                                    <TableCell>
+                                                        Gross
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Stock
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Investment
+                                                    </TableCell>
+                                                    <TableCell>
+                                                    Discount                                                    </TableCell>
+                                                    <TableCell>
+                                                    AVG.                                                    </TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody className={styles.listrowdATA}>
+                                                {patternList.map((pattern, index) => (
+                                                    <TableRow
+                                                        key={index + 1}
+                                                        hover
+
+                                                    >
+                                                        <TableCell>
+                                                            <Box
+                                                                sx={{
+                                                                    alignItems: 'center',
+                                                                    display: 'flex'
+                                                                }}
+                                                            >
+                                                                <Typography
+                                                                    color="textPrimary"
+                                                                    variant="body1"
+                                                                    style={{color:'#858789'}}
+                                                                >
+                                                                    {index + 1}
+                                                                </Typography>
+                                                            </Box>
+                                                        </TableCell>
+                                                        <TableCell className={styles.buyparatydata}>
+                                                            {pattern.buyPrice}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#858789'}}>
+                                                            {pattern.sellPrice}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#858789'}}>
+                                                            {pattern.qty}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#858789'}}> 
+                                                            {pattern.buyValue}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#009947'}}>
+                                                            {pattern.sellValue}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#4285F4'}}>
+                                                            {pattern.gross}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#858789'}}>
+                                                            {pattern.stock}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#858789'}}>
+                                                            {pattern.investment}
+                                                        </TableCell>
+                                                        {/* <TableCell>
+                    {pattern.investment}
+                  </TableCell> */}
+                                                        <TableCell style={{color:'#858789'}}>
+                                                            {pattern.sDisc}
+                                                        </TableCell>
+                                                        <TableCell style={{color:'#858789'}}>
+                                                            {pattern.avg}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </Box>
+                                </PerfectScrollbar>
+                            </Card>
+
+                            {/* <PatternList
+                                patterns={patternList} /> */}
+                        </Box>}
+                        <Grid item md={12}>
                                     <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
                                         <Button
                                             style={{ backgroundColor: '#009947' }}
@@ -1330,14 +1368,14 @@ const AddPattern = (props) => {
                                         </Button>
                                         <Button
                                             className={styles.batnpovedar}
-                                            style={{ backgroundColor: '#C4C4C4' }}
+                                            style={{ backgroundColor: '#4285F4' }}
                                             sx={{ marginRight: '20px' }}
                                             // component="a"
                                             size="medium"
                                             variant="contained"
                                             type="submit"
                                             onClick={() => {
-
+setListnone('bloack')
                                                 onAddPattern(),
                                                     onPreviewClick()
                                             }}
@@ -1347,153 +1385,44 @@ const AddPattern = (props) => {
                                     </Box>
 
                                 </Grid>
-                            </CardContent>
-                        </Card>
-                        {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
-                            <Card>
-                                <PerfectScrollbar>
-                                    <Box sx={{ width: '100%' }}>
-                                        <Table>
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell>
-                                                        Step
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Buy
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Sell
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Qty
-                                                    </TableCell>
-                                                    {/* <TableCell>
-                  Sell Qty
-                </TableCell> */}
-                                                    <TableCell>
-                                                        Buy(₹)
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Sell(₹)
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Gross
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Stock
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Investment
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        S. Disc
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Avg
-                                                    </TableCell>
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {patternList.map((pattern, index) => (
-                                                    <TableRow
-                                                        key={index + 1}
-                                                        hover
-                                                    >
-                                                        <TableCell>
-                                                            <Box
-                                                                sx={{
-                                                                    alignItems: 'center',
-                                                                    display: 'flex'
-                                                                }}
-                                                            >
-                                                                <Typography
-                                                                    color="textPrimary"
-                                                                    variant="body1"
-                                                                >
-                                                                    {index + 1}
-                                                                </Typography>
-                                                            </Box>
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.buyPrice}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.sellPrice}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.qty}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.buyValue}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.sellValue}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.gross}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.stock}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.investment}
-                                                        </TableCell>
-                                                        {/* <TableCell>
-                    {pattern.investment}
-                  </TableCell> */}
-                                                        <TableCell>
-                                                            {pattern.sDisc}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {pattern.avg}
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))}
-                                            </TableBody>
-                                        </Table>
-                                    </Box>
-                                </PerfectScrollbar>
-                            </Card>
-
-                            {/* <PatternList
-                                patterns={patternList} /> */}
-                        </Box>}
-
                     </Box>
                 </Container>
             </Box>
-            <Dialog
-                open={isLockPatternDialog}>
-                <DialogTitle>
-                    Lock Pattern
-                </DialogTitle>
-                <DialogContent>
-                    <Typography gutterBottom>
-                        Are you sure you want to lock this pattern?
-                    </Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => {
+            <div>
+                                                            <Dialog  open={isLockPatternDialog} 
+                                                            // onClose={handleCloseCom}
+                                                                className={styles.borderredayasfor}
+                                                                style={{
+                                                                }}
+                                                                maxWidth="sm"
+                                                            >
+                                                                <div>
+                                                                    <DialogContent className={styles.popupcantenar}>
+                                                                        <Box><div className={styles.delehedar}>
+                                                                            <Typography>Lock Pattern</Typography>
+                                                                        </div>
+                                                                            <Divider>
+
+                                                                            </Divider>
+                                                                            <div className={styles.accoparegarf}>
+                                                                                <Typography>Are you sure you want to lock
+ this pattern?</Typography>
+                                                                            </div>
+                                                                            <Divider>
+
+                                                                            </Divider>
+                                                                            <div><Button className={styles.cancelbtn}   onClick={() => {
                             setLockPattern(false)
-                        }}>
-                        Cancel
-                    </Button>
-                    <Button
-                        variant="contained"
-                        autoFocus
-                        onClick={() => {
+                        }}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => {
                             setLockPattern(false)
                             onLockPatternClick()
-                        }}>
-                        Lock Pattern
-                    </Button>
-                </DialogActions>
-            </Dialog>
-            {/* </DashboardLayout> */}
+                        }}>Lock</Button></div>
+                                                                        </Box>
+                                                                    </DialogContent>
+                                                                </div>
+                                                            </Dialog>
+                                                        </div>
+
         </Grid>
     );
 }

@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import CreatePattern from './patttlistadd'
-import Addpattern from '../componehts/Custompatt/Custompatt'
+import Addpattern from './addCustom'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 function TabPanel(props) {
 

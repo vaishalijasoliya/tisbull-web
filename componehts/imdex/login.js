@@ -71,7 +71,7 @@ const Home = (props) => {
     setLogoutButton(true);
   };
   const failureHandler = () => {
-    console.log("redddddds",res);
+    // console.log("redddddds",res);
   };
 
   const onLoginPress = async () => {

@@ -7,7 +7,13 @@
 
 .listcentenar{
     box-shadow: none !important;
+    display: none;
 }
+.bolkdatat{
+    box-shadow: none !important;
+
+}
+// .bolkdatat{}
 .listtypogst{
     p{
     font-size: 16px !important;
@@ -103,4 +109,70 @@ margin-left: 35px !important;
     font-family: Poppins-400 !important;
     font-size: 14px !important;
     color: #333333 !important;
+}
+.hedarliath th{
+    background: rgba(215, 229, 239, 0.25) !important;
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+    color: #333333 !important;
+}
+.listrowdATA td{
+    // background: rgba(215, 229, 239, 0.25) !important;
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+    // color: #333333 !important;
+}
+.buyparatydata{
+    color: #4285F4 !important;
+}
+.borderredayasfor {
+    div {
+
+        div {
+            padding: 0px;
+
+            border-radius: 30px !important;
+            background: #FFFFFF;
+        }
+    }
+}
+.delehedar {
+    padding: 22px 43px 15px 43px !important;
+
+    p {
+        text-align: center;
+        font-family: Poppins-400 !important;
+        font-size: 22px;
+        color: #303030;
+    }
+}
+.accoparegarf {
+    padding: 33px 43px !important;
+
+    p {
+        text-align: center;
+        max-width: 257px;
+        font-family: Poppins-400 !important;
+        font-size: 18px;
+        color: #858789;
+    }
+}
+.cancelbtn {
+    font-size: 20px !important;
+    font-family: Poppins-400 !important;
+
+    text-transform: capitalize !important;
+    text-align: center !important;
+width: 170px;
+    color: #4285F4 !important;
+}
+.cancelbtn2{
+    font-size: 20px !important;
+    font-family: Poppins-400 !important;
+
+    text-transform: capitalize !important;
+    text-align: center !important;
+width: 160px;
+color: #E31E24 !important;
+
 }
