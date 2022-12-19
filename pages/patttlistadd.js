@@ -43,6 +43,8 @@ import styles from '../styles/addpatt.module.scss'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import moment from 'moment';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 let stockInterval = null;
 
@@ -57,8 +59,8 @@ const AddPattern = (props) => {
     const [patternList, setPatternList] = useState([])
     const [accountList, setAccountList] = useState([])
     const [scripList, setScripList] = useState([])
-    const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-    const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [filterScripList, setFilterScripList] = useState([]);
     const [defaultScripList, setDefaultScripList] = useState([]);
     const [scripDetails, setScripDetails] = useState('');
@@ -66,8 +68,10 @@ const AddPattern = (props) => {
     const [levelError, setLevelError] = useState(false);
     const [currentPriceError, setCurrentPriceError] = useState(false)
     const [scripLable, setScripLable] = useState('');
-    const[listnone,setListnone] = useState('')
-    console.log(scripDetails, 'scripDetails');
+    const [listfiltar, setFilatlist] = useState('')
+    const [listnone, setListnone] = useState('')
+    const[listsummri,setLISTdatasumm] = useState("")
+    console.log(endDate, 'listfiltar');
     const [level, setLevel] = useState({
         label: '3',
         id: '3'
@@ -117,11 +121,13 @@ const AddPattern = (props) => {
         id: ''
     });
     const [buyArray, setBuyArray] = useState([])
+    const [listobgll, setListobgll] = useState([])
     const [scripItemError, setScripItemError] = useState(false);
     const [patternItem, setPatternItem] = useState({
         label: 'Basic Pattern',
         id: 'BasicPattern'
     });
+    const [listinnewdata,setLiatstgs] = useState ('')
     console.log(patternList, 'patternList');
     const [patternError, setPatternError] = useState(false);
     const [listarrobj, setListidzero] = useState([])
@@ -536,7 +542,7 @@ const AddPattern = (props) => {
             formik.submitForm()
         }
     }
-    console.log(props, 'sjhhshss');
+    console.log(patternItem.id, 'sjhhshss');
     const onLockPatternClick = async () => {
         var body = {
             "script": parseFloat(script.id),
@@ -584,7 +590,7 @@ const AddPattern = (props) => {
             toast.error(patternAdd.message)
         }
     }
-
+// console.log(,'scripDetails');
     const filterScrip = async (text) => {
         var body = {
             "name": text
@@ -613,14 +619,42 @@ const AddPattern = (props) => {
                 }
                 accountLableList.push(JSON.parse(JSON.stringify(obj)))
                 console.log(element, 'element');
-                lebal.push(obj)
+                lebal.push(JSON.parse(JSON.stringify(obj)))
             }
         }
+        console.log(accountLableList, 'accountLableList');
+        setListobgll(lebal)
+        // var value = text
+        // console.log(value,'valuevalue');
+        // if (typeof value !== 'object') {
+        // if (value == '') {
+        //         setFilterScripList(listobgll);
+        //     } else {
+        //         var filteredData = scripList.filter((item) => {
+        //             let searchValue = item.label.toLowerCase();
+        //             return searchValue.includes(value.toString().toLowerCase())
+        //         })
+        //         setFilterScripList(filteredData);
+        //     }
+        // }
         setScripList(lebal)
         setFilterScripList(lebal)
 
     }
+    console.log(filterScripList, 'filterScripList');
+    const filterScriplist = (text) => {
+        var value = text
+        console.log(value, 'valuesddd')
 
+        // if (text.length >= 2) {
+        console.log(text, 'shhhhssss');
+        // var filterArray = scripList.filter((item) => item.label.toLowerCase().includes(text.toLowerCase()));
+        //     console.log('filterArray', filterArray)
+        //     setFilterScripList(filterArray)
+        // } else {
+        //     setFilterScripList(defaultScripList)
+        // }
+    }
     const getScripPrice = async (value) => {
         console.log('getScripPrice...', value)
         var headers = {
@@ -664,11 +698,11 @@ const AddPattern = (props) => {
                         Patterns
                     </Button> */}
                     <Box sx={{ mt: 3, mb: 3 }}>
-                        <Card className={listnone == 'bloack' ? styles.listcentenar:styles.bolkdatat} >
+                        <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
                             <CardContent>
 
                                 <div style={{ display: 'flex' }}>
-                                    <Grid item md={4}>
+                                    <Grid item md={4} >
                                         <Box>
                                             <div className={styles.listtypogst}>
                                                 <Typography>GENERAL</Typography>
@@ -721,6 +755,7 @@ const AddPattern = (props) => {
                                                             name="script"
                                                             value={script}
                                                             onChange={(event, value, reason, details) => {
+                                                                // filterScriplist()
                                                                 if (!!value) {
                                                                     if (!!stockInterval) {
                                                                         clearInterval(stockInterval)
@@ -744,21 +779,13 @@ const AddPattern = (props) => {
                                                             renderInput={(params) => <TextField {...params}
                                                                 onChange={(text) => {
                                                                     console.log(text.target.value, 'jjahhahha')
+                                                                    setFilatlist(text.target.value)
                                                                     filterScrip(text.target.value)
+                                                                    filterScriplist(text.target.value)
+
                                                                     // onChange={(e) => {
                                                                     //   setPage(0)
-                                                                    var value = text.target.value
-                                                                    if (typeof value !== 'object') {
-                                                                        if (!value || value == '') {
-                                                                            setScripList(filterScripList);
-                                                                        } else {
-                                                                            var filteredData = filterScripList.filter((item) => {
-                                                                                let searchValue = item.label.toLowerCase();
-                                                                                return searchValue.includes(value.toString().toLowerCase())
-                                                                            })
-                                                                            setScripList(filteredData);
-                                                                        }
-                                                                    }
+
 
                                                                 }}
                                                                 className={styles.listtextfils22}
@@ -953,7 +980,7 @@ const AddPattern = (props) => {
                                                         </LocalizationProvider>
                                                     </Box>
                                                 </Box>
-                                             
+
                                             </Box>
                                             {/* <Grid item md={4}> */}
                                             <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
@@ -1072,7 +1099,7 @@ const AddPattern = (props) => {
                                                             />
                                                         </Box>
                                                     </Box>
-                                                
+
                                                 </AccordionDetails>
                                             </Accordion>
                                             <Accordion className={styles.acclistloddop}>
@@ -1237,9 +1264,215 @@ const AddPattern = (props) => {
                                         </Accordion>
                                     </Grid>
                                 </div>
-                             
+
                             </CardContent>
                         </Card>
+                        {/* < */}
+                        {listsummri== 'addsumari' ? 
+                        <>
+                        <Card className={ listinnewdata== 'gsdgfgdffd' ? styles.listcentenar : styles.bolkdatat} >
+                                <PerfectScrollbar>
+
+                        <Grid item sm={12} md={12} xs={12}>
+
+{/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
+                        <div className={styles.datadivcalla} style={{display:'flex',padding:'0px 0px 0px 60px'}}>
+                <div style={{padding:'30px 0px 0px 0px'}}>
+                    <Typography className={styles.peregarflist} style={{'font-size': '15px','color': '#333333',fontWeight:'bold',borderBottom:'3px solid #009947','borderRadius':'2px',width:'80px'}}>Summary</Typography>
+                </div>
+                </div>
+                </Grid>
+                <Box style={{display:'flex'}}>
+                             <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 60px'}}>
+
+                <div style={{padding:'0px 60px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Script</Typography>
+                        <div style={{display:'flex'}}>
+                        <Typography 
+                        // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                        style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold"}}>
+                        {scripDetails.stk_name}
+                        {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                        </Typography>
+                        <div style={{ padding: '0px 0px 0px 25px' }}>
+                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
+                    </div>
+                    </div>
+                    </div>
+                    <div style={{padding:'0px 30px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Type</Typography>
+                        <Typography className={styles.peregarflist44} >{patternItem.id}</Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 30px'}}>
+
+                    <div style={{padding:'0px 40px 0px 40px'}}>
+                        <Typography className={styles.peregarflist33} >Entry LIMIT</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {formik.values.minRange}
+                        {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                        </Typography>
+                    </div>
+                    <div style={{padding:'0px 4px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Exit LIMIT</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {formik.values.maxRange}
+                        {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                        </Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 15px'}}>
+
+                    <div style={{padding:'0px 30px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Buy Diffrerance</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {formik.values.buyPrice}
+                        {/* {props.data.stock == null ? '-':props.data.stock } */}
+                        </Typography>
+                    </div>
+                    <div style={{padding:'0px 40px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33}>Sell Diffrerance</Typography>
+                        <Typography 
+                        // className={props.data.profit >=0 ? styles.peregarflistlist:styles.redline}
+                         style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold",'color':'#009947'}}>
+                         {formik.values.sellPrice}
+                        {/* {props.data.profit == null ? '-' :props.data.profit} */}
+                        </Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sm={12} md={2} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 0px'}}>
+
+                    <div style={{padding:'0px 25px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33}>Enter Point</Typography>
+                        <Typography className={styles.peregarflist44} >{formik.values.currentPrice}</Typography>
+                    </div>
+                    <div style={{padding:'0px 40px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33}>Tick Type</Typography>
+                        <Typography className={styles.peregarflist44} >{tickSize}</Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sm={12} md={1} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 0px'}}>
+                    <div style={{padding:'0px 30px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33}>Investment</Typography>
+                        <Typography className={styles.peregarflist44} >{formik.values.totalInvestment}</Typography>
+                    </div>
+                    </Grid>
+                    <Divider style={{border:'1px solid #E4F4E9'}}></Divider>
+                    </Box>
+                    <Grid item sm={12} md={12} xs={12}>
+
+<Divider style={{border:'1px solid #E4F4E9'}}></Divider>
+                        <div className={styles.datadivcalla} style={{display:'flex',padding:'0px 0px 0px 60px'}}>
+                <div style={{padding:'30px 0px 0px 0px'}}>
+                    <Typography className={styles.peregarflist} style={{'font-size': '15px','color': '#333333',fontWeight:'bold',borderBottom:'3px solid #009947','borderRadius':'2px',width:'80px'}}>Advanced</Typography>
+                </div>
+                </div>
+                </Grid>
+                <Box style={{display:'flex'}}>
+                             <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 60px'}}>
+
+                <div style={{padding:'0px 60px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Target</Typography>
+                        {/* <div style={{display:'flex'}}> */}
+                        <Typography 
+                        // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                        style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold"}}>
+                        {formik.values.Target == '' ? '-':formik.values.Target}
+                        {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                        </Typography>
+                        {/* <div style={{ padding: '0px 0px 0px 25px' }}>
+                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
+                    </div> */}
+                    {/* </div> */}
+                    </div>
+                    <div style={{padding:'0px 30px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >StopLoss</Typography>
+                        <Typography className={styles.peregarflist44} >{formik.values.Stoploss == '' ? '-':formik.values.Stoploss}</Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 30px'}}>
+
+                    <div style={{padding:'0px 40px 0px 40px'}}>
+                        <Typography className={styles.peregarflist33} >Start Date</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {startDate == '' ? '-':moment(startDate).format("DD/MM/YYYY")
+                                                                }                          {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                        </Typography>
+                    </div>
+                    <div style={{padding:'0px 4px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >End Date</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {endDate == '' ? '-':
+                                                                    moment(endDate).format("DD/MM/YYYY")
+                                                                }                         {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                        </Typography>
+                    </div>
+                    </Grid>
+                    </Box>
+                    <Divider style={{border:'1px solid #E4F4E9'}}></Divider>
+                    <Grid item sm={12} md={12} xs={12}>
+
+{/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
+                        <div className={styles.datadivcalla} style={{display:'flex',padding:'0px 0px 0px 60px'}}>
+                <div style={{padding:'30px 0px 0px 0px'}}>
+                    <Typography className={styles.peregarflist} style={{'font-size': '15px','color': '#333333',fontWeight:'bold',borderBottom:'3px solid #009947','borderRadius':'2px',width:'80px'}}>Order</Typography>
+                </div>
+                </div>
+                </Grid>
+                <Box style={{display:'flex'}}>
+                             <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 60px'}}>
+
+                <div style={{padding:'0px 60px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Initail Buy Steps</Typography>
+                        {/* <div style={{display:'flex'}}> */}
+                        <Typography 
+                        // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                        style={{'font-size':'14px','textTransform':'uppercase',fontWeight:"bold"}}>
+                        {formik.values.Initail}
+                        {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                        </Typography>
+                        {/* <div style={{ padding: '0px 0px 0px 25px' }}>
+                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
+                    </div>
+                    </div> */}
+                    </div>
+                    <div style={{padding:'0px 30px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >AMO BUY Down Steps</Typography>
+                        <Typography className={styles.peregarflist44} >{formik.values.SellSteps}</Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 0px'}}>
+
+                    <div style={{padding:'0px 40px 0px 40px'}}>
+                        <Typography className={styles.peregarflist33} >AMO SELL UP Steps</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {formik.values.BuySteps}
+                        {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                        </Typography>
+                    </div>
+                    <div style={{padding:'0px 4px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Normal Buy Down Steps</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {formik.values.NormalBuy}
+                        {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                        </Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 15px'}}>
+
+                    <div style={{padding:'0px 30px 0px 0px'}}>
+                        <Typography className={styles.peregarflist33} >Normal SELL Down Steps</Typography>
+                        <Typography className={styles.peregarflist44} >
+                        {formik.values.NormalSell}
+                        {/* {props.data.stock == null ? '-':props.data.stock } */}
+                        </Typography>
+                    </div>
+                   
+                    </Grid>
+                    </Box>
+                    </PerfectScrollbar>
+                    </Card>
+                    </>:''}
                         {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
                             <Card>
                                 <PerfectScrollbar>
@@ -1263,9 +1496,9 @@ const AddPattern = (props) => {
                   Sell Qty
                 </TableCell> */}
                                                     <TableCell>
-                                                    Buy  Value                                                     </TableCell>
+                                                        Buy  Value                                                     </TableCell>
                                                     <TableCell>
-                                                    Sell Value                                                    </TableCell>
+                                                        Sell Value                                                    </TableCell>
                                                     <TableCell>
                                                         Gross
                                                     </TableCell>
@@ -1276,9 +1509,9 @@ const AddPattern = (props) => {
                                                         Investment
                                                     </TableCell>
                                                     <TableCell>
-                                                    Discount                                                    </TableCell>
+                                                        Discount                                                    </TableCell>
                                                     <TableCell>
-                                                    AVG.                                                    </TableCell>
+                                                        AVG.                                                    </TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody className={styles.listrowdATA}>
@@ -1298,7 +1531,7 @@ const AddPattern = (props) => {
                                                                 <Typography
                                                                     color="textPrimary"
                                                                     variant="body1"
-                                                                    style={{color:'#858789'}}
+                                                                    style={{ color: '#858789' }}
                                                                 >
                                                                     {index + 1}
                                                                 </Typography>
@@ -1307,34 +1540,34 @@ const AddPattern = (props) => {
                                                         <TableCell className={styles.buyparatydata}>
                                                             {pattern.buyPrice}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#858789'}}>
+                                                        <TableCell style={{ color: '#858789' }}>
                                                             {pattern.sellPrice}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#858789'}}>
+                                                        <TableCell style={{ color: '#858789' }}>
                                                             {pattern.qty}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#858789'}}> 
+                                                        <TableCell style={{ color: '#858789' }}>
                                                             {pattern.buyValue}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#009947'}}>
+                                                        <TableCell style={{ color: '#009947' }}>
                                                             {pattern.sellValue}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#4285F4'}}>
+                                                        <TableCell style={{ color: '#4285F4' }}>
                                                             {pattern.gross}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#858789'}}>
+                                                        <TableCell style={{ color: '#858789' }}>
                                                             {pattern.stock}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#858789'}}>
+                                                        <TableCell style={{ color: '#858789' }}>
                                                             {pattern.investment}
                                                         </TableCell>
                                                         {/* <TableCell>
                     {pattern.investment}
                   </TableCell> */}
-                                                        <TableCell style={{color:'#858789'}}>
+                                                        <TableCell style={{ color: '#858789' }}>
                                                             {pattern.sDisc}
                                                         </TableCell>
-                                                        <TableCell style={{color:'#858789'}}>
+                                                        <TableCell style={{ color: '#858789' }}>
                                                             {pattern.avg}
                                                         </TableCell>
                                                     </TableRow>
@@ -1348,80 +1581,155 @@ const AddPattern = (props) => {
                             {/* <PatternList
                                 patterns={patternList} /> */}
                         </Box>}
+                        {listsummri== 'addsumari' ?
                         <Grid item md={12}>
-                                    <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
-                                        <Button
-                                            style={{ backgroundColor: '#009947' }}
-                                            // component="a"
-                                            className={styles.batnpovedar22}
-                                            size="medium"
-                                            variant="contained"
-                                            onClick={() => {
-                                                if (!!patternList && patternList.length > 0) {
-                                                    setLockPattern(true)
-                                                } else {
-                                                    toast.error('Pattern preview first.')
-                                                }
-                                            }}
-                                        >
-                                            NEXT
-                                        </Button>
-                                        <Button
-                                            className={styles.batnpovedar}
-                                            style={{ backgroundColor: '#4285F4' }}
-                                            sx={{ marginRight: '20px' }}
-                                            // component="a"
-                                            size="medium"
-                                            variant="contained"
-                                            type="submit"
-                                            onClick={() => {
-setListnone('bloack')
-                                                onAddPattern(),
-                                                    onPreviewClick()
-                                            }}
-                                        >
-                                            PREVIOUS
-                                        </Button>
-                                    </Box>
+                            <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
+                                <Button
+                                    style={{ backgroundColor: '#009947' }}
+                                    // component="a"
+                                    className={styles.batnpovedar22}
+                                    size="medium"
+                                    type="submit"
+                                    variant="contained"
+                                    onClick={() => {
+                                        // setLISTdatasumm('addsumari')
+                                        // setListnone('bloack')
+                                        if (!!patternList && patternList.length > 0) {
+                                            setLockPattern(true)
+                                        } else {
+                                            toast.error('Pattern preview first.')
+                                        }
+                                    }}
+                                >
+                                    NEXT
+                                </Button>
+                                <Button
+                                    className={styles.batnpovedar}
+                                    style={{ backgroundColor: '#4285F4' }}
+                                    sx={{ marginRight: '20px' }}
+                                    // component="a"
+                                    size="medium"
+                                    variant="contained"
+                                    type="submit"
+                                    onClick={() => {
+                                        // setListnone('bloack')
+                                        setLiatstgs('gsdgfgdffd')
+                                        onAddPattern()
+                                            // onPreviewClick()
+                                    }}
+                                >
+                                    PREVIOUS
+                                </Button>
+                            </Box>
 
-                                </Grid>
+                        </Grid> 
+
+                        :
+                        <Grid item md={12}>
+                            <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
+                                {scripDetails.stk_name  == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' ||formik.values.totalInvestment == '' ||tickSize == '' ?
+                                <Button
+                                    style={{ backgroundColor: '#009947' }}
+                                    // component="a"
+                                    disabled
+                                    className={styles.batnpovedar22}
+                                    size="medium"
+                                    type="submit"
+                                    variant="contained"
+                                    onClick={() => {
+                                        setLISTdatasumm('addsumari')
+                                        setListnone('bloack')
+                                        // setListnone('bloack')
+                                        // if (!!patternList && patternList.length > 0) {
+                                        //     setLockPattern(true)
+                                        // } else {
+                                        //     toast.error('Pattern preview first.')
+                                        // }
+                                    }}
+                                > 
+                                 NEXT 
+                                 </Button>:
+                                <Button
+                                    style={{ backgroundColor: '#009947' }}
+                                    // component="a"
+                                    className={styles.batnpovedar22}
+                                    size="medium"
+                                    type="submit"
+                                    variant="contained"
+                                    onClick={() => {
+                                        setLISTdatasumm('addsumari')
+                                        setListnone('bloack')
+                                        // setListnone('bloack')
+                                        // if (!!patternList && patternList.length > 0) {
+                                        //     setLockPattern(true)
+                                        // } else {
+                                        //     toast.error('Pattern preview first.')
+                                        // }
+                                    }}
+                                >
+                                    NEXT
+                                </Button>}
+                                <Button
+                                    className={styles.batnpovedar}
+                                    // style={{ backgroundColor: '#4285F4' }}
+                                    sx={{ marginRight: '20px' }}
+                                    // component="a"
+                                    disabled
+                                    size="medium"
+                                    variant="contained"
+                                    type="submit"
+                                    onClick={() => {
+                                      
+                                      
+                                        onAddPattern()
+                                            // onPreviewClick()
+                                    }}
+                                >
+                                    PREVIOUS
+                                </Button>
+                            </Box>
+
+                        </Grid>
+                         
+                         
+                        }
                     </Box>
                 </Container>
             </Box>
             <div>
-                                                            <Dialog  open={isLockPatternDialog} 
-                                                            // onClose={handleCloseCom}
-                                                                className={styles.borderredayasfor}
-                                                                style={{
-                                                                }}
-                                                                maxWidth="sm"
-                                                            >
-                                                                <div>
-                                                                    <DialogContent className={styles.popupcantenar}>
-                                                                        <Box><div className={styles.delehedar}>
-                                                                            <Typography>Lock Pattern</Typography>
-                                                                        </div>
-                                                                            <Divider>
+                <Dialog open={isLockPatternDialog}
+                    // onClose={handleCloseCom}
+                    className={styles.borderredayasfor}
+                    style={{
+                    }}
+                    maxWidth="sm"
+                >
+                    <div>
+                        <DialogContent className={styles.popupcantenar}>
+                            <Box><div className={styles.delehedar}>
+                                <Typography>Lock Pattern</Typography>
+                            </div>
+                                <Divider>
 
-                                                                            </Divider>
-                                                                            <div className={styles.accoparegarf}>
-                                                                                <Typography>Are you sure you want to lock
- this pattern?</Typography>
-                                                                            </div>
-                                                                            <Divider>
+                                </Divider>
+                                <div className={styles.accoparegarf}>
+                                    <Typography>Are you sure you want to lock
+                                        this pattern?</Typography>
+                                </div>
+                                <Divider>
 
-                                                                            </Divider>
-                                                                            <div><Button className={styles.cancelbtn}   onClick={() => {
-                            setLockPattern(false)
-                        }}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => {
-                            setLockPattern(false)
-                            onLockPatternClick()
-                        }}>Lock</Button></div>
-                                                                        </Box>
-                                                                    </DialogContent>
-                                                                </div>
-                                                            </Dialog>
-                                                        </div>
+                                </Divider>
+                                <div><Button className={styles.cancelbtn} onClick={() => {
+                                    setLockPattern(false)
+                                }}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => {
+                                    setLockPattern(false)
+                                    onLockPatternClick()
+                                }}>Lock</Button></div>
+                            </Box>
+                        </DialogContent>
+                    </div>
+                </Dialog>
+            </div>
 
         </Grid>
     );
