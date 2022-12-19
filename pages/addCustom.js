@@ -38,7 +38,7 @@ import ApiEndpoint from '../config/ApiEndpoint';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useRouter, withRouter } from 'next/router';
-import { RadioButton } from 'react-radio-buttons';
+// import { RadioButton } from 'react-radio-buttons';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import dynamic from 'next/dynamic';
 import FileSaver from 'file-saver';
@@ -878,13 +878,13 @@ const AddCustomPattern = (props) => {
                             </CardContent>
                         </Card>
                         {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
-                            <PatternList
-                                patterns={patternList} />
+                            {/* <PatternList
+                                patterns={patternList} /> */}
                         </Box>}
 
                     </Box>
                 </Container>
-            </Box >
+            </Box>
             <Dialog
                 open={isLockPatternDialog}>
                 <DialogTitle>
