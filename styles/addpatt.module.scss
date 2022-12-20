@@ -38,7 +38,7 @@ color: #333333 !important;
     margin-top: 0px !important;
     div{
         height: 40px;
-        width: 50%;
+        // width: 50%;
     }
 }
 .listtextfils22{
@@ -48,7 +48,9 @@ font-size: 13px !important;
 
     }
     input{
-        padding: 9px 4px 7.5px 9px;
+        padding: 10.5px 4px 10.5px 6px !important;
+
+        // padding: 9px 4px 7.5px 9px !important;
 
     }
 }
@@ -69,10 +71,10 @@ box-shadow: none !important;
 margin-left: 35px !important;
 }
 .listdatepikar{
-    height: 40px !important;
+    height: 37px !important;
     // padding: 0px 7px 0px 0px !important;
     font-family: Poppins-400 !important;
-    width: 196px;
+    // width: 196px;
 
 }
 .batnpovedar{
@@ -211,3 +213,4 @@ color: #E31E24 !important;
   .listdatacom{
     box-shadow: none !important;
   }
+  

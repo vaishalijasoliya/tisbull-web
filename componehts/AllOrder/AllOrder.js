@@ -691,7 +691,7 @@ const[sassaliusgs,setSasasdata] =React.useState("")
                             } </Typography></TableCell>
 
                           <TableCell>
-                              <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
+                              <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Pending' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Cancelled' : ''}</Typography>
                             {/* </Button> */}
 
 

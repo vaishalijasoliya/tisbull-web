@@ -127,6 +127,7 @@ const AddPattern = (props) => {
         label: 'Basic Pattern',
         id: 'BasicPattern'
     });
+    const[tabaldatalist,setTebaldatalist] = useState('')
     const [listinnewdata,setLiatstgs] = useState ('')
     console.log(patternList, 'patternList');
     const [patternError, setPatternError] = useState(false);
@@ -590,7 +591,7 @@ const AddPattern = (props) => {
             toast.error(patternAdd.message)
         }
     }
-// console.log(,'scripDetails');
+console.log(patternList,'patternList');
     const filterScrip = async (text) => {
         var body = {
             "name": text
@@ -672,6 +673,7 @@ const AddPattern = (props) => {
             setScripDetails(stockPrice.success[0])
         }
     }
+ console.log(scripDetails,'scripDetails')
 
     return (
         // <DashboardLayout>
@@ -700,10 +702,31 @@ const AddPattern = (props) => {
                     <Box sx={{ mt: 3, mb: 3 }}>
                         <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
                             <CardContent>
+                            {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3,display:'flex' }}>
+                                                    {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{padding:'0px 60px 0px 0px'}} sx={{  flexDirection: 'row' }}>
+                                                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                            {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                                        </Box></Box> : <Box sx={{  flexDirection: 'row' }} style={{padding:'0px 60px 0px 0px'}}>
+                                                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                            {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                                        </Box>
+                                                    </Box>}
+                                                    {/* <Box style={{ display: 'flex', padding: '15px 0px 0px 0px' }}> */}
+                                                        <Box style={{padding:'0px 60px 0px 0px'}}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
 
-                                <div style={{ display: 'flex' }}>
-                                    <Grid item md={4} >
-                                        <Box>
+                                                        <Box style={{padding:'0px 60px 0px 0px'}}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+
+                                                    {/* </Box> */}
+                                                    {/* <Box style={{ display: 'flex', justifyContent: "space-between", padding: '15px 0px 0px 0px' }}> */}
+                                                        <Box style={{padding:'0px 60px 0px 0px'}}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
+                                                        <Box style={{padding:'0px 60px 0px 0px'}}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
+                                                    {/* </Box> */}
+                                                </Box>}
+                                {/* <div style={{ display: 'flex' }}> */}
+                                    {/* <Grid item md={4} > */}
+                                        {/* <Box> */}
                                             <div className={styles.listtypogst}>
                                                 <Typography>GENERAL</Typography>
                                             </div>
@@ -744,7 +767,12 @@ const AddPattern = (props) => {
                                                                 label={'Scrip type'} />}
                                                         />
                                                     </Box>}
-                                                    {/* <Grid item md={4}> */}
+                                                    </Box>
+
+                                            </Box>
+<div style={{display:"flex",width:"100%"}} >
+                                                    {/* <div> */}
+                                                    <Grid item md={4}>
                                                     <Box sx={{ flex: 2, padding: '10px 0px 0px 0px' }}>
                                                         <Typography className={styles.typofonty}>Script</Typography>
                                                         <Autocomplete
@@ -776,7 +804,7 @@ const AddPattern = (props) => {
                                                             onClose={(event, reason) => {
                                                                 setFilterScripList(defaultScripList)
                                                             }}
-                                                            renderInput={(params) => <TextField {...params}
+                                                            renderInput={(params) => <TextField className={styles.inputdataonb} {...params}
                                                                 onChange={(text) => {
                                                                     console.log(text.target.value, 'jjahhahha')
                                                                     setFilatlist(text.target.value)
@@ -797,9 +825,8 @@ const AddPattern = (props) => {
                                                         />
                                                     </Box>
                                                     {/* </Grid> */}
-                                                </Box>
-
-                                            </Box>
+                                                
+                                            {/* </Grid> */}
                                             {/* <Grid item md={4}> */}
                                             <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', paddingLeft: 0 }}>
                                                 <Box sx={{ flex: 1, padding: '10px 0px 0px 0px' }}>
@@ -822,8 +849,11 @@ const AddPattern = (props) => {
                                                 </Box>
 
                                             </Box>
-                                            {/* </Grid> */}
-                                            {/* <Grid item md={4}> */}
+                                            </Grid>
+                                            
+ {/* </div> */}
+ {/* <div> */}
+                                            <Grid item md={4} style={{padding:"0px 0px 0px 20px"}}>
                                             {/* {(lotsize != 1) ? <Box sx={{ display: 'flex', justifyContent: 'center', paddingRight: 30, fontSize: 10 }}>lotSize={lotsize}</Box> : null} */}
                                             <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
                                                 <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
@@ -875,7 +905,8 @@ const AddPattern = (props) => {
 
                                             </Box>
                                             {/* </Grid> */}
-                                            <div style={{ display: 'flex', alignItems: 'center', padding: '0px 0px 0px 0px' }}>
+                                            {/* <Grid item md={4}> */}
+                                            <div style={{ display: 'flex', alignItems: 'center', padding: '17px 0px 0px 0px' }}>
                                                 {/* <Grid item md={2} > */}
 
                                                 <Typography className={styles.typofonty}>Tick Size</Typography>
@@ -904,7 +935,10 @@ const AddPattern = (props) => {
                                                 </Box>
                                                 {/* </Grid> */}
                                             </div>
-                                            {/* <Grid item md={4}> */}
+                                            </Grid>
+                                            {/* </div> */}
+                                            {/* <div> */}
+                                            <Grid item md={4} style={{padding:"0px 0px 0px 20px"}}>
                                             <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                 <Box sx={{ flex: 1, paddingRight: 0.5 }}>
                                                     <Typography className={styles.typofonty}>Buy Difference</Typography>
@@ -953,7 +987,7 @@ const AddPattern = (props) => {
 
                                             </Box>
                                             {/* </Grid> */}
-                                            <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
+                                            {/* <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
                                                 <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', mt: 2 }}>
                                                     <Box sx={{ flex: 1, paddingRight: 0.5 }}>
                                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -981,7 +1015,7 @@ const AddPattern = (props) => {
                                                     </Box>
                                                 </Box>
 
-                                            </Box>
+                                            </Box> */}
                                             {/* <Grid item md={4}> */}
                                             <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
 
@@ -1011,22 +1045,28 @@ const AddPattern = (props) => {
                                                     </Box>
                                                 </Box>
                                             </Box>
-                                            {/* </Grid> */}
-
-                                        </Box>
-                                    </Grid>
-                                    <Grid item md={5}>
-                                        <div>
+                                            </Grid>
+{/* // </div> */}
+</div>
+                                        {/* </Box> */}
+                                    {/* </Grid> */}
+                                    {/* <Grid item md={12}> */}
+                                    {/* <div> */}
+                                        {/* <div>
                                             <Accordion className={styles.acclistloddop}>
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMoreIcon />}
                                                     aria-controls="panel1a-content"
                                                     id="panel1a-header"
                                                     className={styles.listbackdda}
-                                                >
+                                                > */}
+                                                {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                <Box sx={{ flex: 1, paddingRight: 0.5 }}> */}
                                                     <Typography className={styles.hedindrop}>Advanced</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
+                                                {/* </AccordionSummary>
+                                                <AccordionDetails> */}
+                                                <div style={{display:'flex',alignItems:'center',paddingTop:'10px'}}>
+                                                <Grid item md={4}>
                                                     <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                         <Box sx={{ flex: 1, paddingRight: '20px' }}>
                                                             <Typography className={styles.typofonty}>Stoploss</Typography>
@@ -1046,8 +1086,8 @@ const AddPattern = (props) => {
                                                                 value={formik.values.Stoploss}
                                                                 variant="outlined"
                                                             />
-                                                        </Box>
-                                                        <Box sx={{ flex: 1, }}>
+                                                             </Box>
+                                                <Box sx={{ flex: 1, paddingLeft: 0.5 }}>
 
                                                             <Typography className={styles.typofonty}>Target</Typography>
 
@@ -1069,8 +1109,10 @@ const AddPattern = (props) => {
                                                         </Box>
 
                                                     </Box>
+                                                    </Grid>
+                                                    <Grid item md={6} >
                                                     <Box
-                                                        style={{ display: 'flex' }}
+                                                        style={{ display: 'flex',padding: '5px 0px 0px 40px'  }}
                                                     >
                                                         <Box style={{ padding: '0px 20px 0px 0px' }}>
                                                             <Typography className={styles.typofonty}>Start date</Typography>
@@ -1099,22 +1141,26 @@ const AddPattern = (props) => {
                                                             />
                                                         </Box>
                                                     </Box>
-
-                                                </AccordionDetails>
-                                            </Accordion>
-                                            <Accordion className={styles.acclistloddop}>
+</Grid>
+</div>
+                                                {/* </AccordionDetails> */}
+                                            {/* </Accordion> */}
+                                            {/* <Accordion className={styles.acclistloddop}>
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMoreIcon />}
                                                     aria-controls="panel2a-content"
                                                     className={styles.listbackdda}
                                                     id="panel2a-header"
-                                                >
+                                                > */}
+
                                                     <Typography className={styles.hedindrop}>Order</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
+                                                {/* </AccordionSummary>
+                                                <AccordionDetails> */}
                                                     {/* <Box sx={{ flex: 1, paddingRight: '20px' }}>
                                                         
                                                     </Box> */}
+                                                    <div style={{display:"flex",paddingTop:'10px'}}>
+                                                    <Grid item md={4} >
                                                     <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                         <Box sx={{ flex: 1, paddingRight: '20px' }}>
                                                             <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
@@ -1138,6 +1184,8 @@ const AddPattern = (props) => {
 
 
                                                     </Box>
+                                                    </Grid>
+                                                    <Grid item md={4} >
                                                     <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                         <Box sx={{ flex: 1, paddingRight: '20px' }}>
                                                             <Typography className={styles.typofonty}>AMO Buy Down Steps</Typography>
@@ -1158,6 +1206,9 @@ const AddPattern = (props) => {
                                                                 variant="outlined"
                                                             />
                                                         </Box>
+                                                        {/* </Box> */}
+{/* // </Grid> */}
+
                                                         <Box sx={{ flex: 1, }}>
 
                                                             <Typography className={styles.typofonty}>AMO Sell UP Steps</Typography>
@@ -1180,7 +1231,9 @@ const AddPattern = (props) => {
                                                         </Box>
 
                                                     </Box>
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                    </Grid>
+                                                    <Grid item md={4} >
+                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 20px" }}>
                                                         <Box sx={{ flex: 1, paddingRight: '20px' }}>
                                                             <Typography className={styles.typofonty}>Normal Buy Down Steps</Typography>
                                                             <TextField
@@ -1222,13 +1275,15 @@ const AddPattern = (props) => {
                                                         </Box>
 
                                                     </Box>
-                                                </AccordionDetails>
-                                            </Accordion>
+                                                    </Grid>
+                                                    </div>
+                                                {/* </AccordionDetails>
+                                            </Accordion> */}
 
-                                        </div>
+                                        {/* </div> */}
 
-                                    </Grid>
-                                    <Grid item md={3}>
+                                    {/* </Grid> */}
+                                    {/* <Grid item md={3}>
                                         <Accordion className={styles.acclistloddop}>
                                             <AccordionSummary
                                                 expandIcon={<ExpandMoreIcon />}
@@ -1262,16 +1317,16 @@ const AddPattern = (props) => {
                                                 </Box>}
                                             </AccordionDetails>
                                         </Accordion>
-                                    </Grid>
-                                </div>
+                                    </Grid> */}
+                                {/* </div> */}
 
                             </CardContent>
                         </Card>
                         {/* < */}
                         {listsummri== 'addsumari' ? 
                         <>
-                        <Card className={ listinnewdata== 'gsdgfgdffd' ? styles.listcentenar : styles.bolkdatat} >
-                                <PerfectScrollbar>
+                        <Card className={ listinnewdata == 'gsdgfgdffd' ? styles.listcentenar : styles.bolkdatat} >
+                                {/* <PerfectScrollbar> */}
 
                         <Grid item sm={12} md={12} xs={12}>
 
@@ -1285,7 +1340,7 @@ const AddPattern = (props) => {
                 <Box style={{display:'flex'}}>
                              <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 40px 60px'}}>
 
-                <div style={{padding:'0px 60px 0px 0px'}}>
+                <div style={{padding:'0px 40px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Script</Typography>
                         <div style={{display:'flex'}}>
                         <Typography 
@@ -1470,13 +1525,15 @@ const AddPattern = (props) => {
                    
                     </Grid>
                     </Box>
-                    </PerfectScrollbar>
+                    {/* </PerfectScrollbar> */}
                     </Card>
                     </>:''}
                         {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
                             <Card>
-                                <PerfectScrollbar>
-                                    <Box sx={{ width: '100%' }}>
+                                {/* <PerfectScrollbar> */}
+                                    <Box sx={{ width: '100%' }}
+                                     className={ tabaldatalist == 'virang' ? styles.listcentenar : styles.bolkdatat}
+                                     >
                                         <Table>
                                             <TableHead className={styles.hedarliath}>
                                                 <TableRow>
@@ -1575,7 +1632,7 @@ const AddPattern = (props) => {
                                             </TableBody>
                                         </Table>
                                     </Box>
-                                </PerfectScrollbar>
+                                {/* </PerfectScrollbar> */}
                             </Card>
 
                             {/* <PatternList
@@ -1615,11 +1672,46 @@ const AddPattern = (props) => {
                                         // setListnone('bloack')
                                         setLiatstgs('gsdgfgdffd')
                                         onAddPattern()
+                                        setTebaldatalist('')
                                             // onPreviewClick()
                                     }}
                                 >
-                                    PREVIOUS
+                                    Preview Steps
                                 </Button>
+                                {patternList == ''?
+                                <Button
+                                    className={styles.batnpovedar}
+                                    style={{ backgroundColor: '#4285F4' }}
+                                    sx={{ marginRight: '20px' }}
+                                    // component="a"
+                                    size="medium"
+                                    variant="contained"
+                                    type="submit"
+                                    onClick={() => {
+                                        setLiatstgs('')
+                                        setLISTdatasumm('')
+                                      
+                                        setListnone('')
+                                    
+                                    }}
+                                >
+                                    PREVIOUS22
+                                </Button>:<Button
+                                    className={styles.batnpovedar}
+                                    style={{ backgroundColor: '#4285F4' }}
+                                    sx={{ marginRight: '20px' }}
+                                    // component="a"
+                                    size="medium"
+                                    variant="contained"
+                                    type="submit"
+                                    onClick={() => {
+                                       
+                                        setLiatstgs('')
+                                        setTebaldatalist('virang')
+                                    }}
+                                >  PREVIOUS2
+                                </Button>
+                               }
                             </Box>
 
                         </Grid> 
@@ -1647,7 +1739,7 @@ const AddPattern = (props) => {
                                         // }
                                     }}
                                 > 
-                                 NEXT 
+                                 NEXT 2
                                  </Button>:
                                 <Button
                                     style={{ backgroundColor: '#009947' }}
@@ -1681,7 +1773,7 @@ const AddPattern = (props) => {
                                     onClick={() => {
                                       
                                       
-                                        onAddPattern()
+                                        // onAddPattern()
                                             // onPreviewClick()
                                     }}
                                 >
