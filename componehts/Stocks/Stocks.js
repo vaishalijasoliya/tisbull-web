@@ -718,7 +718,10 @@ console.log(selectedValue,'selectedValue');
                               onClick={() => {
                                                                     router.push({
                                                                         pathname: './addPattern',
-                                                                        query: { scripType: 'currency', patternType: 'basic', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
+                                                                        query: { 
+                                                                            scripType: 'currency',
+                                                                             patternType: 'basic', 
+                                                                            //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
                                                                     }});
                                                                 }}
                           className={styles.cerbatn}>
@@ -1076,7 +1079,8 @@ console.log(selectedValue,'selectedValue');
 
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
                                                                                         {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : ''}
-                                                                                        {logvvmog == 'WithoutStock' || selectedValue == '' || listpires == '' ?
+                                                                                        {/* {selectedValue === 'exit for market' ?<Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :""} */}
+                                                                                        {logvvmog == 'WithoutStock' || selectedValue == '' || listpires == ''  ?
                                                                                             <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>}
                                                                                    
                                                                                     </div>

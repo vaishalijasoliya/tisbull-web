@@ -758,11 +758,12 @@ const tabChangelist = (status) => {
                           <TableCell>
 
                             <div >
+                            { row.status == 'pending' ?
                             <Button className={styles.viwebtnmm22}
                                onClick={()=>{setIdlist(row.id),setListuserid(row.type_pattern),row.status == 'pending' ?
                               //  handleClickOpenCom()
                               handleClickOpenCom(): ''}}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
-</Button>
+</Button>:'-'}
 
 
                             </div>

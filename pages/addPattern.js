@@ -101,7 +101,9 @@ const ResponsiveAppBar = (props) => {
                 router.push({
                   // pathname: './patttlistadd',
                   query: {
-                    scripType: 'currency', patternType: 'basic', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
+                    // scripType: 'currency',
+                     patternType: 'basic',
+                      // parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
                   }
                 });
               }}
@@ -112,7 +114,7 @@ const ResponsiveAppBar = (props) => {
             <Tab
               onClick={() => {
                 router.push({
-                  // pathname: '../componehts/Custompatt/Custompatt',
+                  pathname: '../componehts/Custompatt/Custompatt',
                   query: {
                      scripType: 'currency', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) }
                 });

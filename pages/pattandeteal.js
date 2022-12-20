@@ -259,7 +259,15 @@ const ResponsiveAppBar = (props) => {
         </Grid>
         <Grid item sm={12} md={6} xs={12} className={styles.listdatabox} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
 
-          <Button>
+          <Button  onClick={() => {
+                                                                    router.push({
+                                                                        pathname: './addPattern',
+                                                                        query: { 
+                                                                            scripType: 'currency',
+                                                                             patternType: 'basic', 
+                                                                            //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
+                                                                    }});
+                                                                }}>
             <Avatar style={{ background: '#009947' }}>
               <img src="../Vector (14).svg"
                 alt="Add icon"
