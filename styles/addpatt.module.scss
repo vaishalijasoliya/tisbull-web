@@ -32,12 +32,15 @@ color: #333333 !important;
     margin-top: 0px !important;
     div{
         height: 40px;
+        font-family: Poppins-400 !important;
     }
 }
 .listtextfils2233{
     margin-top: 0px !important;
     div{
         height: 40px;
+        // font-family: Poppins-400 !important;
+
         // width: 50%;
     }
 }
@@ -45,6 +48,7 @@ color: #333333 !important;
     div{
 padding: 0px !important;
 font-size: 13px !important;
+font-family: Poppins-400 !important;
 
     }
     input{
@@ -213,4 +217,6 @@ color: #E31E24 !important;
   .listdatacom{
     box-shadow: none !important;
   }
-  
+  .radiyobtnlist{
+    // color:''
+  }
