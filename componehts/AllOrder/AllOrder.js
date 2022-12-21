@@ -590,16 +590,18 @@ const[sassaliusgs,setSasasdata] =React.useState("")
         >
           <div className={styles.filtarlist}>
 
-            <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
+            <div 
+            // className={styles.filatahedinh}
+            ><Typography>Orders</Typography></div>
             <div className={styles.listbtnsot}>
-              <Button className={styles.censbatnsot22} onClick={()=>{handleClose,tabChange("pending"),setBtnlist('pending')}}>RESET </Button>
-              <Button className={styles.savebatnsot223} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
+              <Button className={styles.censbatnsot} onClick={()=>{handleClose,tabChange("pending"),setBtnlist('pending')}}>RESET </Button>
+              <Button className={styles.savebatnsot} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
           </div>
           <Divider className={styles.filtar_divaydar}></Divider>
 
           <div>
-            <div className={styles.typetext222}><Typography>Type</Typography></div>
-            <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
+            <div className={styles.typetext}><Typography>Type</Typography></div>
+            <div className={styles.listadarara} style={{padding:'0px 0px 0px 25px'}}>          <Button 
                                     onClick={() => {
                                       setBtnlistlist('SELL')
                                     
@@ -662,7 +664,7 @@ const[sassaliusgs,setSasasdata] =React.useState("")
                           >
                             <div className={styles.typefild}>
                               <div>
-                                <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'cancelled' ? styles.avtarlistyes398 : ''}>
+                                <Avatar className={row.stock == 'SELL' ? styles.avtarlistyes398 : row.stock == 'BUY' ? styles.avtarlistyes233  : ''}>
                                  
                                   {row.stock == 'SELL' ?
                                   'S'
@@ -672,7 +674,9 @@ const[sassaliusgs,setSasasdata] =React.useState("")
                                      : ''}
                                 </Avatar>
                               </div><div className={styles.listperegaf}>
-                                <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.script}</Typography>
+                                <Typography className={styles.listsriptext}
+                                // className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}
+                                >{row.script}</Typography>
 
                                 </div>
                             </div>

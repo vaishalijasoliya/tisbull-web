@@ -159,8 +159,9 @@ const Home = (props) => {
                         </div>
                         <div className={styles.donebtn22}>
                        {formik.values.ConsumerKey == '' ||formik.values.ConsumerSecret == '' ||formik.values.reTypePassword == '' ? 
-                       <Button disabled type='submit' style={{color:'#E31E24'}}>Done</Button>:
+                       <Button disabled type='submit' className={styles.donebtnedit22} style={{color:'#E31E24'}}>Done</Button>:
                         <Button type='submit'
+                        className={styles.donebtnedit}
                             onClick={()=>{onLoginPress(),router.push('./accountlist')}}
                         >Done</Button>}
                         </div>

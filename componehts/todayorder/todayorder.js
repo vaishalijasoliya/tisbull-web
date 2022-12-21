@@ -717,7 +717,7 @@ const tabChangelist = (status) => {
                           >
                             <div className={styles.typefild}>
                               <div>
-                                <Avatar className={row.status == 'pending' ? styles.avtarlistyes96 : row.status == 'active' ? styles.avtarlistyes233 : row.status == 'cancelled' ? styles.avtarlistyes398 : ''}>
+                              <Avatar className={row.stock == 'SELL' ? styles.avtarlistyes398 : row.stock == 'BUY' ? styles.avtarlistyes233  : ''}>
                                   {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}
                                   {row.stock == 'SELL' ?
 'S'
@@ -726,7 +726,10 @@ const tabChangelist = (status) => {
                                     : ''}
                                 </Avatar>
                               </div><div className={styles.listperegaf}>
-                                <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.script}</Typography>
+                                <Typography
+                                className={styles.listsriptext} 
+                                // className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}
+                                >{row.script}</Typography>
 
                                 <div className={styles.nselist}><Typography>{row.exchange}</Typography></div></div>
                             </div>

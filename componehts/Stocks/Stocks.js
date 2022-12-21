@@ -250,7 +250,7 @@ function EnhancedTableHead(props) {
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
-                 
+
                         {headCell.label}
                         {orderBy === headCell.id ? (
                             <Box component="span" sx={visuallyHidden}>
@@ -314,7 +314,7 @@ const Home = (props) => {
     const [checked, setChecked] = React.useState(false);
     const [openlist, setOpen] = React.useState(false);
     const [isClear, setListscrip] = useState('');
-const[listmenudata,setListnse] =useState('')
+    const [listmenudata, setListnse] = useState('')
     const [listscirip, setScripdata] = React.useState('')
     const [deletemenukk, setDeleteMenukk] = React.useState(false);
     const [pendingReviewList, setPendingReviewList] = React.useState([]);
@@ -326,11 +326,11 @@ const[listmenudata,setListnse] =useState('')
         setAnchorEl(event.currentTarget);
     };
     const [selectedValue, setSelectedValue] = React.useState('a');
-console.log(selectedValue,'selectedValue');
+    console.log(selectedValue, 'selectedValue');
     const handleChangemejej = (event) => {
-      setSelectedValue(event.target.value);
+        setSelectedValue(event.target.value);
     };
-  
+
     const patternlist = async () => {
 
         var headers = {
@@ -342,7 +342,7 @@ console.log(selectedValue,'selectedValue');
         var data = await ApiServices.GetApiCall(ApiEndpoint.PATTERN_LIST, headers)
         props.props.loaderRef(false)
         console.log(data, 'datalist');
-    
+
         if (!!data) {
             if (data.status == true && data.data.length > 0) {
                 const accoyty = [];
@@ -402,7 +402,7 @@ console.log(selectedValue,'selectedValue');
 
         }
     }
-    console.log(isClear,'isClear');
+    console.log(isClear, 'isClear');
     const tabChange = (status) => {
         setReviewStatus(status);
         if (status == "BasicPattern") {
@@ -516,7 +516,7 @@ console.log(selectedValue,'selectedValue');
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_DELETE, JSON.stringify(body), headers)
         props.props.loaderRef(false)
-        console.log(patternDelete,'kskkskkskks');
+        console.log(patternDelete, 'kskkskkskks');
         if (!!patternDelete) {
             if (patternDelete.status == true) {
 
@@ -555,19 +555,19 @@ console.log(selectedValue,'selectedValue');
 
         console.log(patternDelete, 'datalist444');
         if (!!patternDelete) {
-        if (patternDelete.status == true) {
-            toast.success(patternDelete.data)
-            patternlist()
+            if (patternDelete.status == true) {
+                toast.success(patternDelete.data)
+                patternlist()
+            }
+            else {
+                toast.error(patternDelete.data)
+            }
         }
         else {
-            toast.error(patternDelete.data)
+            toast.error('Something is working')
+
         }
-    }
-        else{
-                toast.error('Something is working')
-    
-    }
-      
+
     }
     const edituser = () => {
         if (listdarapush == '') {
@@ -715,16 +715,17 @@ console.log(selectedValue,'selectedValue');
                     </Grid>
                     <Grid md={9} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
                         <Button
-                              onClick={() => {
-                                                                    router.push({
-                                                                        pathname: './addPattern',
-                                                                        query: { 
-                                                                            scripType: 'currency',
-                                                                             patternType: 'basic', 
-                                                                            //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
-                                                                    }});
-                                                                }}
-                          className={styles.cerbatn}>
+                            onClick={() => {
+                                router.push({
+                                    pathname: './addPattern',
+                                    query: {
+                                        scripType: 'currency',
+                                        patternType: 'basic',
+                                        //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
+                                    }
+                                });
+                            }}
+                            className={styles.cerbatn}>
                             <Avatar className={styles.cerbatn2}>
                                 <img src="../../Vector (5).svg" />
                             </Avatar>
@@ -814,7 +815,7 @@ console.log(selectedValue,'selectedValue');
                             <div>
                                 <div className={styles.typetext}><Typography>Type</Typography></div>
                                 <div className={styles.listadarara}>
-                              
+
                                     <Button
                                         onClick={() => {
                                             setBtnlist('all')
@@ -861,7 +862,7 @@ console.log(selectedValue,'selectedValue');
 
                                                     return (
                                                         <TableRow
-                                         
+
                                                             role="checkbox"
                                                             aria-checked={isItemSelected}
                                                             tabIndex={-1}
@@ -879,7 +880,7 @@ console.log(selectedValue,'selectedValue');
                                                                 />
                                                             </TableCell>
                                                             <TableCell
-                                                                
+
 
                                                                 id={labelId}
                                                                 scope="row"
@@ -934,7 +935,7 @@ console.log(selectedValue,'selectedValue');
 
                                                                     > <img height={18} src="../../edit_square.svg" /> </Button>
 
-                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script),setListnse(row.exchange),row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
+                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
                                                                         {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
                                                                     </Button>}
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>}
@@ -957,7 +958,7 @@ console.log(selectedValue,'selectedValue');
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 1000002845.svg" />
                                                                                     </div>
-                                                                                
+
                                                                                     <div className={styles.paregarafnsg}>
                                                                                         <Typography>Are you sure you want to pause this {isClear} ( NSE ) from zerodha ?</Typography>
                                                                                     </div>
@@ -988,101 +989,103 @@ console.log(selectedValue,'selectedValue');
                                                                                     <div style={{ textAlign: 'center' }}>
                                                                                         <img width={130} src="../../Group 1000002845.svg" />
                                                                                     </div>
-                                                                                  
+
                                                                                     <div style={{ padding: '0px 10px 0px 10px' }}>
                                                                                         <div>
                                                                                             <Typography className={styles.texstcolor} style={{ 'color': '#333333', 'font-size': '15px', padding: '0px 0px 7px 0px' }}>Exit with  </Typography>
                                                                                         </div>
                                                                                         <div className={styles.btn_all_buy22} style={{ padding: '0px 0px 20px 0px' }}>
-                                                                                         
+
                                                                                             <Button onClick={() => { setLogvvmog('Stock') }} className={logvvmog == 'Stock' ? styles.listdatlog : styles.list2data}>Stock</Button>
                                                                                             <Button onClick={() => { setLogvvmog('WithoutStock') }} className={logvvmog == 'WithoutStock' ? styles.listdatlog : styles.list2data}>Without Stock</Button>
 
                                                                                         </div>
-                                                                                        {logvvmog == 'WithoutStock' ? '':
+                                                                                        {logvvmog == 'WithoutStock' ? '' :
 
-                                                                                        <div style={{ padding: '0px 0px 20px 0px' }}>
-                                                                                            <Typography className={styles.texstcolor} style={{ 'color': '#333333', fontSize: '12px' }}>Clean up Stock from this pattern</Typography>
-                                                                                        </div>}
-                                                                                        {logvvmog == 'WithoutStock' ? '':
+                                                                                            <div style={{ padding: '0px 0px 20px 0px' }}>
+                                                                                                <Typography className={styles.texstcolor} style={{ 'color': '#333333', fontSize: '12px' }}>Clean up Stock from this pattern</Typography>
+                                                                                            </div>}
+                                                                                        {logvvmog == 'WithoutStock' ? '' :
 
-                                                                                        <div style={{ display: 'flex', }}>
-                                                                                            <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (16).svg" /></Avatar>
-                                                                                            <div>
-                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                                    Sell holding stock with fixed price
-                                                                                                </Typography>
-                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
+                                                                                            <div style={{ display: 'flex', }}>
+                                                                                                <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (16).svg" /></Avatar>
+                                                                                                <div>
+                                                                                                    <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
+                                                                                                        Sell holding stock with fixed price
+                                                                                                    </Typography>
+                                                                                                    <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
+                                                                                                </div>
+                                                                                                <div style={{ padding: '0px 0px 0px 39px' }}>
+                                                                                                    <Radio
+                                                                                                        checked={selectedValue === 'exit for fixedPrice'}
+                                                                                                        onChange={handleChangemejej}
+                                                                                                        value="exit for fixedPrice"
+                                                                                                        name="radio-buttons"
+                                                                                                        inputProps={{ 'aria-label': 'B' }}
+                                                                                                    />
+
+                                                                                                </div>
+
+                                                                                            </div>}
+                                                                                        {logvvmog == 'WithoutStock' ? '' :
+
+                                                                                            <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
+                                                                                                <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
+                                                                                                {selectedValue == 'exit for fixedPrice' ?
+                                                                                                    <TextField
+
+                                                                                                        onChange={handlePinChangelist}
+                                                                                                        value={listpires}
+                                                                                                        type='number'
+                                                                                                        className={styles.textfiladligb}
+                                                                                                        style={{ padding: '0px 0px 0px 0px', width: '100px' }}
+                                                                                                    /> : <TextField
+                                                                                                        disabled
+                                                                                                        onChange={handlePinChangelist}
+                                                                                                        value={listpires}
+                                                                                                        type='number'
+                                                                                                        className={styles.textfiladligb}
+                                                                                                        style={{ padding: '0px 0px 0px 0px', width: '100px' }}
+                                                                                                    />}
                                                                                             </div>
-                                                                                            <div style={{padding:'0px 0px 0px 39px'}}>
-                                                                                            <Radio
-        checked={selectedValue === 'exit for fixedPrice'}
-        onChange={handleChangemejej}
-        value="exit for fixedPrice"
-        name="radio-buttons"
-        inputProps={{ 'aria-label': 'B' }}
-      />
-                                                                                     
-                                                                                            </div>
-
-                                                                                        </div>}
-                                                                                        {logvvmog == 'WithoutStock' ? '':
-
-                                                                                        <div style={{ display: 'flex', justifyContent: "space-between", padding: '20px 0px 0px 0px' }}>
-                                                                                            <Typography className={styles.texstcolor} style={{ color: '#333333', fontSize: '11px', }}>Target Price</Typography>
-                                                                                            {selectedValue == 'exit for fixedPrice'  ? 
-                                                                                            <TextField
-                                                                                            
-                                                                                                onChange={handlePinChangelist}
-                                                                                                value={listpires}
-                                                                                                type='number'
-                                                                                                className={styles.textfiladligb}
-                                                                                                style={{ padding: '0px 0px 0px 0px', width: '100px' }}
-                                                                                            /> : <TextField
-                                                                                            disabled
-                                                                                                onChange={handlePinChangelist}
-                                                                                                value={listpires}
-                                                                                                type='number'
-                                                                                                className={styles.textfiladligb}
-                                                                                                style={{ padding: '0px 0px 0px 0px', width: '100px' }}
-                                                                                            />}
-                                                                                        </div>
                                                                                         }
-                                                                                 
-                                                                                {logvvmog == 'WithoutStock' ? '':
 
-                                                                                        <div style={{ display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                                                            <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
-                                                                                            <div>
-                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                                    Sell holding stock with market price
-                                                                                                </Typography>
-                                                                                                <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Kotak are providing free API for the customers.</Typography>
-                                                                                            </div>
-                                                                                            <div style={{padding:'0px 0px 0px 20px'}}>
-                                                                                            <Radio
-        checked={selectedValue === 'exit for market'}
-        onChange={handleChangemejej}
-        value="exit for market"
-        name="radio-buttons"
-        inputProps={{ 'aria-label': 'A' }}
-      />
-                                                                                       
- </div>
+                                                                                        {logvvmog == 'WithoutStock' ? '' :
 
-                                                                                        </div>}
-                                                                                       
+                                                                                            <div style={{ display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                                                                <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
+                                                                                                <div>
+                                                                                                    <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
+                                                                                                        your order will close at current market price
+                                                                                                    </Typography>
+                                                                                                    <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}> Your order will close at current market price.</Typography>
+                                                                                                </div>
+                                                                                                <div style={{ padding: '0px 0px 0px 20px' }}>
+                                                                                                    <Radio
+                                                                                                        checked={selectedValue === 'exit for market'}
+                                                                                                        onChange={handleChangemejej}
+                                                                                                        value="exit for market"
+                                                                                                        name="radio-buttons"
+                                                                                                        inputProps={{ 'aria-label': 'A' }}
+                                                                                                    />
+
+                                                                                                </div>
+
+                                                                                            </div>}
+
                                                                                     </div>
-                                                
+{console.log(listpires,'listpires')}
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
                                                                                         {/* {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'} */}
 
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
                                                                                         {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : ''}
                                                                                         {/* {selectedValue === 'exit for market' ?<Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :""} */}
-                                                                                        {logvvmog == 'WithoutStock' || selectedValue == '' || listpires == ''  ?
-                                                                                            <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button> : <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>}
-                                                                                   
+                                                                                        {logvvmog == 'WithoutStock' || selectedValue == '' ||listpires  == ''  ?
+                                                                                            <Button disabled  style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button>
+                                                                                             :logvvmog == 'Stock' && selectedValue === 'exit for market' ? <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>:
+                                                                                             <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button>}
+
                                                                                     </div>
                                                                                 </Box>
                                                                             </DialogContent>
@@ -1140,13 +1143,13 @@ console.log(selectedValue,'selectedValue');
                                                                 </div>
                                                                 <div>
                                                                     <Dialog open={play} onClose={handleCloseComplay}
-                                                                
+
                                                                         maxWidth="sm"
                                                                     >
                                                                         <div>
-                                                                            <DialogContent 
+                                                                            <DialogContent
                                                                             >
-                                                                                <Box 
+                                                                                <Box
                                                                                 >
 
                                                                                     <div className={styles.delehedar}>
@@ -1155,7 +1158,7 @@ console.log(selectedValue,'selectedValue');
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 47124 (1).svg" />
                                                                                     </div>
-                                                                                  
+
                                                                                     <div className={styles.paregarafnsg}>
                                                                                         <Typography>Are you sure you want to Play this {isClear} ({listmenudata}) Pattern ?</Typography>
                                                                                     </div>
@@ -1175,7 +1178,7 @@ console.log(selectedValue,'selectedValue');
                                                                                     <div className={styles.cancelbtnlog} style={{ padding: '40px 0px 10px 0px' }}>
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX' }} onClick={handleCloseComplay}>Cancel</Button>
 
-                                                                                       
+
                                                                                         {listdarapush == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 42PX 7PX 42PX' }} className={styles.cofimbatn} >SAVE </Button> :
                                                                                             <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={styles.cofimbatn} onClick={() => { edituser(), handleCloseComplay() }}>SAVE </Button>}
                                                                                     </div>
@@ -1189,14 +1192,14 @@ console.log(selectedValue,'selectedValue');
                                                                         className={styles.borderredayasfor}
                                                                         style={{
                                                                         }}
-                                                                        
+
                                                                         maxWidth="sm"
                                                                     >
                                                                         <div className={styles.colosbatnlist}><Button onClick={handleCloseCompause}><img width={25} src="../../icon-close-512.webp" /></Button>  </div>
                                                                         <div>
                                                                             <DialogContent
-                                                                             className={styles.popupcantenar}
-                                                                             >
+                                                                                className={styles.popupcantenar}
+                                                                            >
                                                                                 <Box className={styles.lisrmaenbox}>
 
                                                                                     <div className={styles.delehedar}>
@@ -1205,7 +1208,7 @@ console.log(selectedValue,'selectedValue');
                                                                                     <div className={styles.listimgyes}>
                                                                                         <img src="../../Group 47124 (2).svg" />
                                                                                     </div>
-                                                                                 
+
                                                                                     <div className={styles.paregarafnsg}>
                                                                                         <Typography>Are you sure you want to Pause this {isClear} ({listmenudata}) Pattern?</Typography>
                                                                                     </div>
@@ -1226,10 +1229,10 @@ console.log(selectedValue,'selectedValue');
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 24PX 7PX 24PX' }} onClick={handleCloseCompause}>Cancel</Button>
                                                                                         {listdara == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn}  >SAVE </Button> :
                                                                                             <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { edituserlistpause(), handleCloseCompause() }}>SAVE </Button>}
-                                                            
+
                                                                                     </div>
                                                                                 </Box>
-                                                       
+
                                                                             </DialogContent>
                                                                         </div>
                                                                     </Dialog>
@@ -1243,7 +1246,7 @@ console.log(selectedValue,'selectedValue');
                                                                     onClick={() => { setOpen(!openlist), setDistiddata(row.id) }}
                                                                 >
                                                                     {openlist ? <KeyboardArrowUpIcon /> :
-                                                                     <KeyboardArrowDownIcon />}
+                                                                        <KeyboardArrowDownIcon />}
                                                                 </IconButton>
                                                             </TableCell>
 
@@ -1282,16 +1285,16 @@ console.log(selectedValue,'selectedValue');
 
                                                                 <TableCell scope="row">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Type</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.target_price == '' ? '-' :datamenu.target_price}</Typography>
-                                                              
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.target_price == '' ? '-' : datamenu.target_price}</Typography>
+
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>StopLoss</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>{datamenu.exitPrice == '' ? '-' :datamenu.exitPrice}</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>{datamenu.exitPrice == '' ? '-' : datamenu.exitPrice}</Typography>
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Todays Profit</Typography>
-                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.todayprofit  == '' ? '-' :datamenu.todayprofit }</Typography>
+                                                                    <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{datamenu.todayprofit == '' ? '-' : datamenu.todayprofit}</Typography>
                                                                 </TableCell>
                                                                 <TableCell align="right">
                                                                     <Typography className={styles.peregarflist} style={{ 'font-size': '12px', 'color': '#BDBDBD', 'textTransform': 'uppercase' }}>Today Orders</Typography>
@@ -1325,10 +1328,10 @@ console.log(selectedValue,'selectedValue');
                                     onPageChange={handleChangePage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                 />
-                             
+
                             </Paper>
                         </React.Fragment>
-                
+
                     </Box>
                 </Grid>
             </Grid>

@@ -8,7 +8,23 @@
     font-family: roboto-400;
     src: url(../../styles/Roboto/Roboto-Regular.ttf);
 }
+.donebtnedit{
+    font-family: Poppins-400 !important;
+    width: 100px !important;
+    background: #009947 !important;
+    font-size: 13px !important;
+    border-radius: 5px !important;
+    color: #FFFFFF !important;
 
+}
+.donebtnedit22{
+    font-family: Poppins-400 !important;
+    width: 100px !important;
+    background: #E31E24 !important;
+    font-size: 13px !important;
+    border-radius: 5px !important;
+    color: #FFFFFF !important;
+}
 .formcenjpasss {
     // margin: 60px 60px 60px 60px;
     width: 100%;
@@ -60,7 +76,7 @@
     }
 
     .donebtn22 {
-        width: 55%;
+        width: 46%;
         display: flex;
         align-items: center;
         justify-content: end;

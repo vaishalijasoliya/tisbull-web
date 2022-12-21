@@ -1002,19 +1002,12 @@ const AddPattern = (props) => {
                                 {/* </Grid> */}
                                 {/* <Grid item md={12}> */}
                                 {/* <div> */}
-                                {/* <div>
-                                            <Accordion className={styles.acclistloddop}>
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel1a-content"
-                                                    id="panel1a-header"
-                                                    className={styles.listbackdda}
-                                                > */}
+                               
                                 {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                 <Box sx={{ flex: 1, paddingRight: 0.5 }}> */}
                                 <Typography className={styles.hedindrop}>Advanced</Typography>
-                                {/* </AccordionSummary>
-                                                <AccordionDetails> */}
+                                
+                                               
                                 <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                                     <Grid item md={4}>
                                         <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
@@ -1096,8 +1089,17 @@ const AddPattern = (props) => {
                                         </Box>
                                     </Grid>
                                 </div>
-
-                                <Typography className={styles.hedindrop}>Order</Typography>
+                                <div>
+                                            <Accordion className={styles.acclistloddop}>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                    className={styles.listbackdda}
+                                                > 
+                                <Typography className={styles.hedindrop33}>Order</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails className={styles.listaccsumahha}>
                                 <div style={{ display: "flex", paddingTop: '10px' }}>
                                     <Grid item md={4} >
                                         <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
@@ -1214,7 +1216,9 @@ const AddPattern = (props) => {
                                     </Grid>
                                 </div>
 
-
+</AccordionDetails>
+</Accordion>
+</div>
                             </CardContent>
                         </Card>
                         {/* < */}
@@ -1601,7 +1605,7 @@ const AddPattern = (props) => {
                                 onClick={()=>{setLISTdatasumm('')
                                                 setListnone('') }}
                                         >
-                                            PREVIOUS
+                                            Preview
                                         </Button> : <Button
                                             className={styles.batnpovedar}
                                             style={{ backgroundColor: '#4285F4' }}
@@ -1617,7 +1621,7 @@ const AddPattern = (props) => {
                                                 // setLiatstgs('')
                                                 // setTebaldatalist('virang')
                                             }}
-                                        >  PREVIOUS
+                                        >  Preview
                                         </Button>
                                     }
                                 </Box>
@@ -1688,7 +1692,7 @@ const AddPattern = (props) => {
                                             // onPreviewClick()
                                         }}
                                     >
-                                        PREVIOUS
+                                        Preview
                                     </Button>
                                 </Box>
 
