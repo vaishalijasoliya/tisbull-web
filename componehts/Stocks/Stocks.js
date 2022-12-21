@@ -1015,7 +1015,7 @@ const Home = (props) => {
                                                                                                     </Typography>
                                                                                                     <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}>Your order will open until target price trigger</Typography>
                                                                                                 </div>
-                                                                                                <div style={{ padding: '0px 0px 0px 39px' }}>
+                                                                                                <div style={{ padding: '0px 0px 0px 20px' }}>
                                                                                                     <Radio
                                                                                                         checked={selectedValue === 'exit for fixedPrice'}
                                                                                                         onChange={handleChangemejej}
@@ -1056,8 +1056,7 @@ const Home = (props) => {
                                                                                                 <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
                                                                                                 <div>
                                                                                                     <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                                        your order will close at current market price
-                                                                                                    </Typography>
+                                                                                                    Sell holding stock with market price                                                                                                     </Typography>
                                                                                                     <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}> Your order will close at current market price.</Typography>
                                                                                                 </div>
                                                                                                 <div style={{ padding: '0px 0px 0px 20px' }}>
@@ -1078,12 +1077,12 @@ const Home = (props) => {
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
                                                                                         {/* {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'} */}
 
-                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
-                                                                                        {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : ''}
+                                                                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 36PX 7PX 36PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
+                                                                                        {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete2 </Button> : ''}
                                                                                         {/* {selectedValue === 'exit for market' ?<Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :""} */}
-                                                                                        {logvvmog == 'WithoutStock' || selectedValue == '' ||listpires  == ''  ?
-                                                                                            <Button disabled  style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button>
-                                                                                             :logvvmog == 'Stock' && selectedValue === 'exit for market' ? <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>:
+                                                                                        { selectedValue == '' || listpires  == ''  ?
+                                                                                            <Button disabled  style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>
+                                                                                             :logvvmog == 'WithoutStock' && selectedValue === 'exit for market' ? <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>:
                                                                                              <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button>}
 
                                                                                     </div>
