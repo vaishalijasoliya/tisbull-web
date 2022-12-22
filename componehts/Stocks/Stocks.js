@@ -932,7 +932,17 @@ const Home = (props) => {
 
                                                                 <div className={styles.listtebal}>
                                                                     <Button className={styles.viwebtnmm}
-
+onClick={() => {
+                                router.push({
+                                    pathname: './editpatt',
+                                    query: {
+                                        scripType: 'currency',
+                                        patternType: 'basic',
+                                        emailID: row.id,
+                                        //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
+                                    }
+                                });
+                            }}
                                                                     > <img height={18} src="../../edit_square.svg" /> </Button>
 
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
@@ -1042,7 +1052,7 @@ const Home = (props) => {
                                                                                                     /> : <TextField
                                                                                                         disabled
                                                                                                         onChange={handlePinChangelist}
-                                                                                                        value={listpires}
+                                                                                                        // value={listpires}
                                                                                                         type='number'
                                                                                                         className={styles.textfiladligb}
                                                                                                         style={{ padding: '0px 0px 0px 0px', width: '100px' }}
@@ -1073,17 +1083,30 @@ const Home = (props) => {
                                                                                             </div>}
 
                                                                                     </div>
-{console.log(listpires,'listpires')}
+{console.log(listpires,'listpires')}{console.log(selectedValue,'selectedValue')}
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
                                                                                         {/* {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'} */}
 
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 36PX 7PX 36PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
                                                                                         {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete2 </Button> : ''}
+
+{selectedValue === 'exit for market' ? <Button 
+// id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
+ style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} 
+ className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
+  onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :selectedValue == 'exit for fixedPrice' && listpires == '' ?  <Button disabled  style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} 
+className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} 
+>Delete </Button> : <Button 
+id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
+ style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} 
+ className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
+  onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>}
+
                                                                                         {/* {selectedValue === 'exit for market' ?<Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :""} */}
-                                                                                        { selectedValue == '' || listpires  == ''  ?
-                                                                                            <Button disabled  style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>
-                                                                                             :logvvmog == 'WithoutStock' && selectedValue === 'exit for market' ? <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>:
-                                                                                             <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete </Button>}
+                                                                                        {/* { selectedValue == 'exit for fixedPrice'  ? */}
+                                                                                            {/* <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete44 </Button> */}
+                                                                                             {/* :logvvmog == 'WithoutStock' || selectedValue == 'exit for market' ? <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete22 </Button>: */}
+                                                                                             {/* <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete222 </Button>} */}
 
                                                                                     </div>
                                                                                 </Box>
