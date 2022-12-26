@@ -1531,7 +1531,7 @@ const AddCustomPattern = (props) => {
                         {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
                             <Card {...rest} className={tabaldatalist == 'virang' ? styles.listcentenar : styles.bolkdatat}>
                                 {/* <Card {...rest}> */}
-                                <PerfectScrollbar>
+                                {/* <PerfectScrollbar> */}
                                     <Box sx={{ width: '100%' }}>
                                         <Sticky>
                                             <Table>
@@ -1620,7 +1620,7 @@ const AddCustomPattern = (props) => {
                                             </TableBody>
                                         </Table>
                                     </Box>
-                                </PerfectScrollbar>
+                                {/* </PerfectScrollbar> */}
                             </Card>
                             {/* <PatternList
                                 patterns={patternList} /> */}
