@@ -27,17 +27,17 @@ const MyApp = (props) => {
   store.subscribe(() => {
     localStorage.setItem('reduxState', JSON.stringify(store.getState()))
   })
-  console.log(props,'props')
+  console.log(props,'prvvvvops')
 
   useEffect(() => {
     setIsLoaded(true)
-    // var persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
-    // if (!!persistedState && !!persistedState.user && !!persistedState.user.profile.token) {
-    //   if(router.pathname == '/'){
-    //     props.router.push(router.push('./dashboard'));
-    //   }
-    //   setIsLoaded(true)
-    // } 
+    var persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
+    if (!!persistedState && !!persistedState.user && !!persistedState.user.profile.token) {
+      if(router.pathname == '/'){
+        props.router.push(router.push('./dashboard'));
+      }
+      setIsLoaded(true)
+    } 
    
   }, [])
 

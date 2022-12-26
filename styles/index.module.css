@@ -3,6 +3,15 @@
   src: url(../styles/popins/Poppins-Regular.ttf);
 
 }
+.singlistpsdii{
+  background-image: url('../public/login bg new.png');
+  background-repeat: no-repeat !important;
+}
+.singlistpsdii223352{
+  background-image: url('../public/setting forgot.png');
+  background-repeat: no-repeat !important;
+
+}
 .listfonfl{
   font-family: Poppins-400 !important;
 

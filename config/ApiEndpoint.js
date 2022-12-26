@@ -18,6 +18,8 @@ export default {
     ACCOUNT_VIEW: Constants.BASE_API_URL + 'account/view',
     GET_PROFILE: Constants.BASE_API_URL + 'user/getprofile',
     ADD_ACCOUNT: Constants.BASE_API_URL + 'account/add',
+    ADD_CUSTOM_PATTERN: Constants.BASE_API_URL + 'Pattern/customPattern/create',
+
     PATTERN_PLAY: Constants.BASE_API_URL + 'Pattern/play',
     PATTERN_PAUSE: Constants.BASE_API_URL + 'Pattern/pause',
     ACCOUNT_DELETE: Constants.BASE_API_URL + 'account/delete',

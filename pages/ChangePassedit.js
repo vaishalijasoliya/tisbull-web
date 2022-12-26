@@ -26,7 +26,7 @@ const ResponsiveAppBar = (props) => {
                 {/* </div> */}
             </Grid>
             <Grid item sm={12} md={9} xs={12}>
-            <div className={styles.singlistpsdii2233}>  
+            <div className={styles.singlistpsdii223352}>  
                 <ChangePassedit props={props}/>
                 </div>
             </Grid>

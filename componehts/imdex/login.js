@@ -218,14 +218,15 @@ src='../../login bg.png'
               for free
             </Typography>
           </div>
+          <Box style={{height:'30px'}}></Box>
         </Box>
       </Grid>
-      <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
+      {/* <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>
       <img
       style={{width:'95%'}} 
 src='../../login bg.png'
          />
-      </Grid>
+      </Grid> */}
     </Grid>
 
   )

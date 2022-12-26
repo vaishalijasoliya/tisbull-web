@@ -371,8 +371,8 @@ const Home = (props) => {
                     }
                     if (element.type_pattern == "BasicPattern") {
                         pendingarr.push(JSON.parse(JSON.stringify(object)));
-                    } else if (element.type_pattern == "lisst") {
-                        approvearr.push(object);
+                    } else if (element.type_pattern == "CustomPattern") {
+                        approvearr.push(JSON.parse(JSON.stringify(object)))
                     }
 
                     else {
@@ -407,7 +407,7 @@ const Home = (props) => {
         setReviewStatus(status);
         if (status == "BasicPattern") {
             setDatatebalpettan(pendingReviewList);
-        } else if (status == "BasicPattern") {
+        } else if (status == "CustomPattern") {
             setDatatebalpettan(approveReviewList);
         } else if (status == "all") {
             setDatatebalpettan(data);
@@ -426,10 +426,11 @@ const Home = (props) => {
             "pattern": [
                 {
                     "pattern_id": rowid,
-                    "type": btnlistnamelist
+                    "type": listdara
                 }
             ]
         }
+        console.log(body, 'bodybody');
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
         props.props.loaderRef(false)
@@ -824,8 +825,8 @@ const Home = (props) => {
                                         setBtnlist('BasicPattern')
                                     }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
                                     <Button onClick={() => {
-                                        setBtnlist('Custom')
-                                    }} className={btnlistdata == 'Custom' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
+                                        setBtnlist('CustomPattern')
+                                    }} className={btnlistdata == 'CustomPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
                                 </div>
                             </div>
 
@@ -932,17 +933,30 @@ const Home = (props) => {
 
                                                                 <div className={styles.listtebal}>
                                                                     <Button className={styles.viwebtnmm}
-onClick={() => {
-                                router.push({
-                                    pathname: './editpatt',
-                                    query: {
-                                        scripType: 'currency',
-                                        patternType: 'basic',
-                                        emailID: row.id,
-                                        //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
-                                    }
-                                });
-                            }}
+                                                                        onClick={() => {
+                                                                            if (row.type_pattern !== "CustomPattern") {
+                                                                                router.push({
+                                                                                    pathname: '/texteditpatt',
+                                                                                    query: { data: JSON.stringify({ id: row.id }) },
+                                                                                });
+                                                                            } else {
+                                                                                router.push({
+                                                                                    pathname: '/editpatt',
+                                                                                    query: { data: JSON.stringify({ id: row.id }) },
+                                                                                });
+                                                                            }
+                                                                        }}
+                                                                    // onClick={() => {
+                                                                    //                                 router.push({
+                                                                    //                                     pathname: './editpatt',
+                                                                    //                                     query: {
+                                                                    //                                         scripType: 'currency',
+                                                                    //                                         patternType: 'basic',
+                                                                    //                                         emailID: row.id,
+                                                                    //                                         //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
+                                                                    //                                     }
+                                                                    //                                 });
+                                                                    // }}
                                                                     > <img height={18} src="../../edit_square.svg" /> </Button>
 
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
@@ -1066,7 +1080,7 @@ onClick={() => {
                                                                                                 <Avatar style={{ 'border': '1.5px solid #009947', background: ' linear-gradient(180deg, #DDF9EA 0%, #FFFFFF 100%)', margin: '0px 8px 0px 0px' }}><img style={{ width: '70%' }} src="../../Vector (17).svg" /></Avatar>
                                                                                                 <div>
                                                                                                     <Typography className={styles.texstcolor22} style={{ 'color': '#333333', fontSize: '14px' }}>
-                                                                                                    Sell holding stock with market price                                                                                                     </Typography>
+                                                                                                        Sell holding stock with market price                                                                                                     </Typography>
                                                                                                     <Typography className={styles.texstcolor22} style={{ 'color': '#858789', fontSize: '12px' }}> Your order will close at current market price.</Typography>
                                                                                                 </div>
                                                                                                 <div style={{ padding: '0px 0px 0px 20px' }}>
@@ -1083,30 +1097,30 @@ onClick={() => {
                                                                                             </div>}
 
                                                                                     </div>
-{console.log(listpires,'listpires')}{console.log(selectedValue,'selectedValue')}
+                                                                                    {console.log(listpires, 'listpires')}{console.log(selectedValue, 'selectedValue')}
                                                                                     <div className={styles.cancelbtnlog} onClick={handleCloseComdeletbtn}>
                                                                                         {/* {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'} */}
 
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 36PX 7PX 36PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
                                                                                         {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete2 </Button> : ''}
 
-{selectedValue === 'exit for market' ? <Button 
-// id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
- style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} 
- className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
-  onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :selectedValue == 'exit for fixedPrice' && listpires == '' ?  <Button disabled  style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} 
-className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} 
->Delete </Button> : <Button 
-id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
- style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} 
- className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
-  onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>}
+                                                                                        {selectedValue === 'exit for market' ? <Button
+                                                                                            // id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
+                                                                                            style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
+                                                                                            className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
+                                                                                            onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : selectedValue == 'exit for fixedPrice' && listpires == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
+                                                                                                className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
+                                                                                            >Delete </Button> : <Button
+                                                                                                id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
+                                                                                                style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
+                                                                                                className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
+                                                                                                onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button>}
 
                                                                                         {/* {selectedValue === 'exit for market' ?<Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :""} */}
                                                                                         {/* { selectedValue == 'exit for fixedPrice'  ? */}
-                                                                                            {/* <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete44 </Button> */}
-                                                                                             {/* :logvvmog == 'WithoutStock' || selectedValue == 'exit for market' ? <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete22 </Button>: */}
-                                                                                             {/* <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete222 </Button>} */}
+                                                                                        {/* <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete44 </Button> */}
+                                                                                        {/* :logvvmog == 'WithoutStock' || selectedValue == 'exit for market' ? <Button id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete22 </Button>: */}
+                                                                                        {/* <Button   style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }} className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn} >Delete222 </Button>} */}
 
                                                                                     </div>
                                                                                 </Box>

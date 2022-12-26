@@ -114,11 +114,9 @@ const ResponsiveAppBar = (props) => {
             <Tab
               onClick={() => {
                 router.push({
-                  pathname: '../componehts/Custompatt/Custompatt',
-                  query: {
-                     scripType: 'currency', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } }) }
-                });
-              }}
+                  // pathname: 'add',
+                  query: { scripType: 'fo', patternType: 'custom', parent: JSON.stringify({ pathname: '/patterns', query: { type: 'fo' } }) } },     
+                           )}}
               // onClick={
               //   () => { setListDatall('Custom') }}
               label="Custom"

@@ -24,6 +24,7 @@
     "@szhsin/react-menu": "^3.3.0",
     "axios": "^1.1.3",
     "dayjs": "^1.11.6",
+    "file-saver": "^2.0.5",
     "formik": "^2.2.9",
     "js-file-download": "^0.4.12",
     "material-ui-core": "^5.0.1",

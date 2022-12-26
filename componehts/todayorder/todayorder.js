@@ -313,7 +313,7 @@ console.log(today,'today');
       "x-access-token": props.props.profile.token
     }
     var body = {
-      "pattern_id":[parseInt(props.listdsts)],
+      "id_pattern":[parseInt(props.listdsts)],
       "start_date": moment(today).format("MM/DD/YYYY"),
       "end_date":moment(today).format("MM/DD/YYYY"),
       // props.idlist,
@@ -392,7 +392,8 @@ console.log(today,'today');
       setDatatebalpettan(pendingReviewList);
  
         // setUserSearch(pendingReviewList);
-    } else if ( status == "cancelled" || status == "active") {
+    } 
+    if ( status == "cancelled" || status == "active") {
       setDatatebalpettan(approveReviewList);
         // setUserSearch(approveReviewList);
     } 
@@ -405,16 +406,16 @@ console.log(today,'today');
         // setUserSearch(pendingReviewList);
     }
 };
-const tabChangelist = (status) => {
-  setReviewStatus(status);
-  if (status == "SELL") {
-    setPendingReviewList(listsell);
-      // setUserSearch(pendingReviewList);
-  } else if ( status == "cancelled" || status == "active") {
-    setDatatebalpettan(approveReviewList);
-      // setUserSearch(approveReviewList);
-  } 
-};
+// const tabChangelist = (status) => {
+//   setReviewStatus(status);
+//   if (status == "SELL") {
+//     setPendingReviewList(listsell);
+//       // setUserSearch(pendingReviewList);
+//   } else if ( status == "cancelled" || status == "active") {
+//     setDatatebalpettan(approveReviewList);
+//       // setUserSearch(approveReviewList);
+//   } 
+// };
   const playpattern = async () => {
 
     var headers = {

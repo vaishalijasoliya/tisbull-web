@@ -99,6 +99,7 @@ const handleClickShowPassword = () => {
   return (
     <Grid container className={styles.cantenar_list}>
       <form className={styles.formcenjpasss} onSubmit={formik.handleSubmit}>
+      <Grid item sm={12} md={3} xs={12} ></Grid>
         <Grid item sm={12} md={6} xs={12} className={styles.cengpass}>
 
           <div className={styles.hedingdiv}>
@@ -184,6 +185,7 @@ const handleClickShowPassword = () => {
   
               </Button>
           </div>
+          <Box style={{height:'35px'}}></Box>
         </Grid>
    
       </form>

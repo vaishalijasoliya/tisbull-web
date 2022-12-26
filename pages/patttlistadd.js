@@ -367,27 +367,7 @@ const AddPattern = (props) => {
             // setListidzero(accountList.data)          // toast.success(accountList.message)amo_sell
         }
 
-        // }
-        // else{
-        //     toast.error('not data meash')
-        // }
-        // if (!!accountList && !!accountList.data) {
-        //     var accountLableList = []
-        //     for (let index = 0; index < accountList.data.length; index++) {
-        //         const element = accountList.data[index];
-        //         var obj = {
-        //             label: element.type + ` (${element.user_id})`,
-        //             id: element.id
-        //         }
-        //         accountLableList.push(JSON.parse(JSON.stringify(obj)));
-        //         if (isView) {
-        //             if (element.id == serverData.id_account) {
-        //                 setAccount(obj)
-        //             }
-        //         }
-        //     }
-        //     setAccountList(accountLableList);
-        // }
+
     }
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
@@ -717,7 +697,7 @@ const AddPattern = (props) => {
                                 <div className={styles.listtypogst}>
                                     <Typography>GENERAL</Typography>
                                 </div>
-                                <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
+                                {/* <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
                                     <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
                                         {!router.query.scripType && <Box sx={{ flex: 1 }}>
                                             <Autocomplete
@@ -756,7 +736,7 @@ const AddPattern = (props) => {
                                         </Box>}
                                     </Box>
 
-                                </Box>
+                                </Box> */}
                                 <div style={{ display: "flex", width: "100%" }} >
                                     {/* <div> */}
                                     <Grid item md={4}>
@@ -1533,6 +1513,7 @@ const AddPattern = (props) => {
                                 </Box>
                                 {/* </PerfectScrollbar> */}
                             </Card>
+
 
                             {/* <PatternList
                                 patterns={patternList} /> */}

@@ -1131,8 +1131,16 @@ console.log(script,'scriptscript');
                                
                                 {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                 <Box sx={{ flex: 1, paddingRight: 0.5 }}> */}
+                                                <Accordion className={styles.acclistloddop}>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                    className={styles.listbackdda}
+                                                > 
                                 <Typography className={styles.hedindrop}>Advanced</Typography>
-                                
+                                </AccordionSummary>
+                                <AccordionDetails className={styles.listaccsumahha}>
                                                
                                 <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                                     <Grid item md={4}>
@@ -1214,7 +1222,11 @@ console.log(script,'scriptscript');
                                             </Box>
                                         </Box>
                                     </Grid>
+                                    
+
                                 </div>
+                                </AccordionDetails>
+</Accordion>
                                 <div>
                                             <Accordion className={styles.acclistloddop}>
                                                 <AccordionSummary
@@ -1224,6 +1236,7 @@ console.log(script,'scriptscript');
                                                     className={styles.listbackdda}
                                                 > 
                                 <Typography className={styles.hedindrop33}>Order</Typography>
+                                <div style={{border:'1px solid'}}></div>
                                 </AccordionSummary>
                                 <AccordionDetails className={styles.listaccsumahha}>
                                 <div style={{ display: "flex", paddingTop: '10px' }}>

@@ -11,7 +11,7 @@ export default function Home(props) {
   // const router = useRouter();
 
   return (
-    <Grid container className={styles.cantenar_list}>
+    <Grid container className={styles.cantenar_list2222}>
       <Grid item sm={12} md={12} xs={12}>
       <Nevbarlogin />
       <div className={styles.singlistpsdii}>
