@@ -1533,7 +1533,7 @@ const AddCustomPattern = (props) => {
                                 {/* <Card {...rest}> */}
                                 {/* <PerfectScrollbar> */}
                                     <Box sx={{ width: '100%' }}>
-                                        <Sticky>
+                                        {/* <Sticky> */}
                                             <Table>
                                                 <TableHead>
                                                     <TableRow sx={{ display: 'flex', flex: 1 }}>
@@ -1573,7 +1573,7 @@ const AddCustomPattern = (props) => {
                                                     </TableRow>
                                                 </TableHead>
                                             </Table>
-                                        </Sticky>
+                                        {/* </Sticky> */}
                                         <Table>
                                             <TableBody>
                                                 {patternList.map((pattern) => (
