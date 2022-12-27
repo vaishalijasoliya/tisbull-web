@@ -782,7 +782,7 @@ const[sassaliusgs,setSasasdata] =React.useState("")
                                         </div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
-                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseComplay}  className={styles.cofimbatn}>Cancel</Button>
+                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseComplay}  className={styles.cofimbatn}>ok</Button>
                                         
                           
                                       </div>

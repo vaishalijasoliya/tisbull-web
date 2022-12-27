@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import moment from 'moment';
 
 const ResponsiveAppBar = (props) => {
-    console.log(props.listdatamenu, 'propsprops');
+    console.log(props.listpatt, 'propsprops');
     
     return (
         <Grid  className={styles.cantenatdata} container>
@@ -57,7 +57,7 @@ const ResponsiveAppBar = (props) => {
             <Grid item sm={12} md={2} xs={12} style={{display:'flex'}}>
             <div style={{ padding: '10px 80px 0px 0px' }}>
                 <Typography className={styles.peregarflist33}>Target</Typography>
-                <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>600</Typography>
+                <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>null</Typography>
             </div>
 </Grid>
             <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'50px 0px 0px 60px'}}>
@@ -109,7 +109,7 @@ const ResponsiveAppBar = (props) => {
                 <div style={{padding:'30px 0px 0px 0px'}}>
                     <Typography className={styles.peregarflist} style={{'font-size': '15px','color': '#333333',fontWeight:'bold',borderBottom:'3px solid #009947','borderRadius':'2px',width:'130px'}}>Today’s Positions</Typography>
                 </div>
-                <div style={{padding:'30px 0px 0px 58px','display':'flex','justifyContent': 'end','width':'60%'}} >
+                <div style={{padding:'30px 0px 0px 58px','display':'flex','justifyContent': 'end','width':'54%'}} >
                     <Typography className={styles.peregarflist} style={{'font-size': '15px','color': '#333333',fontWeight:'bold',borderBottom:'3px solid #009947','borderRadius':'2px',width:'71px'}}>Overview</Typography>
                 </div>
                 </div>
@@ -122,7 +122,7 @@ const ResponsiveAppBar = (props) => {
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Loss</Typography>
-                        <Typography className={styles.peregarflist44} >-</Typography>
+                        <Typography className={styles.peregarflist44} >null</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'20px 0px 40px 0px'}}>
@@ -151,7 +151,7 @@ const ResponsiveAppBar = (props) => {
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33}>Loss</Typography>
-                        <Typography className={styles.peregarflist44} >-</Typography>
+                        <Typography className={styles.peregarflist44} >null</Typography>
                     </div>
                     </Grid>
             
@@ -170,12 +170,12 @@ const ResponsiveAppBar = (props) => {
                 style={{padding:'0px 70px 0px 0px'}}
                 >
                         <Typography className={styles.peregarflist33}>Open</Typography>
-                        <Typography className={styles.peregarflist44} >{props.listpatt.open_price}</Typography>
+                        <Typography className={styles.peregarflist44} >{props.listpatt.open}</Typography>
                     </div>
                     <div
                      >
                         <Typography className={styles.peregarflist33}>Prev. Close</Typography>
-                        <Typography className={styles.peregarflist44} >450</Typography>
+                        <Typography className={styles.peregarflist44} >{props.listpatt.close}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 0px 0px'}}>
@@ -183,30 +183,30 @@ const ResponsiveAppBar = (props) => {
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33}>High</Typography>
                         <Typography className={styles.peregarflist44} >
-                            {props.listpatt.high_price == null ? '-':props.listpatt.high_price}
+                            {props.listpatt.high}
                             </Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Low</Typography>
-                        <Typography className={styles.peregarflist44} >{props.listpatt.low_price ==null ?"-":props.listpatt.low_price  }</Typography>
+                        <Typography className={styles.peregarflist44} >{props.listpatt.low  }</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 0px 0px'}}>
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Volumn</Typography>
-                        <Typography className={styles.peregarflist44}>{props.listpatt.wtoken == null ? '-' :props.listpatt.wtoken}</Typography>
+                        <Typography className={styles.peregarflist44}>{props.listpatt.volumn}</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Market Cap </Typography>
-                        <Typography className={styles.peregarflist44} >612 ( Rs. Cr)</Typography>
+                        <Typography className={styles.peregarflist44} >{props.listpatt.market_cap}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 0px 0px'}}>
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Upper Circuit</Typography>
-                        <Typography className={styles.peregarflist44} >600</Typography>
+                        <Typography className={styles.peregarflist44} >null</Typography>
                     </div>
                     </Grid>
                 {/* </div>  */}
@@ -217,18 +217,18 @@ const ResponsiveAppBar = (props) => {
 
                 <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Lower circuit</Typography>
-                        <Typography className={styles.peregarflist44} >410</Typography>
+                        <Typography className={styles.peregarflist44} >null</Typography>
                     </div>
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33}>52 weeks high</Typography>
-                        <Typography className={styles.peregarflist44} >450</Typography>
+                        <Typography className={styles.peregarflist44} >null</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'30px 0px 0px 0px'}}>
 
                     <div style={{padding:'0px 0px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >52 weeks low</Typography>
-                        <Typography className={styles.peregarflist44} >400</Typography>
+                        <Typography className={styles.peregarflist44} >null</Typography>
                     </div>
                     </Grid>
     

@@ -96,6 +96,9 @@
     text-transform: capitalize;
     height: 22px;
 }
+.listdatataal{
+    box-shadow: none !important;
+}
 .listdatlog{
     background-color: #053159 !important;
     color: white !important;
@@ -840,9 +843,9 @@ color: #E31E24 !important;
         background: rgba(215, 229, 239, 0.25);
     }
 
-    .cekboxtd {
-        padding: 0px 20px 0px 50px;
-    }
+    // .cekboxtd {
+    //     padding: 0px 20px 0px 50px;
+    // }
 
     .tablelist td {
         font-family: Poppins-400 !important;

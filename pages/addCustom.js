@@ -345,7 +345,254 @@ const AddCustomPattern = (props) => {
         }
     }
     console.log(props, 'hshshhshs');
-    const onAddPatterntabal = async () => {
+
+    // const onNextBtnPress = () => {
+    //     const PatterObjectArray = [];
+    
+    //     const PatternPreviewTable = [];
+    //     const Current_price = [];
+    
+    //     if (listfigmaop == 'csv') {
+    //       if (!!priceCsvData) {
+    //         for (let index = 1; index < priceCsvData.length; index++) {
+    //           const element = priceCsvData[index];
+    
+    //           console.log(element.field5 == 1, 'FIELD____5_____FIELD');
+    //           if (element.field5 == 1) {
+    //             console.log(element, 'ELEMENT_________');
+    
+    //             const obj = {
+    //               Price: element.field1,
+    //             };
+    //             Current_price.push(obj);
+    //           }
+    
+    //           console.log(element, 'MY___ELEMENT');
+    
+    //           const PatternObject = {
+    //             buyPrice: parseFloat(element.field1),
+    //             sellPrice: parseFloat(element.field3),
+    //             buy_qty: parseFloat(element.field2),
+    //             sell_qty: parseFloat(element.field4),
+    //             // enter_price: element.field5,
+    //           };
+    
+    //           console.log(PatternObject, 'PATTERN______OBJECT');
+    //           PatterObjectArray.push(PatternObject);
+    //         }
+    
+    //         // console.log(PatterObjectArray, 'PATTERN__OBJECT__ARRAY');
+    
+    //         console.log(PatternPreviewTable, 'PATTERN____PREVIEW');
+    //       }
+    //     } else {
+    //       if (!!patternDataArray) {
+    //         if (!!patternDataArray.length > 0) {
+    //           for (let index = 0; index < patternDataArray.length; index++) {
+    //             const element = patternDataArray[index];
+    //             console.log(element, 'ELEMENT>>>>>>');
+    //             const bodyObject = {
+    //               buyPrice: parseFloat(element.buy),
+    //               sellPrice: parseFloat(element.sell),
+    //               buy_qty: parseFloat(element.buyQty),
+    //               sell_qty: parseFloat(element.sellQty),
+    //               // is_current_price: element.is_current_price,
+    //             };
+    
+    //             const obj = {
+    //               Price: currentPrice,
+    //             };
+    //             Current_price.push(obj);
+    
+    //             PatterObjectArray.push(bodyObject);
+    //           }
+    //         }
+    //       }
+    //       // console.log(PatternCreate, 'PATTERN__CREATE__DATA');
+    //     }
+    
+    //     const PatternPriceData = [];
+    
+    //     if (!!PatterObjectArray) {
+    //       // for (let index = 0; index < PatterObjectArray.length; index++) {
+    //       //   const element = PatterObjectArray[index];
+    //       //   PatternPriceData.push(element);
+    //       //   if (element.enter_price == 1) {
+    //       //     // setCurrentPrice(element.enter_price);
+    //       //     const obj = {
+    //       //       Price: element.buyPrice,
+    //       //     };
+    //       //     Current_price.push(obj); //      console.log(element, 'IS__CURRENT__PRICE');
+    //       //   }
+    //       //   console.log(element.enter_price == 1, 'ELEMENT___OF__PATTERN_OBJECT');
+    //       // }
+    
+    //       // console.log(Current_price[0].Price, 'PATTERN___DATA||||');
+    
+    //       // console.log(ObjectData, 'PATTERN__CREATE__DATA');
+    
+    //       const PatternDataTable = PatterObjectArray;
+    //       let BuyValue = [];
+    //       let totalInvestment = 0;
+    
+    //       // const patternArray = [];
+    
+    //       for (let index = 0; index < PatternDataTable.length; index++) {
+    //         const element = PatternDataTable[index];
+    //         console.log(element.buyPrice, 'IS___ELEMENT___FROM___LOOP');
+    
+    //         let investPerRow = 0;
+    
+    //         const valueZero = 0;
+    //         let buyValue =
+    //           parseFloat(element.buy_qty) * parseFloat(element.buyPrice);
+    //         let sellValue =
+    //           parseFloat(element.sell_qty) * parseFloat(element.sellPrice);
+    //         let buyPrice = parseFloat(element.buyPrice);
+    //         let sellPrice = parseFloat(element.sellPrice);
+    //         const buy_qty = parseFloat(element.buy_qty);
+    //         const sell_qty = parseFloat(element.sell_qty);
+    //         const Gross = parseFloat(sellValue) - parseFloat(buyValue);
+    //         const Sdisk = parseFloat(buyPrice) - parseFloat(Current_price[0].Price);
+    //         let invest = 0;
+    //         // for (let index = 0; index < PatternDataTable.length; index++) {
+    //         //   const element = PatternDataTable[index];
+    //         //   invest += parseFloat(element.buy_qty) * parseFloat(element.buyPrice);
+    //         // }
+    
+    //         var totalInvest = 0;
+    //         for (let index = 0; index < PatternDataTable.length; index++) {
+    //           totalInvest += buyValue;
+    //         }
+    //         invest += parseFloat(element.buy_qty) * parseFloat(element.buyPrice);
+    //         // console.log(totalInvest, 'TOTAL____INVEST');
+    
+    //         BuyValue.push(
+    //           parseFloat(element.buyPrice) * parseFloat(element.buy_qty),
+    //         ).toFixed(2);
+    
+    //         totalInvestment = parseFloat(invest.toFixed(2));
+    
+    //         // investPerRow += buyValue;
+    
+    //         // const investPerCurrent = investPerRow
+    
+    //         console.log(investPerRow, 'BUY___VALUE');
+    
+    //         console.log(PatternDataTable.length);
+    
+    //         // const InvestAtCurrent = totalInvest;
+    
+    //         const totalStockWithCurrent = buy_qty;
+    //         const obj = {
+    //           buyValue: parseFloat(buyValue.toFixed(2)),
+    //           investment: parseFloat(invest.toFixed(2)),
+    //           sellValue: parseFloat(sellValue.toFixed(2)),
+    //           buyPrice: parseFloat(buyPrice.toFixed(2)),
+    //           sellPrice: parseFloat(sellPrice.toFixed(2)),
+    //           qty: parseFloat(buy_qty.toFixed(2)),
+    //           sell_qty: parseFloat(sell_qty.toFixed(2)),
+    //           stock: parseFloat(totalStockWithCurrent.toFixed(2)),
+    //           Gross: parseFloat(Gross.toFixed(2)),
+    //           sDisc: Sdisk.toFixed(2) > 0 ? parseFloat(Sdisk.toFixed(2)) : 0,
+    //           step: BuyValue.length,
+    //         };
+    
+    //         PatternPreviewTable.push(obj);
+    //       }
+    //     }
+    
+    //     console.log(Current_price, 'CURRENT______PRICVE');
+    //     console.log(PatternPreviewTable, 'CREATE____CUSTOME_PATTERN');
+    //     if (
+    //       !!instrumentToken &&
+    //       !!Current_price[0].Price &&
+    //       !!PatterObjectArray &&
+    //       !!PatternPreviewTable
+    //     ) {
+    //       navigation.navigation.navigate('AdvancedCustomPattern', {
+    //         script: instrumentToken,
+    //         priceDataArray: PatterObjectArray,
+    //         currentPrice: parseFloat(Current_price[0].Price),
+    //         PatternPreviewTable: PatternPreviewTable,
+    //         StockName: stockName,
+    //         StackNavigation:navigation.StackNavigation
+    //       });
+    //     }
+    //   };
+    // const onAddPatterntabajjl = async () => {
+    //     var buyArray = [];
+    //     for (var i = parseFloat(formik.values.maxRange);
+    //         i >= parseFloat(formik.values.minRange);
+    //         tickSize == 'fix' ? i = parseFloat((i - parseFloat(formik.values.buyPrice)).toFixed(2)) : i = parseFloat((i - ((i * parseFloat(formik.values.buyPrice)) / 100)).toFixed(2))) {
+    //         buyArray.push(i)
+    //     }
+    //     var totalStep = buyArray.length;
+    //     var patternArray = [];
+    //     for (var i = parseFloat(formik.values.maxRange); i >= parseFloat(formik.values.minRange); tickSize == 'fix' ? i = parseFloat((i - parseFloat(formik.values.buyPrice)).toFixed(2)) : i = parseFloat((i - ((i * parseFloat(formik.values.buyPrice)) / 100)).toFixed(2))) {
+    //         var buyValue = 0;
+    //         var quantity = 0;
+    //         var maxInvestPStep = parseFloat(formik.values.totalInvestment) / totalStep;
+    //         quantity = Math.trunc(maxInvestPStep / (i * lotsize));
+    //         if (i >= parseFloat(formik.values.currentPrice)) {
+    //             buyValue = parseFloat(formik.values.currentPrice) * quantity * lotsize;
+    //         } else {
+    //             buyValue = i * quantity * lotsize;
+    //         }
+    //         var sellPrice = 0;
+    //         if (tickSize == 'fix') {
+    //             sellPrice = i + parseFloat(formik.values.sellPrice)
+    //         } else {
+    //             sellPrice = i + (parseFloat(formik.values.sellPrice) * i) / 100;
+    //         }
+    //         var sellValue = sellPrice * quantity * lotsize;
+    //         var totalStock = 0;
+    //         if (patternArray.length > 0) {
+    //             for (let index = 0; index < patternArray.length; index++) {
+    //                 totalStock += patternArray[index].qty;
+    //             }
+    //         }
+    //         var totalInvestment = 0;
+    //         if (patternArray.length > 0) {
+    //             for (let index = 0; index < patternArray.length; index++) {
+    //                 totalInvestment += patternArray[index].buyValue;
+    //             }
+    //         }
+    //         var investmentWithCurrent = totalInvestment + buyValue;
+    //         var sDisc = i - parseFloat(formik.values.currentPrice);
+    //         var totalStockWithCurrent = totalStock + quantity;
+    //         var avgPrice = investmentWithCurrent / totalStockWithCurrent
+    //         var patternStep = {
+    //             'step': patternArray.length + 1,
+    //             'buyPrice': parseFloat(i.toFixed(2)),
+    //             'sellPrice': parseFloat(sellPrice.toFixed(2)),
+    //             'qty': parseFloat(quantity.toFixed(2)),
+    //             'buyValue': parseFloat(buyValue.toFixed(2)),
+    //             'sellValue': parseFloat(sellValue.toFixed(2)),
+    //             'gross': parseFloat((sellValue - buyValue).toFixed(2)),
+    //             'stock': totalStockWithCurrent.toFixed(2),
+    //             'investment': parseFloat(investmentWithCurrent.toFixed(2)),
+    //             'sDisc': sDisc > 0 ? sDisc.toFixed(2) : 0,
+    //             'avg': (avgPrice / lotsize).toFixed(2)
+    //         }
+    //         if (patternStep.qty !== 0) {
+    //             patternArray.push(JSON.parse(JSON.stringify(patternStep)));
+    //         }
+    //     }
+    //     var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))
+    //     if (buyValueObj.length > 0) {
+    //         setPatternList(patternArray)
+    //         console.log(patternArray);
+    //     } else {
+    //         if (patternArray.length > 0) {
+    //             setPatternList([])
+    //             toast.error('Buy value in pattern not matched with currentPrice.')
+    //         } else {
+    //             toast.error('Investment value is too low as per your data.')
+    //         }
+    //     }
+    // }
+       const onAddPatternlist = async () => {
         var buyArray = [];
         for (var i = parseFloat(formik.values.maxRange);
             i >= parseFloat(formik.values.minRange);
@@ -417,6 +664,7 @@ const AddCustomPattern = (props) => {
             }
         }
     }
+
     const onAddPattern = async () => {
         if (!csvFile) {
             var patternDataList = [];
@@ -428,6 +676,7 @@ const AddCustomPattern = (props) => {
                     "buy_qty": element.buyQty,
                     "sell_qty": element.sellQty,
                 }
+                console.log(object,'objectobject');
                 // console.log('patternliaja', object)
 
                 patternDataList.push(JSON.parse(JSON.stringify(object)))
@@ -447,7 +696,7 @@ const AddCustomPattern = (props) => {
                 "normal_sell": parseFloat(formik.values.NormalSell),
                 // "minRange": parseFloat(formik.values.minRange),
             }
-            console.log('patteddrnliaja', body)
+            console.log('patteddrnhhhliaja', body)
             var headers = {
                 "Content-Type": "application/json",
                 "x-access-token": props.profile.token
@@ -473,6 +722,7 @@ const AddCustomPattern = (props) => {
             }
         } else {
             let formData = new FormData();
+            console.log(formData,'formDataformData');
             formData.append('script', parseFloat(script.id));
             formData.append('id_account', props.profile.userData.currentAccount.id);
             formData.append('file', csvFile)
@@ -1185,13 +1435,13 @@ const AddCustomPattern = (props) => {
                                         <Grid item md={4} className={styles.gridmaen} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
                                             <div>   <Typography className={styles.typofonty} >Data Type
 
-                                            </Typography></div>  <div style={{ display: 'flex' }}>              <div style={{ display: 'flex', alignItems: 'center' }}> <Radio
+                                            </Typography></div> 
+                                             <div style={{ display: 'flex' }}>              <div style={{ display: 'flex', alignItems: 'center' }}> <Radio
                                                 style={{ color: "#05315A" }}
                                                 checked={selectedValue === 'CSV'}
                                                 onChange={handleChangemejej}
                                                 value="CSV"
                                                 name="radio-buttons"
-                                            // inputProps={{ 'aria-label': 'A' }}
                                             />
                                                 <Typography className={styles.typofonty} >CSV
                                                 </Typography></div>
@@ -1643,6 +1893,7 @@ const AddCustomPattern = (props) => {
                                 onClick={() => {
                                     setLiatstgs('')
                                     setListnone('bloack')
+                                    // onNextBtnPress()
                                     // setLISTdatasumm('')
                                 }}
 

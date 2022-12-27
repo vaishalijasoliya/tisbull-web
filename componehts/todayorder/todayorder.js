@@ -132,7 +132,60 @@ const headCells = [
   },
 ];
 
+function EnhancedTableToolbar(props) {
+  const { numSelected } = props;
 
+  return (
+    <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        ...(numSelected > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+      }}
+    >
+      {numSelected > 0 ? (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {numSelected} selected
+        </Typography>
+      ) : (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          Nutrition
+        </Typography>
+      )}
+
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Tooltip title="Filter list">
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )}
+    </Toolbar>
+  );
+}
+
+EnhancedTableToolbar.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+};
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
     props;
@@ -144,6 +197,7 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell className={styles.listchekboix} padding="checkbox">
+
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -161,17 +215,13 @@ function EnhancedTableHead(props) {
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            {/* <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            > */}
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
+
+            {headCell.label}
+            {orderBy === headCell.id ? (
+              <Box component="span" sx={visuallyHidden}>
+                {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+              </Box>
+            ) : null}
             {/* </TableSortLabel> */}
           </TableCell>
         ))}
@@ -189,64 +239,11 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-// function EnhancedTableToolbar(props) {
-//   const { numSelected } = props;
 
-//   return (
-//     <Toolbar
-//       sx={{
-//         pl: { sm: 2 },
-//         pr: { xs: 1, sm: 1 },
-//         ...(numSelected > 0 && {
-//           bgcolor: (theme) =>
-//             alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-//         }),
-//       }}
-//     >
-//       {numSelected > 0 ? (
-//         <Typography
-//           sx={{ flex: '1 1 100%' }}
-//           color="inherit"
-//           variant="subtitle1"
-//           component="div"
-//         >
-//           {numSelected} selected
-//         </Typography>
-//       ) : (
-//         <Typography
-//           sx={{ flex: '1 1 100%' }}
-//           variant="h6"
-//           id="tableTitle"
-//           component="div"
-//         >
-//           Nutrition
-//         </Typography>
-//       )}
-
-//       {numSelected > 0 ? (
-//         <Tooltip title="Delete">
-//           <IconButton>
-//             <DeleteIcon />
-//           </IconButton>
-//         </Tooltip>
-//       ) : (
-//         <Tooltip title="Filter list">
-//           <IconButton>
-//             <FilterListIcon />
-//           </IconButton>
-//         </Tooltip>
-//       )}
-//     </Toolbar>
-//   );
-// }
-
-// EnhancedTableToolbar.propTypes = {
-//   numSelected: PropTypes.number.isRequired,
-// };
 
 const Home = (props) => {
   const router = useRouter();
-console.log(props.listdsts,'listdstslistdsts');
+  console.log(props.listdsts, 'listdstslistdsts');
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -257,9 +254,9 @@ console.log(props.listdsts,'listdstslistdsts');
   const [datatebalpettan, setDatatebalpettan] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [age, setAge] = React.useState('');setListid
+  const [age, setAge] = React.useState(''); setListid
   const [listdarta, setListid] = React.useState('');
-const[idlist,setIdlist] = React.useState('')
+  const [idlist, setIdlist] = React.useState('')
   const [datasars, setDatasars] = React.useState([]);
   const [datalist, setDatalist] = React.useState([]);
   const [com, setCom] = React.useState(false);
@@ -271,16 +268,16 @@ const[idlist,setIdlist] = React.useState('')
   const [approveReviewList, setApproveReviewList] = React.useState([]);
   const [reviewStatus, setReviewStatus] = React.useState("pending");
   const [listuseridlist, setListuserid] = React.useState('');
-  const[listdatadelete,setListdeletdata] = React.useState('')
-  const[sassaliusgs,setSasasdata] =React.useState("")
-const[listsell,setListsell] =React.useState([])
-const[listsellmenu,setListsellmenu] =React.useState([])
+  const [listdatadelete, setListdeletdata] = React.useState('')
+  const [sassaliusgs, setSasasdata] = React.useState("")
+  const [listsell, setListsell] = React.useState([])
+  const [listsellmenu, setListsellmenu] = React.useState([])
 
-const [btnlistdatalist, setBtnlistlist] = React.useState('SELL')
+  const [btnlistdatalist, setBtnlistlist] = React.useState('SELL')
 
-console.log(listsell,'listsell');
+  console.log(selected, 'selected');
   const today = new Date();
-console.log(today,'today');
+  console.log(today, 'today');
 
   var handleClickOpenComdilet = () => {
     setDiletbtn(true);
@@ -307,15 +304,15 @@ console.log(today,'today');
     setPlay(false);
   }
   console.log(datatebalpettan, 'datatebalpettan');
- const patternlist = async () => {
+  const patternlist = async () => {
     var headers = {
       "Content-Type": "application/json",
       "x-access-token": props.props.profile.token
     }
     var body = {
-      "id_pattern":[parseInt(props.listdsts)],
+      "id_pattern": [parseInt(props.listdsts)],
       "start_date": moment(today).format("MM/DD/YYYY"),
-      "end_date":moment(today).format("MM/DD/YYYY"),
+      "end_date": moment(today).format("MM/DD/YYYY"),
       // props.idlist,
       // email: props.email,
       // otp: outField
@@ -337,8 +334,8 @@ console.log(today,'today');
         const datalist = [];
         const datalogo = []
         const listdata = []
-        const listDatamej=[];
-        const buyorder =[]
+        const listDatamej = [];
+        const buyorder = []
         var approvearr = [];
         var pendingarr = [];
         for (let index = 0; index < patternDelete.data.length; index++) {
@@ -353,22 +350,22 @@ console.log(today,'today');
             stock: element.transactionType,
             created_at: element.createdAt,
             status: element.status,
-            orderId:element.orderId
+            orderId: element.orderId
           }
           if (element.status == "pending") {
             pendingarr.push(JSON.parse(JSON.stringify(object)));
             accoyty.push(JSON.parse(JSON.stringify(object)))
 
-          } 
-           else if (element.status == "cancelled" || element.status == "active" ) {
+          }
+          else if (element.status == "cancelled" || element.status == "active") {
             approvearr.push(JSON.parse(JSON.stringify(object)))
           }
-          if(element.transactionType == 'SELL'){
+          if (element.transactionType == 'SELL') {
             listDatamej.push(JSON.parse(JSON.stringify(object)))
-          }else if(element.transactionType =='BUY'){
+          } else if (element.transactionType == 'BUY') {
             buyorder.push(JSON.parse(JSON.stringify(object)))
           }
-          console.log(element.transactionType,'element.stock');
+          console.log(element.transactionType, 'element.stock');
           listdata.push(JSON.parse(JSON.stringify(object)))
           datalogo.push(JSON.parse(JSON.stringify(object.status)))
           datalist.push(JSON.parse(JSON.stringify(object)))
@@ -390,42 +387,42 @@ console.log(today,'today');
     setReviewStatus(status);
     if (status == "pending") {
       setDatatebalpettan(pendingReviewList);
- 
-        // setUserSearch(pendingReviewList);
-    } 
-    if ( status == "cancelled" || status == "active") {
+
+      // setUserSearch(pendingReviewList);
+    }
+    if (status == "cancelled" || status == "active") {
       setDatatebalpettan(approveReviewList);
-        // setUserSearch(approveReviewList);
-    } 
+      // setUserSearch(approveReviewList);
+    }
     if (status == "SELL") {
       setDatatebalpettan(listsell);
-        // setUserSearch(pendingReviewList);
+      // setUserSearch(pendingReviewList);
     }
     if (status == "BUY") {
       setDatatebalpettan(listsellmenu);
-        // setUserSearch(pendingReviewList);
+      // setUserSearch(pendingReviewList);
     }
-};
-// const tabChangelist = (status) => {
-//   setReviewStatus(status);
-//   if (status == "SELL") {
-//     setPendingReviewList(listsell);
-//       // setUserSearch(pendingReviewList);
-//   } else if ( status == "cancelled" || status == "active") {
-//     setDatatebalpettan(approveReviewList);
-//       // setUserSearch(approveReviewList);
-//   } 
-// };
+  };
+  // const tabChangelist = (status) => {
+  //   setReviewStatus(status);
+  //   if (status == "SELL") {
+  //     setPendingReviewList(listsell);
+  //       // setUserSearch(pendingReviewList);
+  //   } else if ( status == "cancelled" || status == "active") {
+  //     setDatatebalpettan(approveReviewList);
+  //       // setUserSearch(approveReviewList);
+  //   } 
+  // };
   const playpattern = async () => {
 
     var headers = {
-        "Content-Type": "application/json",
-        "x-access-token": props.props.profile.token
+      "Content-Type": "application/json",
+      "x-access-token": props.props.profile.token
     }
     var body = {
-      "id_order" :idlist
-  }
-  console.log(body,'virangid');
+      "id_order": idlist
+    }
+    console.log(body, 'virangid');
     props.props.loaderRef(true)
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
     props.props.loaderRef(false)
@@ -438,14 +435,14 @@ console.log(today,'today');
       setSasasdata(patternDelete)
       handleClickOpenComplay()
       patternlist()
-      
+
     }
     else {
-        toast.error(patternDelete.message)
+      toast.error(patternDelete.message)
     }
- 
 
-}
+
+  }
   // let inloglist=datatebal.zerodha_token_update
 
   // console.log(datatebalpettan, 'datatebalpettan');
@@ -473,7 +470,7 @@ console.log(today,'today');
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = datatebalpettan.map((n) => n.name);
+      const newSelected = datatebalpettan.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -521,156 +518,189 @@ console.log(today,'today');
 
   return (
     <Grid container spacing={0} className={styles.cantenar_list57}>
-{/* <div style={{display:'flex'}}> */}
-      <Grid item md={6} sm={6} xs={12} >
-        {/* <div style={{ display: 'flex' }}> */}
-          <div className={styles.maendivhpline}>
-            {/* <Grid item md={12} sm={12} xs={12}> */}
-            <div className={styles.inlinemanediv}>
-              <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
-              <Button 
-                 onClick={() => {
-                  tabChange("pending");
-                  setBtnlist('pending')
-                }}
-                                  
-                                    className={btnlistdata == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>Open</Button>
-                                    <Button onClick={() => {
-                                        setBtnlist('cancelled')
-                                        tabChange('cancelled')
-                                    }} className={btnlistdata == 'cancelled' ? styles.Customlistbtn : styles.nonelistbtn}>Trade</Button>
-            </div>
-
-          </div>
-          </Grid>
-          <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 60px 0px 0px'}}>
-
-          <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-            {search ?
-              <div>
-                <input type="text" name="search"
-                  className={styles.searchbtn}
-                  // onClick={display:b}
-                  // onChange={(e) => {
-                  onChange={(e) => {
-                    //   setPage(0)
-                    var value = e.target.value
-                    if (typeof value !== 'object') {
-                      if (!value || value == '') {
-                        setDatatebalpettan(datasars);
-                      } else {
-                        var filteredData = datasars.filter((item) => {
-                          let searchValue = item.script.toLowerCase();
-                          return searchValue.includes(value.toString().toLowerCase())
-                        })
-                        setDatatebalpettan(filteredData);
-                      }
-                    }
-                  }}
-                  // patternlistcccc(e)
-                  //     var value = e.target.value
-                  //     if (typeof value !== 'object') {
-                  //         if (!value || value == '') {
-                  //             setDatatebalpettan(datasars)
-                  //         } else {
-                  //             var filteredData = datasars.filter((item) => {
-                  //                 let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
-                  //                 return searchValue.includes(value.toString().toLowerCase())
-                  //             })
-                  //             setDatatebalpettan(filteredData)
-                  //         }
-                  //     }
-                  // }}
-                  autoComplete="off" /></div> : <style>{`
-                          display: none;
-                        `}</style>}
-            <div >
-              <Button className={styles.btnfiltaebtn2} onClick={(e) => {
-                setSearch(!search)
-              }} ><SearchIcon /></Button>
-            </div>
-          </div>
-          <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
-          >
-            {/* <Typography>
-                            Filter
-                        </Typography> */}
-            <FilterListIcon />
-          </Button>
-        {/* </div> */}
-        <Menu
-          className={styles.menufiltarbtn}
-          anchorEl={anchorEl}
-          id="account-menu"
-          open={open}
-          onClose={handleClose}
-          // onClick={handleClose}
-          PaperProps={{
-            elevation: 0,
-            sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              '&:before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
-            },
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <div className={styles.filtarlist}>
-
-            <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
-            <div className={styles.listbtnsot}>
-              <Button className={styles.censbatnsot22} onClick={()=>{handleClose,tabChange("pending"),setBtnlist('pending')}}>RESET </Button>
-              <Button className={styles.savebatnsot223} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
-          </div>
-          <Divider className={styles.filtar_divaydar}></Divider>
-
-          <div>
-            <div className={styles.typetext222}><Typography>Type</Typography></div>
-           
-          </div>
-          <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
-                                    onClick={() => {
-                                      setBtnlistlist('SELL')
-                                    
-                                    }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
-                                    <Button onClick={() => {
-                                        setBtnlistlist('BUY')
-                                         
-                                    }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
-
-          {/* <Divider className={styles.divaydarten}></Divider> */}
-          <div className={styles.divlistsivijan}> 
-  
-                                   </div>
-        </Menu>
-        </Grid>
-        {/* </div> */}
-        <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
+      {/* <div style={{display:'flex'}}> */}
+    
+    
+      {/* </div> */}
+      <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
         <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-          <Paper sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
+          <Paper className={styles.listdatataal} sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
             {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-            <TableContainer style={{borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX"}} >
+            <Toolbar
+              sx={{
+                pl: { sm: 2 },
+                pr: { xs: 1, sm: 1 },
+                ...(selected.length > 0 && {
+                  bgcolor: (theme) =>
+                    alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                }),
+              }}
+            >
+              {selected.length > 0 ? (
+                <Typography
+                  sx={{ flex: '1 1 100%' }}
+                  color="inherit"
+                  variant="subtitle1"
+                  component="div"
+                >
+                  {selected.length} selected
+                </Typography>
+              ) : (
+                <Grid item md={6} sm={6} xs={12} >
+        <div className={styles.maendivhpline}>
+          <div className={styles.inlinemanediv}>
+            <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
+            <Button
+              onClick={() => {
+                tabChange("pending");
+                setBtnlist('pending')
+              }}
+
+              className={btnlistdata == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>Open</Button>
+            <Button onClick={() => {
+              setBtnlist('cancelled')
+              tabChange('cancelled')
+            }} className={btnlistdata == 'cancelled' ? styles.Customlistbtn : styles.nonelistbtn}>Trade</Button>
+          </div>
+
+        </div>
+      </Grid>
+              )}
+
+              {selected.length > 0 ? (
+                <Tooltip title="Delete">
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Filter list">
+                <Grid item md={6} sm={12} xs={12} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
+
+<div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
+  {search ?
+    <div>
+      <input type="text" name="search"
+        className={styles.searchbtn}
+        // onClick={display:b}
+        // onChange={(e) => {
+        onChange={(e) => {
+          //   setPage(0)
+          var value = e.target.value
+          if (typeof value !== 'object') {
+            if (!value || value == '') {
+              setDatatebalpettan(datasars);
+            } else {
+              var filteredData = datasars.filter((item) => {
+                let searchValue = item.script.toLowerCase();
+                return searchValue.includes(value.toString().toLowerCase())
+              })
+              setDatatebalpettan(filteredData);
+            }
+          }
+        }}
+        // patternlistcccc(e)
+        //     var value = e.target.value
+        //     if (typeof value !== 'object') {
+        //         if (!value || value == '') {
+        //             setDatatebalpettan(datasars)
+        //         } else {
+        //             var filteredData = datasars.filter((item) => {
+        //                 let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
+        //                 return searchValue.includes(value.toString().toLowerCase())
+        //             })
+        //             setDatatebalpettan(filteredData)
+        //         }
+        //     }
+        // }}
+        autoComplete="off" /></div> : <style>{`
+                  display: none;
+                `}</style>}
+  <div >
+    <Button className={styles.btnfiltaebtn2} onClick={(e) => {
+      setSearch(!search)
+    }} ><SearchIcon /></Button>
+  </div>
+</div>
+<Button className={styles.btnfiltaebtn} onClick={handleClicklist}
+>
+  {/* <Typography>
+                    Filter
+                </Typography> */}
+  <FilterListIcon />
+</Button>
+{/* </div> */}
+<Menu
+  className={styles.menufiltarbtn}
+  anchorEl={anchorEl}
+  id="account-menu"
+  open={open}
+  onClose={handleClose}
+  // onClick={handleClose}
+  PaperProps={{
+    elevation: 0,
+    sx: {
+      overflow: 'visible',
+      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+      mt: 1.5,
+      '& .MuiAvatar-root': {
+        width: 32,
+        height: 32,
+        ml: -0.5,
+        mr: 1,
+      },
+      '&:before': {
+        content: '""',
+        display: 'block',
+        position: 'absolute',
+        top: 0,
+        right: 14,
+        width: 10,
+        height: 10,
+        bgcolor: 'background.paper',
+        transform: 'translateY(-50%) rotate(45deg)',
+        zIndex: 0,
+      },
+    },
+  }}
+  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+>
+  <div className={styles.filtarlist}>
+
+    <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
+    <div className={styles.listbtnsot}>
+      <Button className={styles.censbatnsot22} onClick={() => { handleClose, tabChange("pending"), setBtnlist('pending') }}>RESET </Button>
+      <Button className={styles.savebatnsot223} onClick={() => { tabChange(btnlistdatalist) }}>Save</Button></div>
+  </div>
+  <Divider className={styles.filtar_divaydar}></Divider>
+
+  <div>
+    <div className={styles.typetext222}><Typography>Type</Typography></div>
+
+  </div>
+  <div style={{ padding: '0px 0px 0px 25px' }}>          <Button
+    onClick={() => {
+      setBtnlistlist('SELL')
+
+    }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
+    <Button onClick={() => {
+      setBtnlistlist('BUY')
+
+    }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
+
+  {/* <Divider className={styles.divaydarten}></Divider> */}
+  <div className={styles.divlistsivijan}>
+
+  </div>
+</Menu>
+</Grid>
+                </Tooltip>
+              )}
+            </Toolbar>
+            <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
               <Table
-                 className={styles.tablelist}
+                className={styles.tablelist}
                 // sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 size={dense ? 'small' : 'medium'}
@@ -718,17 +748,17 @@ console.log(today,'today');
                           >
                             <div className={styles.typefild}>
                               <div>
-                              <Avatar className={row.stock == 'SELL' ? styles.avtarlistyes398 : row.stock == 'BUY' ? styles.avtarlistyes233  : ''}>
+                                <Avatar className={row.stock == 'SELL' ? styles.avtarlistyes398 : row.stock == 'BUY' ? styles.avtarlistyes233 : ''}>
                                   {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}
                                   {row.stock == 'SELL' ?
-'S'
-                                    : row.stock == 'BUY' ? 
-                                    'B'
-                                    : ''}
+                                    'S'
+                                    : row.stock == 'BUY' ?
+                                      'B'
+                                      : ''}
                                 </Avatar>
                               </div><div className={styles.listperegaf}>
                                 <Typography
-                                className={styles.listsriptext} 
+                                  className={styles.listsriptext}
                                 // className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}
                                 >{row.script}</Typography>
 
@@ -752,8 +782,8 @@ console.log(today,'today');
 
                           <TableCell>
                             {/* <Button className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}> */}
-                              {/* {row.status == 'pause' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}> */}
-                              <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
+                            {/* {row.status == 'pause' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'exit' ? 'Delete' : ''}> */}
+                            <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
                             {/* </Button> */}
 
 
@@ -762,12 +792,14 @@ console.log(today,'today');
                           <TableCell>
 
                             <div >
-                            { row.status == 'pending' ?
-                            <Button className={styles.viwebtnmm22}
-                               onClick={()=>{setIdlist(row.id),setListuserid(row.type_pattern),row.status == 'pending' ?
-                              //  handleClickOpenCom()
-                              handleClickOpenCom(): ''}}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
-</Button>:'-'}
+                              {row.status == 'pending' ?
+                                <Button className={styles.viwebtnmm22}
+                                  onClick={() => {
+                                    setIdlist(row.id), setListuserid(row.type_pattern), row.status == 'pending' ?
+                                      //  handleClickOpenCom()
+                                      handleClickOpenCom() : ''
+                                  }}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
+                                </Button> : '-'}
 
 
                             </div>
@@ -800,7 +832,7 @@ console.log(today,'today');
 
                                       </Divider>
                                       <div>
-                                      <Button  onClick={handleCloseComdelet} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }}>Cancel</Button><img src='../../Line 17.png' /><Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div>
+                                        <Button onClick={handleCloseComdelet} style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 31PX 3PX 31PX' }}>Cancel</Button><img src='../../Line 17.png' /><Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '3PX 24PX 3PX 24PX' }} onClick={playpattern}>Delete</Button></div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
                                   </DialogContent>
@@ -834,9 +866,9 @@ console.log(today,'today');
                                         <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{idlist}</Typography></div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
-                                      <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseCom}  className={styles.cofimbatn}>Cancel</Button>
+                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX', textTransform: "capitalize", margin: '0px 14px 0px 0px' }} onClick={handleCloseCom} className={styles.cofimbatn}>Cancel</Button>
 
-<Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 30PX 7PX 30PX',textTransform:'capitalize' }} className={styles.cofimbatn}  onClick={()=>{playpattern(),handleCloseCom()}}>Confirm</Button>
+                                        <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 30PX 7PX 30PX', textTransform: 'capitalize' }} className={styles.cofimbatn} onClick={() => { playpattern(), handleCloseCom() }}>Confirm</Button>
                                       </div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -878,9 +910,9 @@ console.log(today,'today');
                                         </div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
-                                        <div className={styles.cancelbtnlog} onClick={handleCloseComplay}><Button >Cancel</Button></div>
+                                        <div className={styles.cancelbtnlog} onClick={handleCloseComplay}><Button >ok</Button></div>
                                         <img src="../../Line 17.svg" />
-                                        <div className={styles.cancelbtnlog2} onClick={playpattern}><Button >Confirm</Button></div>
+                                        {/* <div className={styles.cancelbtnlog2} onClick={playpattern}><Button >Confirm</Button></div> */}
                                       </div>
                                     </Box>
                                     {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
@@ -888,13 +920,13 @@ console.log(today,'today');
                                 </div>
                               </Dialog>
                             </div>
-                           
+
                           </TableCell>
 
                         </TableRow>
                       );
                     })}
-                
+
                   {emptyRows > 0 && (
                     <TableRow
                       style={{
@@ -906,25 +938,25 @@ console.log(today,'today');
                   )}
                 </TableBody>
                 {/* <TableFooter> */}
-                                        <TableRow >
-                                            <TablePagination
-                                                className={styles.tablePagination}
-                                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                                                count={datatebalpettan.length}
-                                                rowsPerPage={rowsPerPage}
-                                                page={page}
-                                                SelectProps={{
-                                                    inputProps: {
-                                                        "aria-label": "rows per page",
-                                                    },
-                                                    native: false,
-                                                }}
-                                                onPageChange={handleChangePage}
-                                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                                // ActionsComponent={TablePaginationActions}
-                                            />
-                                        </TableRow>
-                                    {/* </TableFooter> */}
+                <TableRow >
+                  <TablePagination
+                    className={styles.tablePagination}
+                    rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                    count={datatebalpettan.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    SelectProps={{
+                      inputProps: {
+                        "aria-label": "rows per page",
+                      },
+                      native: false,
+                    }}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  // ActionsComponent={TablePaginationActions}
+                  />
+                </TableRow>
+                {/* </TableFooter> */}
               </Table>
             </TableContainer>
             {/* <TablePagination
@@ -942,7 +974,7 @@ console.log(today,'today');
             label="Dense padding"
           /> */}
         </Box>
-        </Grid>
+      </Grid>
       {/* </Grid> */}
     </Grid>
   );

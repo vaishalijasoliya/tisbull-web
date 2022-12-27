@@ -367,7 +367,8 @@ const Home = (props) => {
                         profit: element.profit,
                         stock: element.stock,
                         created_at: element.created_at,
-                        status: element.status
+                        status: element.status,
+                        scripToken:element.scripToken
                     }
                     if (element.type_pattern == "BasicPattern") {
                         pendingarr.push(JSON.parse(JSON.stringify(object)));
@@ -880,6 +881,7 @@ const Home = (props) => {
                                                                     }}
                                                                 />
                                                             </TableCell>
+                                                            {/* {console.log(row.scripToken,'scripTokenscripToken')} */}
                                                             <TableCell
 
 
@@ -889,7 +891,7 @@ const Home = (props) => {
                                                                 onClick={() => {
                                                                     router.push({
                                                                         pathname: './pattandeteal',
-                                                                        query: { emailID: row.id, namescoka: row.script }
+                                                                        query: { emailID: row.id, namescoka: row.script,scripToken: row.scripToken, }
                                                                     });
                                                                 }}
                                                             >
@@ -1128,7 +1130,7 @@ const Home = (props) => {
                                                                         </div>
                                                                     </Dialog>
                                                                 </div>
-                                                                <div>
+                                                                {/* <div>
                                                                     <Dialog open={com} onClose={handleCloseCom}
                                                                         className={styles.borderredayasfor}
                                                                         style={{
@@ -1176,7 +1178,7 @@ const Home = (props) => {
                                                                             </DialogContent>
                                                                         </div>
                                                                     </Dialog>
-                                                                </div>
+                                                                </div> */}
                                                                 <div>
                                                                     <Dialog open={play} onClose={handleCloseComplay}
 
@@ -1274,7 +1276,7 @@ const Home = (props) => {
                                                                     </Dialog>
                                                                 </div>
                                                             </TableCell>
-                                                            <TableCell>
+                                                            {/* <TableCell>
                                                                 <IconButton
                                                                     className={styles.listiconhh}
                                                                     aria-label="expand row"
@@ -1284,7 +1286,7 @@ const Home = (props) => {
                                                                     {openlist ? <KeyboardArrowUpIcon /> :
                                                                         <KeyboardArrowDownIcon />}
                                                                 </IconButton>
-                                                            </TableCell>
+                                                            </TableCell> */}
 
 
                                                         </TableRow>
@@ -1296,7 +1298,7 @@ const Home = (props) => {
                                                 })}
 
 
-                                            {emptyRows > 0 && (
+                                            {/* {emptyRows > 0 && (
                                                 <TableRow
                                                     style={{
                                                         height: (dense ? 33 : 53) * emptyRows,
@@ -1304,12 +1306,12 @@ const Home = (props) => {
                                                 >
                                                     <TableCell colSpan={6} />
                                                 </TableRow>
-                                            )}
+                                            )} */}
 
                                         </TableBody>
 
 
-                                        <TableRow>
+                                        {/* <TableRow>
                                             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
                                                 <Collapse in={openlist} timeout="auto" unmountOnExit>
 
@@ -1351,7 +1353,7 @@ const Home = (props) => {
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                        </TableRow>
+                                        </TableRow> */}
                                     </Table>
                                 </TableContainer>
                                 <TablePagination
