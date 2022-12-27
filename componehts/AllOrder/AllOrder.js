@@ -285,6 +285,7 @@ const[listdatadelete,setListdeletdata] = React.useState('')
   const [anchorEllist, setAnchorEllist] = React.useState(null);
   const [value, setValue] = React.useState(0);
 const[sassaliusgs,setSasasdata] =React.useState("")
+console.log(selected,'selected');
   const handleChangelisggs = (event, newValue) => {
     setValue(newValue);
   };
@@ -407,9 +408,16 @@ const[sassaliusgs,setSasasdata] =React.useState("")
         "Content-Type": "application/json",
         "x-access-token": props.props.profile.token
     }
-    var body = {
-      "id_order" :idlist
-  }
+    if(selected == ''){
+      var body = {
+        "id_order": [idlist]
+      }
+    }else{
+      var body = {
+        "id_order": [selected]
+      }
+    }
+  
   console.log(body,'bodybody');
     props.props.loaderRef(true)
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
@@ -454,7 +462,7 @@ const[sassaliusgs,setSasasdata] =React.useState("")
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = datatebalpettan.map((n) => n.name);
+      const newSelected = datatebalpettan.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -499,8 +507,33 @@ const[sassaliusgs,setSasasdata] =React.useState("")
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebalpettan.length) : 0;
 
   return (
-    <Grid container spacing={0} className={styles.cantenar_list57221} style={{padding:'40px 0px 0px 0px'}}>
-      <Grid item md={6} sm={6} xs={12} >
+    <Grid container spacing={0} className={styles.cantenar_list57221} style={{padding:'30px 0px 0px 0px'}}>
+     
+        
+        <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
+        <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
+          <Paper className={styles.listdatataal} sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
+          <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        ...(selected.length > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+      }}
+    >
+      {selected.length > 0 ? (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {selected.length} selected
+        </Typography>
+      ) : (
+        <Grid item md={6} sm={6} xs={12} className={styles.griadlisyophpo}>
           <div className={styles.maendivhpline}>
             <div className={styles.inlinemanediv}>
               <div className={styles.hadingbtn}><Typography>All orders</Typography> </div>
@@ -517,7 +550,18 @@ const[sassaliusgs,setSasasdata] =React.useState("")
 
           </div>
           </Grid>
-          <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 60px 0px 0px'}}>
+      )}
+
+      {selected.length > 0 ? (
+        <Tooltip title="Delete">
+        <Button className={styles.viwebtnmm22}
+                               onClick={()=>{
+                              handleClickOpenCom()}}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
+</Button>
+        </Tooltip>
+      ) : (
+        <Tooltip >
+        <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 60px 20px 0px'}}>
 
           <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
             {search ?
@@ -594,14 +638,18 @@ const[sassaliusgs,setSasasdata] =React.useState("")
             // className={styles.filatahedinh}
             ><Typography>Orders</Typography></div>
             <div className={styles.listbtnsot}>
-              <Button className={styles.censbatnsot} onClick={()=>{handleClose,tabChange("pending"),setBtnlist('pending')}}>RESET </Button>
+              <Button className={styles.censbatnsot} onClick={()=>{handleClose,tabChange("SELL"),setBtnlist('SELL')}}>RESET </Button>
               <Button className={styles.savebatnsot} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
           </div>
           <Divider className={styles.filtar_divaydar}></Divider>
 
           <div>
             <div className={styles.typetext}><Typography>Type</Typography></div>
-            <div className={styles.listadarara} style={{padding:'0px 0px 0px 25px'}}>          <Button 
+            <div className={styles.listadarara} style={{padding:'0px 0px 0px 25px'}}>       <Button 
+                                    onClick={() => {
+                                      setBtnlistlist('All')
+                                    
+                                    }} className={btnlistdatalist == 'All' ? styles.Customlistbtn : styles.nonelistbtn}>All</Button>        <Button 
                                     onClick={() => {
                                       setBtnlistlist('SELL')
                                     
@@ -615,9 +663,9 @@ const[sassaliusgs,setSasasdata] =React.useState("")
           <div className={styles.divlistsivijan}></div>
         </Menu>
         </Grid>
-        <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
-        <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-          <Paper sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
+        </Tooltip>
+      )}
+    </Toolbar>
             <TableContainer style={{borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX"}} >
               <Table
                  className={styles.tablelist}

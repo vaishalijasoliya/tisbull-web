@@ -27,6 +27,7 @@ import { connect } from 'react-redux';
 import { Types } from '../../constants/actionTypes'
 import DialogContent from '@mui/material/DialogContent';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import moment from 'moment'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -45,7 +46,9 @@ function ResponsiveAppBar(props) {
   const [idlistuse, setIdlistuse] = React.useState('')
 const[dartmenu,setDatamenu] =React.useState('')
   const [com, setCom] = React.useState(false);
-  console.log(dartmenu,'dartmenu');
+  console.log(data,'dartmenu');
+  const today = new Date();
+
     var handleClickOpenCom = () => {
     setCom(true);
   
@@ -75,7 +78,7 @@ const[dartmenu,setDatamenu] =React.useState('')
         const csvall = [];
         for (let index = 0; index < data.data.length; index++) {
           const element = data.data[index];
-          console.log(element.loginUrl, 'password514');
+          console.log(element, 'password514');
           const object = {
             id: element.id,
             user_id: element.user_id,
@@ -148,6 +151,7 @@ const[dartmenu,setDatamenu] =React.useState('')
       toast.error(accountdelete.message)
     }
   }
+  console.log(props,'loajajjajaj');
   React.useEffect(() => {
     getRequestToken();
   }, [router.isReady])
@@ -163,13 +167,16 @@ const[dartmenu,setDatamenu] =React.useState('')
   const updateAccessToken = async (token) => {
     var headers = {
       "Content-Type": "application/json",
-      "x-access-token": props.profile.token
+      "x-access-token": props.props.profile.token
     }
     var body = {
       request_token: token,
-      id_account:dartmenu
+      id_account:props.props.profile.accountId
     }
+    console.log(props.profile.accountId,'props.profile.accountId');
+    props.props.loaderRef(true)
     var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
+    props.props.loaderRef(false)
     console.log('updateAccount...', updateAccount)
   }
 
@@ -444,7 +451,29 @@ const[dartmenu,setDatamenu] =React.useState('')
                           </div>
                         </div>
                         <div className={styles.menulistbtn} style={{ display: 'flex', justifyContent: 'end' }}>
-                        {item.type == "zerodha" ?
+                        {item.type == 'zerodha' ?
+                                                            <Button  className={styles.listboxmass} onClick={() => {
+                                                            
+                                                               if (row.type == 'zerodha') {
+                                                                    var profile = props.props.profile;
+                                                                    profile.accountId = item.id
+                                                                    props.save_user_data({ user: profile });
+                                                                    window.location.href = `${row.loginUrllist}`
+                                                                }
+                                                            }}
+                                                            >{moment(item.zerodha_token_updatemoment).format("MM/DD/YYYY") == moment(today).format("MM/DD/YYYY")  ? 
+                                                                <img width={25} height={20} src='../../Vector (19).svg' />
+                                                             
+                                                                :
+                                                               
+                                                                <img width={25} height={25} src='../../History.svg' />
+                                                                }
+                                                                </Button> :
+                                                            <Button disabled
+                                                            className={styles.listboxmass}
+                                                            >
+                                                                <img width={25} height={20} src='../../Vector (18).svg' /></Button>}
+                        {/* {item.type == "zerodha" ?
                           <Button      
                          onClick={() => {
                                                                     var profile = props.props.profile;
@@ -462,7 +491,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                                                                 }} className={styles.listboxmass}>
                             <img width={18} height={21} src='../../Vector (18).svg' />
                           </Button>
-                        }
+                        } */}
                           <Button 
                           onClick={() => {
                                                                     handleCloseUserMenu(),router.push({

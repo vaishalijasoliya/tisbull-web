@@ -14,11 +14,28 @@
     font-family: roboto-600;
     src: url(../../styles/Roboto/Roboto-Bold.ttf);
 }
+.tooobatlistts{
+    padding-bottom: 25px;
+    padding-top: 20px;
+}
+.listgridbox{
+padding: 0px 50px 15px 0px;
+}
+.griadlisyophpo{
+    padding-bottom: 30px;
+}
+.typolistpere{
+    font-family: Poppins-400 !important;
+
+}
 .listsriptext{
     color: #333333 !important;
     font-size: 14px !important;
     font-family: Poppins-400 !important;
 
+}
+.tddatallistyy{
+    padding: 0px 30px 0px 0px !important;
 }
 .listdataclos{
     margin-top: 10px !important;
@@ -677,7 +694,7 @@ color: #E31E24 !important;
 .inputlistm {
     display: flex;
     align-items: center;
-    padding: 30px 50px 0px 50px;
+    padding: 30px 0px 40px 44px;
 }
 
 // .cantenar_list57 {
@@ -832,7 +849,7 @@ color: #E31E24 !important;
     }
 
     .hedingtdlist {
-        padding: 0px 20px 0px 50px;
+        padding: 0px 20px 0px 30px;
     }
 
     .tablelist th {
@@ -843,9 +860,9 @@ color: #E31E24 !important;
         background: rgba(215, 229, 239, 0.25);
     }
 
-    // .cekboxtd {
-    //     padding: 0px 20px 0px 50px;
-    // }
+    .cekboxtd {
+        padding: 0px 20px 0px 30px;
+    }
 
     .tablelist td {
         font-family: Poppins-400 !important;
@@ -895,7 +912,7 @@ color: #E31E24 !important;
     }
 
     .boxlistnum {
-        margin-top: 40px;
+        // margin-top: 40px;
     }
 
     .nselist {
@@ -936,7 +953,7 @@ color: #E31E24 !important;
     }
 
     .boxlistnum {
-        margin-top: 50px;
+        // margin-top: 50px;
     }
 }
 .leballistvvv{
@@ -1101,7 +1118,7 @@ color: #E31E24 !important;
     }
 
     .boxlistnum {
-        margin-top: 40px;
+        // margin-top: 40px;
     }
 
     .nselist {
@@ -1142,7 +1159,7 @@ color: #E31E24 !important;
     }
 
     .boxlistnum {
-        margin-top: 40px;
+        // margin-top: 40px;
     }
 }
 
@@ -1241,7 +1258,8 @@ color: #E31E24 !important;
 .maendivhpline {
     display: flex;
     align-items: center;
-    padding: 10px 0px 0px 60px !important;
+    width: 87%;
+    padding: 10px 0px 0px 52px !important;
 }
 
 .btnfiltaebtn2 {

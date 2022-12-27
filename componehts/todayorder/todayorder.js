@@ -249,7 +249,7 @@ const Home = (props) => {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [search, setSearch] = React.useState(false);
   const [datatebalpettan, setDatatebalpettan] = React.useState([]);
   const [data, setData] = React.useState([]);
@@ -390,7 +390,7 @@ const Home = (props) => {
 
       // setUserSearch(pendingReviewList);
     }
-    if (status == "cancelled" || status == "active") {
+    if (status == "cancelled") {
       setDatatebalpettan(approveReviewList);
       // setUserSearch(approveReviewList);
     }
@@ -419,9 +419,37 @@ const Home = (props) => {
       "Content-Type": "application/json",
       "x-access-token": props.props.profile.token
     }
+    if(selected == ''){
     var body = {
-      "id_order": idlist
+      "id_order": [idlist]
     }
+  }else{
+    var body = {
+      "id_order": [selected]
+    }
+  }
+    //  if (selected == '') {
+         
+    //         const withFixedPrice = {
+    //                     "pattern_id": rowid,
+    //                     "type": listdarapush
+    //                 }
+                
+            
+    //         body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
+    //     }else{
+    //     for (let index = 0; index < selected.length; index++) {
+    //         const element = selected[index];
+
+    //         var withFixedPricelidt = {
+    //             "pattern_id": element,
+    //             "type": listdarapush
+    //         }
+    //         body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
+
+    //         console.log(element, 'hsahsgsggs');
+    //     }
+    // }
     console.log(body, 'virangid');
     props.props.loaderRef(true)
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
@@ -527,6 +555,7 @@ const Home = (props) => {
           <Paper className={styles.listdatataal} sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
             {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
             <Toolbar
+             className={styles.tooobatlistts}
               sx={{
                 pl: { sm: 2 },
                 pr: { xs: 1, sm: 1 },
@@ -568,13 +597,17 @@ const Home = (props) => {
               )}
 
               {selected.length > 0 ? (
-                <Tooltip title="Delete">
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
+                <Tooltip>
+                <Button className={styles.viwebtnmm22}
+                                  onClick={() => {
+                                   
+                                      //  handleClickOpenCom()
+                                      handleClickOpenCom() 
+                                  }}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
+                                </Button>
                 </Tooltip>
               ) : (
-                <Tooltip title="Filter list">
+                <Tooltip >
                 <Grid item md={6} sm={12} xs={12} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
 
 <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
@@ -823,7 +856,7 @@ const Home = (props) => {
                                       <div className={styles.accoparegarf}>
                                         <Typography>
                                           Are you sure you want to delete
-                                          this order(#{row.orderId})?
+                                          this order(#{selected == '' ? row.orderId :selected})?
                                         </Typography>
                                         <Typography className={styles.peregara_itbtn}>It will delete from 3rd party broker </Typography>
                                       </div>
@@ -863,7 +896,7 @@ const Home = (props) => {
                                         {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
                                         <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{listuseridlist}) from {props.props.profile.userData.currentAccount.type} ?</Typography></div>
                                         <div className={styles.listmenutypoo}><Typography>{props.props.profile.userData.currentAccount.type}</Typography>:<Typography>#{listuseridlist}</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{idlist}</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{selected == '' ? idlist:[selected]}</Typography></div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX', textTransform: "capitalize", margin: '0px 14px 0px 0px' }} onClick={handleCloseCom} className={styles.cofimbatn}>Cancel</Button>
@@ -880,9 +913,8 @@ const Home = (props) => {
                               <Dialog open={play} onClose={handleCloseComplay}
                                 className={styles.borderredayasfor}
                                 style={{
-                                  // borderRadius: '30px'
                                 }}
-                                // fullWidth
+                                
                                 maxWidth="sm"
                               >
                                 <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
@@ -899,23 +931,23 @@ const Home = (props) => {
                                       <Box className={styles.listboxiduser223}>
                                         <div className={styles.listmaendivid}>
                                           <div className={styles.oderidpopup}><InputLabel>ORDER ID</InputLabel>
-                                            <Typography>NF123444</Typography>
+                                            <Typography>{listdatadelete.orderId}</Typography>
                                           </div>
                                           <div className={styles.oderidpopup}><InputLabel>TIS ORDER ID</InputLabel>
-                                            <Typography>12322SSDFDF</Typography>
+                                            <Typography>{listdatadelete.id}</Typography>
                                           </div>
                                         </div>
                                         <div className={styles.oderidpopup2}><InputLabel>Type</InputLabel>
-                                          <Typography>Zerodha</Typography>
+                                          <Typography>{props.props.profile.userData.currentAccount.type}</Typography>
                                         </div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
-                                        <div className={styles.cancelbtnlog} onClick={handleCloseComplay}><Button >ok</Button></div>
-                                        <img src="../../Line 17.svg" />
-                                        {/* <div className={styles.cancelbtnlog2} onClick={playpattern}><Button >Confirm</Button></div> */}
+                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseComplay}  className={styles.cofimbatn}>ok</Button>
+                                        
+                          
                                       </div>
                                     </Box>
-                                    {/* <Popupform props={props} advCreate={advCreate} closePop={handleCloseCom} userId={advId} /> */}
+                                  
                                   </DialogContent>
                                 </div>
                               </Dialog>

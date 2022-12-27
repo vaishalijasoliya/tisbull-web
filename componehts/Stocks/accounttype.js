@@ -252,6 +252,8 @@ const[listuserid,setListuserid] =React.useState('')
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rowid, setRowid] = React.useState('')
 const[listzorothatokan,setListzrothaid] = React.useState('')
+const today = new Date();
+
 console.log(props.props.profile.accountId,'listzorothatokan');
 // propsaccountId
     React.useEffect(() => {
@@ -636,8 +638,14 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                                     window.location.href = `${row.loginUrllist}`
                                                                 }
                                                             }}
-                                                            >{row.zerodha_token_update == '' ? 
-                                                                <img width={25} height={30} src='../../History.svg' />:<img width={25} height={20} src='../../Vector (19).svg' />}</Button> :
+                                                            >{moment(row.zerodha_token_updatemoment).format("MM/DD/YYYY") == moment(today).format("MM/DD/YYYY")  ? 
+                                                                <img width={25} height={20} src='../../Vector (19).svg' />
+                                                             
+                                                                :
+                                                               
+                                                                <img width={25} height={25} src='../../History.svg' />
+                                                                }
+                                                                </Button> :
                                                             <Button disabled
                                                             >
                                                                 <img width={25} height={20} src='../../Vector (18).svg' /></Button>}

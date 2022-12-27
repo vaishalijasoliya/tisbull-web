@@ -332,7 +332,7 @@ const buyorder =[]
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = datatebalpettan.map((n) => n.name);
+      const newSelected = datatebalpettan.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -380,109 +380,146 @@ const buyorder =[]
     <Grid container spacing={0} className={styles.cantenar_list57}>
 
       <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
-        <div style={{ display: 'flex' }}>
-          <div className={styles.maendivhpline}>
+       
+        <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
+          <Paper  className={styles.listdatataal} sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
+          {/* <Toolbar
+          className={styles.tooobatlistts}
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        ...(selected.length > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+      }}
+    >
+      {selected.length > 0 ? (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {selected.length} selected
+        </Typography>
+      ) : (
+        <div className={styles.maendivhpline}>
             <div className={styles.inlinemanediv}>
               <div className={styles.hadingbtn}><Typography>Orders History</Typography> </div>
           
             </div>
 
           </div>
-          <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', width: '72%' }}>
-            {search ?
-              <div>
-                <input type="text" name="search"
-                  className={styles.searchbtn}
-                  onChange={(e) => {
-                    var value = e.target.value
-                    if (typeof value !== 'object') {
-                      if (!value || value == '') {
-                        setDatatebalpettan(datasars);
-                      } else {
-                        var filteredData = datasars.filter((item) => {
-                          let searchValue = item.script.toLowerCase();
-                          return searchValue.includes(value.toString().toLowerCase())
-                        })
-                        setDatatebalpettan(filteredData);
-                      }
+      )}
+
+      {selected.length > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Tooltip title="Filter list">
+        <div style={{ display: 'flex' }}>
+        
+        <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', width: '72%' }}>
+          {search ?
+            <div>
+              <input type="text" name="search"
+                className={styles.searchbtn}
+                onChange={(e) => {
+                  var value = e.target.value
+                  if (typeof value !== 'object') {
+                    if (!value || value == '') {
+                      setDatatebalpettan(datasars);
+                    } else {
+                      var filteredData = datasars.filter((item) => {
+                        let searchValue = item.script.toLowerCase();
+                        return searchValue.includes(value.toString().toLowerCase())
+                      })
+                      setDatatebalpettan(filteredData);
                     }
-                  }}
-               
-                  autoComplete="off" /></div> : <style>{`
-                          display: none;
-                        `}</style>}
-            <div >
-              <Button className={styles.btnfiltaebtn2} onClick={(e) => {
-                setSearch(!search)
-              }} ><SearchIcon /></Button>
-            </div>
+                  }
+                }}
+             
+                autoComplete="off" /></div> : <style>{`
+                        display: none;
+                      `}</style>}
+          <div >
+            <Button className={styles.btnfiltaebtn2} onClick={(e) => {
+              setSearch(!search)
+            }} ><SearchIcon /></Button>
           </div>
-          <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
-          >
-            <FilterListIcon />
-          </Button>
         </div>
-        <Menu
-          className={styles.menufiltarbtn}
-          anchorEl={anchorEl}
-          id="account-menu"
-          open={open}
-          onClose={handleClose}
-          PaperProps={{
-            elevation: 0,
-            sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              '&:before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
-            },
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
         >
-          <div className={styles.filtarlist}>
+          <FilterListIcon />
+        </Button>
+     
+      <Menu
+        className={styles.menufiltarbtn}
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <div className={styles.filtarlist}>
 
-            <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
-            <div className={styles.listbtnsot}>
-            <Button className={styles.censbatnsot22} onClick={()=>{handleClose,tabChange("ALL")}}>RESET </Button>
-              <Button className={styles.savebatnsot223} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
-          </div>
-          <Divider className={styles.filtar_divaydar}></Divider>
+          <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
+          <div className={styles.listbtnsot}>
+          <Button className={styles.censbatnsot22} onClick={()=>{handleClose,tabChange("ALL")}}>RESET </Button>
+            <Button className={styles.savebatnsot223} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
+        </div>
+        <Divider className={styles.filtar_divaydar}></Divider>
 
-          <div>
-       
-            <div className={styles.typetext222}><Typography>Type</Typography></div>
-            <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
-                                    onClick={() => {
-                                      setBtnlistlist('SELL')
-                                    
-                                    }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
-                                    <Button onClick={() => {
-                                        setBtnlistlist('BUY')
-                                         
-                                    }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
-          </div>
-          <div className={styles.divlistsivijan}></div>
-        </Menu>
-        <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-          <Paper sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
+        <div>
+     
+          <div className={styles.typetext222}><Typography>Type</Typography></div>
+          <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
+                                  onClick={() => {
+                                    setBtnlistlist('SELL')
+                                  
+                                  }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
+                                  <Button onClick={() => {
+                                      setBtnlistlist('BUY')
+                                       
+                                  }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
+        </div>
+        <div className={styles.divlistsivijan}></div>
+      </Menu>
+      </div>
+        </Tooltip>
+      )}
+    </Toolbar> */}
             <TableContainer style={{borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX"}} >
               <Table
                  className={styles.tablelist}

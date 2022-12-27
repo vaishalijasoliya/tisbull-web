@@ -213,12 +213,12 @@ const headCells = [
         disablePadding: false,
         label: 'Action',
     },
-    {
-        id: 'Action',
-        numeric: true,
-        disablePadding: false,
-        label: '',
-    },
+    // {
+    //     id: 'Action',
+    //     numeric: true,
+    //     disablePadding: false,
+    //     label: '',
+    // },
 ];
 
 
@@ -234,7 +234,7 @@ function EnhancedTableHead(props) {
             <TableRow>
                 <TableCell className={styles.hedingtdlist} padding="checkbox">
                     <Checkbox
-                        className={styles.tablehead}
+                        // className={styles.tablehead}
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
                         checked={rowCount > 0 && numSelected === rowCount}
@@ -280,7 +280,7 @@ const Home = (props) => {
     console.log(props, 'propsprops');
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState([]);
+    const [selected, setSelected] = React.useState('');
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
@@ -321,12 +321,12 @@ const Home = (props) => {
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rejectReviewList, setRejectReviewList] = React.useState([]);
     const [flagReviewList, setFlageReviewList] = React.useState([]);
-    console.log(listpires, 'swishlist');
+    console.log(rowsPerPage, 'swishlist');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const [selectedValue, setSelectedValue] = React.useState('a');
-    console.log(selectedValue, 'selectedValue');
+    console.log(selected, 'selected');
     const handleChangemejej = (event) => {
         setSelectedValue(event.target.value);
     };
@@ -368,7 +368,7 @@ const Home = (props) => {
                         stock: element.stock,
                         created_at: element.created_at,
                         status: element.status,
-                        scripToken:element.scripToken
+                        scripToken: element.scripToken
                     }
                     if (element.type_pattern == "BasicPattern") {
                         pendingarr.push(JSON.parse(JSON.stringify(object)));
@@ -423,14 +423,39 @@ const Home = (props) => {
             "Content-Type": "application/json",
             "x-access-token": props.props.profile.token
         }
-        var body = {
-            "pattern": [
-                {
-                    "pattern_id": rowid,
-                    "type": listdara
-                }
-            ]
+        
+      
+         
+            var body = {
+                "pattern": [
+                    
+                  
+                    
+                ]
+            }
+        console.log(body,'listbodyuu');
+        if (selected == '') {
+         
+            const withFixedPrice = {
+                        "pattern_id": rowid,
+                        "type": listdara
+                    }
+                
+            
+            body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
+        }else{
+        for (let index = 0; index < selected.length; index++) {
+            const element = selected[index];
+
+            var withFixedPricelidt = {
+                "pattern_id": element,
+                "type": listdara
+            }
+            body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
+
+            console.log(element, 'hsahsgsggs');
         }
+    }
         console.log(body, 'bodybody');
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
@@ -484,33 +509,71 @@ const Home = (props) => {
 
             ]
         }
-        console.log(body, 'listbody');
-
-        if (!!logvvmog) {
-            if (logvvmog == 'Stock') {
-                if (!!selectedValue) {
-                    if (selectedValue == 'exit for fixedPrice') {
-                        console.log('withFixed price')
-                        const withFixedPrice = {
-                            pattern_id: rowid,
-                            action: selectedValue,
-                            price: listpires,
-                        };
-                        body.pattern.push(withFixedPrice);
-                    } else {
-                        const withMarketPrice = {
-                            pattern_id: rowid,
-                            action: selectedValue,
-                        };
-                        body.pattern.push(withMarketPrice);
+        console.log(body, 'lisddddtbody');
+        if (selected == '') {
+            if (!!logvvmog) {
+                if (logvvmog == 'Stock') {
+                    if (!!selectedValue) {
+                        if (selectedValue == 'exit for fixedPrice') {
+                            console.log('withFixed price')
+                            const withFixedPrice = {
+                                pattern_id: rowid,
+                                action: selectedValue,
+                                price: listpires,
+                            };
+                            body.pattern.push(withFixedPrice);
+                        } else {
+                            const withMarketPrice = {
+                                pattern_id: rowid,
+                                action: selectedValue,
+                            };
+                            body.pattern.push(withMarketPrice);
+                        }
                     }
+                } else {
+                    const withOutStockObject = {
+                        pattern_id: rowid,
+                        action: 'exit',
+                    }
+                    body.pattern.push(withOutStockObject);
                 }
-            } else {
-                const withOutStockObject = {
-                    pattern_id: rowid,
-                    action: 'exit',
+            }
+        } else {
+            if (!!logvvmog) {
+                if (logvvmog == 'Stock') {
+                    if (!!selectedValue) {
+                        if (selectedValue == 'exit for fixedPrice') {
+                            console.log('withFixed price')
+                            for (let index = 0; index < selected.length; index++) {
+                                const element = selected[index];
+                            const withFixedPrice = {
+                                pattern_id: element,
+                                action: selectedValue,
+                                price: listpires,
+                            };
+                            body.pattern.push(JSON.parse(JSON.stringify(withFixedPrice)));
+                        }
+                        } else {
+                            for (let index = 0; index < selected.length; index++) {
+                                const element = selected[index];
+                            const withMarketPrice = {
+                                pattern_id: element,
+                                action: selectedValue,
+                            };
+                            body.pattern.push(JSON.parse(JSON.stringify(withMarketPrice)));
+                        }
+                        }
+                    }
+                } else {
+                    for (let index = 0; index < selected.length; index++) {
+                        const element = selected[index];
+                    const withOutStockObject = {
+                        pattern_id: element,
+                        action: 'exit',
+                    }
+                    body.pattern.push(JSON.parse(JSON.stringify(withOutStockObject)));
                 }
-                body.pattern.push(withOutStockObject);
+                }
             }
         }
         console.log(body, 'lkahuaahxss');
@@ -543,12 +606,34 @@ const Home = (props) => {
         }
         var body = {
             "pattern": [
-                {
-                    "pattern_id": rowid,
-                    "type": listdarapush
-                }
+                // {
+                //     "pattern_id": rowid,
+                //     "type": listdarapush
+                // }
             ]
         }
+        if (selected == '') {
+         
+            const withFixedPrice = {
+                        "pattern_id": rowid,
+                        "type": listdarapush
+                    }
+                
+            
+            body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
+        }else{
+        for (let index = 0; index < selected.length; index++) {
+            const element = selected[index];
+
+            var withFixedPricelidt = {
+                "pattern_id": element,
+                "type": listdarapush
+            }
+            body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
+
+            console.log(element, 'hsahsgsggs');
+        }
+    }
         console.log(body, 'lkahuaah');
 
         props.props.loaderRef(true)
@@ -659,7 +744,7 @@ const Home = (props) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = datatebalpettan.map((n) => n.name);
+            const newSelected = datatebalpettan.map((n) => n.id);
             setSelected(newSelected);
             return;
         }
@@ -734,112 +819,153 @@ const Home = (props) => {
                         </Button>
                     </Grid>
                 </div>
-                <div className={styles.inputlistm}>
-                    <Grid item md={12} sm={6} xs={6}>
-                        <Box className={styles.boxreting} display={'flex'}>
 
-                            <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
-                                onChange={(e) => {
-                                    //   setPage(0)
-                                    var value = e.target.value
-                                    if (typeof value !== 'object') {
-                                        if (!value || value == '') {
-                                            setDatatebalpettan(datasars);
-                                        } else {
-                                            var filteredData = datasars.filter((item) => {
-                                                let searchValue = item.script.toLowerCase();
-                                                return searchValue.includes(value.toString().toLowerCase())
-                                            })
-                                            setDatatebalpettan(filteredData);
-                                        }
-                                    }
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                    <Grid item md={12} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
-
-                        <Button className={styles.filterlist} onClick={menulist}
-                        >
-                            <Typography>
-                                Filter
-                            </Typography>
-                            <FilterListIcon />
-                        </Button>
-                        <Menu
-                            className={styles.menufiltarbtn}
-                            anchorEl={anchorEl}
-                            id="account-menu"
-                            open={open}
-                            onClose={handleClose}
-                            PaperProps={{
-                                elevation: 0,
-                                sx: {
-                                    overflow: 'visible',
-                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                    mt: 1.5,
-                                    '& .MuiAvatar-root': {
-                                        width: 32,
-                                        height: 32,
-                                        ml: -0.5,
-                                        mr: 1,
-                                    },
-                                    '&:before': {
-                                        content: '""',
-                                        display: 'block',
-                                        position: 'absolute',
-                                        top: 0,
-                                        right: 14,
-                                        width: 10,
-                                        height: 10,
-                                        bgcolor: 'background.paper',
-                                        transform: 'translateY(-50%) rotate(45deg)',
-                                        zIndex: 0,
-                                    },
-                                },
-                            }}
-                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                        >
-                            <div className={styles.filtarlist}>
-                                <div><Typography>Pattern</Typography></div>
-                                <div className={styles.listbtnsot}>
-                                    <Button className={styles.censbatnsot} onClick={() => {
-                                        tabChange("all"), handleClose(), setBtnlist('all')
-                                    }}>Cancel</Button>
-                                    <Button className={styles.savebatnsot}
-                                        onClick={() => {
-                                            tabChange(btnlistdata)
-                                        }}
-                                    >Save</Button></div>
-                            </div>
-                            <Divider></Divider>
-                            <div>
-                                <div className={styles.typetext}><Typography>Type</Typography></div>
-                                <div className={styles.listadarara}>
-
-                                    <Button
-                                        onClick={() => {
-                                            setBtnlist('all')
-                                        }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
-                                    <Button onClick={() => {
-                                        setBtnlist('BasicPattern')
-                                    }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
-                                    <Button onClick={() => {
-                                        setBtnlist('CustomPattern')
-                                    }} className={btnlistdata == 'CustomPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
-                                </div>
-                            </div>
-
-                            <div className={styles.divlistsivijan}></div>
-                        </Menu>
-                    </Grid>
-                </div>
                 <Grid item md={12} sm={12} xs={12} >
                     <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
                         <React.Fragment>
 
-                            <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+                            <Paper className={styles.listdatataal} sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+                                <Toolbar
+                                    sx={{
+                                        pl: { sm: 2 },
+                                        pr: { xs: 1, sm: 1 },
+                                        ...(selected.length > 0 && {
+                                            bgcolor: (theme) =>
+                                                alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                                        }),
+                                    }}
+                                >
+                                    {selected.length > 0 ? (
+                                        <Typography
+                                        className={styles.typolistpere}
+                                            sx={{ flex: '1 2222 100%' }}
+                                            color="inherit"
+                                            variant="subtitle1"
+                                            component="div"
+                                        >
+                                            {selected.length} selected
+                                        </Typography>
+                                    ) : (
+                                        <div className={styles.inputlistm}>
+                                            <Grid item md={12} sm={6} xs={6}>
+                                                <Box className={styles.boxreting} display={'flex'}>
+
+                                                    <input type="text" id='myserchbtn' name="search" placeholder="Search" className={styles.searchbtn} autoComplete="off"
+                                                        onChange={(e) => {
+                                                            //   setPage(0)
+                                                            var value = e.target.value
+                                                            if (typeof value !== 'object') {
+                                                                if (!value || value == '') {
+                                                                    setDatatebalpettan(datasars);
+                                                                } else {
+                                                                    var filteredData = datasars.filter((item) => {
+                                                                        let searchValue = item.script.toLowerCase();
+                                                                        return searchValue.includes(value.toString().toLowerCase())
+                                                                    })
+                                                                    setDatatebalpettan(filteredData);
+                                                                }
+                                                            }
+                                                        }}
+                                                    />
+                                                </Box>
+                                            </Grid>
+
+                                        </div>
+                                    )}
+
+                                    {selected.length > 0 ? (
+                                        <Tooltip title="Delete">
+                                            <div>
+                                                <Button className={styles.viwebtnmm3} onClick={() => { handleClickOpenCompause() }} >
+                                                    <PauseCircleOutlineIcon className={styles.play_btnmani2} />
+                                                </Button>
+                                                <Button className={styles.viwebtnmm3} onClick={() => { handleClickOpenComplay() }} >
+                                                    <PlayCircleOutlineIcon className={styles.play_btnmani} />
+                                                </Button>
+                                                <Button className={styles.viwebtnmm2} onClick={() => { handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>
+
+                                            </div>
+                                        </Tooltip>
+                                    ) : (
+                                        <Grid className={styles.listgridbox} item md={12} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
+
+                                            <Button className={styles.filterlist} onClick={menulist}
+                                            >
+                                                <Typography>
+                                                    Filter
+                                                </Typography>
+                                                <FilterListIcon />
+                                            </Button>
+                                            <Menu
+                                                className={styles.menufiltarbtn}
+                                                anchorEl={anchorEl}
+                                                id="account-menu"
+                                                open={open}
+                                                onClose={handleClose}
+                                                PaperProps={{
+                                                    elevation: 0,
+                                                    sx: {
+                                                        overflow: 'visible',
+                                                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                        mt: 1.5,
+                                                        '& .MuiAvatar-root': {
+                                                            width: 32,
+                                                            height: 32,
+                                                            ml: -0.5,
+                                                            mr: 1,
+                                                        },
+                                                        '&:before': {
+                                                            content: '""',
+                                                            display: 'block',
+                                                            position: 'absolute',
+                                                            top: 0,
+                                                            right: 14,
+                                                            width: 10,
+                                                            height: 10,
+                                                            bgcolor: 'background.paper',
+                                                            transform: 'translateY(-50%) rotate(45deg)',
+                                                            zIndex: 0,
+                                                        },
+                                                    },
+                                                }}
+                                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                            >
+                                                <div className={styles.filtarlist}>
+                                                    <div><Typography>Pattern</Typography></div>
+                                                    <div className={styles.listbtnsot}>
+                                                        <Button className={styles.censbatnsot} onClick={() => {
+                                                            tabChange("all"), handleClose(), setBtnlist('all')
+                                                        }}>Cancel</Button>
+                                                        <Button className={styles.savebatnsot}
+                                                            onClick={() => {
+                                                                tabChange(btnlistdata)
+                                                            }}
+                                                        >Save</Button></div>
+                                                </div>
+                                                <Divider></Divider>
+                                                <div>
+                                                    <div className={styles.typetext}><Typography>Type</Typography></div>
+                                                    <div className={styles.listadarara}>
+
+                                                        <Button
+                                                            onClick={() => {
+                                                                setBtnlist('all')
+                                                            }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
+                                                        <Button onClick={() => {
+                                                            setBtnlist('BasicPattern')
+                                                        }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
+                                                        <Button onClick={() => {
+                                                            setBtnlist('CustomPattern')
+                                                        }} className={btnlistdata == 'CustomPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
+                                                    </div>
+                                                </div>
+
+                                                <div className={styles.divlistsivijan}></div>
+                                            </Menu>
+                                        </Grid>
+                                    )}
+                                </Toolbar>
                                 <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
                                     <Table
                                         className={styles.tablelist}
@@ -891,7 +1017,7 @@ const Home = (props) => {
                                                                 onClick={() => {
                                                                     router.push({
                                                                         pathname: './pattandeteal',
-                                                                        query: { emailID: row.id, namescoka: row.script,scripToken: row.scripToken, }
+                                                                        query: { emailID: row.id, namescoka: row.script, scripToken: row.scripToken, }
                                                                     });
                                                                 }}
                                                             >
@@ -931,7 +1057,7 @@ const Home = (props) => {
                                             
                                                         </TableCell> */}
 
-                                                            <TableCell>
+                                                            <TableCell className={styles.tddatallistyy}>
 
                                                                 <div className={styles.listtebal}>
                                                                     <Button className={styles.viwebtnmm}
