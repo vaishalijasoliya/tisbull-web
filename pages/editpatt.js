@@ -567,7 +567,7 @@ console.log(script,'scriptscript');
         }
       
             var obj = {
-                "id_pattern": router.query.emailID,
+                "id_pattern": router.query.data,
             }; 
         props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(obj), headers)

@@ -461,7 +461,7 @@ const Home = (props) => {
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
         props.props.loaderRef(false)
 
-        console.log(patternDelete, 'datalist');
+        console.log(body, 'lkahuaah');
         if (patternDelete.status == true) {
             patternDelete.token = patternDelete.token
             toast.success(patternDelete.data)
@@ -576,7 +576,7 @@ const Home = (props) => {
                 }
             }
         }
-        console.log(body, 'lkahuaahxss');
+        console.log(body, 'lkahuaah');
 
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_DELETE, JSON.stringify(body), headers)
@@ -1230,7 +1230,7 @@ const Home = (props) => {
                                                                                         {/* {logvvmog == 'WithoutStock' || swishlist == false || listpires == '' ? 'desebal' : 'yes'} */}
 
                                                                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 36PX 7PX 36PX' }} onClick={handleCloseComdeletlog}>Cancel</Button>
-                                                                                        {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete2 </Button> : ''}
+                                                                                        {logvvmog == 'WithoutStock' ? <Button style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 31PX 7PX 31PX' }} className={styles.cofimbatn} onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : ''}
 
                                                                                         {selectedValue === 'exit for market' ? <Button
                                                                                             // id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}

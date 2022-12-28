@@ -210,11 +210,12 @@ const ResponsiveAppBar = (props) => {
             <Box className={styles.flex}>
 
               <Box className={styles.wid_1 + " " + styles.pad_12}>
-                {value == 2 || value == 1 ?
-                  <Typography variant="h5" className={styles.typo}>
+                {/* {value == 2 || value == 1 ? */}
+                  {/* <Typography variant="h5" className={styles.typo}>
 
                     {router.query.namescoka}
-                  </Typography> : <Typography variant="h5" style={{ display: 'flex', alignItems: 'center' }} className={styles.typo}>
+                  </Typography>  */}
+                   <Typography variant="h5" style={{ display: 'flex', alignItems: 'center' }} className={styles.typo}>
                     {router.query.namescoka}
                     {/* <ArrowDropUpIcon
                     fontSize={"large"}
@@ -236,7 +237,7 @@ const ResponsiveAppBar = (props) => {
                     </span>
                     {/* {((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />} */}
                     {/* <span className={styles.span}> <Typography className={styles.listfonfl} sx={{ color: (((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography></span> */}
-                  </Typography>}
+                  </Typography>
                 {/* { value == 2 ||value == 1 ? "ddd " : 'ddd' } */}
                 {/* { !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, marginBottom: 3 }}>
                                         <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex' }}>

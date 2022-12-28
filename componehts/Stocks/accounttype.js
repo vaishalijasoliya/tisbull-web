@@ -405,7 +405,7 @@ console.log(props.props.profile.accountId,'listzorothatokan');
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = datatebal.map((n) => n.name);
+            const newSelected = datatebal.map((n) => n.id);
             setSelected(newSelected);
             return;
         }
@@ -469,7 +469,33 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                     </Button>
                 </div>
             </Grid>
-            <Grid item sm={6} md={6} xs={6} className={styles.padimgtebal2}>
+         
+
+         
+            <Grid item md={12} sm={12} xs={12} >
+                <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
+                    <Paper className={styles.listdatataal} sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+                    <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        ...(selected.length > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+      }}
+    >
+      {selected.length > 0 ? (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {selected.length} selected
+        </Typography>
+      ) : (
+        <Grid item sm={6} md={6} xs={6} className={styles.padimgtebal2}>
                 <div>
                     <Box className={styles.boxreting} display={'flex'}>
 
@@ -493,8 +519,17 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                     </Box>
                 </div>
             </Grid>
+      )}
 
-            <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
+      {selected.length > 0 ? (
+        <Tooltip >
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Tooltip >
+        <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
                 <Button className={styles.btnsaveic}
                  > <SaveAltIcon /></Button>
                 <Button
@@ -571,9 +606,10 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                             <div className={styles.divlistsivijan}></div>
                         </Menu>
             </Grid>
-            <Grid item md={12} sm={12} xs={12} >
-                <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
-                    <Paper sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
+        </Tooltip>
+      )}
+    </Toolbar>
+
                         <TableContainer style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
                             <Table
                                 className={styles.tablelist}

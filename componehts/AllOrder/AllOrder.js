@@ -133,61 +133,26 @@ const headCells = [
 ];
 
 
-function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+// function EnhancedTableHead(props) {
+//   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+//     props;
+//   const createSortHandler = (property) => (event) => {
+//     onRequestSort(event, property);
+//   };
 
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell className={styles.listchekboix} padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            // align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            {/* <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            > */}
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            {/* </TableSortLabel> */}
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
+//   return (
+  
+//   );
+// }
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
+// EnhancedTableHead.propTypes = {
+//   numSelected: PropTypes.number.isRequired,
+//   onRequestSort: PropTypes.func.isRequired,
+//   onSelectAllClick: PropTypes.func.isRequired,
+//   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+//   orderBy: PropTypes.string.isRequired,
+//   rowCount: PropTypes.number.isRequired,
+// };
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -255,7 +220,7 @@ const Home = (props) => {
 // console.log(,'listdstslistdsts');
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState('');
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -285,7 +250,7 @@ const[listdatadelete,setListdeletdata] = React.useState('')
   const [anchorEllist, setAnchorEllist] = React.useState(null);
   const [value, setValue] = React.useState(0);
 const[sassaliusgs,setSasasdata] =React.useState("")
-console.log(selected,'selected');
+console.log(datalist,'selected');
   const handleChangelisggs = (event, newValue) => {
     setValue(newValue);
   };
@@ -672,14 +637,52 @@ console.log(selected,'selected');
                 aria-labelledby="tableTitle"
                 size={dense ? 'small' : 'medium'}
               >
-                <EnhancedTableHead
+                <TableHead>
+      <TableRow>
+      {btnlistdata == 'pending' ?
+        <TableCell className={styles.listchekboix} padding="checkbox">
+       
+          <Checkbox
+            color="primary"
+            indeterminate={selected.length > 0 && selected.length < datatebalpettan.length}
+            checked={datatebalpettan.length > 0 && selected.length === datatebalpettan.length}
+            onChange={handleSelectAllClick}
+            inputProps={{
+              'aria-label': 'select all desserts',
+            }}
+          />
+        </TableCell>:''}
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            // align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            {/* <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            > */}
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            {/* </TableSortLabel> */}
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+                {/* <EnhancedTableHead
                   numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
                   onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
                   rowCount={datatebalpettan.length}
-                />
+                /> */}
                 <TableBody>
                   {stableSort(datatebalpettan, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -696,7 +699,9 @@ console.log(selected,'selected');
                           key={row.id}
                           selected={isItemSelected}
                         >
+                        {btnlistdata == 'pending' ?
                           <TableCell className={styles.tebalrovcek} padding="checkbox">
+                          {/* {row.status == 'pending' ? */}
                             <Checkbox
                               checked={isItemSelected}
                               onClick={(event) => handleClick(event, row.id)}
@@ -704,13 +709,13 @@ console.log(selected,'selected');
                                 "aria-labelledby": labelId,
                               }}
                             />
-                          </TableCell>
+                          </TableCell>:''}
                           <TableCell
                             id={labelId}
                             scope="row"
                             padding="none"
                           >
-                            <div className={styles.typefild}>
+                            <div className={styles.typefild22}>
                               <div>
                                 <Avatar className={row.stock == 'SELL' ? styles.avtarlistyes398 : row.stock == 'BUY' ? styles.avtarlistyes233  : ''}>
                                  

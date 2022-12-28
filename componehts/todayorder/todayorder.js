@@ -738,14 +738,44 @@ const Home = (props) => {
                 aria-labelledby="tableTitle"
                 size={dense ? 'small' : 'medium'}
               >
-                <EnhancedTableHead
-                  numSelected={selected.length}
-                  order={order}
-                  orderBy={orderBy}
-                  onSelectAllClick={handleSelectAllClick}
-                  onRequestSort={handleRequestSort}
-                  rowCount={datatebalpettan.length}
-                />
+                <TableHead>
+      <TableRow>
+      {btnlistdata == 'pending' ?
+        <TableCell className={styles.listchekboix} padding="checkbox">
+       
+          <Checkbox
+            color="primary"
+            indeterminate={selected.length > 0 && selected.length < datatebalpettan.length}
+            checked={datatebalpettan.length > 0 && selected.length === datatebalpettan.length}
+            onChange={handleSelectAllClick}
+            inputProps={{
+              'aria-label': 'select all desserts',
+            }}
+          />
+        </TableCell>:''}
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            // align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            {/* <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            > */}
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            {/* </TableSortLabel> */}
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
                 <TableBody>
                   {stableSort(datatebalpettan, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -764,6 +794,8 @@ const Home = (props) => {
                           key={row.id}
                           selected={isItemSelected}
                         >
+                              {btnlistdata == 'pending' ?
+
                           <TableCell className={styles.tebalrovcek} padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
@@ -772,14 +804,14 @@ const Home = (props) => {
                                 "aria-labelledby": labelId,
                               }}
                             />
-                          </TableCell>
+                          </TableCell>:''}
                           <TableCell
                             // component="th"
                             id={labelId}
                             scope="row"
                             padding="none"
                           >
-                            <div className={styles.typefild}>
+                            <div className={styles.typefild22}>
                               <div>
                                 <Avatar className={row.stock == 'SELL' ? styles.avtarlistyes398 : row.stock == 'BUY' ? styles.avtarlistyes233 : ''}>
                                   {/* {row.stock == 'SELL' ? <Avatar className={styles.avtarlistyes96}> <Avatar className={styles.avtarlistyes233}>*/}

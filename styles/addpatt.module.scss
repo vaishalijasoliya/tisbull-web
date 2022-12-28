@@ -128,12 +128,20 @@ font-family: Poppins-400 !important;
     font-size: 16px !important;
     color: #333333 !important;
     padding-top: 7px;
+    width: 80px;
 // width: 100% !important;    
 border-bottom: 3px solid #009947 !important;
     border-radius: 2px !important;
 }
+.hedindrop33444{
+    font-family: Poppins-400 !important;
+    font-size: 16px !important;
+    padding-top: 7px !important;
+    color: #333333 !important;
+}
 .listbackdda{
     padding: 0px !important;
+    // align-items: center;
     // border-bottom: 1px solid !important;
 //   padding: 12px 0px 12px 0px !important;
     // width: 130px;
@@ -407,4 +415,8 @@ text-decoration: underline !important;
     background: #FFFFFF;
 border: 1px solid #F3F3F3 !important;
 padding: 0px 10px;
+}
+.listdibborderbott{
+    border-bottom: 1px solid rgba(0, 153, 71, 0.22);
+    width: 100%;
 }
