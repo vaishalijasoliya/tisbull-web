@@ -534,6 +534,8 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
             "enterPrice": parseFloat(formik.values.currentPrice),
             "sell": parseFloat(formik.values.sellPrice),
             "tickSize": tickSize,
+            'target_price':parseFloat(formik.values.Target),
+            'exitPrice':parseFloat(formik.values.Stoploss),
             "initail_buy": parseFloat(formik.values.Initail),
             "initail_sell": 0,
             "amo_buy": parseFloat(formik.values.SellSteps),
