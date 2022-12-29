@@ -133,7 +133,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell className={styles.listchekboix} padding="checkbox">
+        {/* <TableCell className={styles.listchekboix} padding="checkbox">
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -143,7 +143,7 @@ function EnhancedTableHead(props) {
               'aria-label': 'select all desserts',
             }}
           />
-        </TableCell>
+        </TableCell> */}
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -549,7 +549,7 @@ const buyorder =[]
                           key={row.id}
                           selected={isItemSelected}
                         >
-                          <TableCell className={styles.tebalrovcek} padding="checkbox">
+                          {/* <TableCell className={styles.tebalrovcek} padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
                               onClick={(event) => handleClick(event, row.id)}
@@ -557,8 +557,9 @@ const buyorder =[]
                                 "aria-labelledby": labelId,
                               }}
                             />
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell
+                           className={styles.fasttebarow}
                             id={labelId}
                             scope="row"
                             padding="none"
@@ -592,7 +593,7 @@ const buyorder =[]
                               moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
                             } </Typography></TableCell>
 
-                          <TableCell>
+                          <TableCell  className={styles.fasttebarow22}>
                             <Button disabled className={styles.batnliastbtngop} onClick={row.status == 'pending' ? handleClickOpenCompause : row.status == 'active' ? handleClickOpenComplay : row.status == 'cancelled' ? handleClickOpenCom : ''}>
                               <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Cancel' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Delete' : ''}</Typography>
                             </Button>

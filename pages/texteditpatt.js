@@ -280,7 +280,7 @@ const EditPattern = (props) => {
 
             serverData = patternDelete.pattern;
             setScripLablelist(serverData.script)
-            getScripPrice(serverData)
+            getScripPrice(serverData.script)
             formik.setFieldValue('totalInvestment', serverData.investment);
             formik.setFieldValue('currentPrice', serverData.enterPrice)
             formik.setFieldValue('minRange', serverData.minRange)
@@ -556,7 +556,7 @@ console.log(serverData,'scripItem');
         }
         if(value.id == ''){
         var body = {
-            "instrumentToken": value.script
+            "instrumentToken": value
         }}else{
             var body = {
             "instrumentToken": value.id

@@ -227,7 +227,7 @@ const AddPattern = (props) => {
             onAddPattern()
         },
     });
-
+console.log(formik.values.currentPrice,'formik.values.currentPrice');
     React.useLayoutEffect(() => {
         if (!!props.router && !!props.router.query && !!props.router.query.data) {
             isView = true;
@@ -562,7 +562,7 @@ const AddPattern = (props) => {
             successStatus.forEach(function (i, j) {
                 toast.success(i);
             });
-            router.push('./pattanlist');
+            router.push('/pattanlist');
         } else if (!!patternAdd.fault && patternAdd.fault.length > 0) {
             let errorStatus = patternAdd.fault;
             errorStatus.forEach(function (i, j) {
@@ -1080,7 +1080,7 @@ const AddPattern = (props) => {
                                 <Typography className={styles.hedindrop33}>Order</Typography>
                                
                                 
-                                <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>if you dont have any idea make it difault</Typography> </div>
+                                <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea Make it Difault</Typography> </div>
                                 </AccordionSummary>
                                 <AccordionDetails className={styles.listaccsumahha}>
                                 <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1457,9 +1457,10 @@ const AddPattern = (props) => {
                                             {patternList.map((pattern, index) => (
                                                 <TableRow
                                                     key={index + 1}
-                                                    hover
-
+                                                    // hover
+className={formik.values.currentPrice == pattern.buyPrice  ? styles.listbahovar:styles.listnormalta }
                                                 >
+                                                
                                                     <TableCell>
                                                         <Box
                                                             sx={{

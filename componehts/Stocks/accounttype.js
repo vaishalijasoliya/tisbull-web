@@ -29,6 +29,8 @@ import { useRouter } from 'next/router';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+// import { CSVLink, CSVDownload } from "react-csv";
+
 import Menu from '@mui/material/Menu';
 import Divider from '@mui/material/Divider';
 import InputLabel from '@mui/material/InputLabel';
@@ -146,7 +148,7 @@ function EnhancedTableHead(props) {
     return (
         <TableHead>
             <TableRow>
-                <TableCell className={styles.listchekboix} padding="checkbox">
+                {/* <TableCell className={styles.listchekboix} padding="checkbox">
                     <Checkbox
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -156,7 +158,7 @@ function EnhancedTableHead(props) {
                             'aria-label': 'select all desserts',
                         }}
                     />
-                </TableCell>
+                </TableCell> */}
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
@@ -253,7 +255,6 @@ const[listuserid,setListuserid] =React.useState('')
     const [rowid, setRowid] = React.useState('')
 const[listzorothatokan,setListzrothaid] = React.useState('')
 const today = new Date();
-
 console.log(props.props.profile.accountId,'listzorothatokan');
 // propsaccountId
     React.useEffect(() => {
@@ -330,6 +331,8 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                         loginUrllist: element.loginUrl,
                         zerodha_token_update: element.zerodha_token_update
                     }
+                    console.log(moment(element.zerodha_token_update).format("MM/DD/YYYY"),'todaytoday');
+
                     if (element.type == "kotak") {
                         pendingarr.push(JSON.parse(JSON.stringify(object)));
                       } else if (element.type == "zerodha") {
@@ -531,7 +534,7 @@ console.log(props.props.profile.accountId,'listzorothatokan');
         <Tooltip >
         <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
                 <Button className={styles.btnsaveic}
-                 > <SaveAltIcon /></Button>
+                 >   <CSVLink data={datatebal} filename={"payments.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button>
                 <Button
                  id="demo-customized-button"
                                                             aria-controls={openliost ? 'demo-customized-menu' : undefined}
@@ -634,13 +637,14 @@ console.log(props.props.profile.accountId,'listzorothatokan');
 
                                             return (
                                                 <TableRow
+                                                className={styles.tabalroein}
                                                     role="checkbox"
                                                     aria-checked={isItemSelected}
                                                     tabIndex={-1}
                                                     key={row.id}
                                                     selected={isItemSelected}
                                                 >
-                                                    <TableCell className={styles.checkboxtd} padding="checkbox">
+                                                    {/* <TableCell className={styles.checkboxtd} padding="checkbox">
                                                         <Checkbox
                                                             onClick={(event) => handleClick(event, row.id)}
                                                             color="primary"
@@ -649,7 +653,7 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                                 'aria-labelledby': labelId,
                                                             }}
                                                         />
-                                                    </TableCell>
+                                                    </TableCell> */}
                                                     <TableCell
                                                         className={styles.fasttebarow}
                                                         align="right"
@@ -674,11 +678,8 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                                     window.location.href = `${row.loginUrllist}`
                                                                 }
                                                             }}
-                                                            >{moment(row.zerodha_token_updatemoment).format("MM/DD/YYYY") == moment(today).format("MM/DD/YYYY")  ? 
-                                                                <img width={25} height={20} src='../../Vector (19).svg' />
-                                                             
-                                                                :
-                                                               
+                                                            >{moment(today).format("MM/DD/YYYY") == moment(row.zerodha_token_update).format("MM/DD/YYYY") ?
+                                                                <img width={25} height={20} src='../../Vector (19).svg' />:
                                                                 <img width={25} height={25} src='../../History.svg' />
                                                                 }
                                                                 </Button> :

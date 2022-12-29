@@ -28,6 +28,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { DatePicker, DesktopDatePicker } from '@mui/lab';
+import Newbar from '../componehts/newbar/newbarlist';
+
 import React, { useState, useEffect } from 'react';
 import ApiServices from '../config/ApiServices';
 import ApiEndpoint from '../config/ApiEndpoint';
@@ -44,17 +46,13 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import moment from 'moment';
-import Newbar from '../componehts/newbar/newbarlist';
-// import { useRouter } from 'next/router';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 let stockInterval = null;
 
 const AddPattern = (props) => {
-    const router = useRouter();
 
     const [script, setScript] = useState('')
-    // console.log(script.id,'scriptscript');
     const [lotsize, setLotSize] = useState(1)
     const [tickSize, setTickSize] = useState('fix')
     const [scriptError, setScriptError] = useState(false);
@@ -77,12 +75,7 @@ const AddPattern = (props) => {
     const [tabaldatalist, setTebaldatalist] = useState('')
 
     const [listsummri, setLISTdatasumm] = useState("")
-    console.log(router.query.emailID, 'listfiltar');
-
-
-
-
-  
+    console.log(endDate, 'listfiltar');
     const [level, setLevel] = useState({
         label: '3',
         id: '3'
@@ -133,18 +126,19 @@ const AddPattern = (props) => {
     });
     const [buyArray, setBuyArray] = useState([])
     const [listobgll, setListobgll] = useState([])
-    const [lodintarascrip,setLoninscriphdat] =useState('')
+    const[listidform,setListidform] =useState('')
     const [scripItemError, setScripItemError] = useState(false);
     const [patternItem, setPatternItem] = useState({
         label: 'Basic Pattern',
         id: 'BasicPattern'
     });
-    const[listdatacom,setDatalistcom] =useState('')
     const [listinnewdata, setLiatstgs] = useState('')
+    const [patternData, setPatternData] = useState(false);
+const[listhpdatao,setListOPhpsad] =useState('')
     console.log(patternList, 'patternList');
     const [patternError, setPatternError] = useState(false);
     const [listarrobj, setListidzero] = useState([])
-    // const router = useRouter();
+    const router = useRouter();
     console.log(listarrobj, 'listarrobSXSj');
     let isView = false;
     let serverData = {}
@@ -238,7 +232,7 @@ const AddPattern = (props) => {
             onAddPattern()
         },
     });
-console.log(listdatacom,'serverDataserverData');
+console.log(formik.values.currentPrice,'formik.values.currentPrice');
     React.useLayoutEffect(() => {
         if (!!props.router && !!props.router.query && !!props.router.query.data) {
             isView = true;
@@ -254,41 +248,41 @@ console.log(listdatacom,'serverDataserverData');
         }
     }, [])
 
-    useEffect(() => {
-        async function fetchData() {
-            if (!!router.query.scripType) {
-                if (router.query.scripType == 'equity') {
-                    setScripItem({
-                        label: 'CASH',
-                        id: 'CASH'
-                    })
-                    // props.props.loaderRef(true)
-                    await getAccounts();
-                    // await getScirp('CASH')
-                    // props.props.loaderRef(false)
-                } else if (router.query.scripType == 'currency') {
-                    setScripItem({
-                        label: 'CDS',
-                        id: 'CDS'
-                    })
-                    props.loaderRef(true)
-                    await getAccounts();
-                    // await getScirp('CDS')
-                    props.loaderRef(false)
-                } else if (router.query.scripType == 'fo') {
-                    setScripItem({
-                        label: 'FO',
-                        id: 'FO'
-                    })
-                    // props.props.loaderRef(true)
-                    await getAccounts();
-                    // await getScirp('FO')
-                    // props.props.loaderRef(false)
-                }
-            }
-        }
-        fetchData()
-    }, [router.query.scripType])
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         if (!!router.query.scripType) {
+    //             if (router.query.scripType == 'equity') {
+    //                 setScripItem({
+    //                     label: 'CASH',
+    //                     id: 'CASH'
+    //                 })
+    //                 // props.props.loaderRef(true)
+    //                 await getAccounts();
+    //                 await getScirp('CASH')
+    //                 // props.props.loaderRef(false)
+    //             } else if (router.query.scripType == 'currency') {
+    //                 setScripItem({
+    //                     label: 'CDS',
+    //                     id: 'CDS'
+    //                 })
+    //                 props.props.loaderRef(true)
+    //                 await getAccounts();
+    //                 await getScirp('CDS')
+    //                 props.props.loaderRef(false)
+    //             } else if (router.query.scripType == 'fo') {
+    //                 setScripItem({
+    //                     label: 'FO',
+    //                     id: 'FO'
+    //                 })
+    //                 // props.props.loaderRef(true)
+    //                 await getAccounts();
+    //                 await getScirp('FO')
+    //                 // props.props.loaderRef(false)
+    //             }
+    //         }
+    //     }
+    //     fetchData()
+    // }, [router.query.scripType])
 
     const startLableAnimation = async () => {
         setScripLable('')
@@ -305,7 +299,7 @@ console.log(listdatacom,'serverDataserverData');
         await sleep(700)
         startLableAnimation()
     }
-console.log(script,'scriptscript');
+
     const startLableTextAnimation = async (value) => {
         var text = value;
         var newText = ''
@@ -378,78 +372,100 @@ console.log(script,'scriptscript');
             // setListidzero(accountList.data)          // toast.success(accountList.message)amo_sell
         }
 
-        // }
-        // else{
-        //     toast.error('not data meash')
-        // }
-        // if (!!accountList && !!accountList.data) {
-        //     var accountLableList = []
-        //     for (let index = 0; index < accountList.data.length; index++) {
-        //         const element = accountList.data[index];
-        //         var obj = {
-        //             label: element.type + ` (${element.user_id})`,
-        //             id: element.id
-        //         }
-        //         accountLableList.push(JSON.parse(JSON.stringify(obj)));
-        //         if (isView) {
-        //             if (element.id == serverData.id_account) {
-        //                 setAccount(obj)
-        //             }
-        //         }
-        //     }
-        //     setAccountList(accountLableList);
-        // }
+
     }
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
             // playpattern()
             // patternlist()
             // patternlistviwe()
+            getScripPrice()
             // Pausepattern()
             getoardarlist()
+            setDatalistyo(router.query.emailID)
         }
     }, [])
-    // const getScirp = async (type) => {
-    //     var body = {
-    //         "type": type
-    //     }
-    //     var headers = {
-    //         "Content-Type": "application/json",
-    //         "x-access-token": props.profile.token
-    //     }
-    //     var accountList = await ApiServices.PostApiCall(ApiEndpoint.SCRIP_LIST, JSON.stringify(body), headers)
-    //     console.log('getScirp', accountList)
-    //     if (!!accountList && !!accountList.length > 0) {
-    //         var accountLableList = []
-    //         let filterScripList = []
-    //         for (let index = 0; index < accountList.length; index++) {
-    //             const element = accountList[index];
-    //             var lableObj = "";
-    //             if (!!element.name) {
-    //                 lableObj = element.instrumentName + ` (${element.name}) (${element.exchange})`
-    //             } else {
-    //                 lableObj = element.instrumentName + `(${element.exchange}) - ${element.expiry}`
-    //             }
-    //             var obj = {
-    //                 label: lableObj,
-    //                 id: element.instrumentToken,
-    //                 lotSize: element.multiplier
-    //             }
-    //             accountLableList.push(JSON.parse(JSON.stringify(obj)))
-    //             if (isView) {
-    //                 if (element.instrumentToken == serverData.scripToken) {
-    //                     setScript(JSON.parse(JSON.stringify(obj)))
-    //                 }
-    //             }
-    //             if (index < 300) {
-    //                 filterScripList.push(JSON.parse(JSON.stringify(obj)))
-    //             }
-    //         }
-    //         // setFilterScripList(filterScripList)
-    //         // setDefaultScripList(filterScripList)
-    //         // setScripList(accountLableList)
-    //     }
-    // }
+    console.log(props,'propsprops');
+    const setDatalistyo = async (pattern_id) => {
+        var obj = {
+            "id_pattern": pattern_id
+        }
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        props.loaderRef(true)
+        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(obj), headers)
+        console.log(patternDelete,'patternDeletepatternDelete');
+        if (!!patternDelete && patternDelete.status == true) {
+        props.loaderRef(false)
+
+            setPatternData(patternDelete);
+
+            serverData = patternDelete.pattern;
+            getScripPrice(serverData.script)
+            setListOPhpsad(serverData.script)
+            formik.setFieldValue('totalInvestment', serverData.investment);
+            formik.setFieldValue('currentPrice', serverData.enterPrice)
+            formik.setFieldValue('minRange', serverData.minRange)
+            formik.setFieldValue('maxRange', serverData.maxRange)
+            formik.setFieldValue('buyPrice', serverData.buy)
+            setScript(serverData.lableObj)
+            formik.setFieldValue('sellPrice', serverData.sell)
+            var scripItem = scripType.filter((item) => item.label == serverData.segment)[0]
+            setScripItem(scripItem)
+            setTickSize(serverData.tickSize)
+            getAccounts();
+            getScirp(scripItem.id);
+            await sleep(500)
+            formik.submitForm()
+        } else {
+            toast.error('Something went wrong.')
+            props.loaderRef(false)
+        }
+
+    }
+    const getScirp = async (type) => {
+        var body = {
+            "type": type
+        }
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        var accountList = await ApiServices.PostApiCall(ApiEndpoint.SCRIP_LIST, JSON.stringify(body), headers)
+        console.log('getScirp', accountList)
+        if (!!accountList && !!accountList.length > 0) {
+            var accountLableList = []
+            let filterScripList = []
+            for (let index = 0; index < accountList.length; index++) {
+                const element = accountList[index];
+                var lableObj = "";
+                if (!!element.name) {
+                    lableObj = element.instrumentName + ` (${element.name}) (${element.exchange})`
+                } else {
+                    lableObj = element.instrumentName + `(${element.exchange}) - ${element.expiry}`
+                }
+                var obj = {
+                    label: lableObj,
+                    id: element.instrumentToken,
+                    lotSize: element.multiplier
+                }
+                accountLableList.push(JSON.parse(JSON.stringify(obj)))
+                if (isView) {
+                    if (element.instrumentToken == serverData.scripToken) {
+                        setScript(JSON.parse(JSON.stringify(obj)))
+                    }
+                }
+                if (index < 300) {
+                    filterScripList.push(JSON.parse(JSON.stringify(obj)))
+                }
+            }
+            // setFilterScripList(filterScripList)
+            // setDefaultScripList(filterScripList)
+            // setScripList(accountLableList)
+        }
+    }
 
     const onAddPattern = async () => {
         var buyArray = [];
@@ -555,54 +571,10 @@ console.log(script,'scriptscript');
             formik.submitForm()
         }
     }
-    useEffect(() => {
-        // setListidacc(router.query.emailID)
-        setDatalistdata()
-    }, [])
-    const setDatalistdata = async () => {
-
-        var headers = {
-            "Content-Type": "application/json",
-            "x-access-token": props.profile.token
-        }
-      
-            var obj = {
-                "id_pattern": router.query.data,
-            }; 
-        props.loaderRef(true)
-        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(obj), headers)
-        props.loaderRef(false)
-        console.log(patternDelete,'ahaaaahaa');
-        if (!!patternDelete && patternDelete.status == true) {
-            setDatalistcom(patternDelete.pattern);
-            formik.setFieldValue('totalInvestment', patternDelete.pattern.investment);
-            formik.setFieldValue('currentPrice', patternDelete.pattern.enterPrice)
-            formik.setFieldValue('minRange', patternDelete.pattern.minRange)
-            formik.setFieldValue('maxRange', patternDelete.pattern.maxRange)
-            formik.setFieldValue('buyPrice', patternDelete.pattern.buy)
-            formik.setFieldValue('sellPrice', patternDelete.pattern.sell)
-            setTickSize(patternDelete.pattern.tickSize)
-            // setStartDate(moment(patternDelete.pattern.createdAt).format("MM/DD/YYYY"))
-
-
-            // setScript(patternDelete.pattern.script)
-
-            // var scripItem = scripType.filter((item) => item.label == serverData.segment)[0]
-
-            // filterScrip(scripItem.id)
-            // getScirp(scripItem.id);
-
-            //     setLogo(patternDelete.data.profileUrl)
-        }
-        else {
-            toast.error('Something went wrong.')
-        }
-    }
-    console.log(serverData,'serverDataserverDataserverData');
-
-    console.log(patternItem.id, 'sjhhshss');
+    console.log(patternItem.id.listhpdatao, 'sjhhshss');
+    
     const onLockPatternClick = async () => {
-        var body = {
+        if(script.id == ''){var body = {
             "script": parseFloat(script.id),
             "limitOrder": level.id,
             "investment": parseFloat(formik.values.totalInvestment),
@@ -620,82 +592,146 @@ console.log(script,'scriptscript');
             "maxRange": parseFloat(formik.values.maxRange),
             "pattern_data": patternList,
             "id_account": props.profile.userData.currentAccount.id,
-            "pattern_type": patternItem.id
+            "pattern_type": patternItem.id,
+            "status": patternData.pattern.status
         }
-
-        console.log('patternghgg', body)
+    }else{
+        var body = {
+            "script": parseFloat(listhpdatao),
+            "limitOrder": level.id,
+            "investment": parseFloat(formik.values.totalInvestment),
+            "buy": parseFloat(formik.values.buyPrice),
+            "enterPrice": parseFloat(formik.values.currentPrice),
+            "sell": parseFloat(formik.values.sellPrice),
+            "tickSize": tickSize,
+            "initail_buy": parseFloat(formik.values.Initail),
+            "initail_sell": 0,
+            "amo_buy": parseFloat(formik.values.SellSteps),
+            "amo_sell": parseFloat(formik.values.BuySteps),
+            "normal_buy": parseFloat(formik.values.NormalBuy),
+            "normal_sell": parseFloat(formik.values.NormalSell),
+            "minRange": parseFloat(formik.values.minRange),
+            "maxRange": parseFloat(formik.values.maxRange),
+            "pattern_data": patternList,
+            "id_account": props.profile.userData.currentAccount.id,
+            "pattern_type": patternItem.id,
+            "status": patternData.pattern.status
+        }
+    }
+        console.log('patternlll', body)
         var headers = {
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
         props.loaderRef(true)
-        var patternAdd = await ApiServices.PostApiCall(ApiEndpoint.ADD_PATTERN, JSON.stringify(body), headers)
+        var patternAdd = await ApiServices.PostApiCall(ApiEndpoint.EDIT_PATTERN, JSON.stringify(body), headers)
         props.loaderRef(false)
+        var redirect = true;
         console.log('patternAdd', patternAdd);
-        if (!!patternAdd.success && patternAdd.success.length > 0) {
+        if (patternAdd.status == true) {
             console.log(patternAdd);
-            let successStatus = patternAdd.success;
-            successStatus.forEach(function (i, j) {
-                toast.success(i);
-            });
-            router.push('./pattanlist');
-        } else if (!!patternAdd.fault && patternAdd.fault.length > 0) {
-            let errorStatus = patternAdd.fault;
-            errorStatus.forEach(function (i, j) {
-                toast.error(i);
-            });
+            redirect = true;
+            toast.success(patternAdd.message)
+            // let successStatus = patternAdd.success;
+            // successStatus.forEach(function (i, j) {
+            //     toast.success(i);
+            // });
+            // } else if (patternAdd.fault) {
+            //     redirect = false;
+            //     let errorStatus = patternAdd.fault;
+            //     errorStatus.forEach(function (i, j) {
+            //         toast.error(i);
+            //     });
         } else {
+            redirect = false;
             toast.error(patternAdd.message)
         }
+        if (redirect == true) {
+            router.push('/pattanlist');
+        }
+
     }
+    // const onLockPatternClick = async () => {
+    //     var body = {
+    //         "script": parseFloat(script.id),
+    //         "limitOrder": level.id,
+    //         "investment": parseFloat(formik.values.totalInvestment),
+    //         "buy": parseFloat(formik.values.buyPrice),
+    //         "enterPrice": parseFloat(formik.values.currentPrice),
+    //         "sell": parseFloat(formik.values.sellPrice),
+    //         "tickSize": tickSize,
+    //         "initail_buy": parseFloat(formik.values.Initail),
+    //         "initail_sell": 0,
+    //         "amo_buy": parseFloat(formik.values.SellSteps),
+    //         "amo_sell": parseFloat(formik.values.BuySteps),
+    //         "normal_buy": parseFloat(formik.values.NormalBuy),
+    //         "normal_sell": parseFloat(formik.values.NormalSell),
+    //         "minRange": parseFloat(formik.values.minRange),
+    //         "maxRange": parseFloat(formik.values.maxRange),
+    //         "pattern_data": patternList,
+    //         "id_account": props.profile.userData.currentAccount.id,
+    //         "pattern_type": patternItem.id
+    //     }
+
+    //     console.log('patternghgg', body)
+    //     var headers = {
+    //         "Content-Type": "application/json",
+    //         "x-access-token": props.profile.token
+    //     }
+    //     props.props.loaderRef(true)
+    //     var patternAdd = await ApiServices.PostApiCall(ApiEndpoint.ADD_PATTERN, JSON.stringify(body), headers)
+    //     props.props.loaderRef(false)
+    //     console.log('patternAdd', patternAdd);
+    //     if (!!patternAdd.success && patternAdd.success.length > 0) {
+    //         console.log(patternAdd);
+    //         let successStatus = patternAdd.success;
+    //         successStatus.forEach(function (i, j) {
+    //             toast.success(i);
+    //         });
+    //         router.push('/pattanlist');
+    //     } else if (!!patternAdd.fault && patternAdd.fault.length > 0) {
+    //         let errorStatus = patternAdd.fault;
+    //         errorStatus.forEach(function (i, j) {
+    //             toast.error(i);
+    //         });
+    //     } else {
+    //         toast.error(patternAdd.message)
+    //     }
+    // }
     console.log(patternList, 'patternList');
     const filterScrip = async (text) => {
-        // var body = {
-        //     "name": text
-        // }
-        // console.log(body,'kkkkkkkkkk');
-        // var headers = {
-        //     "Content-Type": "application/json",
-        //     "x-access-token": props.profile.token
-        // }
-        // var accountList = await ApiServices.PostApiCall(ApiEndpoint.SCRIP_LIST, JSON.stringify(body), headers)
-        // console.log('getScirp', accountList)
+        var body = {
+            "name": text
+        }
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        var accountList = await ApiServices.PostApiCall(ApiEndpoint.SCRIP_LIST, JSON.stringify(body), headers)
+        console.log('getScirp', accountList)
 
-        // const lebal = []
+        const lebal = []
 
-        // if (!!accountList && !!accountList.length > 0) {
+        if (!!accountList && !!accountList.length > 0) {
 
-            // console.log(listdatacom.script,'serverDlkjkaMMMMta');
 
             // setFilterScripList(accountList)
             // setDefaultScripList(accountList)
-        //     var accountLableList = []
-        //     for (let index = 0; index < accountList.length; index++) {
-        //         const element = accountList[index];
-        //         var obj = {
-        //             label: element.lableObj,
-        //             id: element.instrumentToken,
-        //             lotSize: element.multiplier
-        //         }
-        //         if (isView) {
-        //             if (element.instrumentToken == listdatacom.script) {
-        //                 setScript(JSON.parse(JSON.stringify({
-        //                     label: element.lableObj,
-        //                     id: element.instrumentToken
-        //                 })))
-        //                 getScripPrice({
-        //                     label: lableObj,
-        //                     id: element.instrumentToken
-        //                 })
-        //             }
-        //         } if (index < 300) {
-        //             filterScripList.push(JSON.parse(JSON.stringify({
-        //                 label: element.lableObj,
-        //                 id: element.instrumentToken
-        //             })))
-        //         }
-        // console.log(accountLableList, 'accountLableList');
-        // setListobgll(lebal)
+            var accountLableList = []
+            for (let index = 0; index < accountList.length; index++) {
+                const element = accountList[index];
+                var obj = {
+                    label: element.lableObj,
+                    id: element.instrumentToken,
+                    lotSize: element.multiplier
+                }
+                accountLableList.push(JSON.parse(JSON.stringify(obj)))
+                console.log(element, 'element');
+                lebal.push(JSON.parse(JSON.stringify(obj)))
+            }
+        }
+        console.log(accountLableList, 'accountLableList');
+        setListobgll(lebal)
         // var value = text
         // console.log(value,'valuevalue');
         // if (typeof value !== 'object') {
@@ -709,64 +745,10 @@ console.log(script,'scriptscript');
         //         setFilterScripList(filteredData);
         //     }
         // }
-            // }
-        // setScripList(filterScripList)
-        // setFilterScripList(filterScripList)
-        var body = {
-            "name": text
-        }
-        var headers = {
-            "Content-Type": "application/json",
-            "x-access-token": props.profile.token
-        }
-        props.loaderRef(true)
-        var accountList = await ApiServices.PostApiCall(ApiEndpoint.SCRIP_LIST, JSON.stringify(body), headers)
-        props.loaderRef(false)
-        console.log('getScirp', accountList)
-
-        if (!!accountList && !!accountList.length > 0) {
-            var accountLableList = []
-            let filterScripList = []
-            for (let index = 0; index < accountList.length; index++) {
-                const element = accountList[index];
-                var lableObj = "";
-                if (!!element.name) {
-                    lableObj = element.instrumentName + ` (${element.name}) (${element.exchange})`
-                } else {
-                    lableObj = element.instrumentName + `(${element.exchange}) - ${element.expiry}`
-                }
-                accountLableList.push(JSON.parse(JSON.stringify({
-                    label: lableObj,
-                    id: element.instrumentToken
-                })))
-                if (isView) {
-                    if (element.instrumentToken == serverData.script) {
-                        setScript(JSON.parse(JSON.stringify({
-                            label: element.lableObj,
-                            id: element.instrumentToken
-                        })))
-                        getScripPrice({
-                            label: lableObj,
-                            id: element.instrumentToken
-                        })
-                    }
-                }
-                if (index < 300) {
-                    filterScripList.push(JSON.parse(JSON.stringify({
-                        label: lableObj,
-                        id: element.instrumentToken
-                    })))
-                }
-            }
-            setFilterScripList(filterScripList)
-            setDefaultScripList(filterScripList)
-            setScripList(accountLableList)
-        }
-    
+        setScripList(lebal)
+        setFilterScripList(lebal)
 
     }
-    console.log(listdatacom.script,'serverDlkjkaMMMMta');
-
     console.log(filterScripList, 'filterScripList');
     const filterScriplist = (text) => {
         var value = text
@@ -781,15 +763,23 @@ console.log(script,'scriptscript');
         //     setFilterScripList(defaultScripList)
         // }
     }
-    const getScripPrice = async (value) => {
-        console.log('getScripPrice...', value)
+    const getScripPrice = async (Value) => {
+        // console.log('getScripPrice...', value)
         var headers = {
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
+        console.log(Value, 'listidform')
+
+        if(listidform == ''){
         var body = {
-            "instrumentToken": value.id
+            "instrumentToken": Value
         }
+    }else{
+        var body = {
+            "instrumentToken": listidform
+        }
+    }
         console.log(body, 'ajhha');
         var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
         console.log(stockPrice, 'stockPrice');
@@ -798,7 +788,6 @@ console.log(script,'scriptscript');
             setScripDetails(stockPrice.success[0])
         }
     }
-    console.log(scripDetails, 'scripDetails')
 
     return (
         // <DashboardLayout>
@@ -814,12 +803,12 @@ console.log(script,'scriptscript');
                     flexGrow: 1
                 }}
             >
-              <Grid item sm={12} md={12} xs={12}>
-      <Newbar props={props}/>
-      </Grid>
-                <Container maxWidth={false} className={styles.listdatakon}>
+            <Grid item sm={12} md={12} xs={12}>
+                <Newbar />
+            </Grid>
+                <Container maxWidth={false} className={styles.conterdata}>
 
-                    <Box sx={{ mt: 3, mb: 3 }} className={styles.listcantenar}>
+                    <Box sx={{ mt: 3, mb: 3 }}>
                         <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
                             <CardContent>
                                 {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
@@ -844,7 +833,7 @@ console.log(script,'scriptscript');
                                 <div className={styles.listtypogst}>
                                     <Typography>GENERAL</Typography>
                                 </div>
-                                <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
+                                {/* <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
                                     <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
                                         {!router.query.scripType && <Box sx={{ flex: 1 }}>
                                             <Autocomplete
@@ -883,7 +872,7 @@ console.log(script,'scriptscript');
                                         </Box>}
                                     </Box>
 
-                                </Box>
+                                </Box> */}
                                 <div style={{ display: "flex", width: "100%" }} >
                                     {/* <div> */}
                                     <Grid item md={4}>
@@ -897,23 +886,28 @@ console.log(script,'scriptscript');
                                                 name="script"
                                                 value={script}
                                                 onChange={(event, value, reason, details) => {
-                                                        if (!!value) {
-                                                            if (!!stockInterval) {
-                                                                clearInterval(stockInterval)
-                                                            }
-                                                            getScripPrice(value)
-                                                            stockInterval = setInterval(() => {
-                                                                getScripPrice(value)
-                                                            }, 3000);
-                                                        } else {
-                                                            if (!!stockInterval) {
-                                                                
-                                                                (stockInterval)
-                                                            }
+                                                    // filterScriplist()
+                                                    if (!!value) {
+                                                        if (!!stockInterval) {
+                                                            clearInterval(stockInterval)
                                                         }
-                                                        setScriptError(false)
-                                                        setScript(value)
-                                                    }}
+                                                        var script={
+                                                            id:value.id,
+                                                            script:value.label
+                                                        }
+                                                        getScripPrice(script)
+                                                        setLotSize(parseFloat(value.lotSize))
+                                                        stockInterval = setInterval(() => {
+                                                            getScripPrice(value.id)
+                                                        }, 3000);
+                                                    } else {
+                                                        if (!!stockInterval) {
+                                                            clearInterval(stockInterval)
+                                                        }
+                                                    }
+                                                    setScriptError(false)
+                                                    setScript(value)
+                                                }}
                                                 onClose={(event, reason) => {
                                                     setFilterScripList(defaultScripList)
                                                 }}
@@ -1131,16 +1125,8 @@ console.log(script,'scriptscript');
                                
                                 {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                 <Box sx={{ flex: 1, paddingRight: 0.5 }}> */}
-                                                <Accordion className={styles.acclistloddop}>
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel1a-content"
-                                                    id="panel1a-header"
-                                                    className={styles.listbackdda}
-                                                > 
                                 <Typography className={styles.hedindrop}>Advanced</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails className={styles.listaccsumahha}>
+                                
                                                
                                 <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                                     <Grid item md={4}>
@@ -1222,11 +1208,7 @@ console.log(script,'scriptscript');
                                             </Box>
                                         </Box>
                                     </Grid>
-                                    
-
                                 </div>
-                                </AccordionDetails>
-</Accordion>
                                 <div>
                                             <Accordion className={styles.acclistloddop}>
                                                 <AccordionSummary
@@ -1236,7 +1218,9 @@ console.log(script,'scriptscript');
                                                     className={styles.listbackdda}
                                                 > 
                                 <Typography className={styles.hedindrop33}>Order</Typography>
-                                <div style={{border:'1px solid'}}></div>
+                               
+                                
+                                <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea Make it Difault</Typography> </div>
                                 </AccordionSummary>
                                 <AccordionDetails className={styles.listaccsumahha}>
                                 <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1613,9 +1597,10 @@ console.log(script,'scriptscript');
                                             {patternList.map((pattern, index) => (
                                                 <TableRow
                                                     key={index + 1}
-                                                    hover
-
+                                                    // hover
+className={formik.values.currentPrice == pattern.buyPrice  ? styles.listbahovar:styles.listnormalta }
                                                 >
+                                                
                                                     <TableCell>
                                                         <Box
                                                             sx={{
@@ -1672,6 +1657,7 @@ console.log(script,'scriptscript');
                                 </Box>
                                 {/* </PerfectScrollbar> */}
                             </Card>
+
 
                             {/* <PatternList
                                 patterns={patternList} /> */}

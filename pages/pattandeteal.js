@@ -373,7 +373,19 @@ const ResponsiveAppBar = (props) => {
           <Grid item sm={12} md={6} xs={12} style={{ padding: '0px 60px 0px 0px' }}>
 
             <Box style={{ display: 'flex', justifyContent: 'end', }}>
-              <Button type="submit" className={styles.button}>
+              <Button   onClick={() => {
+                                                                            if (data.type_pattern !== "CustomPattern") {
+                                                                                router.push({
+                                                                                    pathname: '/texteditpatt',
+                                                                                    query: { data: JSON.stringify({ id:router.query.emailID }) },
+                                                                                });
+                                                                            } else {
+                                                                                router.push({
+                                                                                    pathname: '/editpatt',
+                                                                                    query: { data: JSON.stringify({ id:router.query.emailID }) },
+                                                                                });
+                                                                            }
+                                                                        }} type="submit" className={styles.button}>
                 Edit
               </Button>
             </Box>

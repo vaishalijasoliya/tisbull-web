@@ -461,14 +461,14 @@ const Home = (props) => {
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
         props.props.loaderRef(false)
 
-        console.log(body, 'lkahuaah');
+        // console.log(body, 'lkahuaah');
         if (patternDelete.status == true) {
             patternDelete.token = patternDelete.token
-            toast.success(patternDelete.data)
+            toast.success(patternDelete.message)
             patternlist()
         }
-        else {
-            toast.error(patternDelete.data)
+        else if(patternDelete.status == false) {
+            toast.error(patternDelete.message)
         }
 
 
@@ -586,15 +586,15 @@ const Home = (props) => {
             if (patternDelete.status == true) {
 
 
-                toast.success(patternDelete.data)
+                toast.success(patternDelete.message)
                 patternlist()
             }
-            else {
-                toast.error(patternDelete.data)
+            else if(patternDelete.status == false) {
+                toast.error(patternDelete.message)
             }
         }
         else {
-            toast.error('list')
+            toast.error('please enter a valid email field')
 
         }
     }
@@ -643,11 +643,11 @@ const Home = (props) => {
         console.log(patternDelete, 'datalist444');
         if (!!patternDelete) {
             if (patternDelete.status == true) {
-                toast.success(patternDelete.data)
+                toast.success(patternDelete.message)
                 patternlist()
             }
-            else {
-                toast.error(patternDelete.data)
+           else if(patternDelete.status == false) {
+                toast.error(patternDelete.message)
             }
         }
         else {
@@ -939,7 +939,8 @@ const Home = (props) => {
                                                         }}>Cancel</Button>
                                                         <Button className={styles.savebatnsot}
                                                             onClick={() => {
-                                                                tabChange(btnlistdata)
+                                                                tabChange(btnlistdata),
+                                                                handleClose()
                                                             }}
                                                         >Save</Button></div>
                                                 </div>
@@ -1060,17 +1061,19 @@ const Home = (props) => {
                                                             <TableCell className={styles.tddatallistyy}>
 
                                                                 <div className={styles.listtebal}>
+                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <img height={18} src="../../edit_square.svg" />  </Box> : 
                                                                     <Button className={styles.viwebtnmm}
                                                                         onClick={() => {
-                                                                            if (row.type_pattern !== "CustomPattern") {
+                                                                            if (row.type !== "CustomPattern") {
                                                                                 router.push({
-                                                                                    pathname: '/texteditpatt',
-                                                                                    query: { data: JSON.stringify({ id: row.id }) },
+                                                                                    pathname: '/editpatt',
+                                                                                    query: { emailID: row.id }
+                                                                                    // query{ id: row.id },
                                                                                 });
                                                                             } else {
                                                                                 router.push({
-                                                                                    pathname: '/editpatt',
-                                                                                    query: { data: JSON.stringify({ id: row.id }) },
+                                                                                    pathname: '/texteditpatt',
+                                                                                    query: { emailID: row.id }
                                                                                 });
                                                                             }
                                                                         }}
@@ -1085,7 +1088,7 @@ const Home = (props) => {
                                                                     //                                     }
                                                                     //                                 });
                                                                     // }}
-                                                                    > <img height={18} src="../../edit_square.svg" /> </Button>
+                                                                    > <img height={18} src="../../edit_square.svg" /> </Button>}
 
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
                                                                         {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
