@@ -10,7 +10,7 @@ export default {
     PATTERN_DELETE: Constants.BASE_API_URL + 'Pattern/delete',
     REGISTER_LIST: Constants.BASE_API_URL + 'user/register',
     SOCIAL_LOGIN: Constants.BASE_API_URL + 'user/social/login',
-    USER_FORGOT_PASSWORD: Constants.BASE_API_URL + 'user/forgotPassword',
+    // USER_FORGOT_PASSWORD: Constants.BASE_API_URL + 'user/forgotPassword',
     USER_VERIFYOTP: Constants.BASE_API_URL + 'user/verifyOtp',
     USER_CRETENEWPASSWORD: Constants.BASE_API_URL + 'user/createNewPassword',
     USER_EDIT: Constants.BASE_API_URL + 'user/edit',
@@ -20,6 +20,7 @@ export default {
     ADD_ACCOUNT: Constants.BASE_API_URL + 'account/add',
     ADD_CUSTOM_PATTERN: Constants.BASE_API_URL + 'Pattern/customPattern/create',
     EDIT_PATTERN: Constants.BASE_API_URL + 'Pattern/edit',
+    EDIT_CUSTOM_PATTERN: Constants.BASE_API_URL + 'Pattern/customPattern/edit',
 
     PATTERN_PLAY: Constants.BASE_API_URL + 'Pattern/play',
     PATTERN_PAUSE: Constants.BASE_API_URL + 'Pattern/pause',

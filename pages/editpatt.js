@@ -721,8 +721,6 @@ const AddPattern = (props) => {
         const lebal = []
 
         if (!!accountList && !!accountList.length > 0) {
-
-
             // setFilterScripList(accountList)
             // setDefaultScripList(accountList)
             var accountLableList = []

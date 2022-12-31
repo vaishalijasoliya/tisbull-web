@@ -961,14 +961,14 @@ console.log(userJSON,'userJSON');
             var patternAdd = await ApiServices.PostApiCall(ApiEndpoint.ADD_CUSTOM_PATTERN, JSON.stringify(body), headers)
             console.log(patternAdd, 'patternAdd');
             props.props.loaderRef(false)
-            if (!!patternAdd.success && patternAdd.success.length > 0) {
+            if (!!patternAdd.success) {
                 console.log(patternAdd);
                 let successStatus = patternAdd.success;
                 successStatus.forEach(function (i, j) {
                     toast.success(i);
                 });
                 router.push('/pattanlist');
-            } else if (!!patternAdd.fault && patternAdd.fault.length > 0) {
+            } else if (!!patternAdd.fault ) {
                 let errorStatus = patternAdd.fault;
                 errorStatus.forEach(function (i, j) {
                     toast.error(i);
@@ -999,14 +999,14 @@ console.log(userJSON,'userJSON');
             });;
             props.props.loaderRef(false)
             console.log(patternAdd, 'patternAdd');
-            if (!!patternAdd.success && patternAdd.success.length > 0) {
+            if (!!patternAdd.success) {
                 console.log(patternAdd);
                 let successStatus = patternAdd.success;
                 successStatus.forEach(function (i, j) {
                     toast.success(i);
                 });
                 router.push('/pattanlist');
-            } else if (!!patternAdd.fault && patternAdd.fault.length > 0) {
+            } else if (!!patternAdd.fault) {
                 let errorStatus = patternAdd.fault;
                 errorStatus.forEach(function (i, j) {
                     toast.error(i);
@@ -1705,7 +1705,148 @@ console.log(userJSON,'userJSON');
                         </CardContent>
                     </Card></>
                      }
-                     {activeStep == 1 &&  <> {selectedValue == 'Manual' ? <div>
+                     {activeStep == 1 &&  <> {selectedValue == 'CSV' ? <div className={styles.listgridpin}>
+                                {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                                {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
+                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                        {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                    </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
+                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                        {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                    </Box>
+                                </Box>}
+                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
+
+                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+
+                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
+                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
+                                {/* </Box> */}
+                            </Box>}
+                            <div className={styles.listtypogst}>
+                                <Typography>GENERAL</Typography>
+                            </div>
+                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
+                                        
+                                      
+                                 
+                                        <Grid item md={4}>
+
+                                            <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, mt: 2 }}>
+                                                <Box sx={{ flex: 1 }}>
+                                                    <Autocomplete
+                                                        sx={{ flex: 1 }}
+                                                        fullWidth
+                                                        disablePortal={false}
+                                                        options={filterScripList}
+                                                        name="script"
+                                                        value={script}
+                                                        onChange={(event, value, reason, details) => {
+                                                            if (!!value) {
+                                                                if (!!stockInterval) {
+                                                                    clearInterval(stockInterval)
+                                                                }
+                                                                getScripPrice(value)
+                                                                setLotSize(parseFloat(value.lotSize))
+                                                                stockInterval = setInterval(() => {
+                                                                    getScripPrice(value)
+                                                                }, 3000);
+                                                            } else {
+                                                                if (!!stockInterval) {
+                                                                    clearInterval(stockInterval)
+                                                                }
+                                                            }
+                                                            setScriptError(false)
+                                                            setScript(value)
+                                                        }}
+                                                        onClose={(event, reason) => {
+                                                            setFilterScripList(defaultScripList)
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params}
+                                                            onChange={(text) => {
+                                                                filterScrip(text.target.value)
+                                                            }}
+                                                            className={styles.listtextfils22}
+
+                                                            error={scriptError}
+                                                            helperText={scriptError ? 'Scrip is required' : undefined}
+                                                        // label={scripLable} 
+
+                                                        />}
+                                                    />
+                                                </Box>
+
+                                            </Box>
+                                        </Grid>
+                                    </Box>
+
+                               
+                                    <Grid item md={4} style={{ display: 'flex', justifyContent: 'space-between', padding: "15px 0px 0px 0px" }}>
+                                        <div>
+                                            <Typography className={styles.datatyplo}>Data Type </Typography></div><div>
+                                            <Button onClick={() => { setListdatop('CSV') }} className={listfigmaop == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
+                                            <Button onClick={() => { setListdatop('Manual') }} className={listfigmaop == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
+                                        </div>
+                                    </Grid>
+                                    <Grid item md={4} display={'flex'} justifyContent={'end'}>
+                                        <Box sx={{ mt: 3, mb: 2, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                            {/* <Typography sx={{ fontWeight: 'bold', color: '#524ddc' }}>
+                                                Upload CSV
+                                            </Typography> */}
+                                            <Typography className={styles.csvdolgsamp}>Download Sample CSV  </Typography>
+                                            <Button
+                                                className={styles.btnlistateg}
+                                                sx={{ marginLeft: 2, padding: 0.8 }}
+                                                component="a"
+                                                size="medium"
+                                                variant="outlined"
+                                                type="submit"
+                                                onClick={() => {
+                                                    FileSaver.saveAs(
+                                                        `${window.location.origin.toString()}/static/sample_csv.csv`,
+                                                        "sample_csv.csv"
+                                                    );
+                                                }}
+                                            >
+                                                <img src='./Vector (22).svg' />
+                                                {/* Download Sample CSV */}
+                                            </Button>
+                                        </Box>
+                                    </Grid>
+                                    <Grid className={styles.boxupoad} item md={4} display={'flex'} justifyContent={'center'}>
+                                        <Box >
+                                            <div className={styles.imgtebuplodl}>
+                                                <img src='./Upload icon.svg' alt='Upload icon' />
+                                            </div>
+                                            <div className={styles.listmaendic}>
+                                                <Typography >Drag & drop files or  </Typography>
+                                                <Button variant="contained"
+                                                    component="label" className={styles.imputafile}>
+
+                                                    <input
+                                                        className={styles.lidtfiledst}
+                                                        id="files"
+                                                        lebal='bshshs'
+                                                        type="file"
+                                                        hidden
+                                                        // className=
+                                                        onChange={(file) => {
+                                                            handleCSVUpload(file.target.files[0])
+                                                            setFile(file.target.files[0]);
+                                                        }}
+                                                        accept=".csv" ></input>
+                                                    Browse   </Button>
+                                                    <Button onClick={handleCSVSubmit}>sub</Button>
+                                            </div>
+                                            <div className={styles.listcsvdata}>
+                                                <Typography>Supported formates: CSV</Typography>
+                                            </div>
+                                        </Box>
+
+                                    </Grid>
+                                </div>:<div>
                      <div className={styles.listmaenstokdiv}>
                      {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
                                 {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
@@ -1829,74 +1970,8 @@ console.log(userJSON,'userJSON');
                                     <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1 }}>
 
                                     </Box>
-                                </div>:
-
-
-                                <div className={styles.listgridpin}>
-                                    <Grid item md={4} style={{ display: 'flex', justifyContent: 'space-between', padding: "15px 0px 0px 0px" }}>
-                                        <div>
-                                            <Typography className={styles.datatyplo}>Data Type </Typography></div><div>
-                                            <Button onClick={() => { setListdatop('CSV') }} className={listfigmaop == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
-                                            <Button onClick={() => { setListdatop('Manual') }} className={listfigmaop == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
-                                        </div>
-                                    </Grid>
-                                    <Grid item md={4} display={'flex'} justifyContent={'end'}>
-                                        <Box sx={{ mt: 3, mb: 2, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                            {/* <Typography sx={{ fontWeight: 'bold', color: '#524ddc' }}>
-                                                Upload CSV
-                                            </Typography> */}
-                                            <Typography className={styles.csvdolgsamp}>Download Sample CSV  </Typography>
-                                            <Button
-                                                className={styles.btnlistateg}
-                                                sx={{ marginLeft: 2, padding: 0.8 }}
-                                                component="a"
-                                                size="medium"
-                                                variant="outlined"
-                                                type="submit"
-                                                onClick={() => {
-                                                    FileSaver.saveAs(
-                                                        `${window.location.origin.toString()}/static/sample_csv.csv`,
-                                                        "sample_csv.csv"
-                                                    );
-                                                }}
-                                            >
-                                                <img src='./Vector (22).svg' />
-                                                {/* Download Sample CSV */}
-                                            </Button>
-                                        </Box>
-                                    </Grid>
-                                    <Grid className={styles.boxupoad} item md={4} display={'flex'} justifyContent={'center'}>
-                                        <Box >
-                                            <div className={styles.imgtebuplodl}>
-                                                <img src='./Upload icon.svg' alt='Upload icon' />
-                                            </div>
-                                            <div className={styles.listmaendic}>
-                                                <Typography >Drag & drop files or  </Typography>
-                                                <Button variant="contained"
-                                                    component="label" className={styles.imputafile}>
-
-                                                    <input
-                                                        className={styles.lidtfiledst}
-                                                        id="files"
-                                                        lebal='bshshs'
-                                                        type="file"
-                                                        hidden
-                                                        // className=
-                                                        onChange={(file) => {
-                                                            handleCSVUpload(file.target.files[0])
-                                                            setFile(file.target.files[0]);
-                                                        }}
-                                                        accept=".csv" ></input>
-                                                    Browse   </Button>
-                                                    <Button onClick={handleCSVSubmit}>sub</Button>
-                                            </div>
-                                            <div className={styles.listcsvdata}>
-                                                <Typography>Supported formates: CSV</Typography>
-                                            </div>
-                                        </Box>
-
-                                    </Grid>
-                                </div>}</> }
+                                </div>
+                                }</> }
                                 {activeStep == 2 &&  <><Card 
                                 className={styles.listdellpeper}
                                 // className={listinnewdata == 'gsdgfgdffd' ? styles.bolkdatat : styles.listcentenar} id={padjdhdggd == 'VRP' ? styles.bolkdatat : styles.listcentenar}

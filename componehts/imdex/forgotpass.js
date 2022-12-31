@@ -62,7 +62,7 @@ const Home = (props) => {
         }
 
         props.props.loaderRef(true)
-        var data = await ApiServices.PostApiCall(ApiEndpoint.USER_FORGOT_PASSWORD, JSON.stringify(body), headers);
+        var data = await ApiServices.PostApiCall(ApiEndpoint.FORGOTPASS, JSON.stringify(body), headers);
         props.props.loaderRef(false)
         if (!!data) {
             if (data.status == true) {
