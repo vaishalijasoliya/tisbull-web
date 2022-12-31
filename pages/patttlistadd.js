@@ -44,7 +44,13 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import moment from 'moment';
-
+// import * as React from 'react';
+// import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 let stockInterval = null;
 
@@ -608,19 +614,7 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
         }
         console.log(accountLableList, 'accountLableList');
         setListobgll(lebal)
-        // var value = text
-        // console.log(value,'valuevalue');
-        // if (typeof value !== 'object') {
-        // if (value == '') {
-        //         setFilterScripList(listobgll);
-        //     } else {
-        //         var filteredData = scripList.filter((item) => {
-        //             let searchValue = item.label.toLowerCase();
-        //             return searchValue.includes(value.toString().toLowerCase())
-        //         })
-        //         setFilterScripList(filteredData);
-        //     }
-        // }
+
         setScripList(lebal)
         setFilterScripList(lebal)
 
@@ -672,6 +666,7 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
                     flexGrow: 1
                 }}
             >
+            {/* <Grid  item md={12}> */}
                 <Container maxWidth={false}>
 
                     <Box sx={{ mt: 3, mb: 3 }}>
@@ -1525,7 +1520,7 @@ className={formik.values.currentPrice == pattern.buyPrice  ? styles.listbahovar:
                                 patterns={patternList} /> */}
                         </Box>}
                         {listsummri == 'addsumari' ?
-                            <Grid item md={12}>
+                            <Grid item md={12} className={styles.listgridkex23}>
                                 <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
                                     {listinnewdata == 'gsdgfgdffd' ?
                                         <Button
@@ -1614,9 +1609,8 @@ className={formik.values.currentPrice == pattern.buyPrice  ? styles.listbahovar:
                                 </Box>
 
                             </Grid>
-
                             :
-                            <Grid item md={12}>
+                            <Grid item md={12} className={styles.listgridkex23}>
                                 <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
                                     {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == '' || formik.values.Stoploss > formik.values.Target ?
                                         <Button
@@ -1689,6 +1683,7 @@ className={formik.values.currentPrice == pattern.buyPrice  ? styles.listbahovar:
                         }
                     </Box>
                 </Container>
+                {/* </Grid> */}
             </Box>
             <div>
                 <Dialog open={isLockPatternDialog}

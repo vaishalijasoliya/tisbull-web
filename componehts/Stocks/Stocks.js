@@ -316,12 +316,16 @@ const Home = (props) => {
     const [isClear, setListscrip] = useState('');
     const [listmenudata, setListnse] = useState('')
     const [listscirip, setScripdata] = React.useState('')
+    const [listscisssrip, setListopjuok] = React.useState('')
+
     const [deletemenukk, setDeleteMenukk] = React.useState(false);
     const [pendingReviewList, setPendingReviewList] = React.useState([]);
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rejectReviewList, setRejectReviewList] = React.useState([]);
+    const[dayslohp,setDayslohp] =React.useState('')
+
     const [flagReviewList, setFlageReviewList] = React.useState([]);
-    console.log(rowsPerPage, 'swishlist');
+    console.log(listscisssrip, 'listscisssrip');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -742,13 +746,36 @@ const Home = (props) => {
         setOrderBy(property);
     };
 
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelected = datatebalpettan.map((n) => n.id);
-            setSelected(newSelected);
-            return;
-        }
+    const handleSelectAllClick = (event) => { 
+            if (event.target.checked) {
+                // if(datatebalpettan.map((n) => n.status =='active') || datatebalpettan.map((n) => n.status =='pause'))
+                const newSelected = datatebalpettan.map((n) => n.id);
+
+                const newSelectedlist =''
+                if(datatebalpettan.map((n) => n.status =='exit')){
+                    setSelected(newSelectedlist);
+
+                }else{
+    setSelected(newSelected);
+                }
+                setListopjuok(newSelectedlist)
+                return;
+            }
+        
+       
+    
+//         if (event.target.checked) {
+//             const newSelected = datatebalpettan.map((n) => n.id);
+//             const newSelectedlist = datatebalpettan.map((n) => n.status);
+
+// setSelected(newSelected);
+//             setListopjuok(newSelectedlist)
+//             return;
+        // }
+        
         setSelected([]);
+        
+        setListopjuok([])
     };
 
     const handleClick = (event, name) => {
@@ -874,8 +901,15 @@ const Home = (props) => {
                                     )}
 
                                     {selected.length > 0 ? (
-                                        <Tooltip title="Delete">
+                                        <Tooltip>
                                             <div>
+                                            {/* {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
+                                                                        {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
+                                                                    </Button>}
+                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>} */}
+                                            {/* {dayslohp == 'exit' ? <Button disabled className={styles.viwebtnmm3} onClick={() => { handleClickOpenCompause() }} >
+                                                    <PauseCircleOutlineIcon className={styles.play_btnmani2} />
+                                                </Button>: */}
                                                 <Button className={styles.viwebtnmm3} onClick={() => { handleClickOpenCompause() }} >
                                                     <PauseCircleOutlineIcon className={styles.play_btnmani2} />
                                                 </Button>
@@ -993,20 +1027,29 @@ const Home = (props) => {
                                                         <TableRow
 
                                                             role="checkbox"
-                                                            aria-checked={isItemSelected}
+                                                            aria-checked={ row.status == 'exit' ? '':isItemSelected}
                                                             tabIndex={-1}
                                                             key={row.id}
-                                                            selected={isItemSelected}
+                                                            selected={row.status == 'exit' ? '':isItemSelected}
                                                         >
                                                             <TableCell className={styles.cekboxtd} padding="checkbox">
-                                                                <Checkbox
+                                                            {row.status == 'exit' ?
+                                                            <Checkbox
                                                                     checked={isItemSelected}
-
-                                                                    onClick={(event) => handleClick(event, row.id)}
+disabled
+                                                                    onClick={ (event) =>{ handleClick(event, row.id),setDayslohp(row.status)}}
                                                                     inputProps={{
                                                                         "aria-labelledby": labelId,
                                                                     }}
                                                                 />
+                                                                : <Checkbox
+                                                                    checked={isItemSelected}
+
+                                                                    onClick={ (event) =>{row.status == 'exit' ? '': handleClick(event,row.id),setDayslohp(row.status)}}
+                                                                    inputProps={{
+                                                                        "aria-labelledby": labelId,
+                                                                    }}
+                                                                />}
                                                             </TableCell>
                                                             {/* {console.log(row.scripToken,'scripTokenscripToken')} */}
                                                             <TableCell
@@ -1064,15 +1107,15 @@ const Home = (props) => {
                                                                 {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <img height={18} src="../../edit_square.svg" />  </Box> : 
                                                                     <Button className={styles.viwebtnmm}
                                                                         onClick={() => {
-                                                                            if (row.type !== "CustomPattern") {
+                                                                            if (row.type_pattern == "CustomPattern") {
                                                                                 router.push({
-                                                                                    pathname: '/editpatt',
+                                                                                    pathname: '/editCustom',
                                                                                     query: { emailID: row.id }
                                                                                     // query{ id: row.id },
                                                                                 });
                                                                             } else {
                                                                                 router.push({
-                                                                                    pathname: '/texteditpatt',
+                                                                                    pathname: '/editpatt',
                                                                                     query: { emailID: row.id }
                                                                                 });
                                                                             }
@@ -1239,7 +1282,7 @@ const Home = (props) => {
                                                                                             // id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
                                                                                             style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
                                                                                             className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
-                                                                                            onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : selectedValue == 'exit for fixedPrice' && listpires == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
+                                                                                            onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :selectedValue == 'exit for market' || listpires == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
                                                                                                 className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
                                                                                             >Delete </Button> : <Button
                                                                                                 id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}

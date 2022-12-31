@@ -299,7 +299,7 @@ const [datelist,setDatelist] =React.useState('')
                         <div className={styles.donebtn}>
                         { formik.values.username == '' ||formik.values.email == '' ||phonedata == '' ||formik.values.date == '' ||formik.values.Address == ''||age == '' ?
                         <Button disabled type='submit' style={{color:'#E31E24'}}>Done</Button>:
-                        <Button type='submit' onClick={()=>{edituser,uploadpohot()}}>Done</Button>}
+                        <Button type='submit' onClick={()=>{edituser(),uploadpohot()}}>Done</Button>}
                         </div>
                     </div>
                 </Grid>

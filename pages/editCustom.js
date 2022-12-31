@@ -59,6 +59,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Divider from '@mui/material/Divider';
 import Image from 'next/image';
+import Newbar from '../componehts/newbar/newbarlist';
+
 let stockInterval = null;
 
 const FilePicker = dynamic(() => import('react-file-picker').then((module) => {
@@ -96,6 +98,7 @@ const AddCustomPattern = (props) => {
     const [scripLable, setScripLable] = useState('');
     const [listfigmaop, setListdatop] = useState('')
     const [listfigmaopjj, setListdatopjj] = useState('')
+    // const [patternData, setPatternData] = useState(false);
 
     const [csvFile, setFile] = useState(null)
     const [listsummri, setLISTdatasumm] = useState("")
@@ -227,6 +230,8 @@ console.log(userJSON,'userJSON');
         label: 'Basic Pattern',
         id: 'BasicPattern'
     });
+    const [patternData, setPatternData] = useState(false);
+
     const[listcsvdata,setDatalistcsv] =useState([])
     const [padjdhdggd, setPandindpl] = useState('')
     const [tabaldata, setTabalData] = useState([])
@@ -418,324 +423,8 @@ console.log(userJSON,'userJSON');
     }
     console.log(tabaldata, 'tabaldata');
 
-    // const onNextBtnPress = () => {
-    //     const PatterObjectArray = [];
+  
 
-    //     const PatternPreviewTable = [];
-    //     const Current_price = [];
-
-    //     if (listfigmaop == 'csv') {
-    //       if (!!priceCsvData) {
-    //         for (let index = 1; index < priceCsvData.length; index++) {
-    //           const element = priceCsvData[index];
-
-    //           console.log(element.field5 == 1, 'FIELD____5_____FIELD');
-    //           if (element.field5 == 1) {
-    //             console.log(element, 'ELEMENT_________');
-
-    //             const obj = {
-    //               Price: element.field1,
-    //             };
-    //             Current_price.push(obj);
-    //           }
-
-    //           console.log(element, 'MY___ELEMENT');
-
-    //           const PatternObject = {
-    //             buyPrice: parseFloat(element.field1),
-    //             sellPrice: parseFloat(element.field3),
-    //             buy_qty: parseFloat(element.field2),
-    //             sell_qty: parseFloat(element.field4),
-    //             // enter_price: element.field5,
-    //           };
-
-    //           console.log(PatternObject, 'PATTERN______OBJECT');
-    //           PatterObjectArray.push(PatternObject);
-    //         }
-
-    //         // console.log(PatterObjectArray, 'PATTERN__OBJECT__ARRAY');
-
-    //         console.log(PatternPreviewTable, 'PATTERN____PREVIEW');
-    //       }
-    //     } else {
-    //       if (!!patternDataArray) {
-    //         if (!!patternDataArray.length > 0) {
-    //           for (let index = 0; index < patternDataArray.length; index++) {
-    //             const element = patternDataArray[index];
-    //             console.log(element, 'ELEMENT>>>>>>');
-    //             const bodyObject = {
-    //               buyPrice: parseFloat(element.buy),
-    //               sellPrice: parseFloat(element.sell),
-    //               buy_qty: parseFloat(element.buyQty),
-    //               sell_qty: parseFloat(element.sellQty),
-    //               // is_current_price: element.is_current_price,
-    //             };
-
-    //             const obj = {
-    //               Price: currentPrice,
-    //             };
-    //             Current_price.push(obj);
-
-    //             PatterObjectArray.push(bodyObject);
-    //           }
-    //         }
-    //       }
-    //       // console.log(PatternCreate, 'PATTERN__CREATE__DATA');
-    //     }
-
-    //     const PatternPriceData = [];
-
-    //     if (!!PatterObjectArray) {
-    //       // for (let index = 0; index < PatterObjectArray.length; index++) {
-    //       //   const element = PatterObjectArray[index];
-    //       //   PatternPriceData.push(element);
-    //       //   if (element.enter_price == 1) {
-    //       //     // setCurrentPrice(element.enter_price);
-    //       //     const obj = {
-    //       //       Price: element.buyPrice,
-    //       //     };
-    //       //     Current_price.push(obj); //      console.log(element, 'IS__CURRENT__PRICE');
-    //       //   }
-    //       //   console.log(element.enter_price == 1, 'ELEMENT___OF__PATTERN_OBJECT');
-    //       // }
-
-    //       // console.log(Current_price[0].Price, 'PATTERN___DATA||||');
-
-    //       // console.log(ObjectData, 'PATTERN__CREATE__DATA');
-
-    //       const PatternDataTable = PatterObjectArray;
-    //       let BuyValue = [];
-    //       let totalInvestment = 0;
-
-    //       // const patternArray = [];
-
-    //       for (let index = 0; index < PatternDataTable.length; index++) {
-    //         const element = PatternDataTable[index];
-    //         console.log(element.buyPrice, 'IS___ELEMENT___FROM___LOOP');
-
-    //         let investPerRow = 0;
-
-    //         const valueZero = 0;
-    //         let buyValue =
-    //           parseFloat(element.buy_qty) * parseFloat(element.buyPrice);
-    //         let sellValue =
-    //           parseFloat(element.sell_qty) * parseFloat(element.sellPrice);
-    //         let buyPrice = parseFloat(element.buyPrice);
-    //         let sellPrice = parseFloat(element.sellPrice);
-    //         const buy_qty = parseFloat(element.buy_qty);
-    //         const sell_qty = parseFloat(element.sell_qty);
-    //         const Gross = parseFloat(sellValue) - parseFloat(buyValue);
-    //         const Sdisk = parseFloat(buyPrice) - parseFloat(Current_price[0].Price);
-    //         let invest = 0;
-    //         // for (let index = 0; index < PatternDataTable.length; index++) {
-    //         //   const element = PatternDataTable[index];
-    //         //   invest += parseFloat(element.buy_qty) * parseFloat(element.buyPrice);
-    //         // }
-
-    //         var totalInvest = 0;
-    //         for (let index = 0; index < PatternDataTable.length; index++) {
-    //           totalInvest += buyValue;
-    //         }
-    //         invest += parseFloat(element.buy_qty) * parseFloat(element.buyPrice);
-    //         // console.log(totalInvest, 'TOTAL____INVEST');
-
-    //         BuyValue.push(
-    //           parseFloat(element.buyPrice) * parseFloat(element.buy_qty),
-    //         ).toFixed(2);
-
-    //         totalInvestment = parseFloat(invest.toFixed(2));
-
-    //         // investPerRow += buyValue;
-
-    //         // const investPerCurrent = investPerRow
-
-    //         console.log(investPerRow, 'BUY___VALUE');
-
-    //         console.log(PatternDataTable.length);
-
-    //         // const InvestAtCurrent = totalInvest;
-
-    //         const totalStockWithCurrent = buy_qty;
-    //         const obj = {
-    //           buyValue: parseFloat(buyValue.toFixed(2)),
-    //           investment: parseFloat(invest.toFixed(2)),
-    //           sellValue: parseFloat(sellValue.toFixed(2)),
-    //           buyPrice: parseFloat(buyPrice.toFixed(2)),
-    //           sellPrice: parseFloat(sellPrice.toFixed(2)),
-    //           qty: parseFloat(buy_qty.toFixed(2)),
-    //           sell_qty: parseFloat(sell_qty.toFixed(2)),
-    //           stock: parseFloat(totalStockWithCurrent.toFixed(2)),
-    //           Gross: parseFloat(Gross.toFixed(2)),
-    //           sDisc: Sdisk.toFixed(2) > 0 ? parseFloat(Sdisk.toFixed(2)) : 0,
-    //           step: BuyValue.length,
-    //         };
-
-    //         PatternPreviewTable.push(obj);
-    //       }
-    //     }
-
-    //     console.log(Current_price, 'CURRENT______PRICVE');
-    //     console.log(PatternPreviewTable, 'CREATE____CUSTOME_PATTERN');
-    //     if (
-    //       !!instrumentToken &&
-    //       !!Current_price[0].Price &&
-    //       !!PatterObjectArray &&
-    //       !!PatternPreviewTable
-    //     ) {
-    //       navigation.navigation.navigate('AdvancedCustomPattern', {
-    //         script: instrumentToken,
-    //         priceDataArray: PatterObjectArray,
-    //         currentPrice: parseFloat(Current_price[0].Price),
-    //         PatternPreviewTable: PatternPreviewTable,
-    //         StockName: stockName,
-    //         StackNavigation:navigation.StackNavigation
-    //       });
-    //     }
-    //   };
-    // const onAddPatterntabajjl = async () => {
-    //     var buyArray = [];
-    //     for (var i = parseFloat(formik.values.maxRange);
-    //         i >= parseFloat(formik.values.minRange);
-    //         tickSize == 'fix' ? i = parseFloat((i - parseFloat(formik.values.buyPrice)).toFixed(2)) : i = parseFloat((i - ((i * parseFloat(formik.values.buyPrice)) / 100)).toFixed(2))) {
-    //         buyArray.push(i)
-    //     }
-    //     var totalStep = buyArray.length;
-    //     var patternArray = [];
-    //     for (var i = parseFloat(formik.values.maxRange); i >= parseFloat(formik.values.minRange); tickSize == 'fix' ? i = parseFloat((i - parseFloat(formik.values.buyPrice)).toFixed(2)) : i = parseFloat((i - ((i * parseFloat(formik.values.buyPrice)) / 100)).toFixed(2))) {
-    //         var buyValue = 0;
-    //         var quantity = 0;
-    //         var maxInvestPStep = parseFloat(formik.values.totalInvestment) / totalStep;
-    //         quantity = Math.trunc(maxInvestPStep / (i * lotsize));
-    //         if (i >= parseFloat(formik.values.currentPrice)) {
-    //             buyValue = parseFloat(formik.values.currentPrice) * quantity * lotsize;
-    //         } else {
-    //             buyValue = i * quantity * lotsize;
-    //         }
-    //         var sellPrice = 0;
-    //         if (tickSize == 'fix') {
-    //             sellPrice = i + parseFloat(formik.values.sellPrice)
-    //         } else {
-    //             sellPrice = i + (parseFloat(formik.values.sellPrice) * i) / 100;
-    //         }
-    //         var sellValue = sellPrice * quantity * lotsize;
-    //         var totalStock = 0;
-    //         if (patternArray.length > 0) {
-    //             for (let index = 0; index < patternArray.length; index++) {
-    //                 totalStock += patternArray[index].qty;
-    //             }
-    //         }
-    //         var totalInvestment = 0;
-    //         if (patternArray.length > 0) {
-    //             for (let index = 0; index < patternArray.length; index++) {
-    //                 totalInvestment += patternArray[index].buyValue;
-    //             }
-    //         }
-    //         var investmentWithCurrent = totalInvestment + buyValue;
-    //         var sDisc = i - parseFloat(formik.values.currentPrice);
-    //         var totalStockWithCurrent = totalStock + quantity;
-    //         var avgPrice = investmentWithCurrent / totalStockWithCurrent
-    //         var patternStep = {
-    //             'step': patternArray.length + 1,
-    //             'buyPrice': parseFloat(i.toFixed(2)),
-    //             'sellPrice': parseFloat(sellPrice.toFixed(2)),
-    //             'qty': parseFloat(quantity.toFixed(2)),
-    //             'buyValue': parseFloat(buyValue.toFixed(2)),
-    //             'sellValue': parseFloat(sellValue.toFixed(2)),
-    //             'gross': parseFloat((sellValue - buyValue).toFixed(2)),
-    //             'stock': totalStockWithCurrent.toFixed(2),
-    //             'investment': parseFloat(investmentWithCurrent.toFixed(2)),
-    //             'sDisc': sDisc > 0 ? sDisc.toFixed(2) : 0,
-    //             'avg': (avgPrice / lotsize).toFixed(2)
-    //         }
-    //         if (patternStep.qty !== 0) {
-    //             patternArray.push(JSON.parse(JSON.stringify(patternStep)));
-    //         }
-    //     }
-    //     var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))
-    //     if (buyValueObj.length > 0) {
-    //         setPatternList(patternArray)
-    //         console.log(patternArray);
-    //     } else {
-    //         if (patternArray.length > 0) {
-    //             setPatternList([])
-    //             toast.error('Buy value in pattern not matched with currentPrice.')
-    //         } else {
-    //             toast.error('Investment value is too low as per your data.')
-    //         }
-    //     }
-    // }
-    const onAddPatternlist = async () => {
-        var buyArray = [];
-        for (var i = parseFloat(formik.values.maxRange);
-            i >= parseFloat(formik.values.minRange);
-            tickSize == 'fix' ? i = parseFloat((i - parseFloat(formik.values.buyPrice)).toFixed(2)) : i = parseFloat((i - ((i * parseFloat(formik.values.buyPrice)) / 100)).toFixed(2))) {
-            buyArray.push(i)
-        }
-        var totalStep = buyArray.length;
-        var patternArray = [];
-        for (var i = parseFloat(formik.values.maxRange); i >= parseFloat(formik.values.minRange); tickSize == 'fix' ? i = parseFloat((i - parseFloat(formik.values.buyPrice)).toFixed(2)) : i = parseFloat((i - ((i * parseFloat(formik.values.buyPrice)) / 100)).toFixed(2))) {
-            var buyValue = 0;
-            var quantity = 0;
-            var maxInvestPStep = parseFloat(formik.values.totalInvestment) / totalStep;
-            quantity = Math.trunc(maxInvestPStep / (i * lotsize));
-            if (i >= parseFloat(formik.values.currentPrice)) {
-                buyValue = parseFloat(formik.values.currentPrice) * quantity * lotsize;
-            } else {
-                buyValue = i * quantity * lotsize;
-            }
-            var sellPrice = 0;
-            if (tickSize == 'fix') {
-                sellPrice = i + parseFloat(formik.values.sellPrice)
-            } else {
-                sellPrice = i + (parseFloat(formik.values.sellPrice) * i) / 100;
-            }
-            var sellValue = sellPrice * quantity * lotsize;
-            var totalStock = 0;
-            if (patternArray.length > 0) {
-                for (let index = 0; index < patternArray.length; index++) {
-                    totalStock += patternArray[index].qty;
-                }
-            }
-            var totalInvestment = 0;
-            if (patternArray.length > 0) {
-                for (let index = 0; index < patternArray.length; index++) {
-                    totalInvestment += patternArray[index].buyValue;
-                }
-            }
-            var investmentWithCurrent = totalInvestment + buyValue;
-            var sDisc = i - parseFloat(formik.values.currentPrice);
-            var totalStockWithCurrent = totalStock + quantity;
-            var avgPrice = investmentWithCurrent / totalStockWithCurrent
-            var patternStep = {
-                'step': patternArray.length + 1,
-                'buyPrice': parseFloat(i.toFixed(2)),
-                'sellPrice': parseFloat(sellPrice.toFixed(2)),
-                'qty': parseFloat(quantity.toFixed(2)),
-                'buyValue': parseFloat(buyValue.toFixed(2)),
-                'sellValue': parseFloat(sellValue.toFixed(2)),
-                'gross': parseFloat((sellValue - buyValue).toFixed(2)),
-                'stock': totalStockWithCurrent.toFixed(2),
-                'investment': parseFloat(investmentWithCurrent.toFixed(2)),
-                'sDisc': sDisc > 0 ? sDisc.toFixed(2) : 0,
-                'avg': (avgPrice / lotsize).toFixed(2)
-            }
-            if (patternStep.qty !== 0) {
-                patternArray.push(JSON.parse(JSON.stringify(patternStep)));
-            }
-        }
-        var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))
-        if (buyValueObj.length > 0) {
-            setPatternList(patternArray)
-            console.log(patternArray);
-        } else {
-            if (patternArray.length > 0) {
-                setPatternList([])
-                toast.error('Buy value in pattern not matched with currentPrice.')
-            } else {
-                toast.error('Investment value is too low as per your data.')
-            }
-        }
-    }
     console.log(selectedValue,'selectedValue');
     const onNextBtnPress = () => {
         const PatterObjectArray = [];
@@ -904,21 +593,7 @@ console.log(userJSON,'userJSON');
             setTabalData(PatternPreviewTable)
         }
 
-        // if (
-        //   !!instrumentToken &&
-        //   !!Current_price[0] &&
-        //   !!PatterObjectArray &&
-        //   !!PatternPreviewTable
-        // ) {
-        //   navigation.navigation.navigate('AdvancedCustomPattern', {
-        //     script: instrumentToken,
-        //     priceDataArray: PatterObjectArray,
-        //     currentPrice: parseFloat(Current_price[0].Price),
-        //     PatternPreviewTable: PatternPreviewTable,
-        //     StockName: stockName,
-        //     StackNavigation: navigation.StackNavigation,
-        //   });
-        // }
+   
     };
     console.log(patternDataArray, 'patternDataArray');
     const onAddPattern = async () => {
@@ -1054,10 +729,52 @@ console.log(userJSON,'userJSON');
             // patternlist()
             // patternlistviwe()
             // Pausepattern()
-            
+            setDatalisypatt(router.query.emailID)
             getoardarlist()
         }
     }, [])
+    const setDatalisypatt = async (pattern_id) => {
+        var obj = {
+            "id_pattern": pattern_id
+        }
+        var headers = {
+            "Content-Type": "application/json",
+            "x-access-token": props.profile.token
+        }
+        props.loaderRef(true)
+        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(obj), headers)
+        console.log('patternDelete', patternDelete);
+        if (!!patternDelete && patternDelete.status == true) {
+            serverData = patternDelete.pattern;
+            setPatternData(patternDelete);
+            getScripPrice(serverData.script)
+
+            var scripItem = scripType.filter((item) => item.label == serverData.segment)[0]
+            setScripItem(scripItem)
+            setTickSize(serverData.tickSize)
+            await getAccounts();
+            await getScirp(scripItem.id);
+            var patternData = patternDelete.patternData;
+            var newData = [];
+            for (let index = 0; index < patternData.length; index++) {
+                const element = patternData[index];
+                var object = {
+                    is_current_price: element.buyPrice == patternDelete.pattern.enterPrice,
+                    buyQty: element.buy_qty,
+                    sellQty: element.sell_qty,
+                    buy: element.buyPrice,
+                    sell: element.sellPrice,
+                }
+                newData.push(JSON.parse(JSON.stringify(object)));
+            }
+            props.loaderRef(false)
+            setPatternDataArray(newData)
+        } else {
+            toast.error('Something went wrong.')
+            props.loaderRef(false)
+        }
+
+    }
     const filterScrip = async (text) => {
         var body = {
             "name": text
@@ -1072,6 +789,7 @@ console.log(userJSON,'userJSON');
         const lebal = []
 
         if (!!accountList && !!accountList.length > 0) {
+
 
             // setFilterScripList(accountList)
             // setDefaultScripList(accountList)
@@ -1088,9 +806,6 @@ console.log(userJSON,'userJSON');
                 lebal.push(JSON.parse(JSON.stringify(obj)))
             }
         }
-        setScripList(lebal)
-        setFilterScripList(lebal)
-
     }
     console.log(selectedValue, 'selectedValue');
     const getScripPrice = async (value) => {
@@ -1099,9 +814,15 @@ console.log(userJSON,'userJSON');
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
-        var body = {
-            "instrumentToken": value.id
-        }
+        // if (listidform == '') {
+            var body = {
+                "instrumentToken": value
+            }
+        // } else {
+        //     var body = {
+        //         "instrumentToken": listidform
+        //     }
+        // }
         var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
         if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0) {
             console.log('stockPrice', stockPrice)
@@ -1331,7 +1052,9 @@ console.log(userJSON,'userJSON');
 
                
             </Box>
-
+            <Grid item sm={12} md={12} xs={12}>
+                    <Newbar />
+                </Grid>
             <Stepper activeStep={activeStep}>
                 {steps.map((label, index) => {
                     const stepProps = {};
@@ -1395,51 +1118,61 @@ console.log(userJSON,'userJSON');
                                  
                                         <Grid item md={4}>
 
-                                            <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, mt: 2 }}>
-                                                <Box sx={{ flex: 1 }}>
-                                                    <Autocomplete
-                                                        sx={{ flex: 1 }}
-                                                        fullWidth
-                                                        disablePortal={false}
-                                                        options={filterScripList}
-                                                        name="script"
-                                                        value={script}
-                                                        onChange={(event, value, reason, details) => {
-                                                            if (!!value) {
-                                                                if (!!stockInterval) {
-                                                                    clearInterval(stockInterval)
-                                                                }
-                                                                getScripPrice(value)
-                                                                setLotSize(parseFloat(value.lotSize))
-                                                                stockInterval = setInterval(() => {
-                                                                    getScripPrice(value)
-                                                                }, 3000);
-                                                            } else {
-                                                                if (!!stockInterval) {
-                                                                    clearInterval(stockInterval)
-                                                                }
-                                                            }
-                                                            setScriptError(false)
-                                                            setScript(value)
-                                                        }}
-                                                        onClose={(event, reason) => {
-                                                            setFilterScripList(defaultScripList)
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params}
-                                                            onChange={(text) => {
-                                                                filterScrip(text.target.value)
-                                                            }}
-                                                            className={styles.listtextfils22}
+                                        <Box sx={{ flex: 2, padding: '10px 0px 0px 0px' }}>
+                                            <Typography className={styles.typofonty}>Script</Typography>
+                                            <Autocomplete
+                                                sx={{ flex: 1, }}
+                                                fullWidth
+                                                disablePortal={false}
+                                                options={filterScripList}
+                                                name="script"
+                                                value={script}
+                                                onChange={(event, value, reason, details) => {
+                                                    // filterScriplist()
+                                                    if (!!value) {
+                                                        if (!!stockInterval) {
+                                                            clearInterval(stockInterval)
+                                                        }
+                                                        var script = {
+                                                            id: value.id,
+                                                            script: value.label
+                                                        }
+                                                        getScripPrice(script)
+                                                        setLotSize(parseFloat(value.lotSize))
+                                                        stockInterval = setInterval(() => {
+                                                            getScripPrice(value.id)
+                                                        }, 3000);
+                                                    } else {
+                                                        if (!!stockInterval) {
+                                                            clearInterval(stockInterval)
+                                                        }
+                                                    }
+                                                    setScriptError(false)
+                                                    setScript(value)
+                                                }}
+                                                onClose={(event, reason) => {
+                                                    setFilterScripList(defaultScripList)
+                                                }}
+                                                renderInput={(params) => <TextField  {...params}
+                                                    onChange={(text) => {
+                                                        console.log(text.target.value, 'jjahhahha')
+                                                        setFilatlist(text.target.value)
+                                                        filterScrip(text.target.value)
+                                                        filterScriplist(text.target.value)
 
-                                                            error={scriptError}
-                                                            helperText={scriptError ? 'Scrip is required' : undefined}
-                                                        // label={scripLable} 
 
-                                                        />}
-                                                    />
-                                                </Box>
 
-                                            </Box>
+
+                                                    }}
+                                                    className={styles.listtextfils22}
+                                                    error={scriptError}
+                                                    helperText={scriptError ? 'Scrip is required' : undefined}
+                                                // label={scripLable} 
+
+                                                />}
+                                            />
+                                        </Box>
+                                            {/* </Box> */}
                                         </Grid>
                                     </Box>
 

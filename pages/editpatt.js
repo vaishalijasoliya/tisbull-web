@@ -814,6 +814,7 @@ const AddPattern = (props) => {
                 <Grid item sm={12} md={12} xs={12}>
                     <Newbar />
                 </Grid>
+                <Grid item md={12} className={styles.listgrifmaen}>
                 <Container maxWidth={false} className={styles.conterdata}>
 
                     <Box sx={{ mt: 3, mb: 3 }}>
@@ -1671,7 +1672,7 @@ const AddPattern = (props) => {
                                 patterns={patternList} /> */}
                         </Box>}
                         {listsummri == 'addsumari' ?
-                            <Grid item md={12}>
+                            <Grid item md={12} className={styles.listgridkex}>
                                 <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
                                     {listinnewdata == 'gsdgfgdffd' ?
                                         <Button
@@ -1764,8 +1765,8 @@ const AddPattern = (props) => {
                             </Grid>
 
                             :
-                            <Grid item md={12}>
-                                <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
+                            <Grid item md={12} className={styles.listgridkex}>
+                                <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1  }}>
                                     {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == '' || formik.values.Stoploss > formik.values.Target ?
                                         <Button
                                             style={{ backgroundColor: '#009947', color: '#fff' }}
@@ -1836,7 +1837,9 @@ const AddPattern = (props) => {
 
                         }
                     </Box>
+                  
                 </Container>
+                </Grid>
             </Box>
             <div>
                 <Dialog open={isLockPatternDialog}

@@ -171,7 +171,7 @@ const ResponsiveAppBar = (props) => {
       // props.loaderRef(false)
 
       patternlist()
-      getScripPrice()
+      // getScripPrice()
 
       //   if (!!listless) {
       //     clearInterval(listless)
@@ -179,7 +179,7 @@ const ResponsiveAppBar = (props) => {
       // getScripPrice()
       // // setLotSize(parseFloat(value.lotSize))
       // listless = setInterval(() => {
-      //     getScripPrice()
+        getScripPrice()
       // }, 3000);
 
     }

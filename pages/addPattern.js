@@ -140,7 +140,7 @@ const ResponsiveAppBar = (props) => {
           <CreatePattern props={props} />
           {/* <Summary proidlists={router.query.emailID} props={props} /> */}
        </TabPanel> 
-         <TabPanel style={{ padding: '30px 0px 0px 0px' }} className={styles.tbapenalist} value={value} index={1}>
+         <TabPanel  className={styles.tbapenalist} value={value} index={1}>
           <Addpattern props={props} />
           {/* <TodayOrder props={props} listdsts={router.query.emailID} /> */}
         </TabPanel> 
