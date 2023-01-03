@@ -37,11 +37,12 @@ const main = () => {
             </div>
           </div>
         </Grid>
-        <Grid item sm={12} md={7} xs={12} >
+        <Grid item sm={12} md={7} xs={12} display={'flex'} justifyContent={'end'}>
           <div className={styles.bac_img}>
-            <img width={740} src='../../Pattern list.svg' />
+            <img  src='../../image 3.svg' />
           </div>
         </Grid>
+        
       </Grid>
 
     </>

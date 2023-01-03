@@ -32,7 +32,7 @@ import moment from 'moment'
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar(props) {
-  console.log(props.profile, 'propsss');
+  console.log(props.props, 'propsss');
   const router = useRouter();
   var currentPath = router.pathname
   const [anchorElNav, setAnchorElNav] = React.useState(null);

@@ -3,7 +3,9 @@
     font-family: Poppins-600;
     src: url(../../styles/popins//Poppins-Regular.ttf);
 }
-
+.listmenucantr{
+    height: 100vh;
+}
 .heding_advauto p {
     font-family: Poppins-400;
     font-size: 38px;
@@ -44,14 +46,24 @@ p {
 }
 }
 .logotis {
-    text-align: center;
+    text-align: end;
+    width: 69%;
+    position: relative;
+    left: 112px;
+    bottom: 110px;
 }
 .logotis2{
     text-align: left;
-    padding: 0px 0px 0px 90px;
+    // padding: 0px 0px 0px 90px;
 }
 
+.oboxline{
+    // background-image:url('../../public/Ellipse 14.svg'),url('../../public/Ellipse 15.svg') !important;
+    // background-repeat: no-repeat;
+    // background-size:cover;
+    text-align: center;
 
+}
 .bgcolor_peg2{
     background-image:url('../../public/Ellipse 19 (1).png'),url('../../public/Ellipse 21.png'),url('../../public/Ellipse 20.png') !important;
     background-repeat: no-repeat;
@@ -63,9 +75,36 @@ p {
     background-repeat: no-repeat;
 }
 .maen_geidsty {
-    background-image: url('../../public/Rectangle 13 (1).png');
+    background-image: url('../../public/Rectangle 13.svg');
     background-repeat: no-repeat;
+    background-size: cover;
     text-align: center;
+    height: 692px;
+
+}
+.listtebalboy{
+    position: relative;
+    bottom: 293px;
+}
+.textperegaf{
+    p{
+        font-size: 43px;
+        font-family: Poppins-400;
+color: #000000;
+
+    }
+}
+.bgcolor_peg222{
+    padding-top: 120px;
+    padding-right: 60px;
+    padding-left: 50px;
+    // max-width: 450px !important;
+}
+.youalldatatypo{
+    font-family: Poppins-400 !important;
+    color: #8F8989; 
+    font-size: 14px !important;
+    padding-bottom: 30px;
 }
 @media only screen and (max-width: 900px) {
     .bgcolor_peg2 img{

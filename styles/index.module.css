@@ -145,39 +145,15 @@ padding: 80px 80px;
   margin: 60px 120px !important;
 }
 
-/* .dasnod_camponat3 {
-} */
 
 .Header_camponat {
   padding: 0px 80px;
   background: #ffffff !important;
 }
-
-.bac_divhomeadv {
-  /* / .listmenucantr { / */
-  /* / height: 100vh; / */
-  /* / background-image: url('../public/baghome.png'); / */
-  /* / background-size: cover; / */
-  background-image: url("../public/Ellipse 13 (2).png"),
-    url("../public/Ellipse 15 (2).png"), url("../public/Ellipse 14 (2).png") !important;
-  background-repeat: no-repeat;
-  /* / background-size: 65%; / */
-}
-
-/* / } / */
-/* }
-  .bac_divhomeadv{
-      background-color:#F5F5F5 !important;
-      padding: 100px 0px 0px 0px;
-      / background-image: url('../public/'); /
-/* background-image: url("../public/Rectangle 12 (1).png");
-      background-repeat: no-repeat;
-  }  */
 .newbarend {
   background: linear-gradient(180deg,
       #053159 0%,
       rgba(14, 26, 37, 0.71) 100%) !important;
-  /* / height: 100vh !important; / */
 }
 
 .dasnod_camponat2 {
@@ -194,17 +170,6 @@ padding: 80px 80px;
 
 .accolistmenu {
   padding: 60px;
-}
-
-.container_list80 {
-  /* background-image: url("../public/background.png");
-  background-repeat: no-repeat !important;
-  background-size: cover; */
-  /* background-position: 0px 50px;
-  background-size: 100% 100%; */
-  /* width: 100% !important; */
-  /* height: 620px !important; */
-  /* background-size: 100% 100% !important; */
 }
 .listaddaptt{
   background: #FFFFFF;
@@ -354,29 +319,10 @@ width: 100%;
   background-image: url("../public/background.png");
   background-repeat: no-repeat !important;
   padding: 60px 80px;
-  /* background-position: 0px 50px;
-  background-size: 100% 100%; */
   background-size: cover;
 }
-/* .cantenar_list88 {
-  background-image: url("../public/background.png");
-  background-repeat: no-repeat !important;
-  background-size: cover;
-} */
-
-/* .cantenar_list883 {
-  background-image: url("../public/background.png");
-  background-repeat: no-repeat !important;
-  background-size: cover;
-} */
 .cantenar_list265{
-  /* background-image: url("../public/background.png"); */
-  /* margin: 26px 80px 50px 80px; */
 
-  /* background-repeat: no-repeat !important; */
-  /* background-position: 0px 50px;
-  background-size: 100% 100%; */
-  /* background-size: cover; */
 }
 
 .cantenar_list36 {
@@ -402,13 +348,6 @@ width: 100%;
   .dasnod_camponat {
     padding: 0px 30px 0px 30px;
   }
-
-  /* .singlistpsdii{
-    padding: 30px 90px 30px 90px !important;
-  } */
-  /* .dasnod_camponat3 {
-    padding: 30px 30px 0px 30px;
-  } */
 
   .userinput {
     padding: 0px 20px;
@@ -450,16 +389,6 @@ width: 100%;
     margin: 20px 20px 0px 20px;
   }
 }
-
-/* @media only screen and (max-width: 820px) {
-  .dasnod_camponat{
-    padding: 0px 40px 0px 40px;
-  }
-  .dasnod_camponat3{
-    padding: 40px 40px 0px 40px;
-  }
-} */
-/* .setinglist */
 .newbarend{
   background: linear-gradient(180deg, #053159 0%, rgba(14, 26, 37, 0.71) 100%) !important;
 

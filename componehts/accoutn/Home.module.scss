@@ -16,14 +16,14 @@ $primary_1: #36E586;
 
 .fastesthome {
   font-family: Poppins-600!important;
-  font-size: 62px !important;
+  font-size: 60px !important;
   color: #4F4F4F;
   font-weight: bold;
 }
 
 .growtext {
   font-family: Poppins-400 !important;
-  font-size: 59px !important;
+  font-size: 53px !important;
   font-weight: bold !important;
   color: $color_2;
 }
@@ -63,9 +63,11 @@ $primary_1: #36E586;
 }
 
 .bac_img {
-  padding: 60px 0px 0px 40px;
+  padding: 60px 0px 0px 0px;
 }
-
+.bac_img img{
+  // width: 800px;
+}
 .btnno1 {
   margin: 0px 25px 0px 0px;
 }

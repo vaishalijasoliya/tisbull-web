@@ -1,33 +1,53 @@
 @font-face {
     font-family: Poppins-600;
-    src: url(../../styles/popins//Poppins-Regular.ttf);
+    src: url(../../styles/popins/Poppins-Regular.ttf);
 }
-
+.contenarabout{
+    padding: 60px 60px 0px 60px;
+}
 .img_list_pohot {
-    background-image: url('../../public/Group 36.svg');
-    background-repeat: no-repeat;
-    background-position: 95% 70px;
-    background-size: 90% 100vh;
-    padding: 110px 50px 0px 0px;
+    // background-image: url('../../public/Group 36.svg');
+    // background-repeat: no-repeat;
+    // background-position: 95% 70px;
+    // background-size: 90% 100vh;
+    // padding: 110px 50px 0px 0px;
     display: flex;
     justify-content: end;
 }
-
+.img_list_pohot img{
+    width: 90%;
+}
 .heding_tis_about p {
     font-family: Poppins-600;
-    font-size: 48px;
+    font-size: 37px;
     color: #4F4F4F;
     font-weight: bold;
+    padding-bottom: 30px;
 }
-
+.startbutt{
+    background: #FFFFFF;
+border: 1px solid #009947 !important;
+border-radius: 40px !important;
+text-transform: uppercase !important;
+font-family: Poppins-600 !important;
+color: #009947 !important;
+font-size: 18px !important;
+font-weight: 600 !important;
+padding: 4px 22px !important;
+margin-top: 10px !important;
+}
 .tis_peregaraf_list p {
-    font-size: 18px;
+    font-family: Poppins-600;
+
+    font-size: 14px;
     color: #828282;
-    max-width: 430px;
+    max-width: 503px;
+    padding-bottom: 20px !important;
+
 }
 
 .maen_divabout {
-    padding: 282px 0px 0px 80px;
+    padding: 80px 0px 0px 0px;
 }
 
 @media only screen and (max-width: 450px) {

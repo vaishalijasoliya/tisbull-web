@@ -6,15 +6,22 @@
 
 .img_text_div {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     padding: 0px 0px 40px 0px;
 
 }
 .img_text_div1 {
     display: flex;
-    justify-content: end;
-    align-items: center;
+    // justify-content: end;
+    // align-items: center;
     padding: 0px 30px 40px 0px;
+
+}
+.img_text_div122 {
+    display: flex;
+    // justify-content: end;
+    // align-items: center;
+    padding: 0px 30px 87px 0px;
 
 }
 .img_text_div3 {
@@ -40,13 +47,21 @@
     text-align: center; 
    padding: 10px 0px 90px 0px;
 }
-
+.listcontenardata{
+    padding: 0px 60px 0px 60px;
+}
+.nonpeeegarf{
+    padding-top: 10px;
+    color: #8F8989 !important;
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+}
 .chart_text{
 padding: 0px 0px 10px 20px;
 p {
     font-size: 19px;
     color: #4F4F4F;
-    max-width: 163px;
+    max-width: 237px;
 }
 }
 @media only screen and (max-width: 450px) {
