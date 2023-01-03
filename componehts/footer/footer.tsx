@@ -5,8 +5,11 @@ const main = () => {
   return (
     <>
     
-<Grid  container>
-<Grid item sm={12} md={12} xs={12}>
+<Grid  container className={styles.fotarcontenar}>
+<Grid item sm={0} md={2} xs={0} >
+<img className={styles.listscsfkon} width={300} src='../../Ellipse 16.svg' />
+</Grid>
+<Grid item sm={12} md={8} xs={12}>
 <div className={styles.open_list}>
     <Typography>
     Open Your Account <samp className={styles.samp_now}>Now</samp> 
@@ -23,6 +26,10 @@ const main = () => {
     </Button>
 </div>
 </Grid>
+<Grid item sm={0} md={2} xs={0}>
+
+</Grid>
+
 </Grid>
     
     </>

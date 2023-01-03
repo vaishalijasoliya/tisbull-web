@@ -15,13 +15,12 @@ const main = () => {
 </div>
 <div className={styles.tis_peregaraf_list}>
 <Typography>
-Algo trading is also known as Algorithmic trading, is a method of executing orders using automated per-programmed trading instructions accounting for variables such as time, price, and volume.
+Algo trading also known as Algorithmic trading, is a method of executing orders using automated per-programmed trading instructions accounting for variables such as time, price, and volume.
 </Typography>
 <Typography>
-Algorithmic trading(automated trading, black-box trading, or simply algo trading) is the process of using computers programmed to follow a defined set of instructions for placing a trade in order to generate profits at a speed and frequency that is impossible for a human trader.</Typography>
+Algorithmic trading(automated trading, black-box trading, or algo trading) is the process of using computers programmed to follow a defined set of instructions for placing a trade to generate profits at a speed and frequency that is impossible for a human trader.</Typography>
 <Typography>
-TIS BULL is technologically trading platform for everyone. It provides automatic trading in equities, futures, currencies with realtime display of notional profit/loss and allows users to pause ongoing pattern, stop buying and many more.
-</Typography>
+TIS BULL is a technological trading platform for everyone. It provides automatic trading in equities, futures, and currencies with real-time display of notional profit/loss and allows users to pause ongoing patterns, stop buying, and many more.</Typography>
 </div>
 <div>
   <Button className={styles.startbutt}>Start  Now </Button>

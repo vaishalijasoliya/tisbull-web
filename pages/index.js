@@ -10,6 +10,8 @@ import Features from '../componehts/layout/Features';
 import Aboutus from '../componehts/layout/aboutus';
 import Payment from '../componehts/footer/payment';
 import Footer from '../componehts/footer/footer';
+import Maenfooter from '../componehts/footer/maenfooter';
+
 import Sing from '../componehts/imdex/sing';
 // import Newbar from '../componehts/newbar/newbar';
 import Dashboard from '../componehts/dashboard/dashboard';
@@ -38,6 +40,9 @@ const main = () => {
             </div>
             <div>
               <Footer />
+            </div>
+            <div>
+           <Maenfooter />
             </div>
           </div>
         </Grid>
