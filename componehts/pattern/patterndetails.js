@@ -26,9 +26,9 @@ const ResponsiveAppBar = (props) => {
                         <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>NSE</Typography></Box>
                     </div>
                 </div>
-                <div className={styles.datadivcallaloo}  style={{ padding: '10px 80px 0px 0px' }}>
+                <div className={styles.datadivcallaloo}  style={{ padding: '10px 31px 0px 0px' }}>
                     <Typography className={styles.peregarflist33} >Type</Typography>
-                    <Typography className={styles.peregarflist44} >{props.data.type}</Typography>
+                    <Typography className={styles.peregarflist44} >{props.data.type == 'BasicPattern' ? 'BASIC PATTERN': props.data.type == 'CustomPattern' ?'Custom Pattern'  :''}</Typography>
                 </div>
                 </Grid>
             <Grid item sm={12} md={2} xs={12} className={styles.flexlisjjs} style={{display:'flex'}}>

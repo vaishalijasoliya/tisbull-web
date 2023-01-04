@@ -751,14 +751,14 @@ const Home = (props) => {
                 // if(datatebalpettan.map((n) => n.status =='active') || datatebalpettan.map((n) => n.status =='pause'))
                 const newSelected = datatebalpettan.map((n) => n.id);
 
-                const newSelectedlist =''
-                if(datatebalpettan.map((n) => n.status =='exit')){
-                    setSelected(newSelectedlist);
+                // const newSelectedlist =''
+                // if(datatebalpettan.map((n) => n.status =='exit')){
+                    // setSelected(newSelectedlist);
 
-                }else{
+                // }else{
     setSelected(newSelected);
-                }
-                setListopjuok(newSelectedlist)
+                // }
+                // setListopjuok(newSelectedlist)
                 return;
             }
         

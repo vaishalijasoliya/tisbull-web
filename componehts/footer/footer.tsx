@@ -7,7 +7,7 @@ const main = () => {
     
 <Grid  container className={styles.fotarcontenar}>
 <Grid item sm={0} md={2} xs={0} >
-<img className={styles.listscsfkon} width={300} src='../../Ellipse 16.svg' />
+<img className={styles.listscsfkon} height={350} width={250} src='../../Group 1000003664.png' />
 </Grid>
 <Grid item sm={12} md={8} xs={12}>
 <div className={styles.open_list}>

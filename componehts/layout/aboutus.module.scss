@@ -6,13 +6,19 @@
     padding: 60px 60px 0px 60px;
 }
 .img_list_pohot {
-    // background-image: url('../../public/Group 36.svg');
-    // background-repeat: no-repeat;
+    background-image: url('../../public/Group 36.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
     // background-position: 95% 70px;
     // background-size: 90% 100vh;
-    // padding: 110px 50px 0px 0px;
+    padding: 140px 70px 160px 0px;
     display: flex;
     justify-content: end;
+    img{
+        border: 1px solid;
+        border-radius: 14px;
+        margin: 0px 14px 0px 0px;
+    }
 }
 .img_list_pohot img{
     width: 90%;

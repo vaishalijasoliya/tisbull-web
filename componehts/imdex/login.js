@@ -10,13 +10,16 @@ import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Types } from '../../constants/actionTypes';
-import { GoogleLogin, GoogleLogout } from "react-google-login";
+import GoogleLogin from "react-google-login";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useFormik } from 'formik';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
+// import GoogleLogin from "./googlelogin";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -33,6 +36,19 @@ const Home = (props) => {
   const [showLoginButton, setLoginButton] = useState(true);
   const [showLogoutButton, setLogoutButton] = useState(false);
   const [elistdata, setElistdata] = useState([])
+  const [showPasswordlistdata, setShowPasswordlistdata] = useState(false)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [url, setUrl] = useState("");
+  const responseGoogle = (res) => {
+    console.log(res);
+    setName(res.profileObj.name);
+    setEmail(res.profileObj.email);
+    setUrl(res.profileObj.imageUrl);
+  };
+  // const responseGoogle = (response, res) => {
+  //   loginHandler(response)
+  // }
 
   const loginHandler = async (res) => {
     var body = {
@@ -53,10 +69,10 @@ const Home = (props) => {
         props.save_user_data({ user: data });
         router.push('/dashboard')
       } else {
-        if (data.status == false && data.message == 'Social id not found!') {
+        if (data.status == false) {
  
           router.push({
-            pathname: './sing',
+            pathname: './singup',
             query: { listemail: res.kv.Wv, givenName: res.kv.wZ, name: res.kv.Af,googleId:res.profileObj.googleId}
           })
        
@@ -171,11 +187,17 @@ src='../../login bg.png'
               value={formik.values.password}
               placeholder='Confirm Password'
               className={styles.passoutinput}
-              type={showPassword ? 'text' : 'password'}
+              type={showPasswordlistdata ? 'text' : 'password'}
             />
+              <Button className={styles.menolistlogo}
+                onClick={() => setShowPasswordlistdata(!showPasswordlistdata)}>
+                {showPasswordlistdata ? <VisibilityIcon /> : <VisibilityOffIcon />}
+  
+  
+              </Button>
             <div className={styles.fargotpasslist}>
               <div className={styles.btncekpass}>
-                <Button className={styles.menolistlogo}
+                <Button className={styles.menolistlogo22}
                   onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
 
@@ -196,18 +218,30 @@ src='../../login bg.png'
             <div className={styles.bodarleft}></div>
           </div>
           <div className={styles.gooleogdiv}>
-            {showLoginButton && (
+          {/* <GoogleLogin
+        clientId="290084986341-qand35i2fqjhsf55ijd2kigbfhh1qb7t.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      /> */}
+            {/* {showLoginButton && ( */}
               <>
-                <GoogleLogin
-                  className={styles.goolloginid}
-                  clientId={client_id}
-                  onSuccess={loginHandler}
-                  onFailure={failureHandler}
-                  cookiePolicy={"single_host_origin"}
-                />
-                
+              {showLoginButton && (
+                            <>
+                                <GoogleLogin
+                                    className={styles.goolloginid22}
+                                    // className="google-item"
+                                    clientId={client_id}
+                                    onSuccess={loginHandler}
+                                    onFailure={failureHandler}
+                                    cookiePolicy={"single_host_origin"}
+                                />
+                    
+                            </>
+                        )}
               </>
-            )}
+            {/* )} */}
            
           </div>
           <div className={styles.alreadylist}>

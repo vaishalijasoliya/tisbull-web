@@ -6,6 +6,7 @@
 .singlistpsdii{
   background-image: url('../public/login bg new.png');
   background-repeat: no-repeat !important;
+background-size: cover;
 }
 .difarandssa{
   font-size: 18px !important;
@@ -14,7 +15,7 @@
 .singlistpsdii223352{
   background-image: url('../public/setting forgot.png');
   background-repeat: no-repeat !important;
-
+background-size: cover;
 }
 .listfonfl{
   font-family: Poppins-400 !important;
@@ -44,7 +45,7 @@ color: #000000 !important;
 .singlistpsdii22{
   background-image:url('../public/signup bg new.png');
   background-repeat: no-repeat;
-
+background-size: cover;
 }
 .singlistpsdii33{
   background-image:url('../public/forget password bg.png');
@@ -81,7 +82,7 @@ color: #009947 !important;
    */
    .bac_divhomeadv{
     /* background-color:#F5F5F5 !important; */
-    padding: 100px 0px 0px 0px;
+    /* padding: 100px 0px 0px 0px; */
     background-image: url("../public/Rectangle 12 (1).png") !important;
     background-repeat: no-repeat;
    }

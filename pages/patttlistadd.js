@@ -135,6 +135,7 @@ const AddPattern = (props) => {
         label: 'Basic Pattern',
         id: 'BasicPattern'
     });
+    const[iniyalbur,setIniyalBuy] =useState('')
     const [listinnewdata, setLiatstgs] = useState('')
     console.log(patternList, 'patternList');
     const [patternError, setPatternError] = useState(false);
@@ -230,10 +231,10 @@ const AddPattern = (props) => {
                     'Sell is required')
         }),
         onSubmit: () => {
-            onAddPattern()
+            // onAddPattern()
         },
     });
-console.log(formik.values.currentPrice,'formik.values.currentPrice');
+    console.log(formik.values.currentPrice, 'formik.values.currentPrice');
     React.useLayoutEffect(() => {
         if (!!props.router && !!props.router.query && !!props.router.query.data) {
             isView = true;
@@ -363,7 +364,7 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
         // if(!!accountList){
         if (accountList.status) {
             console.log(accountList, 'accountList.data.initail_buy');
-
+setIniyalBuy( accountList.data.initail_buy)
             formik.setFieldValue('Initail', accountList.data.initail_buy);
             formik.setFieldValue('BuySteps', accountList.data.amo_buy);
             formik.setFieldValue('SellSteps', accountList.data.amo_sell);
@@ -479,12 +480,45 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
                 'stock': totalStockWithCurrent.toFixed(2),
                 'investment': parseFloat(investmentWithCurrent.toFixed(2)),
                 'sDisc': sDisc > 0 ? sDisc.toFixed(2) : 0,
-                'avg': (avgPrice / lotsize).toFixed(2)
+                'avg': (avgPrice / lotsize).toFixed(2),
+                isInitialBuy: '',
             }
             if (patternStep.qty !== 0) {
                 patternArray.push(JSON.parse(JSON.stringify(patternStep)));
             }
         }
+        const Arr = patternArray;
+        if (!!patternArray) {
+            for (let index = 0; index < Arr.length; index++) {
+                const element = Arr[index];
+
+                element.isInitialBuy = '';
+
+                console.log(element, '______ELEMENT______');
+
+                if (element.buyPrice == parseFloat(formik.values.currentPrice)) {
+                    console.log(Arr.indexOf(element), 'ELEMENT________IS__SAME');
+
+                    IndexA = Arr.indexOf(element);
+                }
+            }
+        }
+        for (
+            let index = IndexA - formik.values.Initail + 1;
+            index <= IndexA;
+            index++
+        ) {
+            const element = Arr[index];
+
+            // console.log('INITIAL__BUY', element);
+
+            element.isInitialBuy = 'isInitialBuy';
+            // Arr.push(element);
+
+
+            console.log(element.isInitialBuy, 'IS_____INITIAL___BUY')
+        }
+        console.log(formik.values.Initail,'iniyalbur');
         var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))
         if (buyValueObj.length > 0) {
             setPatternList(patternArray)
@@ -530,6 +564,44 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
             formik.submitForm()
         }
     }
+
+    let IndexA = '';
+    const Arr = patternList;
+    if (!!patternList) {
+        for (let index = 0; index < Arr.length; index++) {
+            const element = Arr[index];
+
+            element.isInitialBuy = '';
+
+            // console.log(element, '______ELEMENT______');
+
+            // if (element.buyPrice == bodyObject.currentPrice) {
+            //   console.log(Arr.indexOf(element), 'ELEMENT________IS__SAME');
+
+            //   IndexA = Arr.indexOf(element);
+            // }
+        }
+    }
+
+    // console.log(IndexA - bodyObject.initail_sell + 1, 'PATTERN____PREVIEW____');
+
+    // for (
+    //   let index = IndexA - bodyObject.initail_buy + 1;
+    //   index <= IndexA;
+    //   index++
+    // ) {
+    //   const element = Arr[index];
+
+    //   console.log('INITIAL__BUY', element);
+
+    //   element.isInitialBuy = 'isInitialBuy';
+    //   // Arr.push(element);
+
+    //   console.log(element.isInitialBuy,'IS_____INITIAL___BUY')
+    // }
+
+
+
     console.log(patternItem.id, 'sjhhshss');
     const onLockPatternClick = async () => {
         var body = {
@@ -540,8 +612,8 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
             "enterPrice": parseFloat(formik.values.currentPrice),
             "sell": parseFloat(formik.values.sellPrice),
             "tickSize": tickSize,
-            'target_price':parseFloat(formik.values.Target),
-            'exitPrice':parseFloat(formik.values.Stoploss),
+            'target_price': parseFloat(formik.values.Target),
+            'exitPrice': parseFloat(formik.values.Stoploss),
             "initail_buy": parseFloat(formik.values.Initail),
             "initail_sell": 0,
             "amo_buy": parseFloat(formik.values.SellSteps),
@@ -666,7 +738,7 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
                     flexGrow: 1
                 }}
             >
-            {/* <Grid  item md={12}> */}
+                {/* <Grid  item md={12}> */}
                 <Container maxWidth={false}>
 
                     <Box sx={{ mt: 3, mb: 3 }}>
@@ -979,12 +1051,12 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
                                 {/* </Grid> */}
                                 {/* <Grid item md={12}> */}
                                 {/* <div> */}
-                               
+
                                 {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
                                                 <Box sx={{ flex: 1, paddingRight: 0.5 }}> */}
                                 <Typography className={styles.hedindrop}>Advanced</Typography>
-                                
-                                               
+
+
                                 <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                                     <Grid item md={4}>
                                         <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
@@ -1067,138 +1139,138 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
                                     </Grid>
                                 </div>
                                 <div>
-                                            <Accordion className={styles.acclistloddop}>
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel1a-content"
-                                                    id="panel1a-header"
-                                                    className={styles.listbackdda}
-                                                > 
-                                <Typography className={styles.hedindrop33}>Order</Typography>
-                               
-                                
-                                <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea Make it Difault</Typography> </div>
-                                </AccordionSummary>
-                                <AccordionDetails className={styles.listaccsumahha}>
-                                <div style={{ display: "flex", paddingTop: '10px' }}>
-                                    <Grid item md={4} >
-                                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                            <Box sx={{ flex: 1 }}>
-                                                <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.Initail && formik.errors.Initail)}
-                                                    fullWidth
-                                                    helperText={formik.touched.Initail && formik.errors.Initail}
-                                                    // label="Buy"
-                                                    type="number"
-                                                    className={styles.listtextfils2233}
-                                                    margin="normal"
-                                                    name="Initail"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-
-                                                    value={formik.values.Initail}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
+                                    <Accordion className={styles.acclistloddop}>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                            className={styles.listbackdda}
+                                        >
+                                            <Typography className={styles.hedindrop33}>Order</Typography>
 
 
-                                        </Box>
-                                    </Grid>
-                                    <Grid item md={4} style={{ padding: '0px 0px 0px 20px' }}>
-                                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                            <Box sx={{ flex: 1, paddingRight: '20px' }}>
-                                                <Typography className={styles.typofonty}>AMO Buy Down Steps</Typography>
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.BuySteps && formik.errors.BuySteps)}
-                                                    fullWidth
-                                                    helperText={formik.touched.BuySteps && formik.errors.BuySteps}
-                                                    // label="Buy"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    margin="normal"
-                                                    name="BuySteps"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
+                                            <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea Make it Difault</Typography> </div>
+                                        </AccordionSummary>
+                                        <AccordionDetails className={styles.listaccsumahha}>
+                                            <div style={{ display: "flex", paddingTop: '10px' }}>
+                                                <Grid item md={4} >
+                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                        <Box sx={{ flex: 1 }}>
+                                                            <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
+                                                            <TextField
+                                                                sx={{ flex: 1 }}
+                                                                error={Boolean(formik.touched.Initail && formik.errors.Initail)}
+                                                                fullWidth
+                                                                helperText={formik.touched.Initail && formik.errors.Initail}
+                                                                // label="Buy"
+                                                                type="number"
+                                                                className={styles.listtextfils2233}
+                                                                margin="normal"
+                                                                name="Initail"
+                                                                onBlur={formik.handleBlur}
+                                                                onChange={formik.handleChange}
 
-                                                    value={formik.values.BuySteps}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-                                            <Box sx={{ flex: 1, }}>
+                                                                value={formik.values.Initail}
+                                                                variant="outlined"
+                                                            />
+                                                        </Box>
 
-                                                <Typography className={styles.typofonty}>AMO Sell UP Steps</Typography>
 
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.SellSteps && formik.errors.SellSteps)}
-                                                    fullWidth
-                                                    helperText={formik.touched.SellSteps && formik.errors.SellSteps}
-                                                    // label="Sell"
-                                                    margin="normal"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    name="SellSteps"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.SellSteps}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item md={4} style={{ padding: '0px 0px 0px 20px' }}>
+                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                        <Box sx={{ flex: 1, paddingRight: '20px' }}>
+                                                            <Typography className={styles.typofonty}>AMO Buy Down Steps</Typography>
+                                                            <TextField
+                                                                sx={{ flex: 1 }}
+                                                                error={Boolean(formik.touched.BuySteps && formik.errors.BuySteps)}
+                                                                fullWidth
+                                                                helperText={formik.touched.BuySteps && formik.errors.BuySteps}
+                                                                // label="Buy"
+                                                                type="number"
+                                                                className={styles.listtextfils}
+                                                                margin="normal"
+                                                                name="BuySteps"
+                                                                onBlur={formik.handleBlur}
+                                                                onChange={formik.handleChange}
 
-                                        </Box>
-                                    </Grid>
-                                    <Grid item md={4} >
-                                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 20px" }}>
-                                            <Box sx={{ flex: 1, paddingRight: '20px' }}>
-                                                <Typography className={styles.typofonty}>Normal Buy Down Steps</Typography>
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.NormalBuy && formik.errors.NormalBuy)}
-                                                    // fullWidth
-                                                    helperText={formik.touched.NormalBuy && formik.errors.NormalBuy}
-                                                    // label="Buy"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    margin="normal"
-                                                    name="NormalBuy"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
+                                                                value={formik.values.BuySteps}
+                                                                variant="outlined"
+                                                            />
+                                                        </Box>
+                                                        <Box sx={{ flex: 1, }}>
 
-                                                    value={formik.values.NormalBuy}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-                                            <Box sx={{ flex: 1, }}>
+                                                            <Typography className={styles.typofonty}>AMO Sell UP Steps</Typography>
 
-                                                <Typography className={styles.typofonty}>Normal Sell UP Steps</Typography>
+                                                            <TextField
+                                                                sx={{ flex: 1 }}
+                                                                error={Boolean(formik.touched.SellSteps && formik.errors.SellSteps)}
+                                                                fullWidth
+                                                                helperText={formik.touched.SellSteps && formik.errors.SellSteps}
+                                                                // label="Sell"
+                                                                margin="normal"
+                                                                type="number"
+                                                                className={styles.listtextfils}
+                                                                name="SellSteps"
+                                                                onBlur={formik.handleBlur}
+                                                                onChange={formik.handleChange}
+                                                                value={formik.values.SellSteps}
+                                                                variant="outlined"
+                                                            />
+                                                        </Box>
 
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.NormalSell && formik.errors.NormalSell)}
-                                                    // fullWidth
-                                                    helperText={formik.touched.NormalSell && formik.errors.NormalSell}
-                                                    // label="Sell"
-                                                    margin="normal"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    name="NormalSell"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.NormalSell}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item md={4} >
+                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 20px" }}>
+                                                        <Box sx={{ flex: 1, paddingRight: '20px' }}>
+                                                            <Typography className={styles.typofonty}>Normal Buy Down Steps</Typography>
+                                                            <TextField
+                                                                sx={{ flex: 1 }}
+                                                                error={Boolean(formik.touched.NormalBuy && formik.errors.NormalBuy)}
+                                                                // fullWidth
+                                                                helperText={formik.touched.NormalBuy && formik.errors.NormalBuy}
+                                                                // label="Buy"
+                                                                type="number"
+                                                                className={styles.listtextfils}
+                                                                margin="normal"
+                                                                name="NormalBuy"
+                                                                onBlur={formik.handleBlur}
+                                                                onChange={formik.handleChange}
 
-                                        </Box>
-                                    </Grid>
+                                                                value={formik.values.NormalBuy}
+                                                                variant="outlined"
+                                                            />
+                                                        </Box>
+                                                        <Box sx={{ flex: 1, }}>
+
+                                                            <Typography className={styles.typofonty}>Normal Sell UP Steps</Typography>
+
+                                                            <TextField
+                                                                sx={{ flex: 1 }}
+                                                                error={Boolean(formik.touched.NormalSell && formik.errors.NormalSell)}
+                                                                // fullWidth
+                                                                helperText={formik.touched.NormalSell && formik.errors.NormalSell}
+                                                                // label="Sell"
+                                                                margin="normal"
+                                                                type="number"
+                                                                className={styles.listtextfils}
+                                                                name="NormalSell"
+                                                                onBlur={formik.handleBlur}
+                                                                onChange={formik.handleChange}
+                                                                value={formik.values.NormalSell}
+                                                                variant="outlined"
+                                                            />
+                                                        </Box>
+
+                                                    </Box>
+                                                </Grid>
+                                            </div>
+
+                                        </AccordionDetails>
+                                    </Accordion>
                                 </div>
-
-</AccordionDetails>
-</Accordion>
-</div>
                             </CardContent>
                         </Card>
                         {/* < */}
@@ -1455,9 +1527,9 @@ console.log(formik.values.currentPrice,'formik.values.currentPrice');
                                                 <TableRow
                                                     key={index + 1}
                                                     // hover
-className={formik.values.currentPrice == pattern.buyPrice  ? styles.listbahovar:styles.listnormalta }
+                                                    className={formik.values.currentPrice == pattern.buyPrice ? styles.listbahovar : styles.listnormalta}
                                                 >
-                                                
+
                                                     <TableCell>
                                                         <Box
                                                             sx={{
@@ -1572,20 +1644,22 @@ className={formik.values.currentPrice == pattern.buyPrice  ? styles.listbahovar:
                                             size="medium"
                                             variant="contained"
                                             type="submit"
-                                //             onClick={() => {
-                                //                 tabaldatalist == '' ? {
-                                //                     setTebaldatalist('virang')  ,                                              setLiatstgs('gsdgfgdffd')
-                                // setLiatstgs('')
-                                //                 } : ''
+                                            //             onClick={() => {
+                                            //                 tabaldatalist == '' ? {
+                                            //                     setTebaldatalist('virang')  ,                                              setLiatstgs('gsdgfgdffd')
+                                            // setLiatstgs('')
+                                            //                 } : ''
 
 
-                                //                 // setLISTdatasumm('')
+                                            //                 // setLISTdatasumm('')
 
-                                //                 // setListnone('')
+                                            //                 // setListnone('')
 
-                                //             }}
-                                onClick={()=>{setLISTdatasumm('')
-                                                setListnone('') }}
+                                            //             }}
+                                            onClick={() => {
+                                                setLISTdatasumm('')
+                                                setListnone('')
+                                            }}
                                         >
                                             Preview
                                         </Button> : <Button

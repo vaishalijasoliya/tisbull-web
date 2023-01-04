@@ -9,7 +9,7 @@ const main = () => {
   return (
     <>
 
-      <Grid container >
+      <Grid container style={{    paddingBottom: '77px'}}>
         <Grid item sm={12} md={5} xs={12} >
           <div className={styles.maendivhome}>
             <div>
@@ -39,7 +39,7 @@ const main = () => {
         </Grid>
         <Grid item sm={12} md={7} xs={12} display={'flex'} justifyContent={'end'}>
           <div className={styles.bac_img}>
-            <img  src='../../image 3.svg' />
+            <img className={styles.imgpattlist} width={'95%'} src='../../Pattern list.png' />
           </div>
         </Grid>
         

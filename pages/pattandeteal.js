@@ -374,15 +374,16 @@ const ResponsiveAppBar = (props) => {
 
             <Box style={{ display: 'flex', justifyContent: 'end', }}>
               <Button   onClick={() => {
-                                                                            if (data.type_pattern !== "CustomPattern") {
+                                                                            if (data.type== "CustomPattern") {
                                                                                 router.push({
-                                                                                    pathname: '/texteditpatt',
-                                                                                    query: { data: JSON.stringify({ id:router.query.emailID }) },
+                                                                                    pathname: '/editCustom',
+                                                                                    query: { emailID: router.query.emailID }
+                                                                                   ,
                                                                                 });
                                                                             } else {
                                                                                 router.push({
                                                                                     pathname: '/editpatt',
-                                                                                    query: { data: JSON.stringify({ id:router.query.emailID }) },
+                                                                                    query: { emailID: router.query.emailID }
                                                                                 });
                                                                             }
                                                                         }} type="submit" className={styles.button}>

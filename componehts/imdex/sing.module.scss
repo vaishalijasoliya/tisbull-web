@@ -9,6 +9,21 @@
     src: url(../../styles/popins/Poppins-Regular.ttf);
 }
 
+.listhedardat{
+    background-color: #FFFFFF !important;
+}
+.menolistlogo {
+    position: relative;
+    right: 38px;
+    top: 2px;
+    // top: 290px;
+    // right: 30px;
+}
+
+.menolistlogo {
+    color: #000000 !important;
+    min-width: 30px !important;
+}
 
 .boxsinglist {
     border-radius: 25px;
@@ -101,6 +116,8 @@
     background: #009947 !important;
     border-radius: 50px !important;
     width: 164px;
+    text-align: center;
+    text-decoration: none !important;
 }
 
 .btn_pages:hover {
@@ -292,7 +309,7 @@ margin-bottom: 10px !important;
         height: 7px;
     }
 }
-.menolistlogo {
+.menolistlogo22 {
     color: black !important;
     min-width: 0px !important;
     padding: 6px 8px 6px 0px !important;

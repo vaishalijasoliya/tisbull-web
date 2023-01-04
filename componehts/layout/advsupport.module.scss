@@ -58,10 +58,10 @@ p {
 }
 
 .oboxline{
-    // background-image:url('../../public/Ellipse 14.svg'),url('../../public/Ellipse 15.svg') !important;
-    // background-repeat: no-repeat;
-    // background-size:cover;
-    text-align: center;
+    background-image:url('../../public/right round.svg') !important;
+    background-repeat: no-repeat;
+    background-position-x: 333px;
+    background-position-y: 42px;
 
 }
 .bgcolor_peg2{
@@ -70,9 +70,18 @@ p {
     background-size:100%;
    
 }
-.maen_geidsty2{
-    background-image: url('../../public/Rectangle 14 (1).png');
+.logotis2{
+    background-image:url('../../public/Group 1000001428 (1).svg');
     background-repeat: no-repeat;
+    background-position-x: 146px;
+    background-position-y: 309px;
+position: relative;
+bottom: 111px;
+right: 45px;
+}
+.maen_geidsty2{
+    // background-image: url('../../public/Rectangle 14 (1).png');
+    // background-repeat: no-repeat;
 }
 .maen_geidsty {
     background-image: url('../../public/Rectangle 13.svg');
@@ -80,6 +89,7 @@ p {
     background-size: cover;
     text-align: center;
     height: 692px;
+    padding: 64px 0px 0px 100px;
 
 }
 .listtebalboy{
@@ -105,7 +115,100 @@ color: #000000;
     color: #8F8989; 
     font-size: 14px !important;
     padding-bottom: 30px;
+    max-width: 400px;
+text-align: left;
 }
+.listmaendivall{
+    padding: 30px 0px 0px 62px;
+}
+.img_text_div {
+    display: flex;
+    justify-content: center;
+    padding: 0px 0px 40px 0px;
+
+}
+.img_text_div1 {
+    display: flex;
+    // justify-content: end;
+    // align-items: center;
+    padding: 0px 30px 40px 20px;
+
+}
+.img_text_div122 {
+    display: flex;
+    // justify-content: end;
+    // align-items: center;
+    padding: 0px 30px 87px 20px;
+
+}
+.img_text_div3 {
+    display: flex;
+    justify-content: center;
+    padding: 0px 0px 40px 20px;
+
+}
+.heding_features p {
+    font-family: Poppins-400;
+    font-size: 40px;
+    line-height: 60px;
+    color: #4F4F4F;
+    text-align: center;
+    // padding: 90px 0px 0px 0px;
+}
+
+.heding_features_p p {
+    font-family: Poppins-400;
+    font-size: 20px;
+    line-height: 33px;
+    color: #4F4F4F;
+    text-align: center; 
+   padding: 10px 0px 90px 0px;
+}
+.listcontenardata{
+    padding: 0px 60px 0px 60px;
+}
+.nonpeeegarf{
+    padding-top: 10px;
+    color: #8F8989 !important;
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+}
+.chart_text{
+padding: 0px 0px 10px 20px;
+p {
+    font-size: 19px;
+    color: #4F4F4F;
+    max-width: 237px;
+}
+}
+@media only screen and (max-width: 450px) {
+.containar_fea{
+    display: flex;
+    justify-content: center;
+}
+.img_text_div1{
+    display: flex;
+    justify-content: center;
+}
+}
+@media only screen and (max-width: 820px) {
+    .containar_fea{
+        display: flex;
+        justify-content: center;
+      
+    }
+    .img_text_div{
+        padding: 0px 50px 0px 0px;
+    }
+    .img_text_div3{
+        padding: 0px 50px 0px 0px;
+    }
+    .img_text_div1{
+        display: flex;
+        justify-content: center;
+        padding: 0px 50px 0px 0px;
+    }
+    }
 @media only screen and (max-width: 900px) {
     .bgcolor_peg2 img{
         width: 200px;

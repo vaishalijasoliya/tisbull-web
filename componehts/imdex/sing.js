@@ -56,10 +56,13 @@ console.log(router.query.googleId,'gvvvvv');
           
           if (data.status == true) {
             props.save_user_data({ user: data, });
-            router.push('/dashboard')
+            router.push('/login')
+            toast.success(data.message)
+            onLoginPress(res.Ca)
           } else {
             if (data.status == false && data.message == 'Social id not found!') {
-              router.push('/sing')
+              router.push('/singup')
+              toast.error(data.message)
             }
           }
         } else {
@@ -80,11 +83,11 @@ console.log(router.query.googleId,'gvvvvv');
         setLogoutButton(false);
     };
     console.log(elistdata, 'res');
-    const onLoginPress = async () => {
+    const onLoginPress = async (value) => {
         var body = {
             'password': formik.values.password,
             'email': formik.values.email,
-            'social_id':router.query.googleId
+            'social_id':value
         }
         console.log(body, 'body');
 
@@ -112,26 +115,16 @@ console.log(router.query.googleId,'gvvvvv');
 
     const formik = useFormik({
         initialValues: {
-            username: '',
+            // username: '',
             password: '',
             email: '',
-            Name: '',
+            // Name: '',
         },
         validationSchema: Yup.object({
-            username: Yup
-                .string()
-
-                .max(255)
-                .required(
-                    'User name is required'),
             email: Yup
                 .string()
                 .max(30)
                 .required('Email is required'),
-            Name: Yup
-                .string()
-                .max(30)
-                .required('emaika'),
             password: Yup
                 .string()
                 .min(6)
@@ -205,7 +198,7 @@ console.log(router.query.googleId,'gvvvvv');
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
                             value={formik.values.email}
-                            // placeholder='Email ID'
+                            placeholder='Email ID'
                             type="text"
                             className={styles.userinput22}
                             // type='text'
@@ -222,12 +215,12 @@ console.log(router.query.googleId,'gvvvvv');
                             onChange={formik.handleChange}
                             value={formik.values.password}
                             lable='Password'
-                            placeholder='Confirm Password'
+                            placeholder='Enter Your Password'
                             className={styles.passoutinput22}
                             type={showPassword ? 'text' : 'password'}
                         />
                       
-                        <Button type="submit" onClick={onLoginPress} className={styles.singbtn22} >Create account</Button>
+                        <Button type="submit" onClick={formik.handleSubmit} className={styles.singbtn22}>Create account</Button>
 
                     </form>
                     <div className={styles.borderimline22}>

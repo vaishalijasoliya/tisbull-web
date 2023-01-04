@@ -21,7 +21,7 @@ const main = () => {
                         <div className={styles.tridingpere}><Typography>Trading With </Typography></div>
                         <div className={styles.zerrodhadata1}><a><img src='../../zerodha logo 1.svg' /><Typography>ZERODHA</Typography></a></div>
                         <div className={styles.zerrodhadata2}><a className={styles.listatecgid}><img src='../../kotak logo 1.svg' /><Typography className={styles.kotaktexy}>KOTAK SECURITIES</Typography></a></div>
-                        <div className={styles.zerrodhadata}><a><img src='../../angel logo 1.svg' /><Typography>ANGEL ONE</Typography></a></div>
+                        <div className={styles.zerrodhadata}><a><img src='../../angel logo.png' width={36} /><Typography>ANGEL ONE</Typography></a></div>
                     </div>
                 </Grid>
                 <Grid item sm={12} md={6} xs={12} display={'flex'} justifyContent={'space-between'}>
@@ -39,7 +39,7 @@ const main = () => {
                     <div>
                         <div className={styles.taypocontes}><Typography>Connect</Typography></div>
                         <div>
-                        <a className={styles.listoffics}><img src='../../Vector (26).svg' /><Typography>432, Amby Valley Arcade,
+                        <a className={styles.listoffics}><img src='../../Group 1000003665.png' /><Typography>432, Amby Valley Arcade,
                             Uttran, Surat, Gujarat, India, 394105 </Typography> </a>
                         <a className={styles.listoffics}><img src='../../Vector (27).svg' /><Typography>+91 00000 00000  | +91 00000 00000</Typography> </a>
                         <a className={styles.listoffics}> <img src='../../Vector (28).svg' /><Typography>info@tisbull.com</Typography> </a>

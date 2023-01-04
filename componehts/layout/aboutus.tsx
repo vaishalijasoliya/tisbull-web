@@ -27,11 +27,11 @@ TIS BULL is a technological trading platform for everyone. It provides automatic
 </div>
 </div>
 </Grid>
-<Grid item sm={12} md={8} xs={12} >
+<Grid item sm={12} md={8} xs={12} style={{    padding:'0px 0px 0px 103px'}}>
     <div className={styles.img_list_pohot}>
         <img 
         // height={600}  width={1000}
-         src='../../Group 37.svg' />
+         src='../../Today orders.png' />
     </div>
 </Grid>
 </Grid>
