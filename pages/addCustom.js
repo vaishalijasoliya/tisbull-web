@@ -1999,9 +1999,9 @@ return (
                                             </Table>
                                     </Box>
 
-                        <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1 }}>
+                        {/* <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1 }}>
 
-                        </Box>
+                        </Box> */}
                     </div>
                     }</>}
                     {activeStep == 2 && <><Card

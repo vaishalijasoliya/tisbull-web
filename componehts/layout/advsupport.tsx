@@ -45,7 +45,7 @@ const main = () => {
         <Grid item sm={12} md={6} xs={12} className={styles.maen_geidsty2}>
           <div className={styles.logotis2}>
             <div >
-              <img height={'700px'} src='../../mobile mockup 1.svg'></img>
+              <img height={'700px'}     width={'713px'} src='../../mobile mockup 1.svg'></img>
             </div>
             {/* <div className={styles.heding_advauto2}>
               <Typography>

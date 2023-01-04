@@ -21,7 +21,6 @@ export default {
     ADD_CUSTOM_PATTERN: Constants.BASE_API_URL + 'Pattern/customPattern/create',
     EDIT_PATTERN: Constants.BASE_API_URL + 'Pattern/edit',
     EDIT_CUSTOM_PATTERN: Constants.BASE_API_URL + 'Pattern/customPattern/edit',
-
     PATTERN_PLAY: Constants.BASE_API_URL + 'Pattern/play',
     PATTERN_PAUSE: Constants.BASE_API_URL + 'Pattern/pause',
     ACCOUNT_DELETE: Constants.BASE_API_URL + 'account/delete',

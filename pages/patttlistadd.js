@@ -79,7 +79,7 @@ const AddPattern = (props) => {
     const [tabaldatalist, setTebaldatalist] = useState('')
 
     const [listsummri, setLISTdatasumm] = useState("")
-    console.log(endDate, 'listfiltar');
+    console.log(patternList, 'patternList');
     const [level, setLevel] = useState({
         label: '3',
         id: '3'
@@ -488,12 +488,14 @@ setIniyalBuy( accountList.data.initail_buy)
             }
         }
         const Arr = patternArray;
+        console.log(patternArray,'patternArray');
+        // isInitialBuy.push(Arr)
         if (!!patternArray) {
             for (let index = 0; index < Arr.length; index++) {
                 const element = Arr[index];
 
                 element.isInitialBuy = '';
-
+                // isInitialBuy.push(Arr.isInitialBuy)
                 console.log(element, '______ELEMENT______');
 
                 if (element.buyPrice == parseFloat(formik.values.currentPrice)) {
@@ -513,9 +515,9 @@ setIniyalBuy( accountList.data.initail_buy)
             // console.log('INITIAL__BUY', element);
 
             element.isInitialBuy = 'isInitialBuy';
-            // Arr.push(element);
-
-
+            Arr.push(element);
+           
+            // isInitialBuy.push(element.isInitialBuy)
             console.log(element.isInitialBuy, 'IS_____INITIAL___BUY')
         }
         console.log(formik.values.Initail,'iniyalbur');
@@ -1522,12 +1524,12 @@ setIniyalBuy( accountList.data.initail_buy)
                                                     AVG.                                                    </TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody className={styles.listrowdATA}>
+                                        <TableBody className={styles.listrowdATA22}>
                                             {patternList.map((pattern, index) => (
                                                 <TableRow
                                                     key={index + 1}
                                                     // hover
-                                                    className={formik.values.currentPrice == pattern.buyPrice ? styles.listbahovar : styles.listnormalta}
+                                                    className={patternList.isInitialBuy == 'isInitialBuy' ? styles.listbahovar : styles.listnormalta}
                                                 >
 
                                                     <TableCell>

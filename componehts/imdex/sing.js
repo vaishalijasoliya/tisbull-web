@@ -40,7 +40,7 @@ console.log(router.query.googleId,'gvvvvv');
     const loginHandler = async (res) => {
         console.log(res.Ca, 'my res');
         var body = {
-          social_id: res.Ca
+          'social_id': res.Ca
         }
         console.log(body,'lisrtkkk');
         
@@ -58,9 +58,9 @@ console.log(router.query.googleId,'gvvvvv');
             props.save_user_data({ user: data, });
             router.push('/login')
             toast.success(data.message)
-            onLoginPress(res.Ca)
+            // onLoginPress(res.Ca)
           } else {
-            if (data.status == false && data.message == 'Social id not found!') {
+            if (data.status == false ) {
               router.push('/singup')
               toast.error(data.message)
             }

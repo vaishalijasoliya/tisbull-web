@@ -230,12 +230,14 @@ $textcolor: #009947;
         font-family: Poppins-400 !important;
 color: #333333;
 a{
+    padding-left: 5px;
     color: #009947;
     text-decoration: none;
 }
     
 }
 .btnlstdivangf{
-    padding: 0px !important;
+    padding: 10px !important;
     min-width: 0px !important;
+    // background-color: #009947 !important;
 }

@@ -54,7 +54,7 @@ const Home = (props) => {
     var body = {
       social_id: res.Ca
     }
-
+console.log(body,'listbody');
     var headers = {
       'Content-Type': 'application/json',
     };
@@ -73,7 +73,7 @@ const Home = (props) => {
  
           router.push({
             pathname: './singup',
-            query: { listemail: res.kv.Wv, givenName: res.kv.wZ, name: res.kv.Af,googleId:res.profileObj.googleId}
+            // query: { listemail: res.kv.Wv, givenName: res.kv.wZ, name: res.kv.Af,googleId:res.profileObj.googleId}
           })
        
         }
@@ -92,7 +92,7 @@ const Home = (props) => {
 
   const onLoginPress = async () => {
     var body = {
-      'user_name': formik.values.username,
+      'user_name': formik.values.email,
       'password': formik.values.password,
     }
     console.log(body, 'body');
@@ -124,16 +124,11 @@ console.log(data,'loginData');
 
   const formik = useFormik({
     initialValues: {
-      username: '',
+      email: '',
       password: '',
     },
     validationSchema: Yup.object({
-      username: Yup
-        .string()
-
-        .max(255)
-        .required(
-          'Email is required'),
+      email: Yup.string().required('Email is required').email('Email is invalid'),
       password: Yup
         .string()
         .min(6)
@@ -162,14 +157,14 @@ src='../../login bg.png'
           <div className={styles.welcamrlist}><Typography>Welcome back</Typography></div>
           <div className={styles.pleslist}><Typography>Welcome back! Please enter your detalis.</Typography></div>
           <form onSubmit={formik.handleSubmit}>
-            <InputLabel className={styles.leballist}>Email</InputLabel>
+            <InputLabel className={styles.leballist}>Email/ID</InputLabel>
             <TextField
-              error={Boolean(formik.touched.username && formik.errors.username)}
-              helperText={formik.touched.username && formik.errors.username}
-              name="username"
+              error={Boolean(formik.touched.email && formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              name="email"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.username}
+              value={formik.values.email}
               placeholder='Email ID'
               type="text"
               className={styles.userinput}

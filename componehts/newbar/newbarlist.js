@@ -308,7 +308,7 @@ const[dartmenu,setDatamenu] =React.useState('')
       <Container maxWidth="100%" className={styles.cantenar_list_caps}>
         <Toolbar disableGutters>
           <Grid item sm={3} md={3} xs={3}>
-            <a href='./'>
+            <a href='./dashboard'>
               <img src='../../new logo.png' width={190}></img>
             </a>
           </Grid>

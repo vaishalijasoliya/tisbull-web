@@ -231,6 +231,7 @@ console.log(userJSON,'userJSON');
         id: 'BasicPattern'
     });
     const [patternData, setPatternData] = useState(false);
+    const [listhpdatao, setListOPhpsad] = useState('')
 
     const[listcsvdata,setDatalistcsv] =useState([])
     const [padjdhdggd, setPandindpl] = useState('')
@@ -248,9 +249,9 @@ console.log(userJSON,'userJSON');
             totalInvestment: "",
             currentPrice: '',
         },
-        onSubmit: () => {
-            onAddPattern()
-        },
+        // onSubmit: () => {
+        //     onAddPattern()
+        // },
     });
     const [patternDataArray, setPatternDataArray] = useState([
         {
@@ -602,20 +603,21 @@ console.log(userJSON,'userJSON');
             for (let index = 0; index < patternDataArray.length; index++) {
                 const element = patternDataArray[index];
                 var object = {
-                    "buyPrice": element.buy,
-                    "sellPrice": element.sell,
-                    "buy_qty": element.buyQty,
-                    "sell_qty": element.sellQty,
+                    "buyPrice": parseFloat(element.buy),
+                    "sellPrice": parseFloat(element.sell),
+                    "buy_qty": parseFloat(element.buyQty),
+                    "sell_qty": parseFloat(element.sellQty),
                 }
                 console.log(object, 'objectobject');
-                // console.log('patternliaja', object)
+                // console.log('patternliaja', object)listhpdatao
 
                 patternDataList.push(JSON.parse(JSON.stringify(object)))
             }
             var currentPriceArray = patternDataArray.filter((item) => item.is_current_price);
+            if (script.id == '') {
             var body = {
                 "script": parseFloat(script.id),
-                "currentPrice": currentPriceArray[0].buy,
+                "currentPrice": parseFloat(currentPriceArray[0].buy),
                 "pattern_data": patternDataList,
                 "id_account": props.profile.userData.currentAccount.id,
                 "initail_sell": 0,
@@ -623,19 +625,38 @@ console.log(userJSON,'userJSON');
                 "amo_sell": parseFloat(formik.values.BuySteps),
                 "normal_buy": parseFloat(formik.values.NormalBuy),
                 "initail_buy": parseFloat(formik.values.Initail),
-
+                'id_pattern':parseFloat(router.query.emailID),
+                "normal_sell": parseFloat(formik.values.NormalSell),
+                "status": patternData.pattern.status
+                // "minRange": parseFloat(formik.values.minRange),
+            }
+        }else{
+            var body = {
+                'id_pattern':parseFloat(router.query.emailID),
+                "script": parseFloat(listhpdatao),
+                "currentPrice": parseFloat(currentPriceArray[0].buy),
+                "pattern_data": patternDataList,
+                "id_account": props.profile.userData.currentAccount.id,
+                "initail_sell": 0,
+                "amo_buy": parseFloat(formik.values.SellSteps),
+                "amo_sell": parseFloat(formik.values.BuySteps),
+                "normal_buy": parseFloat(formik.values.NormalBuy),
+                "initail_buy": parseFloat(formik.values.Initail),
+                "status": patternData.pattern.status,
                 "normal_sell": parseFloat(formik.values.NormalSell),
                 // "minRange": parseFloat(formik.values.minRange),
             }
+        }
             console.log('patternDataList', body)
             var headers = {
                 "Content-Type": "application/json",
                 "x-access-token": props.profile.token
             }
-            props.props.loaderRef(true)
+            props.loaderRef(true)
             var patternAdd = await ApiServices.PostApiCall(ApiEndpoint.EDIT_CUSTOM_PATTERN, JSON.stringify(body), headers)
             console.log(patternAdd, 'patternAdd');
-            props.props.loaderRef(false)
+            props.loaderRef(false)
+            var redirect = true;
             if (patternAdd.success) {
                 console.log(patternAdd);
                 redirect = true;
@@ -658,7 +679,11 @@ console.log(userJSON,'userJSON');
             }
         } else {
             let formData = new FormData();
+            if (script.id == '') {
             formData.append('script', parseFloat(script.id));
+            }else{
+                formData.append('script', parseFloat(listhpdatao));
+            }
             formData.append('id_account', props.profile.userData.currentAccount.id);
             formData.append('file', csvFile)
             console.log(csvFile, 'formDataformData');
@@ -708,9 +733,9 @@ console.log(userJSON,'userJSON');
 
     }
 
-    const onLockPatternClick = async () => {
-        onAddPattern()
-    }
+    // const onLockPatternClick = async () => {
+    //     onAddPattern()
+    // }
     const getoardarlist = async () => {
         var headers = {
             "Content-Type": "application/json",
@@ -763,6 +788,7 @@ console.log(userJSON,'userJSON');
             var scripItem = scripType.filter((item) => item.label == serverData.segment)[0]
             setScripItem(scripItem)
             setScript(serverData.lableObj)
+            setListOPhpsad(serverData.script)
             setTickSize(serverData.tickSize)
             await getAccounts();
             await getScirp(scripItem.id);
@@ -844,205 +870,223 @@ console.log(userJSON,'userJSON');
 
     function Item(value, index) {
         return (
-            <Box className={styles.inputscokbox} sx={{ flex: 1, flexDirection: 'row', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-
-                <FormControlLabel className={styles.cerrpriash} label="Current Price" control={<Radio
-                    className={styles.rediobtnon}
-                    onChange={() => {
-                        var newArray = [];
-                        for (let j = 0; j < patternDataArray.length; j++) {
-                            const element = patternDataArray[j];
-                            if (index == j) {
-                                value.is_current_price = true;
-                                newArray.push(JSON.parse(JSON.stringify(value)))
-                            } else {
-                                element.is_current_price = false;
-                                newArray.push(JSON.parse(JSON.stringify(element)))
-                            }
-                        }
-                        setPatternDataArray(newArray)
-                    }}
-                    checked={value.is_current_price} />} />
-                <Box sx={{ paddingRight: 1 }}>
-                    <TextField
-                        sx={{ flex: 1 }}
-                        error={value.isBuyError}
-                        fullWidth
-                        helperText={value.isSellError ? 'Enter Buy Price' : ''}
-                        // label="Buy"
-                        className={styles.tabalinputdata}
-                        margin="normal"
-                        type="number"
-                        name="buyPrice"
-                        onChange={(value1) => {
-                            let text = value1.target.value;
-                            var newArray = [];
-                            for (let j = 0; j < patternDataArray.length; j++) {
-                                const element = patternDataArray[j];
-                                if (index == j) {
-                                    value.buy = text;
-                                    newArray.push(JSON.parse(JSON.stringify(value)))
-                                } else {
-                                    newArray.push(JSON.parse(JSON.stringify(element)))
-                                }
-                            }
-                            setPatternDataArray(newArray)
-                        }}
-                        value={value.buy}
-                        variant="outlined"
-                    />
-                </Box>
-                <Box sx={{ paddingRight: 1 }}>
-                    <TextField
-                        sx={{ flex: 1 }}
-                        error={value.isQuantityError}
-                        fullWidth
-                        helperText={value.isQuantityError ? 'Enter Buy Quantity' : ''}
-                        className={styles.tabalinputdata}
-                        margin="normal"
-                        type="number"
-                        name="buyquantity"
-                        onChange={(value1) => {
-                            let text = value1.target.value;
-                            var newArray = [];
-                            for (let j = 0; j < patternDataArray.length; j++) {
-                                const element = patternDataArray[j];
-                                if (index == j) {
-                                    value.buyQty = text;
-                                    newArray.push(JSON.parse(JSON.stringify(value)))
-                                } else {
-                                    newArray.push(JSON.parse(JSON.stringify(element)))
-                                }
-                            }
-                            setPatternDataArray(newArray)
-                        }}
-                        value={value.buyQty}
-                        variant="outlined"
-                    />
-                </Box>
-                <Box sx={{}}>
-                    <TextField
-                        sx={{ flex: 1 }}
-                        error={value.isSellError}
-                        fullWidth
-                        className={styles.tabalinputdata}
-                        helperText={value.isSellError ? 'Enter Sell Price' : ''}
-                        // label="Sell"
-                        margin="normal"
-                        type="number"
-                        name="sellPrice"
-                        onChange={(value1) => {
-                            let text = value1.target.value;
-                            var newArray = [];
-                            for (let j = 0; j < patternDataArray.length; j++) {
-                                const element = patternDataArray[j];
-                                if (index == j) {
-                                    value.sell = text;
-                                    newArray.push(JSON.parse(JSON.stringify(value)))
-                                } else {
-                                    newArray.push(JSON.parse(JSON.stringify(element)))
-                                }
-                            }
-                            setPatternDataArray(newArray)
-                        }}
-                        value={value.sell}
-                        variant="outlined"
-                    />
-                </Box>
-                <Box >
-                    <TextField
-                        // sx={{ flex: 1 }}
-                        error={value.isQuantityError}
-                        fullWidth
-                        className={styles.tabalinputdata}
-                        helperText={value.isQuantityError ? 'Enter Sell Quantity' : ''}
-                        // label="Sell Quantity"
-                        margin="normal"
-                        type="number"
-                        name="sellquantity"
-                        onChange={(value1) => {
-                            let text = value1.target.value;
-                            var newArray = [];
-                            for (let j = 0; j < patternDataArray.length; j++) {
-                                const element = patternDataArray[j];
-                                if (index == j) {
-                                    value.sellQty = text;
-                                    newArray.push(JSON.parse(JSON.stringify(value)))
-                                } else {
-                                    newArray.push(JSON.parse(JSON.stringify(element)))
-                                }
-                            }
-                            setPatternDataArray(newArray)
-                        }}
-                        value={value.sellQty}
-                        variant="outlined"
-                    />
-                </Box><Box style={{ display: 'flex', alignItems: 'center' }}>
-                    <TextField
-                        sx={{ marginRight: 1 }}
-                        // label="No of row"
-                        margin="normal"
-                        type="number"
-                        className={styles.listrowadd}
-                        name="sellquantity"
-                        onChange={(value1) => {
-                            let text = value1.target.value;
-                            setRowCount(text)
-                        }}
-                        value={rowCount}
-                        variant="outlined"
-                    />
-                    <Button
-                        className={styles.batnopslak}
-                        component="a"
-                        size="medium"
-                        variant="text"
-                        onClick={() => {
-                            var numOfRowCount = parseFloat(rowCount)
-                            var lastItem = patternDataArray[patternDataArray.length - 1]
-                            var patterndata = patternDataArray;
-                            if (numOfRowCount > 1) {
-                                for (let index = 0; index < numOfRowCount; index++) {
-                                    var emptyData = {
-                                        is_current_price: false,
-                                        buyQty: lastItem.buyQty,
-                                        sellQty: lastItem.sellQty,
-                                        buy: lastItem.buy,
-                                        sell: lastItem.sell
-                                    }
-                                    patterndata.push(JSON.parse(JSON.stringify(emptyData)))
-                                }
-                                setPatternDataArray(patterndata)
-                            } else {
-                                var emptyData = {
-                                    is_current_price: false,
-                                    buyQty: lastItem.buyQty,
-                                    sellQty: lastItem.sellQty,
-                                    buy: lastItem.buy,
-                                    sell: lastItem.sell
-                                }
-                                patterndata.push(JSON.parse(JSON.stringify(emptyData)))
-                                setPatternDataArray(patterndata)
-                            }
-                        }}
-                    >
-                        <img src='./Vector (20).svg' />
-                    </Button>
-                    {patternDataArray.length > 1 && <IconButton
-                        sx={{ marginRight: 1 }}
-                        edge="end"
-                        size="small"
-                        className={styles.batndeklet}
-                        onClick={() => {
-                            var patterndata = patternDataArray;
-                            patterndata.splice(index, 1)
-                            setPatternDataArray(patterndata)
-                        }}
-                    >
-                        <img src='./delete.svg' />
-                    </IconButton>}
-                </Box>
-            </Box>
+      
+            <TableRow
+            sx={{ display: 'flex', flex: 1 }}
+          //   key={pattern.step}
+            hover
+        >
+  <TableCell>
+  <FormControlLabel className={styles.cerrpriash} label="Current Price" control={<Radio
+      className={styles.rediobtnon}
+      onChange={() => {
+          var newArray = [];
+          for (let j = 0; j < patternDataArray.length; j++) {
+              const element = patternDataArray[j];
+              if (index == j) {
+                  value.is_current_price = true;
+                  newArray.push(JSON.parse(JSON.stringify(value)))
+              } else {
+                  element.is_current_price = false;
+                  newArray.push(JSON.parse(JSON.stringify(element)))
+              }
+          }
+          setPatternDataArray(newArray)
+      }}
+      checked={value.is_current_price} />} />
+          </TableCell>
+          <TableCell>
+      <Box >
+          <TextField
+              // sx={{ flex: 1 }}
+              error={value.isBuyError}
+              fullWidth
+              helperText={value.isSellError ? 'Enter Buy Price' : ''}
+              // label="Buy"
+              className={styles.tabalinputdata}
+              margin="normal"
+              type="number"
+              name="buyPrice"
+              onChange={(value1) => {
+                  let text = value1.target.value;
+                  var newArray = [];
+                  for (let j = 0; j < patternDataArray.length; j++) {
+                      const element = patternDataArray[j];
+                      if (index == j) {
+                          value.buy = text;
+                          newArray.push(JSON.parse(JSON.stringify(value)))
+                      } else {
+                          newArray.push(JSON.parse(JSON.stringify(element)))
+                      }
+                  }
+                  setPatternDataArray(newArray)
+              }}
+              value={value.buy}
+              variant="outlined"
+          />
+      </Box>
+      </TableCell>
+      <TableCell>
+      <Box >
+          <TextField
+              // sx={{ flex: 1 }}
+              error={value.isQuantityError}
+              fullWidth
+              helperText={value.isQuantityError ? 'Enter Buy Quantity' : ''}
+              className={styles.tabalinputdata}
+              margin="normal"
+              type="number"
+              name="buyquantity"
+              onChange={(value1) => {
+                  let text = value1.target.value;
+                  var newArray = [];
+                  for (let j = 0; j < patternDataArray.length; j++) {
+                      const element = patternDataArray[j];
+                      if (index == j) {
+                          value.buyQty = text;
+                          newArray.push(JSON.parse(JSON.stringify(value)))
+                      } else {
+                          newArray.push(JSON.parse(JSON.stringify(element)))
+                      }
+                  }
+                  setPatternDataArray(newArray)
+              }}
+              value={value.buyQty}
+              variant="outlined"
+          />
+      </Box>
+      </TableCell>
+      <TableCell>
+      <Box >
+          <TextField
+              // sx={{ flex: 1 }}
+              error={value.isSellError}
+              fullWidth
+              className={styles.tabalinputdata}
+              helperText={value.isSellError ? 'Enter Sell Price' : ''}
+              // label="Sell"
+              margin="normal"
+              type="number"
+              name="sellPrice"
+              onChange={(value1) => {
+                  let text = value1.target.value;
+                  var newArray = [];
+                  for (let j = 0; j < patternDataArray.length; j++) {
+                      const element = patternDataArray[j];
+                      if (index == j) {
+                          value.sell = text;
+                          newArray.push(JSON.parse(JSON.stringify(value)))
+                      } else {
+                          newArray.push(JSON.parse(JSON.stringify(element)))
+                      }
+                  }
+                  setPatternDataArray(newArray)
+              }}
+              value={value.sell}
+              variant="outlined"
+          />
+      </Box>
+      </TableCell>
+      <TableCell>
+      <Box>
+          <TextField
+              // sx={{ flex: 1 }}
+              error={value.isQuantityError}
+              fullWidth
+              className={styles.tabalinputdata}
+              helperText={value.isQuantityError ? 'Enter Sell Quantity' : ''}
+              // label="Sell Quantity"
+              margin="normal"
+              type="number"
+              name="sellquantity"
+              onChange={(value1) => {
+                  let text = value1.target.value;
+                  var newArray = [];
+                  for (let j = 0; j < patternDataArray.length; j++) {
+                      const element = patternDataArray[j];
+                      if (index == j) {
+                          value.sellQty = text;
+                          newArray.push(JSON.parse(JSON.stringify(value)))
+                      } else {
+                          newArray.push(JSON.parse(JSON.stringify(element)))
+                      }
+                  }
+                  setPatternDataArray(newArray)
+              }}
+              value={value.sellQty}
+              variant="outlined"
+          />
+          
+      </Box>
+      </TableCell>
+      <TableCell>
+      <Box style={{ width:'100%',display: 'flex', alignItems: 'center' }}>
+          <TextField
+              sx={{ marginRight: 1 }}
+              // label="No of row"
+              margin="normal"
+              type="number"
+              className={styles.listrowadd}
+              name="sellquantity"
+              onChange={(value1) => {
+                  let text = value1.target.value;
+                  setRowCount(text)
+              }}
+              value={rowCount}
+              variant="outlined"
+          />
+          <Button
+              className={styles.batnopslak}
+              component="a"
+              size="medium"
+              variant="text"
+              onClick={() => {
+                  var numOfRowCount = parseFloat(rowCount)
+                  var lastItem = patternDataArray[patternDataArray.length - 1]
+                  var patterndata = patternDataArray;
+                  if (numOfRowCount > 1) {
+                      for (let index = 0; index < numOfRowCount; index++) {
+                          var emptyData = {
+                              is_current_price: false,
+                              buyQty: lastItem.buyQty,
+                              sellQty: lastItem.sellQty,
+                              buy: lastItem.buy,
+                              sell: lastItem.sell
+                          }
+                          patterndata.push(JSON.parse(JSON.stringify(emptyData)))
+                      }
+                      setPatternDataArray(patterndata)
+                  } else {
+                      var emptyData = {
+                          is_current_price: false,
+                          buyQty: lastItem.buyQty,
+                          sellQty: lastItem.sellQty,
+                          buy: lastItem.buy,
+                          sell: lastItem.sell
+                      }
+                      patterndata.push(JSON.parse(JSON.stringify(emptyData)))
+                      setPatternDataArray(patterndata)
+                  }
+              }}
+          >
+              <img src='./Vector (20).svg' />
+          </Button>
+          {patternDataArray.length > 1 && <IconButton
+              sx={{ marginRight: 1 }}
+              edge="end"
+              size="small"
+              className={styles.batndeklet}
+              onClick={() => {
+                  var patterndata = patternDataArray;
+                  patterndata.splice(index, 1)
+                  setPatternDataArray(patterndata)
+              }}
+          >
+              <img src='./delete.svg' />
+          </IconButton>}
+      </Box>
+      </TableCell>
+      </TableRow>
         )
     }
 
@@ -1707,11 +1751,15 @@ console.log(userJSON,'userJSON');
 
                                         </Table>
                                     </Box>
+                                    <Table>
+                                            <TableBody className={styles.listrowdATA}>
 
-                                    <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
-                                        {patternDataArray.map((item, index) => Item(item, index))}
+                                            <Box sx={{  flexDirection: 'column' }}>
+                            {patternDataArray.map((item, index) => Item(item, index))}
 
-                                    </Box>
+                        </Box>
+                                            </TableBody>
+                                            </Table>
                                     <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1 }}>
 
                                     </Box>
@@ -2057,7 +2105,7 @@ console.log(userJSON,'userJSON');
                                     setLockPattern(false)
                                 }}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => {
                                     setLockPattern(false)
-                                    onLockPatternClick()
+                                    onAddPattern()
                                 }}>Lock</Button></div>
                             </Box>
                         </DialogContent>

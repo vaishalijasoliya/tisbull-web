@@ -32,7 +32,9 @@ const main = () => {
                 <Button className={styles.getbtn2}   onClick={(() => { router.push('./login') })}>Get Started</Button>
               </div>
               <div>
-                <Button className={styles.getbtn}>Learn More</Button>
+                <Button className={styles.getbtn}   onClick={() => {
+          window.scrollTo({top: 2180, left: 0, behavior: 'smooth'});
+        }}>Learn More</Button>
               </div>
             </div>
           </div>
