@@ -27,7 +27,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { DatePicker, DesktopDatePicker } from '@mui/lab';
+// import { DatePicker, DesktopDatePicker } from '@mui/lab';
 import React, { useState, useEffect } from 'react';
 import ApiServices from '../config/ApiServices';
 import ApiEndpoint from '../config/ApiEndpoint';
@@ -38,7 +38,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { toast } from 'react-toastify';
 import { useRouter, withRouter } from 'next/router';
 import { Grid } from 'material-ui-core';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+// import PerfectScrollbar from 'react-perfect-scrollbar';
 import styles from '../styles/addpatt.module.scss'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -46,9 +46,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import moment from 'moment';
 // import * as React from 'react';
 // import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
 // import Button from '@mui/material/Button';
 // import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -740,7 +740,6 @@ setIniyalBuy( accountList.data.initail_buy)
                     flexGrow: 1
                 }}
             >
-                {/* <Grid  item md={12}> */}
                 <Container maxWidth={false}>
 
                     <Box sx={{ mt: 3, mb: 3 }}>
@@ -1150,8 +1149,10 @@ setIniyalBuy( accountList.data.initail_buy)
                                         >
                                             <Typography className={styles.hedindrop33}>Order</Typography>
 
-
-                                            <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography> </div>
+                                            <Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography>
+                                            {/* <div className={styles.listdibborderbott}> */}
+                                            {/* <Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography> */}
+                                             {/* </div> */}
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>
                                             <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1502,9 +1503,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                                 <TableCell>
                                                     Qty
                                                 </TableCell>
-                                                {/* <TableCell>
-                  Sell Qty
-                </TableCell> */}
+                 
                                                 <TableCell>
                                                     Buy  Value                                                     </TableCell>
                                                 <TableCell>
