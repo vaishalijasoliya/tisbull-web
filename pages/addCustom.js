@@ -119,7 +119,7 @@ const AddCustomPattern = (props) => {
         Papa.parse(file, {
           header: true,
           complete: results => {
-            setUserJSON(results)
+            setUserJSON(results.data)
           },
         });
       };
@@ -752,36 +752,36 @@ const AddCustomPattern = (props) => {
 
         if (selectedValue == 'CSV') {
             // if (!!selectedValue) {
-            for (let index = 1; index < userJSON.length; index++) {
-                const element = userJSON[index];
+                for (let index = 0; index < userJSON.length; index++) {
+                    const element = userJSON[index];
 
-                console.log(element, 'rarrarrarra');
-                if (element.enter == 1) {
-                    console.log(element, 'ELEMENT_________');
+                    console.log(element, 'rarrarrarra');
+                    if (element.enter == 1) {
+                        console.log(element, 'ELEMENT_________');
 
-                    const obj = {
-                        Price: element.buyPrice,
+                        const obj = {
+                            Price: element.buyPrice,
+                        };
+                        Current_price.push(obj);
+                    }
+
+                    console.log(element, 'MY___ELEMENT');
+
+                    const PatternObject = {
+                        buyPrice: parseFloat(element.buyPrice),
+                        sellPrice: parseFloat(element.sellPrice),
+                        buy_qty: parseFloat(element.buy_qty ),
+                        sell_qty: parseFloat(element.sell_qty),
+                        // enter_price: element.field5,
                     };
-                    Current_price.push(obj);
+
+                    console.log(PatternObject, 'PATTERN______OBJECT');
+                    PatterObjectArray.push(PatternObject);
                 }
 
-                console.log(element, 'MY___ELEMENT');
+                // console.log(PatterObjectArray, 'PATTERN__OBJECT__ARRAY');
 
-                const PatternObject = {
-                    buyPrice: parseFloat(element.buyPrice),
-                    sellPrice: parseFloat(element.sellPrice),
-                    buy_qty: parseFloat(element.buy_qty),
-                    sell_qty: parseFloat(element.sell_qty),
-                    // enter_price: element.field5,
-                };
-
-                console.log(PatternObject, 'PATTERN______OBJECT');
-                PatterObjectArray.push(PatternObject);
-            }
-
-            // console.log(PatterObjectArray, 'PATTERN__OBJECT__ARRAY');
-
-            console.log(PatternPreviewTable, 'PATTERN____PREVIEW');
+                console.log(PatternPreviewTable, 'PATTERN____PREVIEW');
             // }
         }
         else {
@@ -808,7 +808,6 @@ const AddCustomPattern = (props) => {
 
 
                         PatterObjectArray.push(bodyObject);
-                        console.log(PatternCreate, 'PATTERN__CREATE__DATA');
                     }
                 }
             }
@@ -912,21 +911,7 @@ const AddCustomPattern = (props) => {
             setTabalData(PatternPreviewTable)
         }
 
-        // if (
-        //   !!instrumentToken &&
-        //   !!Current_price[0] &&
-        //   !!PatterObjectArray &&
-        //   !!PatternPreviewTable
-        // ) {
-        //   navigation.navigation.navigate('AdvancedCustomPattern', {
-        //     script: instrumentToken,
-        //     priceDataArray: PatterObjectArray,
-        //     currentPrice: parseFloat(Current_price[0].Price),
-        //     PatternPreviewTable: PatternPreviewTable,
-        //     StockName: stockName,
-        //     StackNavigation: navigation.StackNavigation,
-        //   });
-        // }
+   
     };
     console.log(patternDataArray, 'patternDataArray');
     const onAddPattern = async () => {

@@ -21,7 +21,7 @@ const main = () => {
     </Typography>
 </div>
 <div className={styles.maen_btnlist}>
-    <Button className={styles.footer_btn} href='./singup'>
+    <Button className={styles.footer_btn} href='./signup'>
     Get Started
     </Button>
 </div>

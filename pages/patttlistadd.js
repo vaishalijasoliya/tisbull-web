@@ -516,7 +516,7 @@ setIniyalBuy( accountList.data.initail_buy)
 
             element.isInitialBuy = 'isInitialBuy';
             Arr.push(element);
-           
+           console.log(Arr,'ArrArr');
             // isInitialBuy.push(element.isInitialBuy)
             console.log(element.isInitialBuy, 'IS_____INITIAL___BUY')
         }
@@ -524,7 +524,7 @@ setIniyalBuy( accountList.data.initail_buy)
         var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))
         if (buyValueObj.length > 0) {
             setPatternList(patternArray)
-            console.log(patternArray);
+            console.log(patternArray,'patternArray');
         } else {
             if (patternArray.length > 0) {
                 setPatternList([])
@@ -1151,7 +1151,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                             <Typography className={styles.hedindrop33}>Order</Typography>
 
 
-                                            <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea Make it Difault</Typography> </div>
+                                            <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography> </div>
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>
                                             <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1333,7 +1333,7 @@ setIniyalBuy( accountList.data.initail_buy)
 
                                             <div style={{ padding: '0px 30px 0px 0px' }}>
                                                 <Typography className={styles.peregarflist33} >Buy Diffrerance</Typography>
-                                                <Typography className={styles.peregarflist44} >
+                                                <Typography  style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>
                                                     {formik.values.buyPrice}
                                                     {/* {props.data.stock == null ? '-':props.data.stock } */}
                                                 </Typography>
@@ -1342,7 +1342,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                                 <Typography className={styles.peregarflist33}>Sell Diffrerance</Typography>
                                                 <Typography
                                                     // className={props.data.profit >=0 ? styles.peregarflistlist:styles.redline}
-                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>
+                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>
                                                     {formik.values.sellPrice}
                                                     {/* {props.data.profit == null ? '-' :props.data.profit} */}
                                                 </Typography>
@@ -1663,7 +1663,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                                 setListnone('')
                                             }}
                                         >
-                                            Preview
+                                            Previous
                                         </Button> : <Button
                                             className={styles.batnpovedar}
                                             style={{ backgroundColor: '#4285F4' }}
@@ -1679,7 +1679,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                                 // setLiatstgs('')
                                                 // setTebaldatalist('virang')
                                             }}
-                                        >  Preview
+                                        >  Previous
                                         </Button>
                                     }
                                 </Box>
@@ -1749,7 +1749,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                             // onPreviewClick()
                                         }}
                                     >
-                                        Preview
+                                        Previous
                                     </Button>
                                 </Box>
 

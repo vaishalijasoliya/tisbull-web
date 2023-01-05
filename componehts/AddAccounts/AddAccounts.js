@@ -132,6 +132,7 @@ const Home = (props) => {
         if (!!data) {
             if (data.status == true) {
                 toast.success(data.message)
+                router.push('/accountlist');
             }
             else {
                 toast.error(data.message)
@@ -330,7 +331,7 @@ const Home = (props) => {
                         <Typography>By ticking, you are confirming that you have read,  understand and agree to  our</Typography>
                     </div>
                     <div>
-                        <a href='#'> terms and conditions.</a>
+                        <a className={styles.listterms} href='#'> terms and conditions.</a>
                     </div>
                 </div>
             </Grid>

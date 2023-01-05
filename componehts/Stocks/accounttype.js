@@ -49,6 +49,7 @@ import { CSVLink, CSVDownload } from 'react-csv';
 import { styled } from '@mui/material/styles';
 
 import DialogContent from '@mui/material/DialogContent';
+import { useState } from 'react';
 function createData(name, calories, fat, carbs, Action, protein) {
     return {
         name,
@@ -250,6 +251,7 @@ const Home = (props) => {
     const [reviewStatus, setReviewStatus] = React.useState("none");
 const[listuserid,setListuserid] =React.useState('')
     const [btnlistdata, setBtnlist] = React.useState('all')
+    const[csvlist,Csvlistdsts] =React.useState([])
     const [pendingReviewList, setPendingReviewList] = React.useState([]);
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rowid, setRowid] = React.useState('')
@@ -331,6 +333,20 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                         loginUrllist: element.loginUrl,
                         zerodha_token_update: element.zerodha_token_update
                     }
+                    const objectcsv = {
+                        // id: element.id,
+                        // logoUrl: element.logoUrl,
+                        createdAt:element.createdAt,
+                        updatedAt:element.updatedAt,
+                        password: element.password,
+                        type: element.type,
+                        // user_id: element.user_id,
+                        consumer_key: element.consumer_key,
+                        consumer_secret: element.consumer_secret,
+                        id_user: element.id_user,
+                        // loginUrllist: element.loginUrl,
+                        // zerodha_token_update: element.zerodha_token_update
+                    }
                     console.log(moment(element.zerodha_token_update).format("MM/DD/YYYY"),'todaytoday');
 
                     if (element.type == "kotak") {
@@ -339,9 +355,10 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                         approvearr.push(JSON.parse(JSON.stringify(object)))
                       } 
                     console.log(element, 'password');
-
+                    csvall.push(JSON.parse(JSON.stringify(objectcsv)))
                     accoyty.push(JSON.parse(JSON.stringify(object)))
                 }
+                Csvlistdsts(csvall)
                 setDatatebal(accoyty)
                 setTeballist(accoyty)
                 setPendingReviewList(pendingarr);
@@ -534,8 +551,9 @@ console.log(props.props.profile.accountId,'listzorothatokan');
         <Tooltip >
         <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
                 <Button className={styles.btnsaveic}
-                 >   <CSVLink data={datatebal} filename={"payments.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button>
+                 >   <CSVLink data={csvlist} filename={"Account.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button>
                 <Button
+                className={styles.buttfiltar}
                  id="demo-customized-button"
                                                             aria-controls={openliost ? 'demo-customized-menu' : undefined}
                                                             aria-haspopup="true"

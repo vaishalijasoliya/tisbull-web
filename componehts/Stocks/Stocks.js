@@ -288,7 +288,6 @@ const Home = (props) => {
     const [datatebalpettan, setDatatebalpettan] = React.useState([]);
     const [data, setData] = React.useState([]);
     const [datamenu, setDatamenu] = React.useState([]);
-
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [age, setAge] = React.useState('');
     const [datasars, setDatasars] = React.useState([]);
@@ -1107,7 +1106,14 @@ disabled
                                                                 {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <img height={18} src="../../edit_square.svg" />  </Box> : 
                                                                     <Button className={styles.viwebtnmm}
                                                                         onClick={() => {
-                                                                            if (row.type_pattern == "CustomPattern") {
+                                                                            if(row.status == 'active')
+                                                                            {
+                                                                                toast.error('Please PAUSE the pattern.')
+
+                                                                            
+                                                                           
+                                                                            }else{
+                                                                                if (row.type_pattern == "CustomPattern" ) {
                                                                                 router.push({
                                                                                     pathname: '/editCustom',
                                                                                     query: { emailID: row.id }
@@ -1119,18 +1125,9 @@ disabled
                                                                                     query: { emailID: row.id }
                                                                                 });
                                                                             }
+                                                                            }
                                                                         }}
-                                                                    // onClick={() => {
-                                                                    //                                 router.push({
-                                                                    //                                     pathname: './editpatt',
-                                                                    //                                     query: {
-                                                                    //                                         scripType: 'currency',
-                                                                    //                                         patternType: 'basic',
-                                                                    //                                         emailID: row.id,
-                                                                    //                                         //  parent: JSON.stringify({ pathname: '/patterns', query: { type: 'currency' } })
-                                                                    //                                     }
-                                                                    //                                 });
-                                                                    // }}
+                                                                    
                                                                     > <img height={18} src="../../edit_square.svg" /> </Button>}
 
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >

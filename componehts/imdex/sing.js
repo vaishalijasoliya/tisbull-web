@@ -61,7 +61,7 @@ console.log(router.query.googleId,'gvvvvv');
             // onLoginPress(res.Ca)
           } else {
             if (data.status == false ) {
-              router.push('/singup')
+              router.push('/signup')
               toast.error(data.message)
             }
           }

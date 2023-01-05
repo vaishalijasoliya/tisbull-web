@@ -1739,7 +1739,7 @@ const AddPattern = (props) => {
                                                 setListnone('')
                                             }}
                                         >
-                                            Preview
+                                            Previous
                                         </Button> : <Button
                                             className={styles.batnpovedar}
                                             style={{ backgroundColor: '#4285F4' }}
@@ -1755,7 +1755,7 @@ const AddPattern = (props) => {
                                                 // setLiatstgs('')
                                                 // setTebaldatalist('virang')
                                             }}
-                                        >  Preview
+                                        >  Previous
                                         </Button>
                                     }
                                 </Box>
@@ -1826,7 +1826,7 @@ const AddPattern = (props) => {
                                             // onPreviewClick()
                                         }}
                                     >
-                                        Preview
+                                        Previous
                                     </Button>
                                 </Box>
 

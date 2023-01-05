@@ -72,7 +72,7 @@ console.log(body,'listbody');
         if (data.status == false) {
  
           router.push({
-            pathname: './singup',
+            pathname: './signup',
             // query: { listemail: res.kv.Wv, givenName: res.kv.wZ, name: res.kv.Af,googleId:res.profileObj.googleId}
           })
        

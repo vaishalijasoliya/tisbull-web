@@ -188,9 +188,13 @@ text-align: center;
 
 .btnsaveic svg {
     color: #BDBDBD;
+    font-size: 30px;
 }
 .btnsaveic{
     min-width: 0px !important;
+}
+.buttfiltar{
+    min-width: 0px !important; 
 }
 .searchbtn {
     width: 320px;
@@ -226,7 +230,7 @@ text-align: center;
 }
 
 .padimgtebal2 {
-    padding: 0px 0px 40px 50px;
+    padding: 0px 0px 40px 36px;
 }
 .tablePagination p{
     font-size: 14px;
