@@ -11,7 +11,7 @@
 }
 
 .contenat_listaddacc{
-    padding: 20px 60px 60px 60px;
+    padding: 20px 80px 60px 80px;
     background: #FFFFFF;
 box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.13);
 border-radius: 20px;
@@ -21,13 +21,21 @@ border-radius: 20px;
     text-transform: capitalize !important;
     font-size: 16px !important;
     font-family: Poppins-400 !important;
-  color: #009947 !important;
+  color: #4F4F4F !important;
+  border: 1px solid #4F4F4F !important;
+  border-radius: 40px !important;
+  padding:5px 20px !important;
   }
+  .listpattbek:hover{
+background-color: #009947 !important;
+color: #FFFFFF !important;
+border: 1px solid #009947  !important;
+}
 .addaclist {
 p{
-    font-family: Poppins-400;
-    color: #333333;
-font-size: 30px;
+    font-family: Poppins-400 !important;
+    color: #333333 !important;
+font-size: 30px !important;
 }
 }
 .cancelbtn{
@@ -60,12 +68,13 @@ color: #FFFFFF !important;
 font-family: Poppins-400 !important;
     text-transform: capitalize !important;
     font-weight: bold !important;
+    border-radius: 20px !important;
 }
 .leballist{
     color: #333333 !important;
     font-size: 15px !important;
-    font-family: roboto-400 !important;
-    padding: 30px 0px 10px 0px !important;
+    font-family: Poppins-400 !important;
+    padding: 20px 0px 10px 0px !important;
 }
 .listdataaaco{
     display: flex;
@@ -78,8 +87,16 @@ font-family: Poppins-400 !important;
 
 }
 .listhedingbnk{
+    padding: 0px 13px 0px 0px;
     p{
-        font-family: roboto-400;
+        font-family: Poppins-400 !important; 
+        color: #333333;
+font-size: 14px;
+    }
+}.listhedingbnk22{
+    // padding: 0px 13px 0px 0px;
+    p{
+        font-family: Poppins-400 !important; 
         color: #333333;
 font-size: 14px;
     }
@@ -88,7 +105,7 @@ font-size: 14px;
     display: flex;
     align-items: center;
     p{
-        font-family: roboto-400 !important;
+        font-family: Poppins-400 !important;
         color: #BDBDBD !important;
                 font-size: 14px !important;
     }
@@ -103,13 +120,13 @@ font-size: 14px;
     border: 1px solid #E5E5E5;
 }
 .listdiver{
-    padding: 0px 43px 0px 0px ;
+    padding: 0px 13px 0px 0px ;
 }
 .listdiver2{
-    padding: 61px 0px 0px 20px ;
+    padding: 51px 0px 0px 13px ;
 }
 .switchadd{
-    padding: 0px 0px 0px 30px;
+    // padding: 0px 0px 0px 30px;
 }
 .avatarzerotha{
  border:1.5px solid #009947;
@@ -118,10 +135,21 @@ font-size: 14px;
  }
 }
 .userinput{
-    width: 90% !important;
-  
+    width: 100% !important;
+  input:hover{
+    background: #FFFFFF !important;
+    appearance: none !important; 
+  }
+  input{
+padding: 10px 18px !important;
+    background-color: #FFFFFF !important;
+    }
+
     div{
-        height: 46px;
+        // height: 46px;
+        color: #333333 !important;
+    font-size: 15px !important;
+    font-family: Poppins-400 !important;
     }
     fieldset{
     color: #393030;
@@ -132,12 +160,18 @@ border-radius: 5px;
 }
 .constomarlist{
     width: 100% !important;
+    padding-right: 13px;
+
+}
+.constomarlist2{
+    width: 100% !important;
+    padding-left: 13px;
 }
 .leballist22{
     color: #333333 !important;
     font-size: 15px !important;
-    font-family: roboto-400 !important;
-    padding: 40px 0px 10px 0px !important;
+    font-family: Poppins-400 !important;
+    padding: 20px 0px 10px 0px !important;
 }
 .typoandchek{
     display: flex;
@@ -146,12 +180,12 @@ border-radius: 5px;
         p{
         font-size: 12px;
 color: #4F4F4F;
-font-family: roboto-400 !important;
-    }
+font-family: Poppins-400 !important;
+}
     a{
         font-size: 12px;
         color: #4285F4;
         text-decoration: none;
-        font-family: roboto-400 !important;
+        font-family: Poppins-400;
     }
 }

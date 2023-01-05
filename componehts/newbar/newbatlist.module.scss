@@ -31,17 +31,21 @@
     color: #009947;
     border-radius: 0 !important;
 }
+.listcorsar{
 
+}
 .newbar_list {
     display: flex;
     justify-content: end;
     padding: 24px 0px 20px 6px;
-
+cursor: pointer;
 }
 
 .btn_avtar_list {
-    background-color: #DDF9EA !important;
+    // background-color: #DDF9EA !important;
     color: #009947 !important;
+    border: 2px solid #009947;
+    background-color: #C4C4C4 !important;
 }
 
 .user_list p {
@@ -78,14 +82,25 @@
 
 
 }
+.listmeuend{
+    overflow-x: auto;
+    max-height: 416px;
+}
 
 .listmeuend {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 12px 0px 12px;
-
+   
+// height: 10px;
 }
+.listkeypedg{
+    overflow-x: auto;
+    max-height: 200px;
+}
+.listmeuend:hover{
+    background: rgba(217, 217, 217, 0.43)}
 
 .btnnevlist {
     font-family: Poppins-400;

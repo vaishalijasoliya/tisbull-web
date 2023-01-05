@@ -54,7 +54,7 @@ const Home = (props) => {
     var body = {
       social_id: res.Ca
     }
-console.log(body,'listbody');
+    console.log(body, 'listbody');
     var headers = {
       'Content-Type': 'application/json',
     };
@@ -70,12 +70,12 @@ console.log(body,'listbody');
         router.push('/dashboard')
       } else {
         if (data.status == false) {
- 
+
           router.push({
             pathname: './signup',
             // query: { listemail: res.kv.Wv, givenName: res.kv.wZ, name: res.kv.Af,googleId:res.profileObj.googleId}
           })
-       
+
         }
       }
     } else {
@@ -108,12 +108,12 @@ console.log(body,'listbody');
       if (data.status == true) {
         data.token = data.token
         data.userData.currentAccount = data.userData.account[0];
-        
-console.log(data,'loginData');
+
+        console.log(data, 'loginData');
         props.save_user_data({ user: data });
         toast.success("Logged In Succesfully")
         router.push('./dashboard')
-      
+
       } else {
         toast.error(data.message)
       }
@@ -144,18 +144,18 @@ console.log(data,'loginData');
   return (
 
     <Grid container className={styles.cantenar_pegsingcantenar}>
-      <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
+      {/* <Grid item md={0} sm={12} xs={12} className={styles.bakimginpos}>
         <img
-              style={{width:'100%'}}
-src='../../login bg.png'
-         />
-      </Grid>
+          style={{ width: '100%' }}
+          src='../../login bg.png'
+        />
+      </Grid> */}
       <Grid item sm={12} md={5} xs={12} className={styles.listdataform}>
         <div className={styles.baglistee}></div>
-        <Box className={styles.boxsinglist}>
+        <Box className={styles.boxsinglist2}>
 
           <div className={styles.welcamrlist}><Typography>Welcome back</Typography></div>
-          <div className={styles.pleslist}><Typography>Welcome back! Please enter your detalis.</Typography></div>
+          <div className={styles.pleslist2}><Typography>Welcome back! Please enter your detalis.</Typography></div>
           <form onSubmit={formik.handleSubmit}>
             <InputLabel className={styles.leballist}>Email/ID</InputLabel>
             <TextField
@@ -167,7 +167,7 @@ src='../../login bg.png'
               value={formik.values.email}
               placeholder='Email ID'
               type="text"
-              className={styles.userinput}
+              className={styles.userinput22}
               style={{
                 margin: '0px'
               }}
@@ -181,15 +181,15 @@ src='../../login bg.png'
               onChange={formik.handleChange}
               value={formik.values.password}
               placeholder='Confirm Password'
-              className={styles.passoutinput}
+              className={styles.passoutinput22}
               type={showPasswordlistdata ? 'text' : 'password'}
             />
-              <Button className={styles.menolistlogo}
-                onClick={() => setShowPasswordlistdata(!showPasswordlistdata)}>
-                {showPasswordlistdata ? <VisibilityIcon /> : <VisibilityOffIcon />}
-  
-  
-              </Button>
+            <Button className={styles.menolistlogo}
+              onClick={() => setShowPasswordlistdata(!showPasswordlistdata)}>
+              {showPasswordlistdata ? <VisibilityIcon /> : <VisibilityOffIcon />}
+
+
+            </Button>
             <div className={styles.fargotpasslist}>
               <div className={styles.btncekpass}>
                 <Button className={styles.menolistlogo22}
@@ -204,16 +204,16 @@ src='../../login bg.png'
                 <Link href='./forgotpassword' className={styles.linkfaragot}>Forgot password?</Link>
               </div>
             </div>
-            <button type="submit" className={styles.singbtn} >Log in</button>
+            <button type="submit" className={styles.singbtn2233} >Log in</button>
 
           </form>
-          <div className={styles.borderimline}>
-            <div className={styles.bodarleft}></div>
-            <div className={styles.singbodar}><Typography>Or Sign Up with</Typography></div>
-            <div className={styles.bodarleft}></div>
-          </div>
-          <div className={styles.gooleogdiv}>
-          {/* <GoogleLogin
+          <div className={styles.borderimline22}>
+                        <div className={styles.bodarleft22}></div>
+                        <div className={styles.singbodar}><Typography>Or Sign Up with</Typography></div>
+                        <div className={styles.bodarleft22}></div>
+                    </div>
+          <div className={styles.gooleogdiv22}>
+            {/* <GoogleLogin
         clientId="290084986341-qand35i2fqjhsf55ijd2kigbfhh1qb7t.apps.googleusercontent.com"
         buttonText="Login"
         onSuccess={responseGoogle}
@@ -221,25 +221,25 @@ src='../../login bg.png'
         cookiePolicy={"single_host_origin"}
       /> */}
             {/* {showLoginButton && ( */}
-              <>
+            <>
               {showLoginButton && (
-                            <>
-                                <GoogleLogin
-                                    className={styles.goolloginid22}
-                                    // className="google-item"
-                                    clientId={client_id}
-                                    onSuccess={loginHandler}
-                                    onFailure={failureHandler}
-                                    cookiePolicy={"single_host_origin"}
-                                />
-                    
-                            </>
-                        )}
-              </>
+                <>
+                  <GoogleLogin
+                    className={styles.goolloginid22}
+                    // className="google-item"
+                    clientId={client_id}
+                    onSuccess={loginHandler}
+                    onFailure={failureHandler}
+                    cookiePolicy={"single_host_origin"}
+                  />
+
+                </>
+              )}
+            </>
             {/* )} */}
-           
+
           </div>
-          <div className={styles.alreadylist}>
+          <div className={styles.alreadylist2233}>
             <Typography>
               Don't have an account?           </Typography>
             <a href='./singup'>Sign Up</a>
@@ -247,7 +247,7 @@ src='../../login bg.png'
               for free
             </Typography>
           </div>
-          <Box style={{height:'30px'}}></Box>
+          {/* <Box style={{ height: '30px' }}></Box> */}
         </Box>
       </Grid>
       {/* <Grid item sm={12} md={7} xs={12} style={{padding:'65px 0px 0px 0px'}} className={styles.singpeglogo}>

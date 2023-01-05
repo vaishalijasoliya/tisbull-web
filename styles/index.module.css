@@ -422,7 +422,15 @@ width: 100%;
     margin: 20px 20px 0px 20px;
   }
 }
+@media only screen and (max-width: 1900px) {
+  .singlistpsdii{
+    background-image: url('../public/login bg new.png');
+    background-repeat: no-repeat !important;
+  background-size: cover;
+  /* height: 100vh; */
+  }
 
+}
 @media only screen and (max-width: 500px) {
   .listdatabox{
     padding: 0px !important;

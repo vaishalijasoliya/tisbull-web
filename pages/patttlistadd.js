@@ -496,14 +496,17 @@ setIniyalBuy( accountList.data.initail_buy)
 
                 element.isInitialBuy = '';
                 // isInitialBuy.push(Arr.isInitialBuy)
-                console.log(element, '______ELEMENT______');
+                // console.log(element, '______ELEMENT______');
 
                 if (element.buyPrice == parseFloat(formik.values.currentPrice)) {
-                    console.log(Arr.indexOf(element), 'ELEMENT________IS__SAME');
+                    // console.log(Arr.indexOf(element), 'ELEMENT________IS__SAME');
 
                     IndexA = Arr.indexOf(element);
                 }
+                Arr.push(element)
+// console.log(Arr,'ArrArr');
             }
+            console.log(element,'elementelement');
         }
         for (
             let index = IndexA - formik.values.Initail + 1;
@@ -515,10 +518,10 @@ setIniyalBuy( accountList.data.initail_buy)
             // console.log('INITIAL__BUY', element);
 
             element.isInitialBuy = 'isInitialBuy';
-            Arr.push(element);
-           console.log(Arr,'ArrArr');
+            // Arr.push(element);
+        //    console.log(Arr,'ArrArr');
             // isInitialBuy.push(element.isInitialBuy)
-            console.log(element.isInitialBuy, 'IS_____INITIAL___BUY')
+            // console.log(element.isInitialBuy, 'IS_____INITIAL___BUY')
         }
         console.log(formik.values.Initail,'iniyalbur');
         var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))

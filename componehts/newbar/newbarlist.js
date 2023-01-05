@@ -32,7 +32,7 @@ import moment from 'moment'
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar(props) {
-  console.log(props.props, 'propsss');
+  console.log(props, 'propsss');
   const router = useRouter();
   var currentPath = router.pathname
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -173,10 +173,10 @@ const[dartmenu,setDatamenu] =React.useState('')
       request_token: token,
       id_account:props.props.profile.accountId
     }
-    console.log(props.profile.accountId,'props.profile.accountId');
-    props.props.loaderRef(true)
+    console.log(props,'props.profile.accountId');
+    // props.props.loaderRef(true)
     var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
-    props.props.loaderRef(false)
+    // props.props.loaderRef(false)
     console.log('updateAccount...', updateAccount)
   }
 
@@ -198,7 +198,7 @@ const[dartmenu,setDatamenu] =React.useState('')
       onClick={() => { router.push('./accountlist') }}
 
       className={currentPath == '/accountlist' ? styles.borderbottum : styles.btn_pages}>
-      Account
+      Accounts
     </Button>,
     <Button
       onClick={() => {
@@ -207,7 +207,7 @@ const[dartmenu,setDatamenu] =React.useState('')
         });
       }}
       className={currentPath == '/pattanlist' ? styles.borderbottum : styles.btn_pages}>
-      Pattern
+      Patterns
     </Button>,
     <Button
     onClick={()=>{router.push('./AllOrder')}}
@@ -252,14 +252,14 @@ const[dartmenu,setDatamenu] =React.useState('')
           className={styles.btn_pages2}
           sx={{ my: 2, display: 'block' }}
         >
-          Account
+          Accounts
         </Button>
         <Button
           onClick={(() => { router.push('./pattanlist') })}
           className={styles.btn_pages2}
           sx={{ my: 2, display: 'block' }}
         >
-          Pattern
+          Patterns
         </Button>
         <Button
           className={styles.btn_pages22}
@@ -308,7 +308,7 @@ const[dartmenu,setDatamenu] =React.useState('')
       <Container maxWidth="100%" className={styles.cantenar_list_caps}>
         <Toolbar disableGutters>
           <Grid item sm={3} md={3} xs={3}>
-            <a href='./dashboard'>
+            <a href='./'>
               <img src='../../new logo.png' width={190}></img>
             </a>
           </Grid>
@@ -331,7 +331,8 @@ const[dartmenu,setDatamenu] =React.useState('')
               ))}
             </Box>
             <div className={styles.btnicon2} ><Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon /></Button>
-              <Button><NotificationsNoneIcon /></Button></div>
+              {/* <Button><NotificationsNoneIcon /></Button> */}
+              </div>
             <div>
               {['left'].map((anchor) => (
                 <React.Fragment key={anchor}>
@@ -350,7 +351,7 @@ const[dartmenu,setDatamenu] =React.useState('')
             </div>
             {!!props.profile ? <Box sx={{ flexGrow: 0 }}>
               <div className={styles.newbar_list}>
-                <a style={{ display: 'flex', textDecoration: 'none' }}
+                <a className={styles.listcorsar} style={{ display: 'flex', textDecoration: 'none' }}
                 onClick={handleClick}
                 >
                   <div className={styles.Avatar_newbar}
@@ -435,12 +436,13 @@ const[dartmenu,setDatamenu] =React.useState('')
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                  >
+                  >  <Box className={styles.listkeypedg}>
                     {data.map((item, idx) => (
+                    
                       <div className={styles.listmeuend}>
                         <div>
                           <div>
-                            <Button className={styles.btnnevlist} onClick={() => { setRowidlist(item.id), handleCloseUserMenu(), switchAccount(item) }}>
+                            <Button className={styles.btnnevlist} onClick={() => { setRowidlist(item.id), handleCloseUserMenu(), switchAccount() }}>
                               <div>
                                 <Avatar src={item.logoUrl} />
                               </div>
@@ -450,29 +452,28 @@ const[dartmenu,setDatamenu] =React.useState('')
                             </Button>
                           </div>
                         </div>
+                        
                         <div className={styles.menulistbtn} style={{ display: 'flex', justifyContent: 'end' }}>
                         {item.type == 'zerodha' ?
-                                                            <Button  className={styles.listboxmass} onClick={() => {
-                                                            
-                                                               if (row.type == 'zerodha') {
+                                                            <Button className={styles.listboxmass} onClick={() => {
+                                                              //  setListzrothaid(item.id) 
+                                                               if (item.type == 'zerodha') {
                                                                     var profile = props.props.profile;
                                                                     profile.accountId = item.id
                                                                     props.save_user_data({ user: profile });
-                                                                    window.location.href = `${row.loginUrllist}`
+                                                                    window.location.href = `${item.loginUrllist}`
                                                                 }
                                                             }}
-                                                            >{moment(item.zerodha_token_updatemoment).format("MM/DD/YYYY") == moment(today).format("MM/DD/YYYY")  ? 
-                                                                <img width={25} height={20} src='../../Vector (19).svg' />
-                                                             
-                                                                :
-                                                               
+                                                            >{moment(today).format("MM/DD/YYYY") == moment(item.zerodha_token_update).format("MM/DD/YYYY") ?
+                                                                <img width={25} height={20} src='../../Vector (19).svg' />:
                                                                 <img width={25} height={25} src='../../History.svg' />
                                                                 }
                                                                 </Button> :
                                                             <Button disabled
-                                                            className={styles.listboxmass}
+                                                             className={styles.listboxmass}
                                                             >
                                                                 <img width={25} height={20} src='../../Vector (18).svg' /></Button>}
+                       
                         {/* {item.type == "zerodha" ?
                           <Button      
                          onClick={() => {
@@ -511,16 +512,18 @@ const[dartmenu,setDatamenu] =React.useState('')
 
                         </div>
                       </div>
+                      
                     ))}
+</Box>
                     <Divider className={styles.devatdar} />
                     <div className={styles.listbtmnuu}>
                       <div className={styles.listaddacc}>
                         <Button onClick={(() => { router.push('./AddAccounts') })}><PersonAddIcon />Add account</Button>
 
                       </div>
-                      <div className={styles.settinglist}>
+                      {/* <div className={styles.settinglist}>
                         <Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon />Settings</Button>
-                      </div>
+                      </div> */}
                       <div className={styles.loglist}>
                         <Button onClick={() => {
                           var profile = "";

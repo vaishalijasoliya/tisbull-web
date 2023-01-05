@@ -92,7 +92,7 @@ const grey = {
     600: '#6F7E8C',
 };
 const blue = {
-    500: '#36DAB2',
+    500: '#009947',
 };
 // export default function Home(props) {
 const Home = (props) => {
@@ -156,21 +156,22 @@ const Home = (props) => {
 
                 .max(255)
                 .required(
-                    'userId is required'),
+                    'User Id is required'),
             password: Yup
                 .string()
                 .max(30)
-                .required('password is required'),
+                .required('Password is required'),
             consumer_key: Yup
                 .string()
+                .min(10)
                 .max(30)
-                .required('consumer_key is required'),
+                .required('Consumer key is required'),
             consumer_secret: Yup
                 .string()
-                .min(6)
+                .min(10)
                 .max(255)
                 .required(
-                    'consumer_secret is required'),
+                    'Consumer Secret is required'),
         }),
         onSubmit: () => {
             accountadd()
@@ -196,7 +197,7 @@ const Home = (props) => {
                 <Divider className={styles.divaydaravta}></Divider>
                 <div className={styles.listdataaaco}>
                     <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group.svg'></Avatar></div>
-                    <div className={styles.listhedingbnk}>
+                    <div className={styles.listhedingbnk22}>
                         <Typography >ZERODHA </Typography>
                         <div className={styles.listapichek}>
                             <Typography>Zerodha can charge of API, please check it</Typography>
@@ -268,7 +269,7 @@ const Home = (props) => {
                     }}
                 />
             </Grid>
-            <Grid item sm={12} md={6} xs={12} className={styles.constomarlist}>
+            <Grid item sm={12} md={6} xs={12} className={styles.constomarlist2}>
                 <InputLabel className={styles.leballist22}>Consumer Key </InputLabel>
                 <TextField
                     error={Boolean(formik.touched.consumer_key && formik.errors.consumer_key)}
@@ -303,7 +304,7 @@ const Home = (props) => {
                     }}
                 />
             </Grid>
-            <Grid item sm={12} md={6} xs={12} className={styles.constomarlist}>
+            <Grid item sm={12} md={6} xs={12} className={styles.constomarlist2}>
                 <InputLabel className={styles.leballist22}>Consumer Secret</InputLabel>
                 <TextField
                     error={Boolean(formik.touched.consumer_secret && formik.errors.consumer_secret)}
@@ -318,7 +319,7 @@ const Home = (props) => {
                 />
             </Grid>
             {/* </form> */}
-            <Grid item sm={12} md={8} xs={12}>
+            <Grid item sm={12} md={9} xs={12}>
                 <div className={styles.typoandchek}>
                     <div>
                         <Checkbox style={{ borderRadius: '15px' }}
@@ -335,8 +336,8 @@ const Home = (props) => {
                     </div>
                 </div>
             </Grid>
-            <Grid item sm={6} md={4} xs={6} display={'flex'} alignItems={'center'} justifyContent={'end'}>
-                <div style={{padding:'30px 60px 0px 0px'}}>
+            <Grid item sm={6} md={3} xs={6} display={'flex'} alignItems={'center'} justifyContent={'end'}>
+                <div style={{padding:'30px 0px 0px 0px'}}>
                     {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password  == '' || formik.values.consumer_secret == '' || formik.values.userId == '' ? 
                 
                     <Button  type="submit" disabled  className={styles.donebtn22} >SAVE</Button>:<Button  type="submit"  className={styles.donebtn} onClick={accountadd}>SAVE</Button>}

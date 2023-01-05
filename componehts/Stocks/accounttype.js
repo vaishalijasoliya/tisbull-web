@@ -598,9 +598,9 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                             <div className={styles.filtarlist}>
                                 <div><Typography>Account</Typography></div>
                                 <div className={styles.listbtnsot}>
-                                    <Button className={styles.censbatnsot}  onClick={() => {
+                                    {/* <Button className={styles.censbatnsot}  onClick={() => {
                                         tabChange("all"),handleCloselisyys(),setBtnlist('all')
-                                    }}>Cancel</Button>
+                                    }}>Cancel</Button> */}
                                     <Button className={styles.savebatnsot}
                                      onClick={() => {
                                         tabChange(btnlistdata),handleCloselisyys()
@@ -614,7 +614,7 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                     <Button 
                                     onClick={() => {
                                       setBtnlist('all')
-                                    }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
+                                    }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>ALL</Button>
                                     <Button onClick={() => {
                                         setBtnlist('kotak')
                                     }} className={btnlistdata == 'kotak' ? styles.Customlistbtn : styles.nonelistbtn}>KOTAK</Button>

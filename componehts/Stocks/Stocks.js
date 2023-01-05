@@ -280,7 +280,7 @@ const Home = (props) => {
     console.log(props, 'propsprops');
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState('');
+    const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
@@ -324,7 +324,7 @@ const Home = (props) => {
     const[dayslohp,setDayslohp] =React.useState('')
 
     const [flagReviewList, setFlageReviewList] = React.useState([]);
-    console.log(listscisssrip, 'listscisssrip');
+    console.log(selected, 'selected');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -1092,7 +1092,7 @@ disabled
                                                             <TableCell >{row.stock}</TableCell>
                                                             <TableCell >
                                                                 <Typography className={styles.dateone}>{
-                                                                    moment(row.created_at).format("DD/MM/YYYY h:mm:ss")
+                                                                    moment(row.created_at).format("D  MMMM YYYY, h:mm:ss a")
                                                                 } </Typography></TableCell>
                                                             {/* 
                                                         <TableCell>
@@ -1108,7 +1108,7 @@ disabled
                                                                         onClick={() => {
                                                                             if(row.status == 'active')
                                                                             {
-                                                                                toast.error('Please PAUSE the pattern.')
+                                                                                toast.error('Please pause the pattern then enable edit pattern.')
 
                                                                             
                                                                            
