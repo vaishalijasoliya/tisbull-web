@@ -1149,7 +1149,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                         >
                                             <Typography className={styles.hedindrop33}>Order</Typography>
 
-                                            <Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography>
+                                            {/* <Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography> */}
                                             {/* <div className={styles.listdibborderbott}> */}
                                             {/* <Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography> */}
                                              {/* </div> */}
