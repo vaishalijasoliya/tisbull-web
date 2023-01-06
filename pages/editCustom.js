@@ -67,7 +67,7 @@ let stockInterval = null;
 const FilePicker = dynamic(() => import('react-file-picker').then((module) => {
     return module.FilePicker
 }), { ssr: false });
-const steps = ['', '', '',''];
+const steps = ['', '', '', ''];
 
 const AddCustomPattern = (props) => {
     console.log(props.props, 'propsprops');
@@ -107,7 +107,7 @@ const AddCustomPattern = (props) => {
     console.log(selectedValue, 'selectedValue');
     const [userJSON, setUserJSON] = useState()
     const [uploadedCSV, setUploadedCSV] = useState(null)
-console.log(userJSON,'userJSON');
+    console.log(userJSON, 'userJSON');
     const handleCSVSubmit = (e) => {
         e.preventDefault()
 
@@ -234,13 +234,13 @@ console.log(userJSON,'userJSON');
     const [patternData, setPatternData] = useState(false);
     const [listhpdatao, setListOPhpsad] = useState('')
 
-    const[listcsvdata,setDatalistcsv] =useState([])
+    const [listcsvdata, setDatalistcsv] = useState([])
     const [padjdhdggd, setPandindpl] = useState('')
     const [tabaldata, setTabalData] = useState([])
     const [patternError, setPatternError] = useState(false);
     const router = useRouter();
     const [rowCount, setRowCount] = useState('1')
-    console.log(listcsvdata,'listcsvdata');
+    console.log(listcsvdata, 'listcsvdata');
     let isView = false;
     let serverData = {}
     const formik = useFormik({
@@ -425,9 +425,9 @@ console.log(userJSON,'userJSON');
     }
     console.log(tabaldata, 'tabaldata');
 
-  
 
-    console.log(selectedValue,'selectedValue');
+
+    console.log(selectedValue, 'selectedValue');
     const onNextBtnPress = () => {
         const PatterObjectArray = [];
 
@@ -436,36 +436,36 @@ console.log(userJSON,'userJSON');
 
         if (selectedValue == 'CSV') {
             // if (!!selectedValue) {
-                for (let index = 0; index < userJSON.length; index++) {
-                    const element = userJSON[index];
+            for (let index = 0; index < userJSON.length; index++) {
+                const element = userJSON[index];
 
-                    console.log(element, 'rarrarrarra');
-                    if (element.enter == 1) {
-                        console.log(element, 'ELEMENT_________');
+                console.log(element, 'rarrarrarra');
+                if (element.enter == 1) {
+                    console.log(element, 'ELEMENT_________');
 
-                        const obj = {
-                            Price: element.buyPrice,
-                        };
-                        Current_price.push(obj);
-                    }
-
-                    console.log(element, 'MY___ELEMENT');
-
-                    const PatternObject = {
-                        buyPrice: parseFloat(element.buyPrice),
-                        sellPrice: parseFloat(element.sellPrice),
-                        buy_qty: parseFloat(element.buy_qty ),
-                        sell_qty: parseFloat(element.sell_qty),
-                        // enter_price: element.field5,
+                    const obj = {
+                        Price: element.buyPrice,
                     };
-
-                    console.log(PatternObject, 'PATTERN______OBJECT');
-                    PatterObjectArray.push(PatternObject);
+                    Current_price.push(obj);
                 }
 
-                // console.log(PatterObjectArray, 'PATTERN__OBJECT__ARRAY');
+                console.log(element, 'MY___ELEMENT');
 
-                console.log(PatternPreviewTable, 'PATTERN____PREVIEW');
+                const PatternObject = {
+                    buyPrice: parseFloat(element.buyPrice),
+                    sellPrice: parseFloat(element.sellPrice),
+                    buy_qty: parseFloat(element.buy_qty),
+                    sell_qty: parseFloat(element.sell_qty),
+                    // enter_price: element.field5,
+                };
+
+                console.log(PatternObject, 'PATTERN______OBJECT');
+                PatterObjectArray.push(PatternObject);
+            }
+
+            // console.log(PatterObjectArray, 'PATTERN__OBJECT__ARRAY');
+
+            console.log(PatternPreviewTable, 'PATTERN____PREVIEW');
             // }
         }
         else {
@@ -595,7 +595,7 @@ console.log(userJSON,'userJSON');
             setTabalData(PatternPreviewTable)
         }
 
-   
+
     };
     console.log(patternDataArray, 'patternDataArray');
     const onAddPattern = async () => {
@@ -616,38 +616,38 @@ console.log(userJSON,'userJSON');
             }
             var currentPriceArray = patternDataArray.filter((item) => item.is_current_price);
             if (script.id == '') {
-            var body = {
-                "script": parseFloat(script.id),
-                "currentPrice": parseFloat(currentPriceArray[0].buy),
-                "pattern_data": patternDataList,
-                "id_account": props.profile.userData.currentAccount.id,
-                "initail_sell": 0,
-                "amo_buy": parseFloat(formik.values.SellSteps),
-                "amo_sell": parseFloat(formik.values.BuySteps),
-                "normal_buy": parseFloat(formik.values.NormalBuy),
-                "initail_buy": parseFloat(formik.values.Initail),
-                'id_pattern':parseFloat(router.query.emailID),
-                "normal_sell": parseFloat(formik.values.NormalSell),
-                "status": patternData.pattern.status
-                // "minRange": parseFloat(formik.values.minRange),
+                var body = {
+                    "script": parseFloat(script.id),
+                    "currentPrice": parseFloat(currentPriceArray[0].buy),
+                    "pattern_data": patternDataList,
+                    "id_account": props.profile.userData.currentAccount.id,
+                    "initail_sell": 0,
+                    "amo_buy": parseFloat(formik.values.SellSteps),
+                    "amo_sell": parseFloat(formik.values.BuySteps),
+                    "normal_buy": parseFloat(formik.values.NormalBuy),
+                    "initail_buy": parseFloat(formik.values.Initail),
+                    'id_pattern': parseFloat(router.query.emailID),
+                    "normal_sell": parseFloat(formik.values.NormalSell),
+                    "status": patternData.pattern.status
+                    // "minRange": parseFloat(formik.values.minRange),
+                }
+            } else {
+                var body = {
+                    'id_pattern': parseFloat(router.query.emailID),
+                    "script": parseFloat(listhpdatao),
+                    "currentPrice": parseFloat(currentPriceArray[0].buy),
+                    "pattern_data": patternDataList,
+                    "id_account": props.profile.userData.currentAccount.id,
+                    "initail_sell": 0,
+                    "amo_buy": parseFloat(formik.values.SellSteps),
+                    "amo_sell": parseFloat(formik.values.BuySteps),
+                    "normal_buy": parseFloat(formik.values.NormalBuy),
+                    "initail_buy": parseFloat(formik.values.Initail),
+                    "status": patternData.pattern.status,
+                    "normal_sell": parseFloat(formik.values.NormalSell),
+                    // "minRange": parseFloat(formik.values.minRange),
+                }
             }
-        }else{
-            var body = {
-                'id_pattern':parseFloat(router.query.emailID),
-                "script": parseFloat(listhpdatao),
-                "currentPrice": parseFloat(currentPriceArray[0].buy),
-                "pattern_data": patternDataList,
-                "id_account": props.profile.userData.currentAccount.id,
-                "initail_sell": 0,
-                "amo_buy": parseFloat(formik.values.SellSteps),
-                "amo_sell": parseFloat(formik.values.BuySteps),
-                "normal_buy": parseFloat(formik.values.NormalBuy),
-                "initail_buy": parseFloat(formik.values.Initail),
-                "status": patternData.pattern.status,
-                "normal_sell": parseFloat(formik.values.NormalSell),
-                // "minRange": parseFloat(formik.values.minRange),
-            }
-        }
             console.log('patternDataList', body)
             var headers = {
                 "Content-Type": "application/json",
@@ -681,8 +681,8 @@ console.log(userJSON,'userJSON');
         } else {
             let formData = new FormData();
             if (script.id == '') {
-            formData.append('script', parseFloat(script.id));
-            }else{
+                formData.append('script', parseFloat(script.id));
+            } else {
                 formData.append('script', parseFloat(listhpdatao));
             }
             formData.append('id_account', props.profile.userData.currentAccount.id);
@@ -705,7 +705,7 @@ console.log(userJSON,'userJSON');
             });;
             props.props.loaderRef(false)
             console.log(patternAdd, 'patternAdd');
-                if (patternAdd.status == true) {
+            if (patternAdd.status == true) {
                 console.log(patternAdd);
                 redirect = true;
                 toast.success(patternAdd.message)
@@ -854,9 +854,9 @@ console.log(userJSON,'userJSON');
             "x-access-token": props.profile.token
         }
         // if (listidform == '') {
-            var body = {
-                "instrumentToken": value
-            }
+        var body = {
+            "instrumentToken": value
+        }
         // } else {
         //     var body = {
         //         "instrumentToken": listidform
@@ -871,223 +871,223 @@ console.log(userJSON,'userJSON');
 
     function Item(value, index) {
         return (
-      
+
             <TableRow
-            sx={{ display: 'flex', flex: 1 }}
-          //   key={pattern.step}
-            hover
-        >
-  <TableCell>
-  <FormControlLabel className={styles.cerrpriash} label="Current Price" control={<Radio
-      className={styles.rediobtnon}
-      onChange={() => {
-          var newArray = [];
-          for (let j = 0; j < patternDataArray.length; j++) {
-              const element = patternDataArray[j];
-              if (index == j) {
-                  value.is_current_price = true;
-                  newArray.push(JSON.parse(JSON.stringify(value)))
-              } else {
-                  element.is_current_price = false;
-                  newArray.push(JSON.parse(JSON.stringify(element)))
-              }
-          }
-          setPatternDataArray(newArray)
-      }}
-      checked={value.is_current_price} />} />
-          </TableCell>
-          <TableCell>
-      <Box >
-          <TextField
-              // sx={{ flex: 1 }}
-              error={value.isBuyError}
-              fullWidth
-              helperText={value.isSellError ? 'Enter Buy Price' : ''}
-              // label="Buy"
-              className={styles.tabalinputdata}
-              margin="normal"
-              type="number"
-              name="buyPrice"
-              onChange={(value1) => {
-                  let text = value1.target.value;
-                  var newArray = [];
-                  for (let j = 0; j < patternDataArray.length; j++) {
-                      const element = patternDataArray[j];
-                      if (index == j) {
-                          value.buy = text;
-                          newArray.push(JSON.parse(JSON.stringify(value)))
-                      } else {
-                          newArray.push(JSON.parse(JSON.stringify(element)))
-                      }
-                  }
-                  setPatternDataArray(newArray)
-              }}
-              value={value.buy}
-              variant="outlined"
-          />
-      </Box>
-      </TableCell>
-      <TableCell>
-      <Box >
-          <TextField
-              // sx={{ flex: 1 }}
-              error={value.isQuantityError}
-              fullWidth
-              helperText={value.isQuantityError ? 'Enter Buy Quantity' : ''}
-              className={styles.tabalinputdata}
-              margin="normal"
-              type="number"
-              name="buyquantity"
-              onChange={(value1) => {
-                  let text = value1.target.value;
-                  var newArray = [];
-                  for (let j = 0; j < patternDataArray.length; j++) {
-                      const element = patternDataArray[j];
-                      if (index == j) {
-                          value.buyQty = text;
-                          newArray.push(JSON.parse(JSON.stringify(value)))
-                      } else {
-                          newArray.push(JSON.parse(JSON.stringify(element)))
-                      }
-                  }
-                  setPatternDataArray(newArray)
-              }}
-              value={value.buyQty}
-              variant="outlined"
-          />
-      </Box>
-      </TableCell>
-      <TableCell>
-      <Box >
-          <TextField
-              // sx={{ flex: 1 }}
-              error={value.isSellError}
-              fullWidth
-              className={styles.tabalinputdata}
-              helperText={value.isSellError ? 'Enter Sell Price' : ''}
-              // label="Sell"
-              margin="normal"
-              type="number"
-              name="sellPrice"
-              onChange={(value1) => {
-                  let text = value1.target.value;
-                  var newArray = [];
-                  for (let j = 0; j < patternDataArray.length; j++) {
-                      const element = patternDataArray[j];
-                      if (index == j) {
-                          value.sell = text;
-                          newArray.push(JSON.parse(JSON.stringify(value)))
-                      } else {
-                          newArray.push(JSON.parse(JSON.stringify(element)))
-                      }
-                  }
-                  setPatternDataArray(newArray)
-              }}
-              value={value.sell}
-              variant="outlined"
-          />
-      </Box>
-      </TableCell>
-      <TableCell>
-      <Box>
-          <TextField
-              // sx={{ flex: 1 }}
-              error={value.isQuantityError}
-              fullWidth
-              className={styles.tabalinputdata}
-              helperText={value.isQuantityError ? 'Enter Sell Quantity' : ''}
-              // label="Sell Quantity"
-              margin="normal"
-              type="number"
-              name="sellquantity"
-              onChange={(value1) => {
-                  let text = value1.target.value;
-                  var newArray = [];
-                  for (let j = 0; j < patternDataArray.length; j++) {
-                      const element = patternDataArray[j];
-                      if (index == j) {
-                          value.sellQty = text;
-                          newArray.push(JSON.parse(JSON.stringify(value)))
-                      } else {
-                          newArray.push(JSON.parse(JSON.stringify(element)))
-                      }
-                  }
-                  setPatternDataArray(newArray)
-              }}
-              value={value.sellQty}
-              variant="outlined"
-          />
-          
-      </Box>
-      </TableCell>
-      <TableCell>
-      <Box style={{ width:'100%',display: 'flex', alignItems: 'center' }}>
-          <TextField
-              sx={{ marginRight: 1 }}
-              // label="No of row"
-              margin="normal"
-              type="number"
-              className={styles.listrowadd}
-              name="sellquantity"
-              onChange={(value1) => {
-                  let text = value1.target.value;
-                  setRowCount(text)
-              }}
-              value={rowCount}
-              variant="outlined"
-          />
-          <Button
-              className={styles.batnopslak}
-              component="a"
-              size="medium"
-              variant="text"
-              onClick={() => {
-                  var numOfRowCount = parseFloat(rowCount)
-                  var lastItem = patternDataArray[patternDataArray.length - 1]
-                  var patterndata = patternDataArray;
-                  if (numOfRowCount > 1) {
-                      for (let index = 0; index < numOfRowCount; index++) {
-                          var emptyData = {
-                              is_current_price: false,
-                              buyQty: lastItem.buyQty,
-                              sellQty: lastItem.sellQty,
-                              buy: lastItem.buy,
-                              sell: lastItem.sell
-                          }
-                          patterndata.push(JSON.parse(JSON.stringify(emptyData)))
-                      }
-                      setPatternDataArray(patterndata)
-                  } else {
-                      var emptyData = {
-                          is_current_price: false,
-                          buyQty: lastItem.buyQty,
-                          sellQty: lastItem.sellQty,
-                          buy: lastItem.buy,
-                          sell: lastItem.sell
-                      }
-                      patterndata.push(JSON.parse(JSON.stringify(emptyData)))
-                      setPatternDataArray(patterndata)
-                  }
-              }}
-          >
-              <img src='./Vector (20).svg' />
-          </Button>
-          {patternDataArray.length > 1 && <IconButton
-              sx={{ marginRight: 1 }}
-              edge="end"
-              size="small"
-              className={styles.batndeklet}
-              onClick={() => {
-                  var patterndata = patternDataArray;
-                  patterndata.splice(index, 1)
-                  setPatternDataArray(patterndata)
-              }}
-          >
-              <img src='./delete.svg' />
-          </IconButton>}
-      </Box>
-      </TableCell>
-      </TableRow>
+                sx={{ display: 'flex', flex: 1 }}
+                //   key={pattern.step}
+                hover
+            >
+                <TableCell>
+                    <FormControlLabel className={styles.cerrpriash} label="Current Price" control={<Radio
+                        className={styles.rediobtnon}
+                        onChange={() => {
+                            var newArray = [];
+                            for (let j = 0; j < patternDataArray.length; j++) {
+                                const element = patternDataArray[j];
+                                if (index == j) {
+                                    value.is_current_price = true;
+                                    newArray.push(JSON.parse(JSON.stringify(value)))
+                                } else {
+                                    element.is_current_price = false;
+                                    newArray.push(JSON.parse(JSON.stringify(element)))
+                                }
+                            }
+                            setPatternDataArray(newArray)
+                        }}
+                        checked={value.is_current_price} />} />
+                </TableCell>
+                <TableCell>
+                    <Box >
+                        <TextField
+                            // sx={{ flex: 1 }}
+                            error={value.isBuyError}
+                            fullWidth
+                            helperText={value.isSellError ? 'Enter Buy Price' : ''}
+                            // label="Buy"
+                            className={styles.tabalinputdata}
+                            margin="normal"
+                            type="number"
+                            name="buyPrice"
+                            onChange={(value1) => {
+                                let text = value1.target.value;
+                                var newArray = [];
+                                for (let j = 0; j < patternDataArray.length; j++) {
+                                    const element = patternDataArray[j];
+                                    if (index == j) {
+                                        value.buy = text;
+                                        newArray.push(JSON.parse(JSON.stringify(value)))
+                                    } else {
+                                        newArray.push(JSON.parse(JSON.stringify(element)))
+                                    }
+                                }
+                                setPatternDataArray(newArray)
+                            }}
+                            value={value.buy}
+                            variant="outlined"
+                        />
+                    </Box>
+                </TableCell>
+                <TableCell>
+                    <Box >
+                        <TextField
+                            // sx={{ flex: 1 }}
+                            error={value.isQuantityError}
+                            fullWidth
+                            helperText={value.isQuantityError ? 'Enter Buy Quantity' : ''}
+                            className={styles.tabalinputdata}
+                            margin="normal"
+                            type="number"
+                            name="buyquantity"
+                            onChange={(value1) => {
+                                let text = value1.target.value;
+                                var newArray = [];
+                                for (let j = 0; j < patternDataArray.length; j++) {
+                                    const element = patternDataArray[j];
+                                    if (index == j) {
+                                        value.buyQty = text;
+                                        newArray.push(JSON.parse(JSON.stringify(value)))
+                                    } else {
+                                        newArray.push(JSON.parse(JSON.stringify(element)))
+                                    }
+                                }
+                                setPatternDataArray(newArray)
+                            }}
+                            value={value.buyQty}
+                            variant="outlined"
+                        />
+                    </Box>
+                </TableCell>
+                <TableCell>
+                    <Box >
+                        <TextField
+                            // sx={{ flex: 1 }}
+                            error={value.isSellError}
+                            fullWidth
+                            className={styles.tabalinputdata}
+                            helperText={value.isSellError ? 'Enter Sell Price' : ''}
+                            // label="Sell"
+                            margin="normal"
+                            type="number"
+                            name="sellPrice"
+                            onChange={(value1) => {
+                                let text = value1.target.value;
+                                var newArray = [];
+                                for (let j = 0; j < patternDataArray.length; j++) {
+                                    const element = patternDataArray[j];
+                                    if (index == j) {
+                                        value.sell = text;
+                                        newArray.push(JSON.parse(JSON.stringify(value)))
+                                    } else {
+                                        newArray.push(JSON.parse(JSON.stringify(element)))
+                                    }
+                                }
+                                setPatternDataArray(newArray)
+                            }}
+                            value={value.sell}
+                            variant="outlined"
+                        />
+                    </Box>
+                </TableCell>
+                <TableCell>
+                    <Box>
+                        <TextField
+                            // sx={{ flex: 1 }}
+                            error={value.isQuantityError}
+                            fullWidth
+                            className={styles.tabalinputdata}
+                            helperText={value.isQuantityError ? 'Enter Sell Quantity' : ''}
+                            // label="Sell Quantity"
+                            margin="normal"
+                            type="number"
+                            name="sellquantity"
+                            onChange={(value1) => {
+                                let text = value1.target.value;
+                                var newArray = [];
+                                for (let j = 0; j < patternDataArray.length; j++) {
+                                    const element = patternDataArray[j];
+                                    if (index == j) {
+                                        value.sellQty = text;
+                                        newArray.push(JSON.parse(JSON.stringify(value)))
+                                    } else {
+                                        newArray.push(JSON.parse(JSON.stringify(element)))
+                                    }
+                                }
+                                setPatternDataArray(newArray)
+                            }}
+                            value={value.sellQty}
+                            variant="outlined"
+                        />
+
+                    </Box>
+                </TableCell>
+                <TableCell>
+                    <Box style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                        <TextField
+                            sx={{ marginRight: 1 }}
+                            // label="No of row"
+                            margin="normal"
+                            type="number"
+                            className={styles.listrowadd}
+                            name="sellquantity"
+                            onChange={(value1) => {
+                                let text = value1.target.value;
+                                setRowCount(text)
+                            }}
+                            value={rowCount}
+                            variant="outlined"
+                        />
+                        <Button
+                            className={styles.batnopslak}
+                            component="a"
+                            size="medium"
+                            variant="text"
+                            onClick={() => {
+                                var numOfRowCount = parseFloat(rowCount)
+                                var lastItem = patternDataArray[patternDataArray.length - 1]
+                                var patterndata = patternDataArray;
+                                if (numOfRowCount > 1) {
+                                    for (let index = 0; index < numOfRowCount; index++) {
+                                        var emptyData = {
+                                            is_current_price: false,
+                                            buyQty: lastItem.buyQty,
+                                            sellQty: lastItem.sellQty,
+                                            buy: lastItem.buy,
+                                            sell: lastItem.sell
+                                        }
+                                        patterndata.push(JSON.parse(JSON.stringify(emptyData)))
+                                    }
+                                    setPatternDataArray(patterndata)
+                                } else {
+                                    var emptyData = {
+                                        is_current_price: false,
+                                        buyQty: lastItem.buyQty,
+                                        sellQty: lastItem.sellQty,
+                                        buy: lastItem.buy,
+                                        sell: lastItem.sell
+                                    }
+                                    patterndata.push(JSON.parse(JSON.stringify(emptyData)))
+                                    setPatternDataArray(patterndata)
+                                }
+                            }}
+                        >
+                            <img src='./Vector (20).svg' />
+                        </Button>
+                        {patternDataArray.length > 1 && <IconButton
+                            sx={{ marginRight: 1 }}
+                            edge="end"
+                            size="small"
+                            className={styles.batndeklet}
+                            onClick={() => {
+                                var patterndata = patternDataArray;
+                                patterndata.splice(index, 1)
+                                setPatternDataArray(patterndata)
+                            }}
+                        >
+                            <img src='./delete.svg' />
+                        </IconButton>}
+                    </Box>
+                </TableCell>
+            </TableRow>
         )
     }
 
@@ -1107,432 +1107,433 @@ console.log(userJSON,'userJSON');
                 }}
             >
 
-               
+
             </Box>
             <Grid item sm={12} md={12} xs={12}>
-                    <Newbar />
-                </Grid>
-                <Grid item md={12} className={styles.listgrifmaen22}>
-            <Stepper activeStep={activeStep}>
-                {steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-                    if (isStepOptional(index)) {
-                        labelProps.optional = (
-                            {/* <Typography variant="caption">Optional</Typography> */ }
+                <Newbar />
+            </Grid>
+            <Grid item md={12} className={styles.listgrifmaen22}>
+                <Stepper activeStep={activeStep}>
+                    {steps.map((label, index) => {
+                        const stepProps = {};
+                        const labelProps = {};
+                        if (isStepOptional(index)) {
+                            labelProps.optional = (
+                                {/* <Typography variant="caption">Optional</Typography> */ }
+                            );
+                        }
+                        if (isStepSkipped(index)) {
+                            stepProps.completed = false;
+                        }
+                        return (
+                            <Step key={label} {...stepProps}>
+                    </Step>
+
                         );
-                    }
-                    if (isStepSkipped(index)) {
-                        stepProps.completed = false;
-                    }
-                    return (
-                        <Box></Box>
-                        
-                    );
-                })}
-            </Stepper>
-            {activeStep === steps.length ? (
-                <React.Fragment>
-                    {/* <Typography sx={{ mt: 2, mb: 1 }}>
+                    })}
+                </Stepper>
+                {activeStep === steps.length ? (
+                    <React.Fragment>
+                        {/* <Typography sx={{ mt: 2, mb: 1 }}>
                         All steps completed - you&apos;re finished
                     </Typography> */}
-                    {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Box sx={{ flex: '1 1 auto' }} />
                         <Button onClick={handleReset}>Reset</Button>
                     </Box> */}
-                </React.Fragment>
-            ) : (
-                <React.Fragment>
-                <Box className={styles.conterdata22} sx={{ width: '100%'}}>
-                    {activeStep == 0 && <>      <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
-                    <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
-            onClick={() => {
-              router.push({
-                pathname: './pattanlist',
-                // query: { emailID: row.id,namescoka:row.script }
-              });
-            }}
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        <Box className={styles.conterdata22} sx={{ width: '100%' }}>
+                            {activeStep == 0 && <>      <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
+                                <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
+                                    onClick={() => {
+                                        router.push({
+                                            pathname: './pattanlist',
+                                            // query: { emailID: row.id,namescoka:row.script }
+                                        });
+                                    }}
 
-          ><KeyboardReturnIcon />Patterns</Button>
-                        <CardContent className={styles.listcocntenatdata}>
-                            {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-                                {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
-                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                        {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                    </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
-                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                        {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                    </Box>
-                                </Box>}
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
+                                ><KeyboardReturnIcon />Patterns</Button>
+                                <CardContent className={styles.listcocntenatdata}>
+                                    {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                                        {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
+                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                            </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
+                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                            </Box>
+                                        </Box>}
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
 
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
 
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
-                                {/* </Box> */}
-                            </Box>}
-                            <div className={styles.listtypogst}>
-                                <Typography>GENERAL</Typography>
-                            </div>
-                            <Box>
-                                <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
-                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
-                                        
-                                      
-                                 
-                                        <Grid item md={4}>
-
-                                        <Box sx={{ flex: 2, padding: '10px 0px 0px 0px' }}>
-                                            <Typography className={styles.typofonty}>Script</Typography>
-                                            <Autocomplete
-                                                sx={{ flex: 1, }}
-                                                fullWidth
-                                                disablePortal={false}
-                                                options={filterScripList}
-                                                name="script"
-                                                value={script}
-                                                onChange={(event, value, reason, details) => {
-                                                    // filterScriplist()
-                                                    if (!!value) {
-                                                        if (!!stockInterval) {
-                                                            clearInterval(stockInterval)
-                                                        }
-                                                        var script = {
-                                                            id: value.id,
-                                                            script: value.label
-                                                        }
-                                                        getScripPrice(script)
-                                                        setLotSize(parseFloat(value.lotSize))
-                                                        stockInterval = setInterval(() => {
-                                                            getScripPrice(value.id)
-                                                        }, 3000);
-                                                    } else {
-                                                        if (!!stockInterval) {
-                                                            clearInterval(stockInterval)
-                                                        }
-                                                    }
-                                                    setScriptError(false)
-                                                    setScript(value)
-                                                }}
-                                                onClose={(event, reason) => {
-                                                    setFilterScripList(defaultScripList)
-                                                }}
-                                                renderInput={(params) => <TextField  {...params}
-                                                    onChange={(text) => {
-                                                        console.log(text.target.value, 'jjahhahha')
-                                                        // setFilatlist(text.target.value)
-                                                        filterScrip(text.target.value)
-                                                        // filterScriplist(text.target.value)
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
+                                        {/* </Box> */}
+                                    </Box>}
+                                    <div className={styles.listtypogst}>
+                                        <Typography>GENERAL</Typography>
+                                    </div>
+                                    <Box>
+                                        <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
+                                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
 
 
 
-
-                                                    }}
-                                                    className={styles.listtextfils22}
-                                                    error={scriptError}
-                                                    helperText={scriptError ? 'Scrip is required' : undefined}
-                                                // label={scripLable} 
-
-                                                />}
-                                            />
-                                        </Box>
-                                            {/* </Box> */}
-                                        </Grid>
-                                    </Box>
-
-                                </Box><div className={listdataconmnone == 'accodind' ? styles.listdatblok : styles.nnedatalist}>
-
-                                    <Accordion className={styles.acclistloddop}>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                            className={styles.listbackdda}
-                                        >
-                                            <Typography className={styles.hedindrop}>Advanced</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails className={styles.listaccsumahha}>
-
-                                            <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                                                 <Grid item md={4}>
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                        <Box sx={{ flex: 1 }}>
-                                                            <Typography className={styles.typofonty}>Stoploss</Typography>
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                // error={Boolean(formik.touched.Stoploss && formik.errors.Stoploss)}
-                                                                fullWidth
-                                                                // helperText={formik.touched.Stoploss && formik.errors.Stoploss}
-                                                                // label="Buy"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                margin="normal"
-                                                                name="Stoploss"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
 
-                                                                value={formik.values.Stoploss}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-                                                        <Box sx={{ flex: 1, paddingLeft: '20px' }}>
+                                                    <Box sx={{ flex: 2, padding: '10px 0px 0px 0px' }}>
+                                                        <Typography className={styles.typofonty}>Script</Typography>
+                                                        <Autocomplete
+                                                            sx={{ flex: 1, }}
+                                                            fullWidth
+                                                            disablePortal={false}
+                                                            options={filterScripList}
+                                                            name="script"
+                                                            value={script}
+                                                            onChange={(event, value, reason, details) => {
+                                                                // filterScriplist()
+                                                                if (!!value) {
+                                                                    if (!!stockInterval) {
+                                                                        clearInterval(stockInterval)
+                                                                    }
+                                                                    var script = {
+                                                                        id: value.id,
+                                                                        script: value.label
+                                                                    }
+                                                                    getScripPrice(script)
+                                                                    setLotSize(parseFloat(value.lotSize))
+                                                                    stockInterval = setInterval(() => {
+                                                                        getScripPrice(value.id)
+                                                                    }, 3000);
+                                                                } else {
+                                                                    if (!!stockInterval) {
+                                                                        clearInterval(stockInterval)
+                                                                    }
+                                                                }
+                                                                setScriptError(false)
+                                                                setScript(value)
+                                                            }}
+                                                            onClose={(event, reason) => {
+                                                                setFilterScripList(defaultScripList)
+                                                            }}
+                                                            renderInput={(params) => <TextField  {...params}
+                                                                onChange={(text) => {
+                                                                    console.log(text.target.value, 'jjahhahha')
+                                                                    // setFilatlist(text.target.value)
+                                                                    filterScrip(text.target.value)
+                                                                    // filterScriplist(text.target.value)
 
-                                                            <Typography className={styles.typofonty}>Target</Typography>
 
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                // error={Boolean(formik.touched.Target && formik.errors.Target)}
-                                                                fullWidth
-                                                                // helperText={formik.touched.Target && formik.errors.Target}
-                                                                // label="Sell"
-                                                                margin="normal"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                name="Target"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-                                                                value={formik.values.Target}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
 
+
+                                                                }}
+                                                                className={styles.listtextfils22}
+                                                                error={scriptError}
+                                                                helperText={scriptError ? 'Scrip is required' : undefined}
+                                                            // label={scripLable} 
+
+                                                            />}
+                                                        />
                                                     </Box>
+                                                    {/* </Box> */}
                                                 </Grid>
-                                                <Grid item md={8} >
-                                                    <Box
-                                                        style={{ display: 'flex', padding: '5px 0px 0px 20px' }}
-                                                    >
-                                                        <Box style={{ padding: '0px 16px 0px 0px', width: '50%' }}>
-                                                            <Typography className={styles.typofonty}>Start date</Typography>
+                                            </Box>
+
+                                        </Box><div className={listdataconmnone == 'accodind' ? styles.listdatblok : styles.nnedatalist}>
+
+                                            <Accordion className={styles.acclistloddop}>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                    className={styles.listbackdda}
+                                                >
+                                                    <Typography className={styles.hedindrop}>Advanced</Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails className={styles.listaccsumahha}>
+
+                                                    <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
+                                                        <Grid item md={4}>
+                                                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                                <Box sx={{ flex: 1 }}>
+                                                                    <Typography className={styles.typofonty}>Stoploss</Typography>
+                                                                    <TextField
+                                                                        sx={{ flex: 1 }}
+                                                                        // error={Boolean(formik.touched.Stoploss && formik.errors.Stoploss)}
+                                                                        fullWidth
+                                                                        // helperText={formik.touched.Stoploss && formik.errors.Stoploss}
+                                                                        // label="Buy"
+                                                                        type="number"
+                                                                        className={styles.listtextfils}
+                                                                        margin="normal"
+                                                                        name="Stoploss"
+                                                                        onBlur={formik.handleBlur}
+                                                                        onChange={formik.handleChange}
+
+                                                                        value={formik.values.Stoploss}
+                                                                        variant="outlined"
+                                                                    />
+                                                                </Box>
+                                                                <Box sx={{ flex: 1, paddingLeft: '20px' }}>
+
+                                                                    <Typography className={styles.typofonty}>Target</Typography>
+
+                                                                    <TextField
+                                                                        sx={{ flex: 1 }}
+                                                                        // error={Boolean(formik.touched.Target && formik.errors.Target)}
+                                                                        fullWidth
+                                                                        // helperText={formik.touched.Target && formik.errors.Target}
+                                                                        // label="Sell"
+                                                                        margin="normal"
+                                                                        type="number"
+                                                                        className={styles.listtextfils}
+                                                                        name="Target"
+                                                                        onBlur={formik.handleBlur}
+                                                                        onChange={formik.handleChange}
+                                                                        value={formik.values.Target}
+                                                                        variant="outlined"
+                                                                    />
+                                                                </Box>
+
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item md={8} >
+                                                            <Box
+                                                                style={{ display: 'flex', padding: '5px 0px 0px 20px' }}
+                                                            >
+                                                                <Box style={{ padding: '0px 16px 0px 0px', width: '50%' }}>
+                                                                    <Typography className={styles.typofonty}>Start date</Typography>
 
 
-                                                            <DatePickerll
-                                                                fullWidth
-                                                                sx={{ flex: 1 }}
-                                                                className={styles.listdatepikar}
-                                                                selected={startDate}
-                                                                onChange={(date) => setStartDate(date)}
-                                                                selectsStart
-                                                                startDate={startDate}
-                                                                endDate={endDate}
-                                                            // caretAs={calenderIcon}
-                                                            />
-                                                        </Box>
-                                                        <Box style={{ padding: '0px 0px 0px 10px', width: '50%' }}>
-                                                            <Typography className={styles.typofonty}>End date</Typography>
-                                                            <DatePickerll
-                                                                className={styles.listdatepikar}
-                                                                selected={endDate}
-                                                                onChange={(date) => setEndDate(date)}
-                                                                selectsEnd
-                                                                startDate={startDate}
-                                                                endDate={endDate}
-                                                                minDate={startDate}
-                                                            // caretAs={calenderIcon}
-                                                            />
-                                                        </Box>
-                                                    </Box>
-                                                </Grid>
+                                                                    <DatePickerll
+                                                                        fullWidth
+                                                                        sx={{ flex: 1 }}
+                                                                        className={styles.listdatepikar}
+                                                                        selected={startDate}
+                                                                        onChange={(date) => setStartDate(date)}
+                                                                        selectsStart
+                                                                        startDate={startDate}
+                                                                        endDate={endDate}
+                                                                    // caretAs={calenderIcon}
+                                                                    />
+                                                                </Box>
+                                                                <Box style={{ padding: '0px 0px 0px 10px', width: '50%' }}>
+                                                                    <Typography className={styles.typofonty}>End date</Typography>
+                                                                    <DatePickerll
+                                                                        className={styles.listdatepikar}
+                                                                        selected={endDate}
+                                                                        onChange={(date) => setEndDate(date)}
+                                                                        selectsEnd
+                                                                        startDate={startDate}
+                                                                        endDate={endDate}
+                                                                        minDate={startDate}
+                                                                    // caretAs={calenderIcon}
+                                                                    />
+                                                                </Box>
+                                                            </Box>
+                                                        </Grid>
 
 
-                                            </div>
-                                        </AccordionDetails>
-                                    </Accordion>
+                                                    </div>
+                                                </AccordionDetails>
+                                            </Accordion>
 
-                                    <Accordion className={styles.acclistloddop}>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                            className={styles.listbackdda}
-                                        >
-                                            <Typography className={styles.hedindrop33}>Order</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails className={styles.listaccsumahha}>
-                                            <div style={{ display: "flex", paddingTop: '10px' }}>
-                                                <Grid item md={4} >
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                        <Box sx={{ flex: 1 }}>
-                                                            <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.Initail && formik.errors.Initail)}
-                                                                fullWidth
-                                                                helperText={formik.touched.Initail && formik.errors.Initail}
-                                                                // label="Buy"
-                                                                type="number"
-                                                                className={styles.listtextfils2233}
-                                                                margin="normal"
-                                                                name="Initail"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
+                                            <Accordion className={styles.acclistloddop}>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                    className={styles.listbackdda}
+                                                >
+                                                    <Typography className={styles.hedindrop33}>Order</Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails className={styles.listaccsumahha}>
+                                                    <div style={{ display: "flex", paddingTop: '10px' }}>
+                                                        <Grid item md={4} >
+                                                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                                <Box sx={{ flex: 1 }}>
+                                                                    <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
+                                                                    <TextField
+                                                                        sx={{ flex: 1 }}
+                                                                        error={Boolean(formik.touched.Initail && formik.errors.Initail)}
+                                                                        fullWidth
+                                                                        helperText={formik.touched.Initail && formik.errors.Initail}
+                                                                        // label="Buy"
+                                                                        type="number"
+                                                                        className={styles.listtextfils2233}
+                                                                        margin="normal"
+                                                                        name="Initail"
+                                                                        onBlur={formik.handleBlur}
+                                                                        onChange={formik.handleChange}
 
-                                                                value={formik.values.Initail}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-
-
-                                                    </Box>
-                                                </Grid>
-                                                <Grid item md={4} style={{ padding: '0px 0px 0px 20px' }}>
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                        <Box sx={{ flex: 1, paddingRight: '20px' }}>
-                                                            <Typography className={styles.typofonty}>AMO Buy Down Steps</Typography>
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.BuySteps && formik.errors.BuySteps)}
-                                                                fullWidth
-                                                                helperText={formik.touched.BuySteps && formik.errors.BuySteps}
-                                                                // label="Buy"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                margin="normal"
-                                                                name="BuySteps"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-
-                                                                value={formik.values.BuySteps}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-                                                        <Box sx={{ flex: 1, }}>
-
-                                                            <Typography className={styles.typofonty}>AMO Sell UP Steps</Typography>
-
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.SellSteps && formik.errors.SellSteps)}
-                                                                fullWidth
-                                                                helperText={formik.touched.SellSteps && formik.errors.SellSteps}
-                                                                // label="Sell"
-                                                                margin="normal"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                name="SellSteps"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-                                                                value={formik.values.SellSteps}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-
-                                                    </Box>
-                                                </Grid>
-                                                <Grid item md={4} >
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 20px" }}>
-                                                        <Box sx={{ flex: 1, paddingRight: '20px' }}>
-                                                            <Typography className={styles.typofonty}>Normal Buy Down Steps</Typography>
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.NormalBuy && formik.errors.NormalBuy)}
-                                                                // fullWidth
-                                                                helperText={formik.touched.NormalBuy && formik.errors.NormalBuy}
-                                                                // label="Buy"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                margin="normal"
-                                                                name="NormalBuy"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-
-                                                                value={formik.values.NormalBuy}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-                                                        <Box sx={{ flex: 1, }}>
-
-                                                            <Typography className={styles.typofonty}>Normal Sell UP Steps</Typography>
-
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.NormalSell && formik.errors.NormalSell)}
-                                                                // fullWidth
-                                                                helperText={formik.touched.NormalSell && formik.errors.NormalSell}
-                                                                // label="Sell"
-                                                                margin="normal"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                name="NormalSell"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-                                                                value={formik.values.NormalSell}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-
-                                                    </Box>
-                                                </Grid>
-                                            </div>
-
-                                        </AccordionDetails>
-                                    </Accordion>
-
-                                    <Grid item md={4} className={styles.gridmaen} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-                                        <div>   <Typography className={styles.typofonty} >Data Type
-
-                                        </Typography></div>
-                                        <div style={{ display: 'flex' }}>              <div style={{ display: 'flex', alignItems: 'center' }}> <Radio
-                                            style={{ color: "#05315A" }}
-                                            checked={selectedValue === 'CSV'}
-                                            onChange={handleChangemejej}
-                                            value="CSV"
-                                            name="radio-buttons"
-                                        />
-                                            <Typography className={styles.typofonty} >CSV
-                                            </Typography></div>
-                                            <div style={{ display: 'flex', alignItems: 'center' }}>   <Radio
-                                                checked={selectedValue === 'Manual'}
-                                                onChange={handleChangemejej}
-                                                value="Manual"
-                                                style={{ color: "#05315A" }}
-                                                name="radio-buttons"
-                                            // inputProps={{ 'aria-label': 'B' }}
-                                            />
-
-                                                <Typography className={styles.typofonty} >Manual
-                                                </Typography>      </div>  </div>  </Grid>  </div>
-
-                                {/* <div className={setListdatopjj == 'WithoutStock' ? styles.nnedatalist : styles.listdatblok}> </div> */}
-                               
+                                                                        value={formik.values.Initail}
+                                                                        variant="outlined"
+                                                                    />
+                                                                </Box>
 
 
-                            </Box>
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item md={4} style={{ padding: '0px 0px 0px 20px' }}>
+                                                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                                                <Box sx={{ flex: 1, paddingRight: '20px' }}>
+                                                                    <Typography className={styles.typofonty}>AMO Buy Down Steps</Typography>
+                                                                    <TextField
+                                                                        sx={{ flex: 1 }}
+                                                                        error={Boolean(formik.touched.BuySteps && formik.errors.BuySteps)}
+                                                                        fullWidth
+                                                                        helperText={formik.touched.BuySteps && formik.errors.BuySteps}
+                                                                        // label="Buy"
+                                                                        type="number"
+                                                                        className={styles.listtextfils}
+                                                                        margin="normal"
+                                                                        name="BuySteps"
+                                                                        onBlur={formik.handleBlur}
+                                                                        onChange={formik.handleChange}
 
-                        </CardContent>
-                    </Card></>
-                     }
-                     {activeStep == 1 &&  <> {selectedValue == 'CSV' ? 
-                                <div className={styles.listgridpin}>
-                                {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-                                {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
-                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                        {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                    </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
-                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                        {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                                                        value={formik.values.BuySteps}
+                                                                        variant="outlined"
+                                                                    />
+                                                                </Box>
+                                                                <Box sx={{ flex: 1, }}>
+
+                                                                    <Typography className={styles.typofonty}>AMO Sell UP Steps</Typography>
+
+                                                                    <TextField
+                                                                        sx={{ flex: 1 }}
+                                                                        error={Boolean(formik.touched.SellSteps && formik.errors.SellSteps)}
+                                                                        fullWidth
+                                                                        helperText={formik.touched.SellSteps && formik.errors.SellSteps}
+                                                                        // label="Sell"
+                                                                        margin="normal"
+                                                                        type="number"
+                                                                        className={styles.listtextfils}
+                                                                        name="SellSteps"
+                                                                        onBlur={formik.handleBlur}
+                                                                        onChange={formik.handleChange}
+                                                                        value={formik.values.SellSteps}
+                                                                        variant="outlined"
+                                                                    />
+                                                                </Box>
+
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item md={4} >
+                                                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 20px" }}>
+                                                                <Box sx={{ flex: 1, paddingRight: '20px' }}>
+                                                                    <Typography className={styles.typofonty}>Normal Buy Down Steps</Typography>
+                                                                    <TextField
+                                                                        sx={{ flex: 1 }}
+                                                                        error={Boolean(formik.touched.NormalBuy && formik.errors.NormalBuy)}
+                                                                        // fullWidth
+                                                                        helperText={formik.touched.NormalBuy && formik.errors.NormalBuy}
+                                                                        // label="Buy"
+                                                                        type="number"
+                                                                        className={styles.listtextfils}
+                                                                        margin="normal"
+                                                                        name="NormalBuy"
+                                                                        onBlur={formik.handleBlur}
+                                                                        onChange={formik.handleChange}
+
+                                                                        value={formik.values.NormalBuy}
+                                                                        variant="outlined"
+                                                                    />
+                                                                </Box>
+                                                                <Box sx={{ flex: 1, }}>
+
+                                                                    <Typography className={styles.typofonty}>Normal Sell UP Steps</Typography>
+
+                                                                    <TextField
+                                                                        sx={{ flex: 1 }}
+                                                                        error={Boolean(formik.touched.NormalSell && formik.errors.NormalSell)}
+                                                                        // fullWidth
+                                                                        helperText={formik.touched.NormalSell && formik.errors.NormalSell}
+                                                                        // label="Sell"
+                                                                        margin="normal"
+                                                                        type="number"
+                                                                        className={styles.listtextfils}
+                                                                        name="NormalSell"
+                                                                        onBlur={formik.handleBlur}
+                                                                        onChange={formik.handleChange}
+                                                                        value={formik.values.NormalSell}
+                                                                        variant="outlined"
+                                                                    />
+                                                                </Box>
+
+                                                            </Box>
+                                                        </Grid>
+                                                    </div>
+
+                                                </AccordionDetails>
+                                            </Accordion>
+
+                                            <Grid item md={4} className={styles.gridmaen} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+                                                <div>   <Typography className={styles.typofonty} >Data Type
+
+                                                </Typography></div>
+                                                <div style={{ display: 'flex' }}>              <div style={{ display: 'flex', alignItems: 'center' }}> <Radio
+                                                    style={{ color: "#05315A" }}
+                                                    checked={selectedValue === 'CSV'}
+                                                    onChange={handleChangemejej}
+                                                    value="CSV"
+                                                    name="radio-buttons"
+                                                />
+                                                    <Typography className={styles.typofonty} >CSV
+                                                    </Typography></div>
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>   <Radio
+                                                        checked={selectedValue === 'Manual'}
+                                                        onChange={handleChangemejej}
+                                                        value="Manual"
+                                                        style={{ color: "#05315A" }}
+                                                        name="radio-buttons"
+                                                    // inputProps={{ 'aria-label': 'B' }}
+                                                    />
+
+                                                        <Typography className={styles.typofonty} >Manual
+                                                        </Typography>      </div>  </div>  </Grid>  </div>
+
+                                        {/* <div className={setListdatopjj == 'WithoutStock' ? styles.nnedatalist : styles.listdatblok}> </div> */}
+
+
+
                                     </Box>
-                                </Box>}
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
 
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+                                </CardContent>
+                            </Card></>
+                            }
+                            {activeStep == 1 && <> {selectedValue == 'CSV' ?
+                                <div className={styles.listgridpin}>
+                                    {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                                        {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
+                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                            </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
+                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                            </Box>
+                                        </Box>}
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
 
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
-                                {/* </Box> */}
-                            </Box>}
-                            <div className={styles.listtypogst}>
-                                <Typography>GENERAL</Typography>
-                            </div>
-                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
-                                        
-                                      
-                                 
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
+                                        {/* </Box> */}
+                                    </Box>}
+                                    <div className={styles.listtypogst}>
+                                        <Typography>GENERAL</Typography>
+                                    </div>
+                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
+
+
+
                                         <Grid item md={4}>
 
                                             <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, mt: 2 }}>
@@ -1637,7 +1638,7 @@ console.log(userJSON,'userJSON');
                                                         }}
                                                         accept=".csv" ></input>
                                                     Browse   </Button>
-                                                    <Button onClick={handleCSVSubmit}>sub</Button>
+                                                <Button onClick={handleCSVSubmit}>sub</Button>
                                             </div>
                                             <div className={styles.listcsvdata}>
                                                 <Typography>Supported formates: CSV</Typography>
@@ -1645,91 +1646,91 @@ console.log(userJSON,'userJSON');
                                         </Box>
 
                                     </Grid>
-                                </div>:<div>
-                     <div className={styles.listmaenstokdiv}>
-                     {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-                                {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
-                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                        {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                    </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
-                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                        {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                        <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                    </Box>
-                                </Box>}
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
-
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
-
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
-                                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
-                                {/* </Box> */}
-                            </Box>}
-                            <div className={styles.listtypogst}>
-                                <Typography>GENERAL</Typography>
-                            </div>
-                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
-                                        
-                                      
-                                 
-                                        <Grid item md={4}>
-
-                                            <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, mt: 2 }}>
-                                                <Box sx={{ flex: 1 }}>
-                                                    <Autocomplete
-                                                        sx={{ flex: 1 }}
-                                                        fullWidth
-                                                        disablePortal={false}
-                                                        options={filterScripList}
-                                                        name="script"
-                                                        value={script}
-                                                        onChange={(event, value, reason, details) => {
-                                                            if (!!value) {
-                                                                if (!!stockInterval) {
-                                                                    clearInterval(stockInterval)
-                                                                }
-                                                                getScripPrice(value)
-                                                                setLotSize(parseFloat(value.lotSize))
-                                                                stockInterval = setInterval(() => {
-                                                                    getScripPrice(value)
-                                                                }, 3000);
-                                                            } else {
-                                                                if (!!stockInterval) {
-                                                                    clearInterval(stockInterval)
-                                                                }
-                                                            }
-                                                            setScriptError(false)
-                                                            setScript(value)
-                                                        }}
-                                                        onClose={(event, reason) => {
-                                                            setFilterScripList(defaultScripList)
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params}
-                                                            onChange={(text) => {
-                                                                filterScrip(text.target.value)
-                                                            }}
-                                                            className={styles.listtextfils22}
-
-                                                            error={scriptError}
-                                                            helperText={scriptError ? 'Scrip is required' : undefined}
-                                                        // label={scripLable} 
-
-                                                        />}
-                                                    />
+                                </div> : <div>
+                                    <div className={styles.listmaenstokdiv}>
+                                        {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                                            {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
+                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                    {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                    <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                                </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
+                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                                    {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                                                    <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
                                                 </Box>
+                                            </Box>}
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
 
-                                            </Box>
-                                        </Grid>
-                                    </Box>
-                                  
-                                    <Grid item md={4} style={{ display: 'flex', justifyContent: 'space-between', padding: "15px 0px 0px 0px" }}>
-                                        <div>
-                                            <Typography className={styles.datatyplo}>Data Type </Typography></div><div>
-                                            <Button onClick={() => { setListdatop('CSV') }} className={listfigmaop == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
-                                            <Button onClick={() => { setListdatop('Manual') }} className={listfigmaop == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
+                                            {/* </Box> */}
+                                        </Box>}
+                                        <div className={styles.listtypogst}>
+                                            <Typography>GENERAL</Typography>
                                         </div>
-                                    </Grid>
+                                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
+
+
+
+                                            <Grid item md={4}>
+
+                                                <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, mt: 2 }}>
+                                                    <Box sx={{ flex: 1 }}>
+                                                        <Autocomplete
+                                                            sx={{ flex: 1 }}
+                                                            fullWidth
+                                                            disablePortal={false}
+                                                            options={filterScripList}
+                                                            name="script"
+                                                            value={script}
+                                                            onChange={(event, value, reason, details) => {
+                                                                if (!!value) {
+                                                                    if (!!stockInterval) {
+                                                                        clearInterval(stockInterval)
+                                                                    }
+                                                                    getScripPrice(value)
+                                                                    setLotSize(parseFloat(value.lotSize))
+                                                                    stockInterval = setInterval(() => {
+                                                                        getScripPrice(value)
+                                                                    }, 3000);
+                                                                } else {
+                                                                    if (!!stockInterval) {
+                                                                        clearInterval(stockInterval)
+                                                                    }
+                                                                }
+                                                                setScriptError(false)
+                                                                setScript(value)
+                                                            }}
+                                                            onClose={(event, reason) => {
+                                                                setFilterScripList(defaultScripList)
+                                                            }}
+                                                            renderInput={(params) => <TextField {...params}
+                                                                onChange={(text) => {
+                                                                    filterScrip(text.target.value)
+                                                                }}
+                                                                className={styles.listtextfils22}
+
+                                                                error={scriptError}
+                                                                helperText={scriptError ? 'Scrip is required' : undefined}
+                                                            // label={scripLable} 
+
+                                                            />}
+                                                        />
+                                                    </Box>
+
+                                                </Box>
+                                            </Grid>
+                                        </Box>
+
+                                        <Grid item md={4} style={{ display: 'flex', justifyContent: 'space-between', padding: "15px 0px 0px 0px" }}>
+                                            <div>
+                                                <Typography className={styles.datatyplo}>Data Type </Typography></div><div>
+                                                <Button onClick={() => { setListdatop('CSV') }} className={listfigmaop == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
+                                                <Button onClick={() => { setListdatop('Manual') }} className={listfigmaop == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
+                                            </div>
+                                        </Grid>
                                     </div>
                                     {(lotsize != 1) ? <Box sx={{ display: 'flex', paddingLeft: 3, fontSize: 10 }}>lotSize={lotsize}</Box> : ''}
 
@@ -1762,331 +1763,333 @@ console.log(userJSON,'userJSON');
                                         </Table>
                                     </Box>
                                     <Table>
-                                            <TableBody className={styles.listrowdATA}>
+                                        <TableBody className={styles.listrowdATA}>
 
-                                            <Box sx={{  flexDirection: 'column' }}>
-                            {patternDataArray.map((item, index) => Item(item, index))}
+                                            <Box sx={{ flexDirection: 'column' }}>
+                                                {patternDataArray.map((item, index) => Item(item, index))}
 
-                        </Box>
-                                            </TableBody>
-                                            </Table>
+                                            </Box>
+                                        </TableBody>
+                                    </Table>
                                     <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1 }}>
 
                                     </Box>
                                 </div>
 
-}</> }
-                                {activeStep == 2 &&  <><Card 
+                            }</>}
+                            {activeStep == 2 && <><Card
                                 className={styles.listdellpeper}
-                                // className={listinnewdata == 'gsdgfgdffd' ? styles.bolkdatat : styles.listcentenar} id={padjdhdggd == 'VRP' ? styles.bolkdatat : styles.listcentenar}
-                                >
-                                    {/* <PerfectScrollbar> */}
+                            // className={listinnewdata == 'gsdgfgdffd' ? styles.bolkdatat : styles.listcentenar} id={padjdhdggd == 'VRP' ? styles.bolkdatat : styles.listcentenar}
+                            >
+                                {/* <PerfectScrollbar> */}
 
-                                    <Grid item sm={12} md={12} xs={12} >
+                                <Grid item sm={12} md={12} xs={12} >
 
-                                        {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
-                                        <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
-                                            <div style={{ padding: '30px 0px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Summary</Typography>
-                                            </div>
+                                    {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
+                                    <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
+                                        <div style={{ padding: '30px 0px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Summary</Typography>
                                         </div>
-                                    </Grid>
-                                    <Box style={{ display: 'flex' }}>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
+                                    </div>
+                                </Grid>
+                                <Box style={{ display: 'flex' }}>
+                                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
 
-                                            <div style={{ padding: '0px 40px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Script</Typography>
-                                                <div style={{ display: 'flex' }}>
-                                                    <Typography
-                                                        // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
-                                                        style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
-                                                        {scripDetails.stk_name}
-                                                        {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
-                                                    </Typography>
-                                                    <div style={{ padding: '0px 0px 0px 25px' }}>
-                                                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
-                                                    </div>
+                                        <div style={{ padding: '0px 40px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >Script</Typography>
+                                            <div style={{ display: 'flex' }}>
+                                                <Typography
+                                                    // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
+                                                    {scripDetails.stk_name}
+                                                    {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                                                </Typography>
+                                                <div style={{ padding: '0px 0px 0px 25px' }}>
+                                                    <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
                                                 </div>
                                             </div>
-                                            {/* <div style={{ padding: '0px 30px 0px 0px' }}>
+                                        </div>
+                                        {/* <div style={{ padding: '0px 30px 0px 0px' }}>
                                                 <Typography className={styles.peregarflist33} >Type</Typography>
                                                 <Typography className={styles.peregarflist44} >{patternItem.id}</Typography>
                                             </div> */}
-                                        </Grid>
-
-                                        <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
-                                    </Box>
-                                    <Grid item sm={12} md={12} xs={12}>
-
-                                        <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
-                                        <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
-                                            <div style={{ padding: '30px 0px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Advanced</Typography>
-                                            </div>
-                                        </div>
                                     </Grid>
-                                    <Box style={{ display: 'flex' }}>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
 
-                                            <div style={{ padding: '0px 60px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Target</Typography>
-                                                {/* <div style={{display:'flex'}}> */}
-                                                <Typography
-                                                    // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
-                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
-                                                    {formik.values.Target == '' ? '-' : formik.values.Target}
-                                                    {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
-                                                </Typography>
-                                                {/* <div style={{ padding: '0px 0px 0px 25px' }}>
+                                    <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
+                                </Box>
+                                <Grid item sm={12} md={12} xs={12}>
+
+                                    <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
+                                    <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
+                                        <div style={{ padding: '30px 0px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Advanced</Typography>
+                                        </div>
+                                    </div>
+                                </Grid>
+                                <Box style={{ display: 'flex' }}>
+                                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
+
+                                        <div style={{ padding: '0px 60px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >Target</Typography>
+                                            {/* <div style={{display:'flex'}}> */}
+                                            <Typography
+                                                // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                                                style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
+                                                {formik.values.Target == '' ? '-' : formik.values.Target}
+                                                {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                                            </Typography>
+                                            {/* <div style={{ padding: '0px 0px 0px 25px' }}>
                         <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
                     </div> */}
-                                                {/* </div> */}
-                                            </div>
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >StopLoss</Typography>
-                                                <Typography className={styles.peregarflist44} >{formik.values.Stoploss == '' ? '-' : formik.values.Stoploss}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 30px' }}>
-
-                                            <div style={{ padding: '0px 40px 0px 40px' }}>
-                                                <Typography className={styles.peregarflist33} >Start Date</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {startDate == '' ? '-' : moment(startDate).format("DD/MM/YYYY")
-                                                    }                          {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
-                                                </Typography>
-                                            </div>
-                                            <div style={{ padding: '0px 4px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >End Date</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {endDate == '' ? '-' :
-                                                        moment(endDate).format("DD/MM/YYYY")
-                                                    }                         {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
-                                                </Typography>
-                                            </div>
-                                        </Grid>
-                                    </Box>
-                                    <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
-                                    <Grid item sm={12} md={12} xs={12}>
-
-                                        {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
-                                        <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
-                                            <div style={{ padding: '30px 0px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Order</Typography>
-                                            </div>
+                                            {/* </div> */}
+                                        </div>
+                                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >StopLoss</Typography>
+                                            <Typography className={styles.peregarflist44} >{formik.values.Stoploss == '' ? '-' : formik.values.Stoploss}</Typography>
                                         </div>
                                     </Grid>
-                                    <Box style={{ display: 'flex' }}>
-                                        <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
+                                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 30px' }}>
 
-                                            <div style={{ padding: '0px 60px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Initail Buy Steps</Typography>
-                                                {/* <div style={{display:'flex'}}> */}
-                                                <Typography
-                                                    // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
-                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
-                                                    {formik.values.Initail}
-                                                    {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
-                                                </Typography>
+                                        <div style={{ padding: '0px 40px 0px 40px' }}>
+                                            <Typography className={styles.peregarflist33} >Start Date</Typography>
+                                            <Typography className={styles.peregarflist44} >
+                                                {startDate == '' ? '-' : moment(startDate).format("DD/MM/YYYY")
+                                                }                          {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                                            </Typography>
+                                        </div>
+                                        <div style={{ padding: '0px 4px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >End Date</Typography>
+                                            <Typography className={styles.peregarflist44} >
+                                                {endDate == '' ? '-' :
+                                                    moment(endDate).format("DD/MM/YYYY")
+                                                }                         {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                                            </Typography>
+                                        </div>
+                                    </Grid>
+                                </Box>
+                                <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
+                                <Grid item sm={12} md={12} xs={12}>
 
-                                            </div>
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >AMO BUY Down Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >{formik.values.SellSteps}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
+                                    {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
+                                    <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
+                                        <div style={{ padding: '30px 0px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Order</Typography>
+                                        </div>
+                                    </div>
+                                </Grid>
+                                <Box style={{ display: 'flex' }}>
+                                    <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
 
-                                            <div style={{ padding: '0px 40px 0px 40px' }}>
-                                                <Typography className={styles.peregarflist33} >AMO SELL UP Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.BuySteps}
-                                                    {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
-                                                </Typography>
-                                            </div>
-                                            <div style={{ padding: '0px 4px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Normal Buy Down Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.NormalBuy}
-                                                    {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
-                                                </Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 15px' }}>
+                                        <div style={{ padding: '0px 60px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >Initail Buy Steps</Typography>
+                                            {/* <div style={{display:'flex'}}> */}
+                                            <Typography
+                                                // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                                                style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
+                                                {formik.values.Initail}
+                                                {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                                            </Typography>
 
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Normal SELL Down Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.NormalSell}
-                                                    {/* {props.data.stock == null ? '-':props.data.stock } */}
-                                                </Typography>
-                                            </div>
+                                        </div>
+                                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >AMO BUY Down Steps</Typography>
+                                            <Typography className={styles.peregarflist44} >{formik.values.SellSteps}</Typography>
+                                        </div>
+                                    </Grid>
+                                    <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
 
-                                        </Grid>
-                                    </Box>
-                                    {/* </PerfectScrollbar> */}
-                                </Card></>}
-                                {activeStep == 3 && <> <Container maxWidth={false}>
+                                        <div style={{ padding: '0px 40px 0px 40px' }}>
+                                            <Typography className={styles.peregarflist33} >AMO SELL UP Steps</Typography>
+                                            <Typography className={styles.peregarflist44} >
+                                                {formik.values.BuySteps}
+                                                {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                                            </Typography>
+                                        </div>
+                                        <div style={{ padding: '0px 4px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >Normal Buy Down Steps</Typography>
+                                            <Typography className={styles.peregarflist44} >
+                                                {formik.values.NormalBuy}
+                                                {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                                            </Typography>
+                                        </div>
+                                    </Grid>
+                                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 15px' }}>
 
-<Box sx={{ mb: 3 }}>
+                                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                                            <Typography className={styles.peregarflist33} >Normal SELL Down Steps</Typography>
+                                            <Typography className={styles.peregarflist44} >
+                                                {formik.values.NormalSell}
+                                                {/* {props.data.stock == null ? '-':props.data.stock } */}
+                                            </Typography>
+                                        </div>
 
-    {listsummri == 'addsumari' ?
-        <>
-        
-        </> : ''}
-    {!!tabaldata && tabaldata.length !== 0 && <Box sx={{ mt: 3 }}>
-        <Card
-            // className={tabaldatalist == 'virang' ? styles.bolkdatat : styles.listcentenar}
-        >
-            {/* <Card {...rest}> */}
-            {/* <PerfectScrollbar> */}
-            <Box sx={{ width: '100%' }}>
-                {/* <Sticky> */}
-                <Table>
-                    <TableHead className={styles.hedarliath}>
-                        <TableRow sx={{ display: 'flex', flex: 1 }}>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Step
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Buy
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Sell
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Qty
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Buy(₹)
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Sell(₹)
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Gross
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Stock
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Investment
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                S. Disc
-                            </TableCell>
-                            <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                Avg
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                </Table>
-                {/* </Sticky> */}
-                <Table>
-                    <TableBody className={styles.listrowdATA}>
-                        {tabaldata.map((pattern) => (
-                            <TableRow
-                                sx={{ display: 'flex', flex: 1 }}
-                                key={pattern.step}
-                                hover
-                            >
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.step}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.buyPrice}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.sellPrice}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.qty}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.buyValue}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.sellValue}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.Gross}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.stock}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.investment}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.sDisc}
-                                </TableCell>
-                                <TableCell sx={{ display: 'flex', flex: 1 }}>
-                                    {pattern.avg}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Box>
-            {/* </PerfectScrollbar> */}
-        </Card>
-        {/* <PatternList
+                                    </Grid>
+                                </Box>
+                                {/* </PerfectScrollbar> */}
+                            </Card></>}
+                            {activeStep == 3 && <> <Container maxWidth={false}>
+
+                                <Box sx={{ mb: 3 }}>
+
+                                    {listsummri == 'addsumari' ?
+                                        <>
+
+                                        </> : ''}
+                                    {!!tabaldata && tabaldata.length !== 0 && <Box sx={{ mt: 3 }}>
+                                        <Card
+                                        // className={tabaldatalist == 'virang' ? styles.bolkdatat : styles.listcentenar}
+                                        >
+                                            {/* <Card {...rest}> */}
+                                            {/* <PerfectScrollbar> */}
+                                            <Box sx={{ width: '100%' }}>
+                                                {/* <Sticky> */}
+                                                <Table>
+                                                    <TableHead className={styles.hedarliath}>
+                                                        <TableRow sx={{ display: 'flex', flex: 1 }}>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Step
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Buy
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Sell
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Qty
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Buy(₹)
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Sell(₹)
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Gross
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Stock
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Investment
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                S. Disc
+                                                            </TableCell>
+                                                            <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                Avg
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                </Table>
+                                                {/* </Sticky> */}
+                                                <Table>
+                                                    <TableBody className={styles.listrowdATA}>
+                                                        {tabaldata.map((pattern) => (
+                                                            <TableRow
+                                                                sx={{ display: 'flex', flex: 1 }}
+                                                                key={pattern.step}
+                                                                hover
+                                                            >
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.step}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.buyPrice}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.sellPrice}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.qty}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.buyValue}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.sellValue}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.Gross}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.stock}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.investment}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.sDisc}
+                                                                </TableCell>
+                                                                <TableCell sx={{ display: 'flex', flex: 1 }}>
+                                                                    {pattern.avg}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            </Box>
+                                            {/* </PerfectScrollbar> */}
+                                        </Card>
+                                        {/* <PatternList
             patterns={patternList} /> */}
-    </Box>}
+                                    </Box>}
 
-</Box>
-</Container></>}
-                    <Box sx={{ display: 'flex',justifyContent:"end",width:"100%",padding:'0px 25px 30px 0px', flexDirection: 'row', pt: 2 }}>
-                        <Button
-                            className={styles.batnpovedar}
-                                style={{ backgroundColor: '#4285F4' }}
-                            color="inherit"
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            sx={{ mr: 1 }}
-                        >
-                            Preview
-                        </Button>
-                    
-                        {/* {isStepOptional(activeStep) && (
+                                </Box>
+                            </Container></>}
+                            <Box sx={{ display: 'flex', justifyContent: "end", width: "100%", padding: '0px 25px 30px 0px', flexDirection: 'row', pt: 2 }}>
+                                <Button
+                                    className={styles.batnpovedar}
+                                    style={{ backgroundColor: '#4285F4' }}
+                                    color="inherit"
+                                    disabled={activeStep === 0}
+                                    onClick={handleBack}
+                                    sx={{ mr: 1 }}
+                                >
+                                    Preview
+                                </Button>
+
+                                {/* {isStepOptional(activeStep) && (
                             <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                                 Skip
                             </Button>
                         )} */}
 
-                        <Button   style={{ backgroundColor: '#009947', color: '#fff' }}  className={styles.batnpovedar22} 
-                        onClick={()=>{handleNext()
-                            if (selectedValue == 'CSV') {
-                                // handleCSVSubmit()
-                            }
-                            if(activeStep == 2){
-                                onNextBtnPress()
-                            }
-                         if(activeStep === steps.length - 1){
-                     
-                                                var patternArray = patternDataArray.filter((item) => !!item.buy)
-                                                if (!!patternArray && patternArray.length > 0 || !!csvFile) {
-                                                    if (!scripItem.id) {
-                                                        setScripItemError(true)
-                                                    } else if (!script) {
-                                                        console.log('scrip inside 3')
-                                                        setScriptError(true)
-                                                    } else {
-                                                        setLockPattern(true)
-                                                    }
-                                                } else {
-                                                    toast.error('Add pattern data first.')
-                                                }
-                                    
-                        }}}>
-                            {activeStep === steps.length - 1 ? 'Lock' : 'Next'}
-                        </Button>
-                    </Box>
-                                </Box>
-             
+                                <Button style={{ backgroundColor: '#009947', color: '#fff' }} className={styles.batnpovedar22}
+                                    onClick={() => {
+                                        handleNext()
+                                        if (selectedValue == 'CSV') {
+                                            // handleCSVSubmit()
+                                        }
+                                        if (activeStep == 2) {
+                                            onNextBtnPress()
+                                        }
+                                        if (activeStep === steps.length - 1) {
 
-                </React.Fragment>
-            )}
+                                            var patternArray = patternDataArray.filter((item) => !!item.buy)
+                                            if (!!patternArray && patternArray.length > 0 || !!csvFile) {
+                                                if (!scripItem.id) {
+                                                    setScripItemError(true)
+                                                } else if (!script) {
+                                                    console.log('scrip inside 3')
+                                                    setScriptError(true)
+                                                } else {
+                                                    setLockPattern(true)
+                                                }
+                                            } else {
+                                                toast.error('Add pattern data first.')
+                                            }
+
+                                        }
+                                    }}>
+                                    {activeStep === steps.length - 1 ? 'Lock' : 'Next'}
+                                </Button>
+                            </Box>
+                        </Box>
+
+
+                    </React.Fragment>
+                )}
             </Grid>
             <div>
                 <Dialog open={isLockPatternDialog}
