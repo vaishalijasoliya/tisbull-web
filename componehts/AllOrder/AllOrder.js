@@ -744,7 +744,7 @@ console.log(datalist,'selected');
                           </TableCell>
                           <TableCell >
                             <Typography className={styles.dateone}>{
-                              moment(row.created_at).format("DD-MM-YYYY h:mm:ss")
+                              moment(row.created_at).format("D  MMMM YYYY, h:mm:ss a")
                             } </Typography></TableCell>
 
                           <TableCell>

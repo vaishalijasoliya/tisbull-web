@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import moment from 'moment';
 
 const ResponsiveAppBar = (props) => {
-    console.log(props.listpatt, 'propsprops');
+    console.log(props.data, 'propsprops');
     
     return (
         <Grid  className={styles.cantenatdata} container>

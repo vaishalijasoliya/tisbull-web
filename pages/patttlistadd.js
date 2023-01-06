@@ -135,7 +135,7 @@ const AddPattern = (props) => {
         label: 'Basic Pattern',
         id: 'BasicPattern'
     });
-    const[iniyalbur,setIniyalBuy] =useState('')
+    const [iniyalbur, setIniyalBuy] = useState('')
     const [listinnewdata, setLiatstgs] = useState('')
     console.log(patternList, 'patternList');
     const [patternError, setPatternError] = useState(false);
@@ -358,13 +358,13 @@ const AddPattern = (props) => {
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
-        var accountList = await ApiServices.GetApiCall(ApiEndpoint.CUSTOM_ORDER, headers)
+        var accountList = await ApiServices.GetApiCall(ApiEndpoint.BASIC_ORDER, headers)
         console.log(accountList, 'accountListaccountList');
         // {console.lon(accountList.state,'accountHHList');}
         // if(!!accountList){
         if (accountList.status) {
             console.log(accountList, 'accountList.data.initail_buy');
-setIniyalBuy( accountList.data.initail_buy)
+            setIniyalBuy(accountList.data.initail_buy)
             formik.setFieldValue('Initail', accountList.data.initail_buy);
             formik.setFieldValue('BuySteps', accountList.data.amo_buy);
             formik.setFieldValue('SellSteps', accountList.data.amo_sell);
@@ -456,6 +456,7 @@ setIniyalBuy( accountList.data.initail_buy)
             var totalStock = 0;
             if (patternArray.length > 0) {
                 for (let index = 0; index < patternArray.length; index++) {
+                    console.log(patternArray,'patternArraypatternArray');
                     totalStock += patternArray[index].qty;
                 }
             }
@@ -465,6 +466,7 @@ setIniyalBuy( accountList.data.initail_buy)
                     totalInvestment += patternArray[index].buyValue;
                 }
             }
+         
             var investmentWithCurrent = totalInvestment + buyValue;
             var sDisc = i - parseFloat(formik.values.currentPrice);
             var totalStockWithCurrent = totalStock + quantity;
@@ -481,53 +483,20 @@ setIniyalBuy( accountList.data.initail_buy)
                 'investment': parseFloat(investmentWithCurrent.toFixed(2)),
                 'sDisc': sDisc > 0 ? sDisc.toFixed(2) : 0,
                 'avg': (avgPrice / lotsize).toFixed(2),
-                isInitialBuy: '',
+                'isInitialBuy': '',
             }
             if (patternStep.qty !== 0) {
                 patternArray.push(JSON.parse(JSON.stringify(patternStep)));
             }
+         
+
         }
-        const Arr = patternArray;
-        console.log(patternArray,'patternArray');
-        // isInitialBuy.push(Arr)
-        if (!!patternArray) {
-            for (let index = 0; index < Arr.length; index++) {
-                const element = Arr[index];
-
-                element.isInitialBuy = '';
-                // isInitialBuy.push(Arr.isInitialBuy)
-                // console.log(element, '______ELEMENT______');
-
-                if (element.buyPrice == parseFloat(formik.values.currentPrice)) {
-                    // console.log(Arr.indexOf(element), 'ELEMENT________IS__SAME');
-
-                    IndexA = Arr.indexOf(element);
-                }
-                Arr.push(element)
-// console.log(Arr,'ArrArr');
-            }
-            console.log(element,'elementelement');
-        }
-        for (
-            let index = IndexA - formik.values.Initail + 1;
-            index <= IndexA;
-            index++
-        ) {
-            const element = Arr[index];
-
-            // console.log('INITIAL__BUY', element);
-
-            element.isInitialBuy = 'isInitialBuy';
-            // Arr.push(element);
-        //    console.log(Arr,'ArrArr');
-            // isInitialBuy.push(element.isInitialBuy)
-            // console.log(element.isInitialBuy, 'IS_____INITIAL___BUY')
-        }
-        console.log(formik.values.Initail,'iniyalbur');
+// console.log(Arr,'ArrArrArr');
+        console.log(formik.values.Initail, 'iniyalbur');
         var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))
         if (buyValueObj.length > 0) {
             setPatternList(patternArray)
-            console.log(patternArray,'patternArray');
+            console.log(patternArray, 'patternArray');
         } else {
             if (patternArray.length > 0) {
                 setPatternList([])
@@ -570,23 +539,23 @@ setIniyalBuy( accountList.data.initail_buy)
         }
     }
 
-    let IndexA = '';
-    const Arr = patternList;
-    if (!!patternList) {
-        for (let index = 0; index < Arr.length; index++) {
-            const element = Arr[index];
+    // let IndexA = '';
+    // const Arr = patternList;
+    // if (!!patternList) {
+    //     for (let index = 0; index < Arr.length; index++) {
+    //         const element = Arr[index];
 
-            element.isInitialBuy = '';
+    //         element.isInitialBuy = '';
 
-            // console.log(element, '______ELEMENT______');
+    //         // console.log(element, '______ELEMENT______');
 
-            // if (element.buyPrice == bodyObject.currentPrice) {
-            //   console.log(Arr.indexOf(element), 'ELEMENT________IS__SAME');
+    //         // if (element.buyPrice == bodyObject.currentPrice) {
+    //         //   console.log(Arr.indexOf(element), 'ELEMENT________IS__SAME');
 
-            //   IndexA = Arr.indexOf(element);
-            // }
-        }
-    }
+    //         //   IndexA = Arr.indexOf(element);
+    //         // }
+    //     }
+    // }
 
     // console.log(IndexA - bodyObject.initail_sell + 1, 'PATTERN____PREVIEW____');
 
@@ -1151,11 +1120,8 @@ setIniyalBuy( accountList.data.initail_buy)
                                             className={styles.listbackdda}
                                         >
                                             <Typography className={styles.hedindrop33}>Order</Typography>
-
-                                            {/* <Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography> */}
-                                            {/* <div className={styles.listdibborderbott}> */}
-                                            {/* <Typography className={styles.hedindrop33444}>if you don't have any idea? please make it default.</Typography> */}
-                                             {/* </div> */}
+                                            <Typography className={styles.hedindrop33444}>If You Dont Have any idea ? Please make it Difault.</Typography>
+                                            
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>
                                             <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1337,7 +1303,7 @@ setIniyalBuy( accountList.data.initail_buy)
 
                                             <div style={{ padding: '0px 30px 0px 0px' }}>
                                                 <Typography className={styles.peregarflist33} >Buy Diffrerance</Typography>
-                                                <Typography  style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>
+                                                <Typography style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>
                                                     {formik.values.buyPrice}
                                                     {/* {props.data.stock == null ? '-':props.data.stock } */}
                                                 </Typography>
@@ -1506,7 +1472,7 @@ setIniyalBuy( accountList.data.initail_buy)
                                                 <TableCell>
                                                     Qty
                                                 </TableCell>
-                 
+
                                                 <TableCell>
                                                     Buy  Value                                                     </TableCell>
                                                 <TableCell>
@@ -1530,8 +1496,8 @@ setIniyalBuy( accountList.data.initail_buy)
                                             {patternList.map((pattern, index) => (
                                                 <TableRow
                                                     key={index + 1}
-                                                    // hover
-                                                    className={patternList.isInitialBuy == 'isInitialBuy' ? styles.listbahovar : styles.listnormalta}
+                                                    // hover step
+                                                    className={formik.values.currentPrice == pattern.buyPrice ? styles.listbahovar : styles.listnormalta}
                                                 >
 
                                                     <TableCell>

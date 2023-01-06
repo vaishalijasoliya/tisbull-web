@@ -36,6 +36,8 @@ export default {
     ADD_PATTERN: Constants.BASE_API_URL + 'Pattern/create',
     SCRIP_LIST: Constants.BASE_API_URL + 'stock/instrumnetlist/search',
     CUSTOM_ORDER:Constants.BASE_API_URL+'order/step/CUSTOM',
-    // SCRIP_LIST: Constants.BASE_API_URL + 'stock/instrumnetlist',
+    BASIC_ORDER:Constants.BASE_API_URL+'order/step/BASIC',
+
+    // SCRIP_LIST: Constants.BASE_API_URL + 'stock/instrumnetlist'Basic,
 
 }

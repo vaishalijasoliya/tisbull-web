@@ -396,9 +396,9 @@ text-align: justify;
 }
 .typefild22 {
     display: flex;
-    justify-content: center;
+    // justify-content:center;
     align-items: center;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 47px;
     cursor: pointer;
 }
 .listperegaf {
@@ -502,6 +502,13 @@ color: #E31E24 !important;
     font-size: 14px !important;
     color: #E31E24 !important;
 
+}
+.btnsaveic svg {
+    color: #BDBDBD;
+    font-size: 30px;
+}
+.btnsaveic{
+    min-width: 0px !important;
 }
 .maynascall svg {
     font-size: 15px;
@@ -931,6 +938,8 @@ color: #E31E24 !important;
         background: rgba(240, 240, 240, 0.97);
         border-radius: 2px;
         padding: 0px 2px 0px 2px;
+        // width: 19px;
+        // height: 10px;
         margin: 0px 0px 0px 10px;
         // width: 19px;
         // height: 10px;

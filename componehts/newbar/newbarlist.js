@@ -528,7 +528,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                         <Button onClick={() => {
                           var profile = "";
                           props.save_user_data({ user: '' });
-                          router.push("/");
+                          router.push("/login");
                           toast.success("Logout Successfully!");
                         }} >
                           <LogoutIcon />Logout

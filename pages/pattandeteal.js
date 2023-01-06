@@ -23,6 +23,8 @@ import ApiEndpoint from '../config/ApiEndpoint';
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Types } from '../constants/actionTypes'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { toast } from 'react-toastify';
+
 // import { connect } from 'react-redux';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 let stockInterval = null;
@@ -373,7 +375,33 @@ const ResponsiveAppBar = (props) => {
           <Grid item sm={12} md={6} xs={12} style={{ padding: '0px 60px 0px 0px' }}>
 
             <Box style={{ display: 'flex', justifyContent: 'end', }}>
-              <Button   onClick={() => {
+            {data.status == 'exit' ? '' : 
+                                                                    <Button className={styles.button}
+                                                                        onClick={() => {
+                                                                            if(data.status == 'active')
+                                                                            {
+                                                                                toast.error('Please pause the pattern then enable edit pattern.')
+
+                                                                            
+                                                                           
+                                                                            }else{
+                                                                                if (data.type== "CustomPattern" ) {
+                                                                                router.push({
+                                                                                    pathname: '/editCustom',
+                                                                                    query: { emailID: data.id }
+                                                                                    // query{ id: row.id },
+                                                                                });
+                                                                            } else {
+                                                                                router.push({
+                                                                                    pathname: '/editpatt',
+                                                                                    query: { emailID: data.id }
+                                                                                });
+                                                                            }
+                                                                            }
+                                                                        }}
+                                                                    
+                                                                    > Edit </Button>}
+              {/* <Button   onClick={() => {
                                                                             if (data.type== "CustomPattern") {
                                                                                 router.push({
                                                                                     pathname: '/editCustom',
@@ -386,9 +414,9 @@ const ResponsiveAppBar = (props) => {
                                                                                     query: { emailID: router.query.emailID }
                                                                                 });
                                                                             }
-                                                                        }} type="submit" className={styles.button}>
-                Edit
-              </Button>
+                                                                        }} type="submit" className={styles.button}> */}
+                {/* Edit */}
+              {/* </Button> */}
             </Box>
           </Grid>
         </div>

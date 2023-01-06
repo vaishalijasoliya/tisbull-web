@@ -29,6 +29,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { DatePicker, DesktopDatePicker } from '@mui/lab';
 import Newbar from '../componehts/newbar/newbarlist';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 import React, { useState, useEffect } from 'react';
 import ApiServices from '../config/ApiServices';
@@ -813,11 +814,20 @@ const AddPattern = (props) => {
                     <Newbar />
                 </Grid>
                 <Grid item md={12} className={styles.listgrifmaen}>
+               
                 <Container maxWidth={false} className={styles.conterdata}>
+                <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
+            onClick={() => {
+              router.push({
+                pathname: './pattanlist',
+                // query: { emailID: row.id,namescoka:row.script }
+              });
+            }}
 
-                    <Box sx={{ mt: 3, mb: 3 }}>
+          ><KeyboardReturnIcon />Patterns</Button>
+                    <Box sx={{ }}>
                         <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
-                            <CardContent>
+                            <CardContent className={styles.listcocntenatdata}>
                                 {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
                                     {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
                                         <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
@@ -1227,7 +1237,7 @@ const AddPattern = (props) => {
                                             <Typography className={styles.hedindrop33}>Order</Typography>
 
 
-                                            <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea Make it Difault</Typography> </div>
+                                            <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea ? Please make it Difault.</Typography> </div>
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>
                                             <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1409,7 +1419,10 @@ const AddPattern = (props) => {
 
                                             <div style={{ padding: '0px 30px 0px 0px' }}>
                                                 <Typography className={styles.peregarflist33} >Buy Diffrerance</Typography>
-                                                <Typography className={styles.peregarflist44} >
+                                                <Typography 
+                                                style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}
+                                                // className={styles.peregarflist44}
+                                                 >
                                                     {formik.values.buyPrice}
                                                     {/* {props.data.stock == null ? '-':props.data.stock } */}
                                                 </Typography>
@@ -1418,7 +1431,7 @@ const AddPattern = (props) => {
                                                 <Typography className={styles.peregarflist33}>Sell Diffrerance</Typography>
                                                 <Typography
                                                     // className={props.data.profit >=0 ? styles.peregarflistlist:styles.redline}
-                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>
+                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>
                                                     {formik.values.sellPrice}
                                                     {/* {props.data.profit == null ? '-' :props.data.profit} */}
                                                 </Typography>
@@ -1600,7 +1613,7 @@ const AddPattern = (props) => {
                                                     AVG.                                                    </TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody className={styles.listrowdATA}>
+                                        <TableBody className={styles.listrowdATA22}>
                                             {patternList.map((pattern, index) => (
                                                 <TableRow
                                                     key={index + 1}

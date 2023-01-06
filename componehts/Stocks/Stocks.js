@@ -328,7 +328,7 @@ const Home = (props) => {
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const [selectedValue, setSelectedValue] = React.useState('a');
+    const [selectedValue, setSelectedValue] = React.useState('exit for fixedPrice');
     console.log(selected, 'selected');
     const handleChangemejej = (event) => {
         setSelectedValue(event.target.value);
@@ -921,7 +921,8 @@ const Home = (props) => {
                                         </Tooltip>
                                     ) : (
                                         <Grid className={styles.listgridbox} item md={12} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
-
+                                        <Button className={styles.btnsaveic}
+                 >   <CSVLink data={datatebalpettan} filename={"Account.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button>
                                             <Button className={styles.filterlist} onClick={menulist}
                                             >
                                                 <Typography>
@@ -967,9 +968,9 @@ const Home = (props) => {
                                                 <div className={styles.filtarlist}>
                                                     <div><Typography>Pattern</Typography></div>
                                                     <div className={styles.listbtnsot}>
-                                                        <Button className={styles.censbatnsot} onClick={() => {
+                                                        {/* <Button className={styles.censbatnsot} onClick={() => {
                                                             tabChange("all"), handleClose(), setBtnlist('all')
-                                                        }}>Cancel</Button>
+                                                        }}>Cancel</Button> */}
                                                         <Button className={styles.savebatnsot}
                                                             onClick={() => {
                                                                 tabChange(btnlistdata),

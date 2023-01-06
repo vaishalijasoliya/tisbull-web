@@ -42,6 +42,7 @@ import ApiEndpoint from '../config/ApiEndpoint';
 import { connect } from 'react-redux';
 import DatePickerll from "react-datepicker";
 import Papa from 'papaparse'
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -66,7 +67,7 @@ let stockInterval = null;
 const FilePicker = dynamic(() => import('react-file-picker').then((module) => {
     return module.FilePicker
 }), { ssr: false });
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad',''];
+const steps = ['', '', '',''];
 
 const AddCustomPattern = (props) => {
     console.log(props.props, 'propsprops');
@@ -1125,8 +1126,8 @@ console.log(userJSON,'userJSON');
                         stepProps.completed = false;
                     }
                     return (
-                        <Step key={label} {...stepProps}>
-                        </Step>
+                        <Box></Box>
+                        
                     );
                 })}
             </Stepper>
@@ -1144,7 +1145,16 @@ console.log(userJSON,'userJSON');
                 <React.Fragment>
                 <Box className={styles.conterdata22} sx={{ width: '100%'}}>
                     {activeStep == 0 && <>      <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
-                        <CardContent>
+                    <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
+            onClick={() => {
+              router.push({
+                pathname: './pattanlist',
+                // query: { emailID: row.id,namescoka:row.script }
+              });
+            }}
+
+          ><KeyboardReturnIcon />Patterns</Button>
+                        <CardContent className={styles.listcocntenatdata}>
                             {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
                                 {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
                                     <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}

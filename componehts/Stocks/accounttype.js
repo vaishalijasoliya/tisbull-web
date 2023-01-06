@@ -550,8 +550,9 @@ console.log(props.props.profile.accountId,'listzorothatokan');
       ) : (
         <Tooltip >
         <Grid item md={6} sm={6} xs={6} className={styles.padimgtebal3} display={'flex'} justifyContent={'end'} alignItems={'center'}>
-                <Button className={styles.btnsaveic}
-                 >   <CSVLink data={csvlist} filename={"Account.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button>
+                {/* <Button className={styles.btnsaveic} */}
+                {/* //  > */}
+                    {/* <CSVLink data={csvlist} filename={"Account.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button> */}
                 <Button
                 className={styles.buttfiltar}
                  id="demo-customized-button"
