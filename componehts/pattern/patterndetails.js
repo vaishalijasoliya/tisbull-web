@@ -6,10 +6,51 @@ import { Types } from '../../constants/actionTypes'
 import { connect } from 'react-redux';
 import React, { useState } from "react";
 import moment from 'moment';
+import { useRouter } from 'next/router';
 
-const ResponsiveAppBar = (props) => {
-    console.log(props.data, 'propsprops');
-    
+const main = (props) => {
+    const router = useRouter();
+    const [listidmenu, setIdlistdata] = React.useState('')
+
+    const [data, setData] = useState([])
+  const [listpatt, setListpatt] = useState([])
+  const [listless, setLisee] = React.useState([])
+    // console.log(props.router.query.data, 'gggggggg');
+   
+      console.log(props.data,'langatgagar');
+
+    //   React.useLayoutEffect(() => {
+    //     async function fetchData() {
+    //         if (!!props.router && !!props.router.query && !!props.router.query.data) {
+    //             isView = true;
+    //             patternlist(JSON.parse(router.query.id))
+    //         } else {
+    //             if (!!props.profile && !!props.profile.token) {
+    //                 props.loaderRef(true)
+    //                 await getAccounts();
+    //                 await getScirp(scripItem.id);
+    //                 props.loaderRef(false)
+    //             }
+    //         }
+    //         startLableAnimation()
+    //     }
+        // theme.palette.text.disabled = '#000000';
+        // fetchData()
+        // return () => {
+        //     theme.palette.text.disabled = 'rgba(55, 65, 81, 0.48)';
+        //     if (!!stockInterval) {
+        //         clearInterval(stockInterval)
+        //     }
+        // }
+    // }, [])
+//   React.useEffect(() => {
+//     console.log('useEffects ', props);
+//     if (!!props.props.profile && !!props.props.profile.token) {
+//             patternlist(router.query.emailID)
+//     }
+//   }, [props.router])
+
+  console.log(props, 'useEffects');
     return (
         <Grid  className={styles.cantenatdata} container>
             <Grid item sm={12} md={4} xs={12} className={styles.flexlisjjs} style={{display:'flex'}}>
@@ -23,7 +64,7 @@ const ResponsiveAppBar = (props) => {
                         <Typography className={styles.peregarflist44} >{props.listdatamenu}</Typography>
                     </div>
                     <div style={{ padding: '0px 0px 0px 25px' }}>
-                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>NSE</Typography></Box>
+                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '0px 2px 0px 2px' }}><Typography className={styles.listfonttypo} style={{ 'font-size': '8px', 'color': '#858789' }}>NSE</Typography></Box>
                     </div>
                 </div>
                 <div className={styles.datadivcallaloo}  style={{ padding: '10px 31px 0px 0px' }}>
@@ -57,7 +98,7 @@ const ResponsiveAppBar = (props) => {
             <Grid item sm={12} md={2} xs={12} style={{display:'flex'}}>
             <div style={{ padding: '10px 80px 0px 0px' }}>
                 <Typography className={styles.peregarflist33}>Target</Typography>
-                <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>null</Typography>
+                <Typography className={styles.peregarflist} style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>{props.data.target_price ==null ?'-':props.data.target_price }</Typography>
             </div>
 </Grid>
             <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{display:'flex',padding:'50px 0px 0px 60px'}}>
@@ -235,13 +276,4 @@ const ResponsiveAppBar = (props) => {
         </Grid>
     );
 }
-const mapStateToProps = (state) => ({
-    profile: state.user.profile
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    save_user_data: (data) =>
-        dispatch({ type: Types.LOGIN, payload: data }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
+export default main

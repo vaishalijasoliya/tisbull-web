@@ -242,7 +242,7 @@ const Home = (props) => {
           <div className={styles.alreadylist2233}>
             <Typography>
               Don't have an account?           </Typography>
-            <a href='./singup'>Sign Up</a>
+            <a href='./signup'>Sign Up</a>
             <Typography>
               for free
             </Typography>

@@ -79,7 +79,7 @@ const AddPattern = (props) => {
     const [tabaldatalist, setTebaldatalist] = useState('')
 
     const [listsummri, setLISTdatasumm] = useState("")
-    console.log(patternList, 'patternList');
+    console.log(startDate, 'startDate');
     const [level, setLevel] = useState({
         label: '3',
         id: '3'
@@ -249,7 +249,6 @@ const AddPattern = (props) => {
             }
         }
     }, [])
-
     useEffect(() => {
         async function fetchData() {
             if (!!router.query.scripType) {
@@ -598,7 +597,10 @@ const AddPattern = (props) => {
             "maxRange": parseFloat(formik.values.maxRange),
             "pattern_data": patternList,
             "id_account": props.profile.userData.currentAccount.id,
-            "pattern_type": patternItem.id
+            "pattern_type": patternItem.id,
+            'start_date':moment(startDate).format('YYYY-MM-DD'),
+            'end_date':moment(endDate).format('YYYY-MM-DD'),
+
         }
 
         console.log('patternghgg', body)
@@ -1120,7 +1122,7 @@ const AddPattern = (props) => {
                                             className={styles.listbackdda}
                                         >
                                             <Typography className={styles.hedindrop33}>Order</Typography>
-                                            <Typography className={styles.hedindrop33444}>If You Dont Have any idea ? Please make it Difault.</Typography>
+                                            <Typography className={styles.hedindrop33444}>If You Dont Have any idea ? Please make it Default.</Typography>
                                             
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>

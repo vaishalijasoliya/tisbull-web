@@ -1,6 +1,8 @@
 import { Typography, Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import styles from './footer.module.scss'
+import Link from 'next/link'
+
 const main = () => {
     return (
         <>
@@ -19,9 +21,16 @@ const main = () => {
                     </div>
                     <div className={styles.div2parsf}>
                         <div className={styles.tridingpere}><Typography>Trading With </Typography></div>
-                        <div className={styles.zerrodhadata1}><a href='https://zerodha.com/open-account/'><img src='../../zerodha logo 1.svg' /><Typography>ZERODHA</Typography></a></div>
-                        <div className={styles.zerrodhadata2}><a className={styles.listatecgid} href='https://www.kotaksecurities.com/open-demat-account/'><img src='../../kotak logo 1.svg' /><Typography className={styles.kotaktexy}>KOTAK SECURITIES</Typography></a></div>
-                        <div className={styles.zerrodhadata}><a href='https://www.angelone.in/sem/open-demat-account?gclsrc=aw.ds&&utm_campaign=B2C_Search_Brand_Search_Query_Exact_Desktop&utm_source=google&utm_medium=cpc&network=g&keyword=angel%20broking%20account%20opening&matchtype=e&creative=538087006048&device=c&devicemodel=&gclid=Cj0KCQiA5NSdBhDfARIsALzs2EB4fdRvYxsvi2-xYFv6sZl73h1lAMeojlKL3A9l9fBDaHGyklvJx6kaAjF7EALw_wcB'><img src='../../angel logo.png' width={36} /><Typography>ANGEL ONE</Typography></a></div>
+                        <div className={styles.zerrodhadata1}>  
+                            <Link href="https://zerodha.com/open-account/">
+  <a target="_blank" rel="noopener noreferrer">
+    <img src='../../zerodha logo 1.svg' />
+    <Typography>ZERODHA</Typography>
+    </a></Link></div>
+                        <div className={styles.zerrodhadata2}>                   <Link href="https://www.kotaksecurities.com/open-demat-account/">
+  <a target="_blank" rel="noopener noreferrer"><img src='../../kotak logo 1.svg' /><Typography className={styles.kotaktexy}>KOTAK SECURITIES</Typography></a></Link></div>
+                        <div className={styles.zerrodhadata}>      <Link href="https://www.angelone.in/sem/open-demat-account?gclsrc=aw.ds&&utm_campaign=B2C_Search_Brand_Search_Query_Exact_Desktop&utm_source=google&utm_medium=cpc&network=g&keyword=angel%20broking%20account%20opening&matchtype=e&creative=538087006048&device=c&devicemodel=&gclid=Cj0KCQiA5NSdBhDfARIsALzs2EB4fdRvYxsvi2-xYFv6sZl73h1lAMeojlKL3A9l9fBDaHGyklvJx6kaAjF7EALw_wcB">
+  <a target="_blank" rel="noopener noreferrer"><img src='../../angel logo.png' width={36} /><Typography>ANGEL ONE</Typography></a></Link></div>
                     </div>
                 </Grid>
                 <Grid item sm={12} md={6} xs={12} display={'flex'} justifyContent={'space-between'}>
@@ -39,10 +48,10 @@ const main = () => {
                     <div>
                         <div className={styles.taypocontes}><Typography>Connect</Typography></div>
                         <div>
-                        <a className={styles.listoffics}><img src='../../Group 1000003665.png' /><Typography>432, Amby Valley Arcade,
+                        <a className={styles.listoffics}><img height={31} src='../../Group 1000003665.png' /><Typography>432, Amby Valley Arcade,
                             Uttran, Surat, Gujarat, India, 394105 </Typography> </a>
-                        <a className={styles.listoffics}><img src='../../Vector (27).svg' /><Typography>+91 7285046540</Typography> </a>
-                        <a className={styles.listoffics}> <img src='../../Vector (28).svg' /><Typography>info@tisbull.com</Typography> </a>
+                        <a className={styles.listoffics}><img height={31} src='../../Vector (27).svg' /><Typography>+91 7285046540</Typography> </a>
+                        <a className={styles.listoffics}> <img height={31} src='../../Vector (28).svg' /><Typography>info@tisbull.com</Typography> </a>
                         </div>
                     </div>
                 </Grid>
@@ -58,7 +67,8 @@ const main = () => {
             </Grid>
             <img src='../../_.svg' />
             <Grid item sm={12} md={5} xs={12} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-<Typography className={styles.listfootara}>Managed by<a href='https://thinkinfoservices.com/'>Think Info Services</a> </Typography>
+<Typography className={styles.listfootara}>Managed by   <Link href="https://thinkinfoservices.com/">
+  <a target="_blank" rel="noopener noreferrer">Think Info Services</a></Link> </Typography>
 <Button className={styles.btnlstdivangf}       onClick={() => {
           window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         }}     style={{

@@ -1237,7 +1237,7 @@ const AddPattern = (props) => {
                                             <Typography className={styles.hedindrop33}>Order</Typography>
 
 
-                                            <div className={styles.listdibborderbott}><Typography className={styles.hedindrop33444}>If You Dont Have any idea ? Please make it Difault.</Typography> </div>
+                                            <Typography className={styles.hedindrop33444}>If You Dont Have any idea ? Please make it Default.</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>
                                             <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1683,7 +1683,7 @@ const AddPattern = (props) => {
                                 patterns={patternList} /> */}
                         </Box>}
                         {listsummri == 'addsumari' ?
-                            <Grid item md={12} className={styles.listgridkex}>
+                            <Grid item md={12} className={styles.listgridkex23}>
                                 <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
                                     {listinnewdata == 'gsdgfgdffd' ?
                                         <Button
@@ -1776,7 +1776,7 @@ const AddPattern = (props) => {
                             </Grid>
 
                             :
-                            <Grid item md={12} className={styles.listgridkex}>
+                            <Grid item md={12} className={styles.listgridkex23}>
                                 <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1  }}>
                                     {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == '' || formik.values.Stoploss > formik.values.Target ?
                                         <Button

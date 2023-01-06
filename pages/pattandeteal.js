@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import OrderHistory from "../componehts/OrderHistory/OrderHistory";
 import Summary from "../componehts/pattern/patterndetails";
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
+import { useRouter, withRouter } from 'next/router';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import TodayOrder from '../componehts/todayorder/todayorder'
 import Chart from '../componehts/chart/chart'
@@ -75,79 +75,68 @@ const ResponsiveAppBar = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [listset, setAccount] = useState(true)
+  // const [listsetlist,setAccountlist] = useState(true)
+
   const [data, setData] = useState([])
   const [listpatt, setListpatt] = useState([])
   const [listless, setLisee] = React.useState([])
   const [listidmenu, setIdlistdata] = React.useState('')
   const [scripDetails, setScripDetails] = useState('');
 
-  console.log(listidmenu, 'data55');
 
-  const patternlist = async () => {
+  const [patternID, setpatternID] = useState('');
 
-    var headers = {
-      "Content-Type": "application/json",
-      "x-access-token": props.profile.token
-    }
-    var body = {
-      "id_pattern": router.query.emailID,
-      // props.idlist,
-      // email: props.email,
-      // otp: outField
-    }
-    console.log(body, 'body');
+  // console.log(listidmenu, 'data55');
 
-    props.loaderRef(true)
-    // var data = await ApiServices.GetApiCall(ApiEndpoint.ORDERLIST, headers)
-    var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
+  // console.log(props.props.router.query.emailID,'propsjjjj.router');
 
-    // const data = await ApiServices.PostApiCall(ApiEndpoint.ACCOUNT_LIST, JSON.stringify(body), headers);
-    props.loaderRef(false)
-    console.log(patternDelete, 'datalistddd');
-
-    if (!!patternDelete) {
-      if (patternDelete.status == true) {
-        setListpatt(patternDelete.pattern.quote)
-        setData(patternDelete.pattern)
-        setIdlistdata(patternDelete.pattern.script)
-      }
-      // else{
-      //     toast.error(patternDelete.message)
-
-      // }
-
-
-    }
-  }
-  console.log(data.quote, 'patternpattern');
-  //   const palsless = async () => {
-
+  // console.log(data.quote, 'patternpattern');
+  //   const getScirp = async (type) => {
+  //     var body = {
+  //         "type": type
+  //     }
   //     var headers = {
   //         "Content-Type": "application/json",
   //         "x-access-token": props.profile.token
   //     }
-  //     var body = {
-  //       "instrumentToken" :data.script
-  //   }
-  //   console.log(body,'bodybody');
-  //     props.loaderRef(true)
-  //     var patternDeletelist = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
-  //     props.loaderRef(false)
+  //     var accountList = await ApiServices.PostApiCall(ApiEndpoint.SCRIP_LIST, JSON.stringify(body), headers)
+  //     console.log('getScirp', accountList)
+  //     if (!!accountList && !!accountList.length > 0) {
+  //         var accountLableList = []
+  //         let filterScripList = []
+  //         for (let index = 0; index < accountList.length; index++) {
+  //             const element = accountList[index];
+  //             var lableObj = "";
+  //             if (!!element.name) {
+  //                 lableObj = element.instrumentName + ` (${element.name}) (${element.exchange})`
+  //             } else {
+  //                 lableObj = element.instrumentName + `(${element.exchange}) - ${element.expiry}`
+  //             }
+  //             accountLableList.push({
+  //                 label: lableObj,
+  //                 id: element.instrumentToken
+  //             })
+  //             if (isView) {
+  //                 if (element.instrumentToken == type) {
 
-  //           // if (!!patternDeletelist) {
-
-  //     setLisee(patternDeletelist.success[0].ltp);
-  //           // }
-  //     // if (!!patternDelete) {
-
-  //     // console.log(patternDelete, 'datalist');
-  //   //   if (patternDelete.status == true) {
-  //   //     setLisee(patternDelete.pattern.quote)
-  //   //     // setData(patternDelete.pattern)
-
-  //   // } 
-
-
+  //                     getScripPrice(type)
+  //                     stockInterval = setInterval(() => {
+  //                         getScripPrice(type)
+  //                     }, 3000);
+  //                 }
+  //             }
+  //             if (index < 300) {
+  //                 filterScripList.push({
+  //                     label: lableObj,
+  //                     id: element.instrumentToken
+  //                 })
+  //             }
+  //         }
+  //         setFilterScripList(filterScripList)
+  //         setDefaultScripList(filterScripList)
+  //         setScripList(accountLableList)
+  //     }
   // }
   const getScripPrice = async (value) => {
     var headers = {
@@ -155,37 +144,52 @@ const ResponsiveAppBar = (props) => {
       "x-access-token": props.profile.token
     }
     var body = {
-      "instrumentToken": router.query.scripToken
+      "instrumentToken": value
     }
     var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
+    console.log(stockPrice, 'stockPrice');
     if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0) {
       console.log('stockPrice.success[0]', stockPrice.success[0], value)
       setScripDetails(stockPrice.success[0])
     }
   }
-
-  console.log(data, 'listkkk');
+  console.log(props, 'listkkk');
+  const patternlist = async (value) => {
+    console.log(value,'listdatat');
+            var headers = {
+              "Content-Type": "application/json",
+              "x-access-token": props.profile.token
+            }
+            var body = {
+              "id_pattern":value,
+    
+            }
+            console.log(body, 'body');
+        
+            props.loaderRef(true)
+            var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
+            props.loaderRef(false)
+            console.log(patternDelete, 'datalistddd');
+        
+            if (!!patternDelete) {
+              if (patternDelete.status == true) {
+                setListpatt(patternDelete.pattern.quote)
+                setData(patternDelete.pattern)
+                setIdlistdata(patternDelete.pattern.script)
+              }
+            }
+          }
 
   React.useEffect(() => {
+    console.log(props, 'useEffects1');
+    setpatternID(props.router.query.emailID);
     if (!!props.profile && !!props.profile.token) {
-      // props.loaderRef(true)
-      // getScripPrice()
-      // props.loaderRef(false)
+      patternlist(router.query.emailID)
 
-      patternlist()
-      // getScripPrice()
-
-      //   if (!!listless) {
-      //     clearInterval(listless)
-      // }
-      // getScripPrice()
-      // // setLotSize(parseFloat(value.lotSize))
-      // listless = setInterval(() => {
-        getScripPrice()
-      // }, 3000);
+      getScripPrice(router.query.scripToken)
 
     }
-  }, [])
+  }, [props.router])
   return (
     <Grid container className={styles.cantenar_list265}>
       <Grid item sm={12} md={12} xs={12}>
@@ -213,33 +217,33 @@ const ResponsiveAppBar = (props) => {
 
               <Box className={styles.wid_1 + " " + styles.pad_12}>
                 {/* {value == 2 || value == 1 ? */}
-                  {/* <Typography variant="h5" className={styles.typo}>
+                {/* <Typography variant="h5" className={styles.typo}>
 
                     {router.query.namescoka}
                   </Typography>  */}
-                   <Typography variant="h5" style={{ display: 'flex', alignItems: 'center' }} className={styles.typo}>
-                    {router.query.namescoka}
-                    {/* <ArrowDropUpIcon
+                <Typography variant="h5" style={{ display: 'flex', alignItems: 'center' }} className={styles.typo}>
+                  {router.query.namescoka}
+                  {/* <ArrowDropUpIcon
                     fontSize={"large"}
                     className={styles.dropup_icon}
                   /> */}
-                    {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowDropUpIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                    {/* <ArrowDropUpIcon */}
-                    {/* fontSize={"large"} */}
-                    {/* className={styles.dropup_icon} */}
-                    {/* /> */}
-                    <span className={styles.span_1}>
-                      {parseFloat(scripDetails.ltp).toFixed(2)}
-                      {listless.ltp}
-                    </span>
-                    <span className={styles.span}>
-                      <Typography className={styles.difarandssa} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                  {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowDropUpIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
+                  {/* <ArrowDropUpIcon */}
+                  {/* fontSize={"large"} */}
+                  {/* className={styles.dropup_icon} */}
+                  {/* /> */}
+                  <span className={styles.span_1}>
+                    {parseFloat(scripDetails.ltp).toFixed(2)}
+                    {listless.ltp}
+                  </span>
+                  <span className={styles.span}>
+                    <Typography className={styles.difarandssa} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
 
-                      {/* (0.66%) */}
-                    </span>
-                    {/* {((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />} */}
-                    {/* <span className={styles.span}> <Typography className={styles.listfonfl} sx={{ color: (((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography></span> */}
-                  </Typography>
+                    {/* (0.66%) */}
+                  </span>
+                  {/* {((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />} */}
+                  {/* <span className={styles.span}> <Typography className={styles.listfonfl} sx={{ color: (((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography></span> */}
+                </Typography>
                 {/* { value == 2 ||value == 1 ? "ddd " : 'ddd' } */}
                 {/* { !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, marginBottom: 3 }}>
                                         <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex' }}>
@@ -375,32 +379,31 @@ const ResponsiveAppBar = (props) => {
           <Grid item sm={12} md={6} xs={12} style={{ padding: '0px 60px 0px 0px' }}>
 
             <Box style={{ display: 'flex', justifyContent: 'end', }}>
-            {data.status == 'exit' ? '' : 
-                                                                    <Button className={styles.button}
-                                                                        onClick={() => {
-                                                                            if(data.status == 'active')
-                                                                            {
-                                                                                toast.error('Please pause the pattern then enable edit pattern.')
+              {data.status == 'exit' ? '' :
+                <Button className={styles.button}
+                  onClick={() => {
+                    if (data.status == 'active') {
+                      toast.error('Please pause the pattern then enable edit pattern.')
 
-                                                                            
-                                                                           
-                                                                            }else{
-                                                                                if (data.type== "CustomPattern" ) {
-                                                                                router.push({
-                                                                                    pathname: '/editCustom',
-                                                                                    query: { emailID: data.id }
-                                                                                    // query{ id: row.id },
-                                                                                });
-                                                                            } else {
-                                                                                router.push({
-                                                                                    pathname: '/editpatt',
-                                                                                    query: { emailID: data.id }
-                                                                                });
-                                                                            }
-                                                                            }
-                                                                        }}
-                                                                    
-                                                                    > Edit </Button>}
+
+
+                    } else {
+                      if (data.type == "CustomPattern") {
+                        router.push({
+                          pathname: '/editCustom',
+                          query: { emailID: data.id }
+                          // query{ id: row.id },
+                        });
+                      } else {
+                        router.push({
+                          pathname: '/editpatt',
+                          query: { emailID: data.id }
+                        });
+                      }
+                    }
+                  }}
+
+                > Edit </Button>}
               {/* <Button   onClick={() => {
                                                                             if (data.type== "CustomPattern") {
                                                                                 router.push({
@@ -415,7 +418,7 @@ const ResponsiveAppBar = (props) => {
                                                                                 });
                                                                             }
                                                                         }} type="submit" className={styles.button}> */}
-                {/* Edit */}
+              {/* Edit */}
               {/* </Button> */}
             </Box>
           </Grid>
@@ -425,7 +428,7 @@ const ResponsiveAppBar = (props) => {
         <Grid item sm={12} md={12} xs={12}>
 
           <TabPanel value={value} index={0}>
-            <Summary proidlists={router.query.emailID} data={data} listpatt={listpatt} listdatamenu={router.query.namescoka} props={props} />
+            <Summary proidlists={patternID} data={data} listpatt={listpatt} listdatamenu={router.query.namescoka} props={props} />
           </TabPanel>
           <TabPanel style={{ padding: '30px 0px 0px 0px' }} className={styles.tbapenalist} value={value} index={1}>
             <TodayOrder props={props} listdsts={router.query.emailID} />
@@ -460,4 +463,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({ type: Types.LOGIN, payload: data }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ResponsiveAppBar));

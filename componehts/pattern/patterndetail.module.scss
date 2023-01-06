@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Poppins-500;
+  font-family: Poppins-400;
+  src: url(../../styles/popins/Poppins-Regular.ttf);
+}
 .typo_1 {
     color: #bdbdbd !important;
     font-size: 12px !important;
@@ -5,7 +10,10 @@
     text-transform: uppercase;
     font-weight: 100 !important;
   }
-  
+  .listfonttypo{
+    font-family: Poppins-400 !important;
+
+  }
   .typo_2 {
     font-size: 14px !important;
     font-family: "Poppins-600" !important;

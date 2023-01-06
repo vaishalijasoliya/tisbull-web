@@ -321,7 +321,7 @@ const Home = (props) => {
     const [pendingReviewList, setPendingReviewList] = React.useState([]);
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rejectReviewList, setRejectReviewList] = React.useState([]);
-    const[dayslohp,setDayslohp] =React.useState('')
+    const [dayslohp, setDayslohp] = React.useState('')
 
     const [flagReviewList, setFlageReviewList] = React.useState([]);
     console.log(selected, 'selected');
@@ -426,39 +426,39 @@ const Home = (props) => {
             "Content-Type": "application/json",
             "x-access-token": props.props.profile.token
         }
-        
-      
-         
-            var body = {
-                "pattern": [
-                    
-                  
-                    
-                ]
-            }
-        console.log(body,'listbodyuu');
-        if (selected == '') {
-         
-            const withFixedPrice = {
-                        "pattern_id": rowid,
-                        "type": listdara
-                    }
-                
-            
-            body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
-        }else{
-        for (let index = 0; index < selected.length; index++) {
-            const element = selected[index];
 
-            var withFixedPricelidt = {
-                "pattern_id": element,
-                "type": listdara
-            }
-            body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
 
-            console.log(element, 'hsahsgsggs');
+
+        var body = {
+            "pattern": [
+
+
+
+            ]
         }
-    }
+        console.log(body,'play','listbodyuu');
+        if (selected == '') {
+
+            const withFixedPrice = {
+                "pattern_id": rowid,
+                "type": listdarapush
+            }
+
+
+            body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
+        } else {
+            for (let index = 0; index < selected.length; index++) {
+                const element = selected[index];
+
+                var withFixedPricelidt = {
+                    "pattern_id": element,
+                    "type": listdarapush
+                }
+                body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
+
+                console.log(element, 'hsahsgsggs');
+            }
+        }
         console.log(body, 'bodybody');
         props.props.loaderRef(true)
         var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_PLAY, JSON.stringify(body), headers)
@@ -470,7 +470,7 @@ const Home = (props) => {
             toast.success(patternDelete.message)
             patternlist()
         }
-        else if(patternDelete.status == false) {
+        else if (patternDelete.status == false) {
             toast.error(patternDelete.message)
         }
 
@@ -549,33 +549,33 @@ const Home = (props) => {
                             console.log('withFixed price')
                             for (let index = 0; index < selected.length; index++) {
                                 const element = selected[index];
-                            const withFixedPrice = {
-                                pattern_id: element,
-                                action: selectedValue,
-                                price: listpires,
-                            };
-                            body.pattern.push(JSON.parse(JSON.stringify(withFixedPrice)));
-                        }
+                                const withFixedPrice = {
+                                    pattern_id: element,
+                                    action: selectedValue,
+                                    price: listpires,
+                                };
+                                body.pattern.push(JSON.parse(JSON.stringify(withFixedPrice)));
+                            }
                         } else {
                             for (let index = 0; index < selected.length; index++) {
                                 const element = selected[index];
-                            const withMarketPrice = {
-                                pattern_id: element,
-                                action: selectedValue,
-                            };
-                            body.pattern.push(JSON.parse(JSON.stringify(withMarketPrice)));
-                        }
+                                const withMarketPrice = {
+                                    pattern_id: element,
+                                    action: selectedValue,
+                                };
+                                body.pattern.push(JSON.parse(JSON.stringify(withMarketPrice)));
+                            }
                         }
                     }
                 } else {
                     for (let index = 0; index < selected.length; index++) {
                         const element = selected[index];
-                    const withOutStockObject = {
-                        pattern_id: element,
-                        action: 'exit',
+                        const withOutStockObject = {
+                            pattern_id: element,
+                            action: 'exit',
+                        }
+                        body.pattern.push(JSON.parse(JSON.stringify(withOutStockObject)));
                     }
-                    body.pattern.push(JSON.parse(JSON.stringify(withOutStockObject)));
-                }
                 }
             }
         }
@@ -592,7 +592,7 @@ const Home = (props) => {
                 toast.success(patternDelete.message)
                 patternlist()
             }
-            else if(patternDelete.status == false) {
+            else if (patternDelete.status == false) {
                 toast.error(patternDelete.message)
             }
         }
@@ -615,28 +615,30 @@ const Home = (props) => {
                 // }
             ]
         }
+        console.log(body,'paush','listbodyuu');
+
         if (selected == '') {
-         
+
             const withFixedPrice = {
-                        "pattern_id": rowid,
-                        "type": listdarapush
-                    }
-                
-            
-            body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
-        }else{
-        for (let index = 0; index < selected.length; index++) {
-            const element = selected[index];
-
-            var withFixedPricelidt = {
-                "pattern_id": element,
-                "type": listdarapush
+                "pattern_id": rowid,
+                "type": listdara
             }
-            body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
 
-            console.log(element, 'hsahsgsggs');
+
+            body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
+        } else {
+            for (let index = 0; index < selected.length; index++) {
+                const element = selected[index];
+
+                var withFixedPricelidt = {
+                    "pattern_id": element,
+                    "type": listdara
+                }
+                body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
+
+                console.log(element, 'hsahsgsggs');
+            }
         }
-    }
         console.log(body, 'lkahuaah');
 
         props.props.loaderRef(true)
@@ -649,7 +651,7 @@ const Home = (props) => {
                 toast.success(patternDelete.message)
                 patternlist()
             }
-           else if(patternDelete.status == false) {
+            else if (patternDelete.status == false) {
                 toast.error(patternDelete.message)
             }
         }
@@ -745,35 +747,35 @@ const Home = (props) => {
         setOrderBy(property);
     };
 
-    const handleSelectAllClick = (event) => { 
-            if (event.target.checked) {
-                // if(datatebalpettan.map((n) => n.status =='active') || datatebalpettan.map((n) => n.status =='pause'))
-                const newSelected = datatebalpettan.map((n) => n.id);
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            // if(datatebalpettan.map((n) => n.status =='active') || datatebalpettan.map((n) => n.status =='pause'))
+            const newSelected = datatebalpettan.map((n) => n.id);
 
-                // const newSelectedlist =''
-                // if(datatebalpettan.map((n) => n.status =='exit')){
-                    // setSelected(newSelectedlist);
+            // const newSelectedlist =''
+            // if(datatebalpettan.map((n) => n.status =='exit')){
+            // setSelected(newSelectedlist);
 
-                // }else{
-    setSelected(newSelected);
-                // }
-                // setListopjuok(newSelectedlist)
-                return;
-            }
-        
-       
-    
-//         if (event.target.checked) {
-//             const newSelected = datatebalpettan.map((n) => n.id);
-//             const newSelectedlist = datatebalpettan.map((n) => n.status);
+            // }else{
+            setSelected(newSelected);
+            // }
+            // setListopjuok(newSelectedlist)
+            return;
+        }
 
-// setSelected(newSelected);
-//             setListopjuok(newSelectedlist)
-//             return;
+
+
+        //         if (event.target.checked) {
+        //             const newSelected = datatebalpettan.map((n) => n.id);
+        //             const newSelectedlist = datatebalpettan.map((n) => n.status);
+
+        // setSelected(newSelected);
+        //             setListopjuok(newSelectedlist)
+        //             return;
         // }
-        
+
         setSelected([]);
-        
+
         setListopjuok([])
     };
 
@@ -863,7 +865,7 @@ const Home = (props) => {
                                 >
                                     {selected.length > 0 ? (
                                         <Typography
-                                        className={styles.typolistpere}
+                                            className={styles.typolistpere}
                                             sx={{ flex: '1 2222 100%' }}
                                             color="inherit"
                                             variant="subtitle1"
@@ -902,11 +904,11 @@ const Home = (props) => {
                                     {selected.length > 0 ? (
                                         <Tooltip>
                                             <div>
-                                            {/* {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
+                                                {/* {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
                                                                         {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
                                                                     </Button>}
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>} */}
-                                            {/* {dayslohp == 'exit' ? <Button disabled className={styles.viwebtnmm3} onClick={() => { handleClickOpenCompause() }} >
+                                                {/* {dayslohp == 'exit' ? <Button disabled className={styles.viwebtnmm3} onClick={() => { handleClickOpenCompause() }} >
                                                     <PauseCircleOutlineIcon className={styles.play_btnmani2} />
                                                 </Button>: */}
                                                 <Button className={styles.viwebtnmm3} onClick={() => { handleClickOpenCompause() }} >
@@ -921,8 +923,8 @@ const Home = (props) => {
                                         </Tooltip>
                                     ) : (
                                         <Grid className={styles.listgridbox} item md={12} sm={6} xs={6} display={'flex'} justifyContent={'end'}>
-                                        <Button className={styles.btnsaveic}
-                 >   <CSVLink data={datatebalpettan} filename={"Account.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button>
+                                            <Button className={styles.btnsaveic}
+                                            >   <CSVLink data={datatebalpettan} filename={"Account.csv"} name={"virang"} clssName={styles.csvlinkfor}> <SaveAltIcon /></CSVLink></Button>
                                             <Button className={styles.filterlist} onClick={menulist}
                                             >
                                                 <Typography>
@@ -974,7 +976,7 @@ const Home = (props) => {
                                                         <Button className={styles.savebatnsot}
                                                             onClick={() => {
                                                                 tabChange(btnlistdata),
-                                                                handleClose()
+                                                                    handleClose()
                                                             }}
                                                         >Save</Button></div>
                                                 </div>
@@ -1027,29 +1029,29 @@ const Home = (props) => {
                                                         <TableRow
 
                                                             role="checkbox"
-                                                            aria-checked={ row.status == 'exit' ? '':isItemSelected}
+                                                            aria-checked={row.status == 'exit' ? '' : isItemSelected}
                                                             tabIndex={-1}
                                                             key={row.id}
-                                                            selected={row.status == 'exit' ? '':isItemSelected}
+                                                            selected={row.status == 'exit' ? '' : isItemSelected}
                                                         >
                                                             <TableCell className={styles.cekboxtd} padding="checkbox">
-                                                            {row.status == 'exit' ?
-                                                            <Checkbox
-                                                                    checked={isItemSelected}
-disabled
-                                                                    onClick={ (event) =>{ handleClick(event, row.id),setDayslohp(row.status)}}
-                                                                    inputProps={{
-                                                                        "aria-labelledby": labelId,
-                                                                    }}
-                                                                />
-                                                                : <Checkbox
-                                                                    checked={isItemSelected}
+                                                                {row.status == 'exit' ?
+                                                                    <Checkbox
+                                                                        checked={isItemSelected}
+                                                                        disabled
+                                                                        onClick={(event) => { handleClick(event, row.id), setDayslohp(row.status) }}
+                                                                        inputProps={{
+                                                                            "aria-labelledby": labelId,
+                                                                        }}
+                                                                    />
+                                                                    : <Checkbox
+                                                                        checked={isItemSelected}
 
-                                                                    onClick={ (event) =>{row.status == 'exit' ? '': handleClick(event,row.id),setDayslohp(row.status)}}
-                                                                    inputProps={{
-                                                                        "aria-labelledby": labelId,
-                                                                    }}
-                                                                />}
+                                                                        onClick={(event) => { row.status == 'exit' ? '' : handleClick(event, row.id), setDayslohp(row.status) }}
+                                                                        inputProps={{
+                                                                            "aria-labelledby": labelId,
+                                                                        }}
+                                                                    />}
                                                             </TableCell>
                                                             {/* {console.log(row.scripToken,'scripTokenscripToken')} */}
                                                             <TableCell
@@ -1082,7 +1084,7 @@ disabled
                                                             </TableCell>
 
                                                             <TableCell
-                                                            > {row.type_pattern}</TableCell>
+                                                            > {row.type_pattern =='CustomPattern'? 'Basic':'Custom'}</TableCell>
                                                             <TableCell ><div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /><Typography>{row.investment}</Typography></div></TableCell>
                                                             <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
                                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CurrencyRupeeIcon />
@@ -1093,7 +1095,7 @@ disabled
                                                             <TableCell >{row.stock}</TableCell>
                                                             <TableCell >
                                                                 <Typography className={styles.dateone}>{
-                                                                    moment(row.created_at).format("D  MMMM YYYY, h:mm:ss a")
+                                                                    moment(row.created_at).format("D  MMM YYYY, h:mm:ss a")
                                                                 } </Typography></TableCell>
                                                             {/* 
                                                         <TableCell>
@@ -1104,32 +1106,31 @@ disabled
                                                             <TableCell className={styles.tddatallistyy}>
 
                                                                 <div className={styles.listtebal}>
-                                                                {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <img height={18} src="../../edit_square.svg" />  </Box> : 
-                                                                    <Button className={styles.viwebtnmm}
-                                                                        onClick={() => {
-                                                                            if(row.status == 'active')
-                                                                            {
-                                                                                toast.error('Please pause the pattern then enable edit pattern.')
+                                                                    {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <img height={18} src="../../edit_square.svg" />  </Box> :
+                                                                        <Button className={styles.viwebtnmm}
+                                                                            onClick={() => {
+                                                                                if (row.status == 'active') {
+                                                                                    toast.error('Please pause the pattern then enable edit pattern.')
 
-                                                                            
-                                                                           
-                                                                            }else{
-                                                                                if (row.type_pattern == "CustomPattern" ) {
-                                                                                router.push({
-                                                                                    pathname: '/editCustom',
-                                                                                    query: { emailID: row.id }
-                                                                                    // query{ id: row.id },
-                                                                                });
-                                                                            } else {
-                                                                                router.push({
-                                                                                    pathname: '/editpatt',
-                                                                                    query: { emailID: row.id }
-                                                                                });
-                                                                            }
-                                                                            }
-                                                                        }}
-                                                                    
-                                                                    > <img height={18} src="../../edit_square.svg" /> </Button>}
+
+
+                                                                                } else {
+                                                                                    if (row.type_pattern == "CustomPattern") {
+                                                                                        router.push({
+                                                                                            pathname: '/editCustom',
+                                                                                            query: { emailID: row.emailID },
+                                                                                            // query{ id: row.id },
+                                                                                        });
+                                                                                    } else {
+                                                                                        router.push({
+                                                                                            pathname: '/editpatt',
+                                                                                            query: { emailID: row.emailID },
+                                                                                        });
+                                                                                    }
+                                                                                }
+                                                                            }}
+
+                                                                        > <img height={18} src="../../edit_square.svg" /> </Button>}
 
                                                                     {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <PlayCircleOutlineIcon /> </Box> : <Button className={styles.viwebtnmm3} onClick={() => { setRowid(row.id), setListscrip(row.script), setListnse(row.exchange), row.status == 'active' ? handleClickOpenCompause() : handleClickOpenComplay() }} >
                                                                         {row.status == 'active' ? <PauseCircleOutlineIcon className={styles.play_btnmani2} /> : <PlayCircleOutlineIcon className={styles.play_btnmani} />}
@@ -1280,7 +1281,7 @@ disabled
                                                                                             // id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}
                                                                                             style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
                                                                                             className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
-                                                                                            onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> :selectedValue == 'exit for market' || listpires == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
+                                                                                            onClick={() => { deletepattern(), handleCloseComdeletlog() }}>Delete </Button> : selectedValue == 'exit for market' || listpires == '' ? <Button disabled style={{ background: '#009947', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 41PX 7PX 41PX' }}
                                                                                                 className={logvvmog == 'WithoutStock' ? styles.listmenuu : styles.cofimbatn}
                                                                                             >Delete </Button> : <Button
                                                                                                 id={logvvmog == 'WithoutStock' ? styles.listdatadelet : styles.namnedata}

@@ -44,14 +44,14 @@ function ResponsiveAppBar(props) {
   const [rowidbtn, setRowidbtn] = React.useState('');
   const [listuserid, setListuserid] = React.useState('')
   const [idlistuse, setIdlistuse] = React.useState('')
-const[dartmenu,setDatamenu] =React.useState('')
+  const [dartmenu, setDatamenu] = React.useState('')
   const [com, setCom] = React.useState(false);
-  console.log(data,'dartmenu');
+  console.log(data, 'dartmenu');
   const today = new Date();
-
-    var handleClickOpenCom = () => {
+console.log(today,'today');
+  var handleClickOpenCom = () => {
     setCom(true);
-  
+
   };
   const handleCloseCom = () => {
     setCom(false);
@@ -98,7 +98,7 @@ const[dartmenu,setDatamenu] =React.useState('')
       }
     }
   }
-  console.log(props, 'login Data');
+  console.log(props.profile.userData.currentAccount.id, 'login Data');
   const switchAccount = async (account) => {
     var headers = {
       "Content-Type": "application/json",
@@ -143,7 +143,7 @@ const[dartmenu,setDatamenu] =React.useState('')
 
     console.log(accountdelete, 'accountdelete');
     if (accountdelete.status == true) {
-  
+
       toast.success(accountdelete.message)
       chartloginuser()
     }
@@ -151,7 +151,7 @@ const[dartmenu,setDatamenu] =React.useState('')
       toast.error(accountdelete.message)
     }
   }
-  console.log(props,'loajajjajaj');
+  console.log(props, 'loajajjajaj');
   React.useEffect(() => {
     getRequestToken();
   }, [router.isReady])
@@ -171,9 +171,9 @@ const[dartmenu,setDatamenu] =React.useState('')
     }
     var body = {
       request_token: token,
-      id_account:props.props.profile.accountId
+      id_account: props.props.profile.accountId
     }
-    console.log(props,'props.profile.accountId');
+    console.log(props, 'props.profile.accountId');
     // props.props.loaderRef(true)
     var updateAccount = await ApiServices.PostApiCall(ApiEndpoint.UPDATE_ACCESS_TOKEN, JSON.stringify(body), headers)
     // props.props.loaderRef(false)
@@ -210,10 +210,10 @@ const[dartmenu,setDatamenu] =React.useState('')
       Patterns
     </Button>,
     <Button
-    onClick={()=>{router.push('./AllOrder')}}
-    className={currentPath == '/AllOrder' ? styles.borderbottum : styles.btn_pages}>
-  
-        Orders
+      onClick={() => { router.push('./AllOrder') }}
+      className={currentPath == '/AllOrder' ? styles.borderbottum : styles.btn_pages}>
+
+      Orders
 
     </Button>,];
 
@@ -263,12 +263,12 @@ const[dartmenu,setDatamenu] =React.useState('')
         </Button>
         <Button
           className={styles.btn_pages22}
-          onClick={(() => { handleClick(),router.push('./AllOrder') })}
+          onClick={(() => { handleClick(), router.push('./AllOrder') })}
 
-          
+
           sx={{ my: 2, display: 'block' }}
         >
-        Orders
+          Orders
         </Button>
         <Button
           className={styles.btn_pages2}
@@ -332,7 +332,7 @@ const[dartmenu,setDatamenu] =React.useState('')
             </Box>
             <div className={styles.btnicon2} ><Button onClick={(() => { router.push('./editprofileacc') })}><SettingsIcon /></Button>
               {/* <Button><NotificationsNoneIcon /></Button> */}
-              </div>
+            </div>
             <div>
               {['left'].map((anchor) => (
                 <React.Fragment key={anchor}>
@@ -352,18 +352,18 @@ const[dartmenu,setDatamenu] =React.useState('')
             {!!props.profile ? <Box sx={{ flexGrow: 0 }}>
               <div className={styles.newbar_list}>
                 <a className={styles.listcorsar} style={{ display: 'flex', textDecoration: 'none' }}
-                onClick={handleClick}
+                  onClick={handleClick}
                 >
                   <div className={styles.Avatar_newbar}
                   >
                     <Avatar className={styles.btn_avtar_list}
                     >
-                    <img width={30} src={props.profile.userData.logoUrl} />
+                      <img width={30} src={props.profile.userData.logoUrl} />
                     </Avatar>
                   </div>
                   <div className={styles.user_list}>
                     <Typography>
-                      {!!props.profile.userData.currentAccount ? props.profile.userData.currentAccount.user_id:'Login'}
+                      {!!props.profile.userData.currentAccount ? props.profile.userData.currentAccount.user_id : 'Login'}
                     </Typography>
                   </div>
                 </a>
@@ -390,7 +390,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                           </Divider>
                           <div className={styles.accoparegarf}>
                             <Typography>Are you sure you want to delete {listuserid} this account?</Typography>
-                                                       </div>
+                          </div>
                           <div>
                           </div>
                           <Divider>
@@ -398,7 +398,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                           </Divider>
                           <div><Button className={styles.cancelbtn} onClick={handleCloseCom}>Cancel</Button><img src='../../Line 17.png' /><Button className={styles.cancelbtn2} onClick={() => { accountdelete(), handleCloseCom() }}>Delete</Button></div>
                         </Box>
-                  
+
                       </DialogContent>
                     </div>
                   </Dialog>
@@ -406,7 +406,7 @@ const[dartmenu,setDatamenu] =React.useState('')
                     anchorEl={anchorEl}
                     id="account-menu"
                     open={open}
-          
+
                     onClick={handleClose}
                     PaperProps={{
                       elevation: 0,
@@ -437,84 +437,65 @@ const[dartmenu,setDatamenu] =React.useState('')
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                   >  <Box className={styles.listkeypedg}>
-                    {data.map((item, idx) => (
-                    
-                      <div className={styles.listmeuend}>
-                        <div>
+                      {data.map((item, idx) => (
+
+                        <div className={styles.listmeuend}>
                           <div>
-                            <Button className={styles.btnnevlist} onClick={() => { setRowidlist(item.id), handleCloseUserMenu(), switchAccount() }}>
-                              <div>
-                                <Avatar src={item.logoUrl} />
-                              </div>
-                              <div><div className={styles.idname}>
-                                <Typography>{item.user_id}</Typography></div><div className={styles.listtype}><Typography>{item.type}</Typography>
-                                </div></div>
-                            </Button>
+                            <div>
+                              <Button className={styles.btnnevlist} onClick={() => { setRowidlist(item.id), handleCloseUserMenu(), switchAccount(item) }}>
+                                <div>
+                                  <Avatar src={item.logoUrl} />
+                                </div>
+                                <div><div className={styles.idname}>
+                                  <Typography>{item.user_id}</Typography></div><div className={styles.listtype}><Typography>{item.type}</Typography>
+                                  </div></div>
+                              </Button>
+                            </div>
+                          </div>
+
+                          <div className={styles.menulistbtn} style={{ display: 'flex', justifyContent: 'end' }}>
+                            {item.type == 'zerodha' ?
+                              <Button className={styles.listboxmass} onClick={() => {
+                                //  setListzrothaid(item.id) 
+                                if (item.type == 'zerodha') {
+                                  var profile = props.props.profile;
+                                  profile.accountId = item.id
+                                  props.save_user_data({ user: profile });
+                                  window.location.href = `${item.loginUrllist}`
+                                }
+                              }}
+                              >{moment(today).format("MM/DD/YYYY") == moment(item.zerodha_token_update).format("MM/DD/YYYY") ?
+                                <img width={25} height={20} src='../../Vector (19).svg' /> :
+                                <img width={25} height={25} src='../../History.svg' />
+                                }
+                              </Button> :
+                              <Button disabled
+                                className={styles.listboxmass}
+                              >
+                                <img width={25} height={20} src='../../Vector (18).svg' /></Button>}
+
+                            <Button
+                              onClick={() => {
+                                handleCloseUserMenu(), router.push({
+                                  pathname: './Accountsview',
+
+
+                                  query: { emailID: item.id }
+                                });
+                              }}
+
+                              className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
+                            <Button
+
+                              onClick={() => { handleClickOpenCom(), setRowidbtn(item.id), setListuserid(item.user_id) }}
+
+                              className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
+
                           </div>
                         </div>
-                        
-                        <div className={styles.menulistbtn} style={{ display: 'flex', justifyContent: 'end' }}>
-                        {item.type == 'zerodha' ?
-                                                            <Button className={styles.listboxmass} onClick={() => {
-                                                              //  setListzrothaid(item.id) 
-                                                               if (item.type == 'zerodha') {
-                                                                    var profile = props.props.profile;
-                                                                    profile.accountId = item.id
-                                                                    props.save_user_data({ user: profile });
-                                                                    window.location.href = `${item.loginUrllist}`
-                                                                }
-                                                            }}
-                                                            >{moment(today).format("MM/DD/YYYY") == moment(item.zerodha_token_update).format("MM/DD/YYYY") ?
-                                                                <img width={25} height={20} src='../../Vector (19).svg' />:
-                                                                <img width={25} height={25} src='../../History.svg' />
-                                                                }
-                                                                </Button> :
-                                                            <Button disabled
-                                                             className={styles.listboxmass}
-                                                            >
-                                                                <img width={25} height={20} src='../../Vector (18).svg' /></Button>}
-                       
-                        {/* {item.type == "zerodha" ?
-                          <Button      
-                         onClick={() => {
-                                                                    var profile = props.props.profile;
-                                                                    profile.accountId = item.id
-                                                                    setDatamenu(item.id)
-                                                                    props.save_user_data({ user: profile });
-                                                                    window.location.href = `${item.loginUrllist}`
-                                                                
-                                                            }}
-                                                             className={styles.listboxmass}> 
-                            <img width={21} height={21} src='../../History.svg' />
-                          </Button>:
-                          <Button disabled  onClick={() => {
-                                                                    handleCloseUserMenu()
-                                                                }} className={styles.listboxmass}>
-                            <img width={18} height={21} src='../../Vector (18).svg' />
-                          </Button>
-                        } */}
-                          <Button 
-                          onClick={() => {
-                                                                    handleCloseUserMenu(),router.push({
-                                                                        pathname: './Accountsview',
-                                                      
 
-                                                                        query: { emailID: item.id}
-                                                                    });
-                                                                }}
-                        
-                          className={styles.loglistyy}>  <img width={21} height={19} src='../../Vector (1).svg' /></Button>
-                          <Button
-                          
-                            onClick={() => { handleClickOpenCom(), setRowidbtn(item.id), setListuserid(item.user_id) }}
-                
-                            className={styles.loglistyy2}><img width={19} height={19} src='../../Vector (2).svg ' /></Button>
-
-                        </div>
-                      </div>
-                      
-                    ))}
-</Box>
+                      ))}
+                    </Box>
                     <Divider className={styles.devatdar} />
                     <div className={styles.listbtmnuu}>
                       <div className={styles.listaddacc}>

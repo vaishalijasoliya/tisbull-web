@@ -23,7 +23,7 @@ Algorithmic trading(automated trading, black-box trading, or algo trading) is th
 TIS BULL is a technological trading platform for everyone. It provides automatic trading in equities, futures, and currencies with real-time display of notional profit/loss and allows users to pause ongoing patterns, stop buying, and many more.</Typography>
 </div>
 <div>
-  <Button className={styles.startbutt}>Start  Now </Button>
+  <Button href='/signup' className={styles.startbutt}>Start  Now </Button>
 </div>
 </div>
 </Grid>

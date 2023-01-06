@@ -1,4 +1,5 @@
 import {useEffect} from 'react';
+import Link from 'next/link'
 
 export default function App() {
   useEffect(() => {
@@ -8,28 +9,13 @@ export default function App() {
 
   return (
     <div>
-      <h2>Top of the page</h2>
 
-      <div style={{height: '155rem'}} />
 
-      {/* 👇️ scroll to top on button click */}
-      <button
-        onClick={() => {
-          window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        }}
-        style={{
-          position: 'fixed',
-          padding: '1rem 2rem',
-          fontSize: '20px',
-          bottom: '40px',
-          right: '40px',
-          backgroundColor: '#0C9',
-          color: '#fff',
-          textAlign: 'center',
-        }}
-      >
-        Scroll to top
-      </button>
+      <Link href="https://www.wikipedia.org">
+  <a target="_blank" rel="noopener noreferrer">
+  mabvaffaf
+  </a>
+</Link>
     </div>
   );
 }
