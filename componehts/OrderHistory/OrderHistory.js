@@ -203,7 +203,7 @@ const Home = (props) => {
   const [btnlistdata, setBtnlist] = React.useState('pending')
   const [pendingReviewList, setPendingReviewList] = React.useState([]);
   const [approveReviewList, setApproveReviewList] = React.useState([]);
-  const [btnlistdatalist, setBtnlistlist] = React.useState('SELL')
+  const [btnlistdatalist, setBtnlistlist] = React.useState('ALL')
 
   var handleClickOpenComdilet = () => {
     setDiletbtn(true);
@@ -268,7 +268,7 @@ const buyorder =[]
             investment: element.quantity,
             profit: element.price,
             stock: element.transactionType,
-            created_at: element.createdAt,
+            created_at: element.updatedAt,
             status: element.status,
             orderId:element.orderId
           }
@@ -383,7 +383,7 @@ const buyorder =[]
        
         <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
           <Paper  className={styles.listdatataal} sx={{ width: '100%',borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX" }} >
-          {/* <Toolbar
+          <Toolbar
           className={styles.tooobatlistts}
       sx={{
         pl: { sm: 2 },
@@ -414,17 +414,17 @@ const buyorder =[]
       )}
 
       {selected.length > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip >
           <IconButton>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
+        <Tooltip >
         <div style={{ display: 'flex' }}>
         
         <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', width: '72%' }}>
-          {search ?
+        
             <div>
               <input type="text" name="search"
                 className={styles.searchbtn}
@@ -443,14 +443,12 @@ const buyorder =[]
                   }
                 }}
              
-                autoComplete="off" /></div> : <style>{`
-                        display: none;
-                      `}</style>}
-          <div >
+                autoComplete="off" /></div>
+          {/* <div >
             <Button className={styles.btnfiltaebtn2} onClick={(e) => {
               setSearch(!search)
             }} ><SearchIcon /></Button>
-          </div>
+          </div> */}
         </div>
         <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
         >
@@ -504,7 +502,10 @@ const buyorder =[]
         <div>
      
           <div className={styles.typetext222}><Typography>Type</Typography></div>
-          <div style={{padding:'0px 0px 0px 25px'}}>          <Button 
+          <div style={{padding:'0px 0px 0px 25px'}}>     <Button onClick={() => {
+      setBtnlistlist('ALL')
+
+    }} className={btnlistdatalist == 'ALL' ? styles.Customlistbtn : styles.nonelistbtn}>ALL</Button>       <Button 
                                   onClick={() => {
                                     setBtnlistlist('SELL')
                                   
@@ -519,7 +520,7 @@ const buyorder =[]
       </div>
         </Tooltip>
       )}
-    </Toolbar> */}
+    </Toolbar> 
             <TableContainer style={{borderBottomLeftRadius:'20px',borderBottomRightRadius:"20PX"}} >
               <Table
                  className={styles.tablelist}
@@ -534,7 +535,7 @@ const buyorder =[]
                   onRequestSort={handleRequestSort}
                   rowCount={datatebalpettan.length}
                 />
-                <TableBody>
+                <TableBody className={styles.listtabalrowdat}>
                   {stableSort(datatebalpettan, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
@@ -590,7 +591,7 @@ const buyorder =[]
                           </TableCell>
                           <TableCell >
                             <Typography className={styles.dateone}>{
-                              moment(row.created_at).format("D  MMM YYYY, h:mm:ss a")
+                              moment(row.created_at).format("D  MMM YYYY h:mm a")
                             } </Typography></TableCell>
 
                           <TableCell  className={styles.fasttebarow22}>

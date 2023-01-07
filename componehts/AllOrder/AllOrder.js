@@ -111,19 +111,19 @@ const headCells = [
     disablePadding: false,
     label: 'Price',
   },
-
-  {
-    id: 'Created',
-    numeric: true,
-    disablePadding: false,
-    label: 'Created Date',
-  },
   {
     id: 'protein',
     numeric: true,
     disablePadding: false,
     label: 'Status',
   },
+  {
+    id: 'Created',
+    numeric: true,
+    disablePadding: false,
+    label: 'Created Date',
+  },
+ 
   {
     id: 'Action',
     numeric: true,
@@ -240,7 +240,7 @@ const[idlist,setIdlist] = React.useState('')
   const [pause, setPause] = React.useState(false)
   const [diletbtn, setDiletbtn] = React.useState(false)
   const [btnlistdata, setBtnlist] = React.useState('pending')
-  const [btnlistdatalist, setBtnlistlist] = React.useState('SELL')
+  const [btnlistdatalist, setBtnlistlist] = React.useState('ALL')
   const[listsell,setListsell] =React.useState([])
   const[listsellmenu,setListsellmenu] =React.useState([])
   const [pendingReviewList, setPendingReviewList] = React.useState([]);
@@ -250,7 +250,7 @@ const[listdatadelete,setListdeletdata] = React.useState('')
   const [anchorEllist, setAnchorEllist] = React.useState(null);
   const [value, setValue] = React.useState(0);
 const[sassaliusgs,setSasasdata] =React.useState("")
-console.log(datalist,'selected');
+console.log(datatebalpettan,'datatebalpettan');
   const handleChangelisggs = (event, newValue) => {
     setValue(newValue);
   };
@@ -300,6 +300,7 @@ console.log(datalist,'selected');
 
 
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDERLIST, JSON.stringify(body), headers)
+    console.log(patternDelete,'patternDelete');
     if (!!patternDelete) {
       if (patternDelete.status == true) {
         const accoyty = [];
@@ -320,7 +321,7 @@ console.log(datalist,'selected');
             investment: element.quantity,
             profit: element.price,
             stock: element.transactionType,
-            created_at: element.createdAt,
+            created_at: element.updatedAt,
             status: element.status,
             orderId:element.orderId
           }
@@ -355,7 +356,7 @@ console.log(datalist,'selected');
   }
   const tabChange = (status) => {
     setReviewStatus(status);
-    if (status == "pending") {
+    if (status == "ALL") {
       setDatatebalpettan(pendingReviewList);
     } else if ( status == "cancelled" || status == "active") {
       setDatatebalpettan(approveReviewList);
@@ -529,7 +530,7 @@ console.log(datalist,'selected');
         <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 60px 20px 0px'}}>
 
           <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-            {search ?
+            {/* {search ? */}
               <div>
                 <input type="text" name="search"
                   className={styles.searchbtn}
@@ -548,13 +549,14 @@ console.log(datalist,'selected');
                       }
                     }
                   }}
-                  autoComplete="off" /></div> : <style>{`
-                          display: none;
-                        `}</style>}
+                  // autoComplete="off" 
+
+                  /></div> 
+                
             <div >
-              <Button className={styles.btnfiltaebtn2} onClick={(e) => {
+              {/* <Button className={styles.btnfiltaebtn2} onClick={(e) => {
                 setSearch(!search)
-              }} ><SearchIcon /></Button>
+              }} ><SearchIcon /></Button> */}
             </div>
           </div>
           <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
@@ -603,7 +605,7 @@ console.log(datalist,'selected');
             // className={styles.filatahedinh}
             ><Typography>Orders</Typography></div>
             <div className={styles.listbtnsot}>
-              <Button className={styles.censbatnsot} onClick={()=>{handleClose,tabChange("SELL"),setBtnlist('SELL')}}>RESET </Button>
+              <Button className={styles.censbatnsot} onClick={()=>{handleClose(),tabChange("ALL"),setBtnlist('ALL')}}>RESET </Button>
               <Button className={styles.savebatnsot} onClick={()=>{ tabChange(btnlistdatalist)}}>Save</Button></div>
           </div>
           <Divider className={styles.filtar_divaydar}></Divider>
@@ -612,9 +614,9 @@ console.log(datalist,'selected');
             <div className={styles.typetext}><Typography>Type</Typography></div>
             <div className={styles.listadarara} style={{padding:'0px 0px 0px 25px'}}>       <Button 
                                     onClick={() => {
-                                      setBtnlistlist('All')
+                                      setBtnlistlist('ALL')
                                     
-                                    }} className={btnlistdatalist == 'All' ? styles.Customlistbtn : styles.nonelistbtn}>All</Button>        <Button 
+                                    }} className={btnlistdatalist == 'ALL' ? styles.Customlistbtn : styles.nonelistbtn}>All</Button>        <Button 
                                     onClick={() => {
                                       setBtnlistlist('SELL')
                                     
@@ -683,7 +685,7 @@ console.log(datalist,'selected');
                   onRequestSort={handleRequestSort}
                   rowCount={datatebalpettan.length}
                 /> */}
-                <TableBody>
+                <TableBody className={styles.listtabalrowdat}>
                   {stableSort(datatebalpettan, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
@@ -742,17 +744,15 @@ console.log(datalist,'selected');
                             <div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /> {row.profit}</div>
                             {/* 100 */}
                           </TableCell>
-                          <TableCell >
-                            <Typography className={styles.dateone}>{
-                              moment(row.created_at).format("D  MMM YYYY, h:mm:ss a")
-                            } </Typography></TableCell>
-
                           <TableCell>
                               <Typography className={row.status == 'pending' ? styles.pusacolor : row.status == 'active' ? styles.activecalass : row.status == 'cancelled' ? styles.exitcolor : ''}>{row.status == 'pending' ? 'Pending' : row.status == 'active' ? 'Active' : row.status == 'cancelled' ? 'Cancelled' : ''}</Typography>
-                            {/* </Button> */}
-
-
                           </TableCell>
+                          <TableCell >
+                            <Typography className={styles.dateone}>{
+                              moment(row.created_at).format("D  MMM YYYY h:mm a")
+                            } </Typography></TableCell>
+
+              
 
                           <TableCell >
 

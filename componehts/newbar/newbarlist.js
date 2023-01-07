@@ -98,7 +98,7 @@ console.log(today,'today');
       }
     }
   }
-  console.log(props.profile.userData.currentAccount.id, 'login Data');
+  // console.log(props.profile.userData.currentAccount.id, 'login Data');
   const switchAccount = async (account) => {
     var headers = {
       "Content-Type": "application/json",

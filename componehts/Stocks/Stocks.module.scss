@@ -786,10 +786,10 @@ color: #E31E24 !important;
         width: 320px;
         box-sizing: border-box;
         height: 56px;
-        border: 1px solid #F0F0F0;
+        border: 1px solid #C4C4C4;
         border-radius: 10px;
         font-size: 16px;
-        background-color: #F9F9F9;
+        background-color: #FFFFFF;
         background-image: url(../../public/Search.svg);
         background-position: 18px 50%;
         background-repeat: no-repeat;
@@ -993,25 +993,28 @@ color: #E31E24 !important;
     // margin-top: 30px !important;
 
     .searchbtn {
-        width: 100px;
+        width: 250px;
         box-sizing: border-box;
         height: 4px;
+        // width: 50px;
         border: 1px solid #F0F0F0;
-        border-radius: 10px;
+        // border-radius: 30px;
         font-size: 16px;
-        background-color: #F9F9F9;
-        background-image: url(../../public/Search.svg);
-        background-position: 18px 50%;
+        background-color: var(--color-realbox-background);
+        background-image: url('../../public/download (1).png');
+        background-position: 14px 50%;
         background-repeat: no-repeat;
-        padding: 18px 0px 18px 56px;
+        background-size: 20px 20px;
+
+        padding: 18px 0px 18px 50px;
         -webkit-transition: width 0.4s ease-in-out;
         transition: width 0.4s ease-in-out;
         cursor: text;
         box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.02);
     }
-    .searchbtn:focus{
-        width: 100%;
-    }
+    // .searchbtn:focus{
+        // width: 100%;
+    // }
     .filterlist {
         font-family: Poppins-400 !important;
         background: #FFFFFF;
@@ -1461,7 +1464,9 @@ color: #E31E24 !important;
     align-items: center;
     justify-content: center;
 }
-
+.listtabalrowdat :hover{
+background: rgba(215, 229, 239, 0.25);
+}
 .listbtnimpoo {
     display: flex;
     align-items: center;

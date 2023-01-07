@@ -131,14 +131,14 @@ const main = (props) => {
                     </div>
                     <div style={{padding:'0px 0px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Created At</Typography>
-                        <Typography className={styles.peregarflist44} >{ moment(props.data.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
+                        <Typography className={styles.peregarflist44} >{ moment(props.data.createdAt).format("D  MMM YYYY h:mm a")}</Typography>
                     </div>
                     </Grid>
                     <Grid item sm={12} md={3} xs={12}  className={styles.listpading}  style={{display:'flex',padding:'50px 0px 30px 0px'}}>
 
                     <div style={{padding:'0px 70px 0px 0px'}}>
                         <Typography className={styles.peregarflist33} >Edited At</Typography>
-                        <Typography className={styles.peregarflist44} >{ moment(props.data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}</Typography>
+                        <Typography className={styles.peregarflist44} >{ moment(props.data.updatedAt).format("D  MMM YYYY h:mm a")}</Typography>
                     </div>
                     </Grid>
     

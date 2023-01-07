@@ -273,7 +273,7 @@ const Home = (props) => {
   const [listsell, setListsell] = React.useState([])
   const [listsellmenu, setListsellmenu] = React.useState([])
 
-  const [btnlistdatalist, setBtnlistlist] = React.useState('SELL')
+  const [btnlistdatalist, setBtnlistlist] = React.useState('ALL')
 
   console.log(selected, 'selected');
   const today = new Date();
@@ -348,7 +348,7 @@ const Home = (props) => {
             investment: element.quantity,
             profit: element.price,
             stock: element.transactionType,
-            created_at: element.createdAt,
+            created_at: element.updatedAt,
             status: element.status,
             orderId: element.orderId
           }
@@ -385,7 +385,7 @@ const Home = (props) => {
   }
   const tabChange = (status) => {
     setReviewStatus(status);
-    if (status == "pending") {
+    if (status == "ALL") {
       setDatatebalpettan(pendingReviewList);
 
       // setUserSearch(pendingReviewList);
@@ -419,37 +419,16 @@ const Home = (props) => {
       "Content-Type": "application/json",
       "x-access-token": props.props.profile.token
     }
-    if(selected == ''){
-    var body = {
-      "id_order": [idlist]
+    if (selected == '') {
+      var body = {
+        "id_order": [idlist]
+      }
+    } else {
+      var body = {
+        "id_order": [selected]
+      }
     }
-  }else{
-    var body = {
-      "id_order": [selected]
-    }
-  }
-    //  if (selected == '') {
-         
-    //         const withFixedPrice = {
-    //                     "pattern_id": rowid,
-    //                     "type": listdarapush
-    //                 }
-                
-            
-    //         body.pattern.push(JSON.parse(JSON.stringify((withFixedPrice))));
-    //     }else{
-    //     for (let index = 0; index < selected.length; index++) {
-    //         const element = selected[index];
 
-    //         var withFixedPricelidt = {
-    //             "pattern_id": element,
-    //             "type": listdarapush
-    //         }
-    //         body.pattern.push(JSON.parse(JSON.stringify(withFixedPricelidt)));
-
-    //         console.log(element, 'hsahsgsggs');
-    //     }
-    // }
     console.log(body, 'virangid');
     props.props.loaderRef(true)
     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.ORDER_DELETE, JSON.stringify(body), headers)
@@ -471,9 +450,7 @@ const Home = (props) => {
 
 
   }
-  // let inloglist=datatebal.zerodha_token_update
 
-  // console.log(datatebalpettan, 'datatebalpettan');
 
   React.useEffect(() => {
     if (!!props.props.profile && !!props.props.profile.token) {
@@ -540,22 +517,21 @@ const Home = (props) => {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datatebalpettan.length) : 0;
 
   return (
     <Grid container spacing={0} className={styles.cantenar_list57}>
       {/* <div style={{display:'flex'}}> */}
-    
-    
+
+
       {/* </div> */}
       <Grid item md={12} sm={12} xs={12} className={styles.boxteballist22}>
         <Box className={styles.boxlistnum} sx={{ width: '100%' }}>
           <Paper className={styles.listdatataal} sx={{ width: '100%', borderBottomLeftRadius: '20px', borderBottomRightRadius: "20PX" }} >
             {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
             <Toolbar
-             className={styles.tooobatlistts}
+              className={styles.tooobatlistts}
               sx={{
                 pl: { sm: 2 },
                 pr: { xs: 1, sm: 1 },
@@ -576,158 +552,142 @@ const Home = (props) => {
                 </Typography>
               ) : (
                 <Grid item md={6} sm={6} xs={12} >
-        <div className={styles.maendivhpline}>
-          <div className={styles.inlinemanediv}>
-            <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
-            <Button
-              onClick={() => {
-                tabChange("pending");
-                setBtnlist('pending')
-              }}
+                  <div className={styles.maendivhpline}>
+                    <div className={styles.inlinemanediv}>
+                      <div className={styles.hadingbtn}><Typography>Today’s orders</Typography> </div>
+                      <Button
+                        onClick={() => {
+                          tabChange("pending");
+                          setBtnlist('pending')
+                        }}
 
-              className={btnlistdata == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>Open</Button>
-            <Button onClick={() => {
-              setBtnlist('cancelled')
-              tabChange('cancelled')
-            }} className={btnlistdata == 'cancelled' ? styles.Customlistbtn : styles.nonelistbtn}>Trade</Button>
-          </div>
+                        className={btnlistdata == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>Open</Button>
+                      <Button onClick={() => {
+                        setBtnlist('cancelled')
+                        tabChange('cancelled')
+                      }} className={btnlistdata == 'cancelled' ? styles.Customlistbtn : styles.nonelistbtn}>Trade</Button>
+                    </div>
 
-        </div>
-      </Grid>
+                  </div>
+                </Grid>
               )}
 
               {selected.length > 0 ? (
                 <Tooltip>
-                <Button className={styles.viwebtnmm22}
-                                  onClick={() => {
-                                   
-                                      //  handleClickOpenCom()
-                                      handleClickOpenCom() 
-                                  }}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
-                                </Button>
+                  <Button className={styles.viwebtnmm22}
+                    onClick={() => {
+
+                      //  handleClickOpenCom()
+                      handleClickOpenCom()
+                    }}>                                                           <img width={19} height={19} src='../../Vector (2).svg ' />
+                  </Button>
                 </Tooltip>
               ) : (
                 <Tooltip >
-                <Grid item md={6} sm={12} xs={12} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
+                  <Grid item md={6} sm={12} xs={12} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
 
-<div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-  {search ?
-    <div>
-      <input type="text" name="search"
-        className={styles.searchbtn}
-        // onClick={display:b}
-        // onChange={(e) => {
-        onChange={(e) => {
-          //   setPage(0)
-          var value = e.target.value
-          if (typeof value !== 'object') {
-            if (!value || value == '') {
-              setDatatebalpettan(datasars);
-            } else {
-              var filteredData = datasars.filter((item) => {
-                let searchValue = item.script.toLowerCase();
-                return searchValue.includes(value.toString().toLowerCase())
-              })
-              setDatatebalpettan(filteredData);
-            }
-          }
-        }}
-        // patternlistcccc(e)
-        //     var value = e.target.value
-        //     if (typeof value !== 'object') {
-        //         if (!value || value == '') {
-        //             setDatatebalpettan(datasars)
-        //         } else {
-        //             var filteredData = datasars.filter((item) => {
-        //                 let searchValue = item.user.first_name.toLowerCase() + ' ' + item.user.last_name.toLowerCase()
-        //                 return searchValue.includes(value.toString().toLowerCase())
-        //             })
-        //             setDatatebalpettan(filteredData)
-        //         }
-        //     }
-        // }}
-        autoComplete="off" /></div> : <style>{`
-                  display: none;
-                `}</style>}
-  <div >
-    <Button className={styles.btnfiltaebtn2} onClick={(e) => {
-      setSearch(!search)
-    }} ><SearchIcon /></Button>
-  </div>
-</div>
-<Button className={styles.btnfiltaebtn} onClick={handleClicklist}
->
-  {/* <Typography>
+                    <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
+
+                      <div>
+                        <input type="text" name="search"
+                          className={styles.searchbtn}
+                          // onClick={display:b}
+                          // onChange={(e) => {
+                          onChange={(e) => {
+                            //   setPage(0)
+                            var value = e.target.value
+                            if (typeof value !== 'object') {
+                              if (!value || value == '') {
+                                setDatatebalpettan(datasars);
+                              } else {
+                                var filteredData = datasars.filter((item) => {
+                                  let searchValue = item.script.toLowerCase();
+                                  return searchValue.includes(value.toString().toLowerCase())
+                                })
+                                setDatatebalpettan(filteredData);
+                              }
+                            }
+                          }}
+
+                          autoComplete="off" /></div>
+
+                    </div>
+                    <Button className={styles.btnfiltaebtn} onClick={handleClicklist}
+                    >
+                      {/* <Typography>
                     Filter
                 </Typography> */}
-  <FilterListIcon />
-</Button>
-{/* </div> */}
-<Menu
-  className={styles.menufiltarbtn}
-  anchorEl={anchorEl}
-  id="account-menu"
-  open={open}
-  onClose={handleClose}
-  // onClick={handleClose}
-  PaperProps={{
-    elevation: 0,
-    sx: {
-      overflow: 'visible',
-      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-      mt: 1.5,
-      '& .MuiAvatar-root': {
-        width: 32,
-        height: 32,
-        ml: -0.5,
-        mr: 1,
-      },
-      '&:before': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        top: 0,
-        right: 14,
-        width: 10,
-        height: 10,
-        bgcolor: 'background.paper',
-        transform: 'translateY(-50%) rotate(45deg)',
-        zIndex: 0,
-      },
-    },
-  }}
-  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
->
-  <div className={styles.filtarlist}>
+                      <FilterListIcon />
+                    </Button>
+                    {/* </div> */}
+                    <Menu
+                      className={styles.menufiltarbtn}
+                      anchorEl={anchorEl}
+                      id="account-menu"
+                      open={open}
+                      onClose={handleClose}
+                      // onClick={handleClose}
+                      PaperProps={{
+                        elevation: 0,
+                        sx: {
+                          overflow: 'visible',
+                          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                          mt: 1.5,
+                          '& .MuiAvatar-root': {
+                            width: 32,
+                            height: 32,
+                            ml: -0.5,
+                            mr: 1,
+                          },
+                          '&:before': {
+                            content: '""',
+                            display: 'block',
+                            position: 'absolute',
+                            top: 0,
+                            right: 14,
+                            width: 10,
+                            height: 10,
+                            bgcolor: 'background.paper',
+                            transform: 'translateY(-50%) rotate(45deg)',
+                            zIndex: 0,
+                          },
+                        },
+                      }}
+                      transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                      <div className={styles.filtarlist}>
 
-    <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
-    <div className={styles.listbtnsot}>
-      <Button className={styles.censbatnsot22} onClick={() => { handleClose, tabChange("pending"), setBtnlist('pending') }}>RESET </Button>
-      <Button className={styles.savebatnsot223} onClick={() => { tabChange(btnlistdatalist) }}>Save</Button></div>
-  </div>
-  <Divider className={styles.filtar_divaydar}></Divider>
+                        <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
+                        <div className={styles.listbtnsot}>
+                          <Button className={styles.censbatnsot22} onClick={() => { handleClose, tabChange("ALL"), setBtnlist('ALL') }}>RESET </Button>
+                          <Button className={styles.savebatnsot223} onClick={() => { tabChange(btnlistdatalist) }}>Save</Button></div>
+                      </div>
+                      <Divider className={styles.filtar_divaydar}></Divider>
 
-  <div>
-    <div className={styles.typetext222}><Typography>Type</Typography></div>
+                      <div>
+                        <div className={styles.typetext222}><Typography>Type</Typography></div>
 
-  </div>
-  <div style={{ padding: '0px 0px 0px 25px' }}>          <Button
-    onClick={() => {
-      setBtnlistlist('SELL')
+                      </div>
+                      <div style={{ padding: '0px 0px 0px 25px' }}>     <Button onClick={() => {
+                        setBtnlistlist('ALL')
 
-    }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
-    <Button onClick={() => {
-      setBtnlistlist('BUY')
+                      }} className={btnlistdatalist == 'ALL' ? styles.Customlistbtn : styles.nonelistbtn}>ALL</Button>      <Button
+                        onClick={() => {
+                          setBtnlistlist('SELL')
 
-    }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
+                        }} className={btnlistdatalist == 'SELL' ? styles.Customlistbtn : styles.nonelistbtn}>SELL</Button>
+                        <Button onClick={() => {
+                          setBtnlistlist('BUY')
 
-  {/* <Divider className={styles.divaydarten}></Divider> */}
-  <div className={styles.divlistsivijan}>
+                        }} className={btnlistdatalist == 'BUY' ? styles.Customlistbtn : styles.nonelistbtn}>BUY</Button></div>
 
-  </div>
-</Menu>
-</Grid>
+                      {/* <Divider className={styles.divaydarten}></Divider> */}
+                      <div className={styles.divlistsivijan}>
+
+                      </div>
+                    </Menu>
+                  </Grid>
                 </Tooltip>
               )}
             </Toolbar>
@@ -739,44 +699,44 @@ const Home = (props) => {
                 size={dense ? 'small' : 'medium'}
               >
                 <TableHead>
-      <TableRow>
-      {btnlistdata == 'pending' ?
-        <TableCell className={styles.listchekboix} padding="checkbox">
-       
-          <Checkbox
-            color="primary"
-            indeterminate={selected.length > 0 && selected.length < datatebalpettan.length}
-            checked={datatebalpettan.length > 0 && selected.length === datatebalpettan.length}
-            onChange={handleSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>:''}
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            // align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            {/* <TableSortLabel
+                  <TableRow>
+                    {btnlistdata == 'pending' ?
+                      <TableCell className={styles.listchekboix} padding="checkbox">
+
+                        <Checkbox
+                          color="primary"
+                          indeterminate={selected.length > 0 && selected.length < datatebalpettan.length}
+                          checked={datatebalpettan.length > 0 && selected.length === datatebalpettan.length}
+                          onChange={handleSelectAllClick}
+                          inputProps={{
+                            'aria-label': 'select all desserts',
+                          }}
+                        />
+                      </TableCell> : ''}
+                    {headCells.map((headCell) => (
+                      <TableCell
+                        key={headCell.id}
+                        // align={headCell.numeric ? 'right' : 'left'}
+                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        sortDirection={orderBy === headCell.id ? order : false}
+                      >
+                        {/* <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             > */}
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            {/* </TableSortLabel> */}
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-                <TableBody>
+                        {headCell.label}
+                        {orderBy === headCell.id ? (
+                          <Box component="span" sx={visuallyHidden}>
+                            {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                          </Box>
+                        ) : null}
+                        {/* </TableSortLabel> */}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody className={styles.listtabalrowdat}>
                   {stableSort(datatebalpettan, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
@@ -794,17 +754,17 @@ const Home = (props) => {
                           key={row.id}
                           selected={isItemSelected}
                         >
-                              {btnlistdata == 'pending' ?
+                          {btnlistdata == 'pending' ?
 
-                          <TableCell className={styles.tebalrovcek} padding="checkbox">
-                            <Checkbox
-                              checked={isItemSelected}
-                              onClick={(event) => handleClick(event, row.id)}
-                              inputProps={{
-                                "aria-labelledby": labelId,
-                              }}
-                            />
-                          </TableCell>:''}
+                            <TableCell className={styles.tebalrovcek} padding="checkbox">
+                              <Checkbox
+                                checked={isItemSelected}
+                                onClick={(event) => handleClick(event, row.id)}
+                                inputProps={{
+                                  "aria-labelledby": labelId,
+                                }}
+                              />
+                            </TableCell> : ''}
                           <TableCell
                             // component="th"
                             id={labelId}
@@ -842,7 +802,7 @@ const Home = (props) => {
                           {/* <TableCell >{row.stock}</TableCell> */}
                           <TableCell >
                             <Typography className={styles.dateone}>{
-                              moment(row.created_at).format("D  MMM YYYY, h:mm:ss a")
+                              moment(row.created_at).format("D  MMM YYYY h:mm a")
                             } </Typography></TableCell>
 
                           <TableCell>
@@ -888,7 +848,7 @@ const Home = (props) => {
                                       <div className={styles.accoparegarf}>
                                         <Typography>
                                           Are you sure you want to delete
-                                          this order(#{selected == '' ? row.orderId :selected})?
+                                          this order(#{selected == '' ? row.orderId : selected})?
                                         </Typography>
                                         <Typography className={styles.peregara_itbtn}>It will delete from 3rd party broker </Typography>
                                       </div>
@@ -928,7 +888,7 @@ const Home = (props) => {
                                         {/* <InputLabel className={styles.leballist}>ORDER ID </InputLabel>  */}
                                         <div className={styles.listmenutypoo22}><Typography>Are you sure you want to delete this order (#{listuseridlist}) from {props.props.profile.userData.currentAccount.type} ?</Typography></div>
                                         <div className={styles.listmenutypoo}><Typography>{props.props.profile.userData.currentAccount.type}</Typography>:<Typography>#{listuseridlist}</Typography></div>
-                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{selected == '' ? idlist:[selected]}</Typography></div>
+                                        <div className={styles.listmenutypoo}><Typography>Tis</Typography>:<Typography>#{selected == '' ? idlist : [selected]}</Typography></div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
                                         <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX', textTransform: "capitalize", margin: '0px 14px 0px 0px' }} onClick={handleCloseCom} className={styles.cofimbatn}>Cancel</Button>
@@ -946,7 +906,7 @@ const Home = (props) => {
                                 className={styles.borderredayasfor}
                                 style={{
                                 }}
-                                
+
                                 maxWidth="sm"
                               >
                                 <div className={styles.colosbatnlist}><Button onClick={handleCloseComplay}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
@@ -974,12 +934,12 @@ const Home = (props) => {
                                         </div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>
-                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX',textTransform:"capitalize",margin:'0px 14px 0px 0px' }} onClick={handleCloseComplay}  className={styles.cofimbatn}>ok</Button>
-                                        
-                          
+                                        <Button style={{ background: '#E31E24', borderRadius: '5px', color: '#FFFFFF', padding: '7PX 32PX 7PX 32PX', textTransform: "capitalize", margin: '0px 14px 0px 0px' }} onClick={handleCloseComplay} className={styles.cofimbatn}>ok</Button>
+
+
                                       </div>
                                     </Box>
-                                  
+
                                   </DialogContent>
                                 </div>
                               </Dialog>

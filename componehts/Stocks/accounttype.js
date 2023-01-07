@@ -709,7 +709,7 @@ console.log(props.props.profile.accountId,'listzorothatokan');
                                                     <TableCell >{row.consumer_secret.replace(/.(?=.{4,}$)/g, '*').substr(row.consumer_secret.length - 10)}</TableCell>
 
                                                     <TableCell>
-                                                        {row.zerodha_token_update == '' ? '-' : moment(row.zerodha_token_update).format("DD/MM/YYYY h:mm:ss")}
+                                                        {row.zerodha_token_update == '' ? '-' : moment(row.zerodha_token_update).format("D  MMM YYYY h:mm a")}
 
 
                                                     </TableCell>

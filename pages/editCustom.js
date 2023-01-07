@@ -233,6 +233,7 @@ const AddCustomPattern = (props) => {
     });
     const [patternData, setPatternData] = useState(false);
     const [listhpdatao, setListOPhpsad] = useState('')
+    const [listobgll, setListobgll] = useState([])
 
     const [listcsvdata, setDatalistcsv] = useState([])
     const [padjdhdggd, setPandindpl] = useState('')
@@ -615,7 +616,7 @@ const AddCustomPattern = (props) => {
                 patternDataList.push(JSON.parse(JSON.stringify(object)))
             }
             var currentPriceArray = patternDataArray.filter((item) => item.is_current_price);
-            if (script.id == '') {
+            // if (script.id == '') {
                 var body = {
                     "script": parseFloat(script.id),
                     "currentPrice": parseFloat(currentPriceArray[0].buy),
@@ -631,23 +632,30 @@ const AddCustomPattern = (props) => {
                     "status": patternData.pattern.status
                     // "minRange": parseFloat(formik.values.minRange),
                 }
-            } else {
-                var body = {
-                    'id_pattern': parseFloat(router.query.emailID),
-                    "script": parseFloat(listhpdatao),
-                    "currentPrice": parseFloat(currentPriceArray[0].buy),
-                    "pattern_data": patternDataList,
-                    "id_account": props.profile.userData.currentAccount.id,
-                    "initail_sell": 0,
-                    "amo_buy": parseFloat(formik.values.SellSteps),
-                    "amo_sell": parseFloat(formik.values.BuySteps),
-                    "normal_buy": parseFloat(formik.values.NormalBuy),
-                    "initail_buy": parseFloat(formik.values.Initail),
-                    "status": patternData.pattern.status,
-                    "normal_sell": parseFloat(formik.values.NormalSell),
-                    // "minRange": parseFloat(formik.values.minRange),
+            // }
+            //  else {
+            //     var body = {
+            //         'id_pattern': parseFloat(router.query.emailID),
+            //         "script": parseFloat(listhpdatao),
+            //         "currentPrice": parseFloat(currentPriceArray[0].buy),
+            //         "pattern_data": patternDataList,
+            //         "id_account": props.profile.userData.currentAccount.id,
+            //         "initail_sell": 0,
+            //         "amo_buy": parseFloat(formik.values.SellSteps),
+            //         "amo_sell": parseFloat(formik.values.BuySteps),
+            //         "normal_buy": parseFloat(formik.values.NormalBuy),
+            //         "initail_buy": parseFloat(formik.values.Initail),
+            //         "status": patternData.pattern.status,
+            //         "normal_sell": parseFloat(formik.values.NormalSell),
+            //         // "minRange": parseFloat(formik.values.minRange),
+            //     }
+                if (!!startDate) {
+                    body.start_date = moment(startDate).format('YYYY-MM-DD')
                 }
-            }
+                else if (!!endDate) {
+                    body.end_date = moment(endDate).format('YYYY-MM-DD')
+                }
+            // }
             console.log('patternDataList', body)
             var headers = {
                 "Content-Type": "application/json",
@@ -686,9 +694,21 @@ const AddCustomPattern = (props) => {
                 formData.append('script', parseFloat(listhpdatao));
             }
             formData.append('id_account', props.profile.userData.currentAccount.id);
+            formData.append('initail_buy',parseFloat(formik.values.Initail)),
+            formData.append('normal_buy',parseFloat(formik.values.NormalBuy)),
+            formData.append('amo_sell',parseFloat(formik.values.BuySteps)),
+            formData.append('amo_buy',parseFloat(formik.values.SellSteps)),
+            formData.append('normal_sell',parseFloat(formik.values.NormalSell)),
+            formData.append("initail_sell",0),
             formData.append('file', csvFile)
+            
             console.log(csvFile, 'formDataformData');
-
+            if (!!startDate) {
+                formData.append = moment(startDate).format('YYYY-MM-DD')
+    }
+            else if (!!endDate) {
+                formData.append = moment(endDate).format('YYYY-MM-DD')
+    }
             var headers = {
                 "x-access-token": props.profile.token
             }
@@ -762,14 +782,11 @@ const AddCustomPattern = (props) => {
     }
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
-            // playpattern()
-            // patternlist()
-            // patternlistviwe()
-            // Pausepattern()
+     
             setDatalisypatt(router.query.emailID)
             getoardarlist()
         }
-    }, [])
+    }, [props.router])
     const setDatalisypatt = async (pattern_id) => {
         var obj = {
             "id_pattern": pattern_id
@@ -809,7 +826,7 @@ const AddCustomPattern = (props) => {
             props.loaderRef(false)
             setPatternDataArray(newData)
         } else {
-            toast.error('Something went wrong.')
+            // toast.error('Something went wrong.')
             props.loaderRef(false)
         }
 
@@ -829,9 +846,6 @@ const AddCustomPattern = (props) => {
 
         if (!!accountList && !!accountList.length > 0) {
 
-
-            // setFilterScripList(accountList)
-            // setDefaultScripList(accountList)
             var accountLableList = []
             for (let index = 0; index < accountList.length; index++) {
                 const element = accountList[index];
@@ -845,6 +859,19 @@ const AddCustomPattern = (props) => {
                 lebal.push(JSON.parse(JSON.stringify(obj)))
             }
         }
+        console.log(accountLableList, 'accountLableList');
+        setListobgll(lebal)
+        setScripList(lebal)
+        setFilterScripList(lebal)
+
+    }
+    const filterScriplist = (text) => {
+        var value = text
+        console.log(value, 'valuesddd')
+
+        // if (text.length >= 2) {
+        console.log(text, 'shhhhssss');
+        
     }
     console.log(selectedValue, 'selectedValue');
     const getScripPrice = async (value) => {
@@ -853,15 +880,10 @@ const AddCustomPattern = (props) => {
             "Content-Type": "application/json",
             "x-access-token": props.profile.token
         }
-        // if (listidform == '') {
         var body = {
             "instrumentToken": value
         }
-        // } else {
-        //     var body = {
-        //         "instrumentToken": listidform
-        //     }
-        // }
+   
         var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
         if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0) {
             console.log('stockPrice', stockPrice)
@@ -1226,7 +1248,7 @@ const AddCustomPattern = (props) => {
                                                                     console.log(text.target.value, 'jjahhahha')
                                                                     // setFilatlist(text.target.value)
                                                                     filterScrip(text.target.value)
-                                                                    // filterScriplist(text.target.value)
+                                                                    filterScriplist(text.target.value)
 
 
 
@@ -2126,36 +2148,7 @@ const AddCustomPattern = (props) => {
                 </Dialog>
             </div>
 
-            {/* <Dialog
-                open={isLockPatternDialog}>
-                <DialogTitle>
-                    Lock Pattern
-                </DialogTitle>
-                <DialogContent>
-                    <Typography gutterBottom>
-                        Are you sure you want to lock this pattern?
-                    </Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => {
-                            setLockPattern(false)
-                        }}>
-                        Cancel
-                    </Button>
-                    <Button
-                        variant="contained"
-                        autoFocus
-                        onClick={() => {
-                            setLockPattern(false)
-                            onLockPatternClick()
-                        }}>
-                        Lock Pattern
-                    </Button>
-                </DialogActions>
-            </Dialog> */}
+         
         </Grid>
     );
 }

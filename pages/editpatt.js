@@ -375,17 +375,14 @@ const AddPattern = (props) => {
 
 
     }
+    console.log(router.query.emailID,'router.query.emailID');
     React.useEffect(() => {
-        if (!!props.profile && !!props.profile.token) {
-            // playpattern()
-            // patternlist()
-            // patternlistviwe()
+        if (!!props.profile && !!props.profile.token) { 
             getScripPrice()
-            // Pausepattern()
             getoardarlist()
             setDatalistyo(router.query.emailID)
         }
-    }, [])
+    }, [props.router])
     console.log(props, 'propsprops');
     const setDatalistyo = async (pattern_id) => {
         var obj = {
@@ -421,7 +418,7 @@ const AddPattern = (props) => {
             await sleep(500)
             formik.submitForm()
         } else {
-            toast.error('Something went wrong.')
+            // toast.error('Something went wrong.')
             props.loaderRef(false)
         }
 
@@ -462,9 +459,7 @@ const AddPattern = (props) => {
                     filterScripList.push(JSON.parse(JSON.stringify(obj)))
                 }
             }
-            // setFilterScripList(filterScripList)
-            // setDefaultScripList(filterScripList)
-            // setScripList(accountLableList)
+        
         }
     }
 
@@ -572,10 +567,9 @@ const AddPattern = (props) => {
             formik.submitForm()
         }
     }
-    console.log(patternItem.id.listhpdatao, 'sjhhshss');
+    console.log(script, 'sjhhshss');
 
     const onLockPatternClick = async () => {
-        if (script.id == '') {
             var body = {
                 "script": parseFloat(script.id),
                 // "limitOrder": level.id,
@@ -600,33 +594,13 @@ const AddPattern = (props) => {
                 "pattern_type": patternItem.id,
                 "status": patternData.pattern.status
             }
-        } else {
-            var body = {
-                "script": parseFloat(listhpdatao),
-                // "limitOrder": level.id,
-                'id_pattern':parseFloat(router.query.emailID),
-
-                "investment": parseFloat(formik.values.totalInvestment),
-                "buy": parseFloat(formik.values.buyPrice),
-                "enterPrice": parseFloat(formik.values.currentPrice),
-                "sell": parseFloat(formik.values.sellPrice),
-                "tickSize": tickSize,
-                "initail_buy": parseFloat(formik.values.Initail),
-                "initail_sell": 0,
-                "amo_buy": parseFloat(formik.values.SellSteps),
-                "amo_sell": parseFloat(formik.values.BuySteps),
-                "normal_buy": parseFloat(formik.values.NormalBuy),
-                "normal_sell": parseFloat(formik.values.NormalSell),
-                "minRange": parseFloat(formik.values.minRange),
-                "maxRange": parseFloat(formik.values.maxRange),
-                "patternData": patternList,
-                'target_price': parseFloat(formik.values.Target),
-                'exitPrice': parseFloat(formik.values.Stoploss),
-                "id_account": props.profile.userData.currentAccount.id,
-                "pattern_type": patternItem.id,
-                "status": patternData.pattern.status
-            }
-        }
+      
+        if (!!startDate) {
+            body.start_date = moment(startDate).format('YYYY-MM-DD')
+}
+        else if (!!endDate) {
+            body.end_date = moment(endDate).format('YYYY-MM-DD')
+}
         console.log('patternlll', body)
         var headers = {
             "Content-Type": "application/json",
@@ -641,16 +615,7 @@ const AddPattern = (props) => {
             console.log(patternAdd);
             redirect = true;
             toast.success(patternAdd.message)
-            // let successStatus = patternAdd.success;
-            // successStatus.forEach(function (i, j) {
-            //     toast.success(i);
-            // });
-            // } else if (patternAdd.fault) {
-            //     redirect = false;
-            //     let errorStatus = patternAdd.fault;
-            //     errorStatus.forEach(function (i, j) {
-            //         toast.error(i);
-            //     });
+        
         } else {
             redirect = false;
             toast.error(patternAdd.message)
@@ -660,53 +625,7 @@ const AddPattern = (props) => {
         }
 
     }
-    // const onLockPatternClick = async () => {
-    //     var body = {
-    //         "script": parseFloat(script.id),
-    //         "limitOrder": level.id,
-    //         "investment": parseFloat(formik.values.totalInvestment),
-    //         "buy": parseFloat(formik.values.buyPrice),
-    //         "enterPrice": parseFloat(formik.values.currentPrice),
-    //         "sell": parseFloat(formik.values.sellPrice),
-    //         "tickSize": tickSize,
-    //         "initail_buy": parseFloat(formik.values.Initail),
-    //         "initail_sell": 0,
-    //         "amo_buy": parseFloat(formik.values.SellSteps),
-    //         "amo_sell": parseFloat(formik.values.BuySteps),
-    //         "normal_buy": parseFloat(formik.values.NormalBuy),
-    //         "normal_sell": parseFloat(formik.values.NormalSell),
-    //         "minRange": parseFloat(formik.values.minRange),
-    //         "maxRange": parseFloat(formik.values.maxRange),
-    //         "pattern_data": patternList,
-    //         "id_account": props.profile.userData.currentAccount.id,
-    //         "pattern_type": patternItem.id
-    //     }
-
-    //     console.log('patternghgg', body)
-    //     var headers = {
-    //         "Content-Type": "application/json",
-    //         "x-access-token": props.profile.token
-    //     }
-    //     props.props.loaderRef(true)
-    //     var patternAdd = await ApiServices.PostApiCall(ApiEndpoint.ADD_PATTERN, JSON.stringify(body), headers)
-    //     props.props.loaderRef(false)
-    //     console.log('patternAdd', patternAdd);
-    //     if (!!patternAdd.success && patternAdd.success.length > 0) {
-    //         console.log(patternAdd);
-    //         let successStatus = patternAdd.success;
-    //         successStatus.forEach(function (i, j) {
-    //             toast.success(i);
-    //         });
-    //         router.push('/pattanlist');
-    //     } else if (!!patternAdd.fault && patternAdd.fault.length > 0) {
-    //         let errorStatus = patternAdd.fault;
-    //         errorStatus.forEach(function (i, j) {
-    //             toast.error(i);
-    //         });
-    //     } else {
-    //         toast.error(patternAdd.message)
-    //     }
-    // }
+  
     console.log(patternList, 'patternList');
     const filterScrip = async (text) => {
         var body = {
@@ -722,8 +641,7 @@ const AddPattern = (props) => {
         const lebal = []
 
         if (!!accountList && !!accountList.length > 0) {
-            // setFilterScripList(accountList)
-            // setDefaultScripList(accountList)
+       
             var accountLableList = []
             for (let index = 0; index < accountList.length; index++) {
                 const element = accountList[index];
@@ -739,19 +657,6 @@ const AddPattern = (props) => {
         }
         console.log(accountLableList, 'accountLableList');
         setListobgll(lebal)
-        // var value = text
-        // console.log(value,'valuevalue');
-        // if (typeof value !== 'object') {
-        // if (value == '') {
-        //         setFilterScripList(listobgll);
-        //     } else {
-        //         var filteredData = scripList.filter((item) => {
-        //             let searchValue = item.label.toLowerCase();
-        //             return searchValue.includes(value.toString().toLowerCase())
-        //         })
-        //         setFilterScripList(filteredData);
-        //     }
-        // }
         setScripList(lebal)
         setFilterScripList(lebal)
 
@@ -760,15 +665,8 @@ const AddPattern = (props) => {
     const filterScriplist = (text) => {
         var value = text
         console.log(value, 'valuesddd')
-
-        // if (text.length >= 2) {
         console.log(text, 'shhhhssss');
-        // var filterArray = scripList.filter((item) => item.label.toLowerCase().includes(text.toLowerCase()));
-        //     console.log('filterArray', filterArray)
-        //     setFilterScripList(filterArray)
-        // } else {
-        //     setFilterScripList(defaultScripList)
-        // }
+        
     }
     const getScripPrice = async (Value) => {
         // console.log('getScripPrice...', value)
@@ -1778,7 +1676,7 @@ const AddPattern = (props) => {
                             :
                             <Grid item md={12} className={styles.listgridkex23}>
                                 <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1  }}>
-                                    {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == '' || formik.values.Stoploss > formik.values.Target ?
+                                    {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == ''  ?
                                         <Button
                                             style={{ backgroundColor: '#009947', color: '#fff' }}
                                             // component="a"

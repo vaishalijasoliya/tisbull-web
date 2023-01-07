@@ -663,6 +663,12 @@ const AddCustomPattern = (props) => {
             formData.append('script', parseFloat(script.id));
             formData.append('id_account', props.profile.userData.currentAccount.id);
             formData.append('file', csvFile)
+            formData.append('initail_buy',parseFloat(formik.values.Initail)),
+            formData.append('normal_buy',parseFloat(formik.values.NormalBuy)),
+            formData.append('amo_sell',parseFloat(formik.values.BuySteps)),
+            formData.append('amo_buy',parseFloat(formik.values.SellSteps)),
+            formData.append('normal_sell',parseFloat(formik.values.NormalSell)),
+            formData.append("initail_sell",0),
             console.log(csvFile, 'formDataformData');
 
             var headers = {

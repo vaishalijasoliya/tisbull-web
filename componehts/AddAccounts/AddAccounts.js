@@ -338,7 +338,7 @@ const Home = (props) => {
             </Grid>
             <Grid item sm={6} md={3} xs={6} display={'flex'} alignItems={'center'} justifyContent={'end'}>
                 <div style={{padding:'30px 0px 0px 0px'}}>
-                    {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password  == '' || formik.values.consumer_secret == '' || formik.values.userId == '' ? 
+                    {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password  == '' || formik.values.consumer_secret == '' || formik.values.userId == ''||checked ==false &&swishlist ==false ? 
                 
                     <Button  type="submit" disabled  className={styles.donebtn22} >SAVE</Button>:<Button  type="submit"  className={styles.donebtn} onClick={accountadd}>SAVE</Button>}
                 </div>

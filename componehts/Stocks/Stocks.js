@@ -322,9 +322,12 @@ const Home = (props) => {
     const [approveReviewList, setApproveReviewList] = React.useState([]);
     const [rejectReviewList, setRejectReviewList] = React.useState([]);
     const [dayslohp, setDayslohp] = React.useState('')
+    const [activesetsh, setActivestch] = React.useState([])
+    const [pasedaat, setPausedata] = React.useState([])
+    const [deletedata, setDeletedata] = React.useState([])
 
     const [flagReviewList, setFlageReviewList] = React.useState([]);
-    console.log(selected, 'selected');
+    console.log(activesetsh, 'activesetsh');
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -354,6 +357,9 @@ const Home = (props) => {
                 const listdata = []
                 const idlist = []
                 var pendingarr = [];
+                var activdata = []
+                var pushdata = []
+                var deletadata = []
                 var approvearr = [];
                 var rejectarr = [];
                 var flagearr = [];
@@ -378,11 +384,18 @@ const Home = (props) => {
                     } else if (element.type_pattern == "CustomPattern") {
                         approvearr.push(JSON.parse(JSON.stringify(object)))
                     }
-
+                     if (element.status == 'active') {
+                        activdata.push(JSON.parse(JSON.stringify(object)))
+                    }
+                    else if (element.status == 'pause') {
+                        pushdata.push(JSON.parse(JSON.stringify(object)))
+                    } else if (element.status == 'exit') {
+                        deletadata.push(JSON.parse(JSON.stringify(object)))
+                    }
                     else {
                         flagearr.push(object);
                     }
-                    console.log(element.id, 'object.id');
+                    console.log(activdata, 'activdata');
                     datalog.push(JSON.parse(JSON.stringify(object)))
                     listdata.push(JSON.parse(JSON.stringify(object)))
                     datalogo.push(JSON.parse(JSON.stringify(object.status)))
@@ -393,6 +406,9 @@ const Home = (props) => {
 
                     // csvall.push(objectcsv)
                 }
+                setActivestch(activdata)
+                setPausedata(pushdata)
+                setDeletedata(deletadata)
                 setDatasars(listdata)
                 setDatalist(datalogo)
                 setDatatebalpettan(accoyty)
@@ -415,6 +431,12 @@ const Home = (props) => {
             setDatatebalpettan(approveReviewList);
         } else if (status == "all") {
             setDatatebalpettan(data);
+        } else if (status == "active") {
+            setDatatebalpettan(activesetsh);
+        } else if (status == "pause") {
+            setDatatebalpettan(pasedaat);
+        } else if (status == "exit") {
+            setDatatebalpettan(deletedata);
         } else {
             setDatatebalpettan(flagReviewList);
         }
@@ -436,7 +458,7 @@ const Home = (props) => {
 
             ]
         }
-        console.log(body,'play','listbodyuu');
+        console.log(body, 'play', 'listbodyuu');
         if (selected == '') {
 
             const withFixedPrice = {
@@ -476,31 +498,31 @@ const Home = (props) => {
 
 
     }
-    const patternlistviwe = async () => {
+    // const patternlistviwe = async () => {
 
-        var headers = {
-            "Content-Type": "application/json",
-            "x-access-token": props.props.profile.token
-        }
-        var body = {
-            "id_pattern": distiddata,
-        }
-        console.log(body, 'body');
+    //     var headers = {
+    //         "Content-Type": "application/json",
+    //         "x-access-token": props.props.profile.token
+    //     }
+    //     var body = {
+    //         "id_pattern": distiddata,
+    //     }
+    //     console.log(body, 'body');
 
-        props.props.loaderRef(true)
-        var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
-        props.props.loaderRef(false)
-        console.log(patternDelete, 'datalistddd');
+    //     props.props.loaderRef(true)
+    //     var patternDelete = await ApiServices.PostApiCall(ApiEndpoint.PATTERN_VIEW, JSON.stringify(body), headers)
+    //     props.props.loaderRef(false)
+    //     console.log(patternDelete, 'datalistddd');
 
-        if (!!patternDelete) {
-            if (patternDelete.status == true) {
-                setDatamenu(patternDelete.pattern)
+    //     if (!!patternDelete) {
+    //         if (patternDelete.status == true) {
+    //             setDatamenu(patternDelete.pattern)
 
-            }
+    //         }
 
 
-        }
-    }
+    //     }
+    // }
     const deletepattern = async () => {
 
         var headers = {
@@ -615,7 +637,7 @@ const Home = (props) => {
                 // }
             ]
         }
-        console.log(body,'paush','listbodyuu');
+        console.log(body, 'paush', 'listbodyuu');
 
         if (selected == '') {
 
@@ -681,7 +703,7 @@ const Home = (props) => {
     React.useEffect(() => {
         if (!!props.props.profile && !!props.props.profile.token) {
             patternlist()
-            patternlistviwe()
+            // patternlistviwe()
         }
     }, [])
     const handlePinChangelist = (e) => {
@@ -970,9 +992,7 @@ const Home = (props) => {
                                                 <div className={styles.filtarlist}>
                                                     <div><Typography>Pattern</Typography></div>
                                                     <div className={styles.listbtnsot}>
-                                                        {/* <Button className={styles.censbatnsot} onClick={() => {
-                                                            tabChange("all"), handleClose(), setBtnlist('all')
-                                                        }}>Cancel</Button> */}
+
                                                         <Button className={styles.savebatnsot}
                                                             onClick={() => {
                                                                 tabChange(btnlistdata),
@@ -997,6 +1017,19 @@ const Home = (props) => {
                                                         }} className={btnlistdata == 'CustomPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
                                                     </div>
                                                 </div>
+                                                <div>
+                                                    <Button
+                                                        onClick={() => {
+                                                            setBtnlist('active')
+                                                        }} className={btnlistdata == 'active' ? styles.Customlistbtn : styles.nonelistbtn}>active</Button>
+                                                    <Button onClick={() => {
+                                                        setBtnlist('pause')
+                                                    }} className={btnlistdata == 'pause' ? styles.Customlistbtn : styles.nonelistbtn}>pause</Button>
+                                                    <Button onClick={() => {
+                                                        setBtnlist('exit')
+                                                    }} className={btnlistdata == 'exit' ? styles.Customlistbtn : styles.nonelistbtn}>exit</Button>
+                                                </div>
+
 
                                                 <div className={styles.divlistsivijan}></div>
                                             </Menu>
@@ -1018,7 +1051,7 @@ const Home = (props) => {
                                             onRequestSort={handleRequestSort}
                                             rowCount={datatebalpettan.length}
                                         />
-                                        <TableBody>
+                                        <TableBody className={styles.listtabalrowdat}>
                                             {stableSort(datatebalpettan, getComparator(order, orderBy))
                                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                 .map((row, index) => {
@@ -1084,7 +1117,7 @@ const Home = (props) => {
                                                             </TableCell>
 
                                                             <TableCell
-                                                            > {row.type_pattern =='CustomPattern'? 'Basic':'Custom'}</TableCell>
+                                                            > {row.type_pattern == 'CustomPattern' ? 'Custom' : 'Basic'}</TableCell>
                                                             <TableCell ><div className={styles.tabaldataicon}><CurrencyRupeeIcon className={styles.iconlistmrnu} /><Typography>{row.investment}</Typography></div></TableCell>
                                                             <TableCell className={row.profit <= 0 ? styles.maynascall : styles.palscalls}>
                                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CurrencyRupeeIcon />
@@ -1095,7 +1128,7 @@ const Home = (props) => {
                                                             <TableCell >{row.stock}</TableCell>
                                                             <TableCell >
                                                                 <Typography className={styles.dateone}>{
-                                                                    moment(row.created_at).format("D  MMM YYYY, h:mm:ss a")
+                                                                    moment(row.created_at).format("D  MMM YYYY h:mm a")
                                                                 } </Typography></TableCell>
                                                             {/* 
                                                         <TableCell>
@@ -1118,13 +1151,13 @@ const Home = (props) => {
                                                                                     if (row.type_pattern == "CustomPattern") {
                                                                                         router.push({
                                                                                             pathname: '/editCustom',
-                                                                                            query: { emailID: row.emailID },
+                                                                                            query: { emailID: row.id },
                                                                                             // query{ id: row.id },
                                                                                         });
                                                                                     } else {
                                                                                         router.push({
                                                                                             pathname: '/editpatt',
-                                                                                            query: { emailID: row.emailID },
+                                                                                            query: { emailID: row.id },
                                                                                         });
                                                                                     }
                                                                                 }

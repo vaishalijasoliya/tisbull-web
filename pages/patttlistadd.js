@@ -455,7 +455,7 @@ const AddPattern = (props) => {
             var totalStock = 0;
             if (patternArray.length > 0) {
                 for (let index = 0; index < patternArray.length; index++) {
-                    console.log(patternArray,'patternArraypatternArray');
+                    console.log(patternArray, 'patternArraypatternArray');
                     totalStock += patternArray[index].qty;
                 }
             }
@@ -465,7 +465,7 @@ const AddPattern = (props) => {
                     totalInvestment += patternArray[index].buyValue;
                 }
             }
-         
+
             var investmentWithCurrent = totalInvestment + buyValue;
             var sDisc = i - parseFloat(formik.values.currentPrice);
             var totalStockWithCurrent = totalStock + quantity;
@@ -487,10 +487,10 @@ const AddPattern = (props) => {
             if (patternStep.qty !== 0) {
                 patternArray.push(JSON.parse(JSON.stringify(patternStep)));
             }
-         
+
 
         }
-// console.log(Arr,'ArrArrArr');
+        // console.log(Arr,'ArrArrArr');
         console.log(formik.values.Initail, 'iniyalbur');
         var buyValueObj = patternArray.filter((item) => item.buyPrice == parseFloat(formik.values.currentPrice))
         if (buyValueObj.length > 0) {
@@ -578,6 +578,7 @@ const AddPattern = (props) => {
     console.log(patternItem.id, 'sjhhshss');
     const onLockPatternClick = async () => {
         var body = {
+
             "script": parseFloat(script.id),
             "limitOrder": level.id,
             "investment": parseFloat(formik.values.totalInvestment),
@@ -598,11 +599,14 @@ const AddPattern = (props) => {
             "pattern_data": patternList,
             "id_account": props.profile.userData.currentAccount.id,
             "pattern_type": patternItem.id,
-            'start_date':moment(startDate).format('YYYY-MM-DD'),
-            'end_date':moment(endDate).format('YYYY-MM-DD'),
 
         }
-
+        if (!!startDate) {
+            body.start_date = moment(startDate).format('YYYY-MM-DD')
+}
+        else if (!!endDate) {
+            body.end_date = moment(endDate).format('YYYY-MM-DD')
+}
         console.log('patternghgg', body)
         var headers = {
             "Content-Type": "application/json",
@@ -1123,7 +1127,7 @@ const AddPattern = (props) => {
                                         >
                                             <Typography className={styles.hedindrop33}>Order</Typography>
                                             <Typography className={styles.hedindrop33444}>If You Dont Have any idea ? Please make it Default.</Typography>
-                                            
+
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>
                                             <div style={{ display: "flex", paddingTop: '10px' }}>
@@ -1658,7 +1662,7 @@ const AddPattern = (props) => {
                             :
                             <Grid item md={12} className={styles.listgridkex23}>
                                 <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
-                                    {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == '' || formik.values.Stoploss > formik.values.Target ?
+                                    {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == '' ?
                                         <Button
                                             style={{ backgroundColor: '#009947', color: '#fff' }}
                                             // component="a"
