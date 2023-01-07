@@ -27,7 +27,7 @@ console.log(router.query.googleId,'gvvvvv');
     const [showPasswordicon, setShowPasswordicon] = useState("yes")
     // const router = useRouter();
     const client_id =
-        "233345635594-km0tlqqrv2difnjgovf2jn11sgg7117c.apps.googleusercontent.com";
+        "949794504345-8dqvbmr91d8e1ekfqnjjndu2qsiokvp2.apps.googleusercontent.com";
     const [showLoginButton, setLoginButton] = useState(true);
     const [showLogoutButton, setLogoutButton] = useState(false);
     const [elistdata, setElistdata] = useState([])

@@ -51,6 +51,7 @@ const Home = (props) => {
   // }
 
   const loginHandler = async (res) => {
+    console.log(res,'resres');
     var body = {
       social_id: res.Ca
     }
