@@ -356,7 +356,7 @@ console.log(datatebalpettan,'datatebalpettan');
   }
   const tabChange = (status) => {
     setReviewStatus(status);
-    if (status == "ALL") {
+    if (status == "pending") {
       setDatatebalpettan(pendingReviewList);
     } else if ( status == "cancelled" || status == "active") {
       setDatatebalpettan(approveReviewList);
@@ -831,7 +831,7 @@ console.log(datatebalpettan,'datatebalpettan');
                                           </div>
                                         </div>
                                         <div className={styles.oderidpopup2}><InputLabel>Type</InputLabel>
-                                          <Typography>{props.props.profile.userData.currentAccount.type}</Typography>
+                                          <Typography>{props.props.profile.userData.currentAccount.type == '' ?'null':props.props.profile.userData.currentAccount.type}</Typography>
                                         </div>
                                       </Box>
                                       <div className={styles.listbtnimpoo}>

@@ -1008,7 +1008,7 @@ const Home = (props) => {
                                                         <Button
                                                             onClick={() => {
                                                                 setBtnlist('all')
-                                                            }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>None</Button>
+                                                            }} className={btnlistdata == 'all' ? styles.Customlistbtn : styles.nonelistbtn}>All</Button>
                                                         <Button onClick={() => {
                                                             setBtnlist('BasicPattern')
                                                         }} className={btnlistdata == 'BasicPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Basic</Button>
@@ -1017,17 +1017,18 @@ const Home = (props) => {
                                                         }} className={btnlistdata == 'CustomPattern' ? styles.Customlistbtn : styles.nonelistbtn}>Custom</Button>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div className={styles.typetext}><Typography>Action</Typography></div>
+                                                    <div className={styles.listadarara}>
                                                     <Button
                                                         onClick={() => {
                                                             setBtnlist('active')
-                                                        }} className={btnlistdata == 'active' ? styles.Customlistbtn : styles.nonelistbtn}>active</Button>
+                                                        }} className={btnlistdata == 'active' ? styles.Customlistbtn : styles.nonelistbtn}>Play</Button>
                                                     <Button onClick={() => {
                                                         setBtnlist('pause')
-                                                    }} className={btnlistdata == 'pause' ? styles.Customlistbtn : styles.nonelistbtn}>pause</Button>
+                                                    }} className={btnlistdata == 'pause' ? styles.Customlistbtn : styles.nonelistbtn}>Pause</Button>
                                                     <Button onClick={() => {
                                                         setBtnlist('exit')
-                                                    }} className={btnlistdata == 'exit' ? styles.Customlistbtn : styles.nonelistbtn}>exit</Button>
+                                                    }} className={btnlistdata == 'exit' ? styles.Customlistbtn : styles.nonelistbtn}>Delete</Button>
                                                 </div>
 
 

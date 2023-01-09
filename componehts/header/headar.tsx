@@ -26,10 +26,10 @@ const main = () => {
     <>
 
       <Grid container>
-        <AppBar position="static">
+        <AppBar position="static" className={styles.listnewbarhedar}>
           <Container maxWidth="xl" className={styles.cantenar_list_caps}>
 
-            <Toolbar disableGutters>
+            <Toolbar disableGutters >
               <Grid item sm={6} md={4} xs={6}>
                 <a href='./'>
                   <div>
