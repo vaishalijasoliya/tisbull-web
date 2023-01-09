@@ -1133,9 +1133,7 @@ const AddPattern = (props) => {
                                             className={styles.listbackdda}
                                         >
                                             <Typography className={styles.hedindrop33}>Order</Typography>
-
-
-                                            <Typography className={styles.hedindrop33444}>If you don't have any idea? Please make it default !</Typography>
+                                            <Typography className={styles.hedindrop33444}>{`If you don't have any idea? Please make it default !`}</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className={styles.listaccsumahha}>
                                             <div style={{ display: "flex", paddingTop: '10px' }}>
