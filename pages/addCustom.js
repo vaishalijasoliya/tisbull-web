@@ -1503,7 +1503,7 @@ const AddCustomPattern = (props) => {
                                     {/* <Typography sx={{ fontWeight: 'bold', color: '#524ddc' }}>
                                                 Upload CSV
                                             </Typography> */}
-                                    <Typography className={styles.csvdolgsamp}>Download Sample CSV  </Typography>
+                            
 {/* 
                                     <Button
                                         className={styles.btnlistateg}
@@ -1520,7 +1520,7 @@ const AddCustomPattern = (props) => {
                                                 href={`data:text/csv;charset=utf-8,${escape(dataInCSV)}`}
                                                 download="sample_csv.csv"
                                             >
-
+        <Typography className={styles.csvdolgsamp}>Download Sample CSV  </Typography>
                                                 <img src='./Vector (22).svg' /></a>
                                                 )}
 
