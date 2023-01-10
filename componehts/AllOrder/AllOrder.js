@@ -685,6 +685,7 @@ console.log(datatebalpettan,'datatebalpettan');
                   onRequestSort={handleRequestSort}
                   rowCount={datatebalpettan.length}
                 /> */}
+                {datatebalpettan == '' ? '':
                 <TableBody className={styles.listtabalrowdat}>
                   {stableSort(datatebalpettan, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -861,8 +862,15 @@ console.log(datatebalpettan,'datatebalpettan');
                       <TableCell colSpan={6} />
                     </TableRow>
                   )}
-                </TableBody>
+                </TableBody>}
+                {/* {datatebalpettan == '' ?                              
+                                        <div className={styles.listdatamenulog}>
+                                    <img width={34} src="../../only logo.png" />
+                                    <Typography>No patterns has been created 
+in this accounts </Typography>
+                                </div> :
                                         <TableRow >
+        
                                             <TablePagination
                                                 className={styles.tablePagination}
                                                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
@@ -878,10 +886,25 @@ console.log(datatebalpettan,'datatebalpettan');
                                                 onPageChange={handleChangePage}
                                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                             />
-                                        </TableRow>
+                                        </TableRow>} */}
               </Table>
             </TableContainer>
-    
+            {datatebalpettan == '' ? <div className={styles.listdatamenulog}>
+                                    <img width={34} src="../../only logo.png" />
+                                    <Typography>No patterns has been created 
+in this accounts </Typography>
+                                </div> :
+                                    <TablePagination
+                                        rowsPerPageOptions={[7, 10, 25, 100]}
+                                        component="div"
+                                        className={styles.tablePagination}
+                                        count={datatebalpettan.length}
+                                        rowsPerPage={rowsPerPage}
+                                        page={page}
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
+                                    />
+                                }
           </Paper>
      
         </Box>

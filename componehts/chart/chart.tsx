@@ -1,4 +1,4 @@
-// import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
+import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
 import styles from './chart.module.scss'
 /* import TechnicalAnalysis, {
   THEMES,
@@ -9,7 +9,7 @@ export default function App() {
   return (
     <div className="App">
       <div className={styles.cartnamelist}>
-      {/* <AdvancedRealTimeChart theme="dark"></AdvancedRealTimeChart> */}
+      <AdvancedRealTimeChart theme="dark"></AdvancedRealTimeChart>
 
       </div>
     </div>

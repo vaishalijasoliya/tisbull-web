@@ -24,6 +24,7 @@ import ApiEndpoint from '../config/ApiEndpoint';
 import { Types } from '../constants/actionTypes'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { toast } from 'react-toastify';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 // import { connect } from 'react-redux';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -211,27 +212,35 @@ const ResponsiveAppBar = (props) => {
           ><KeyboardReturnIcon />Pattern</Button>
         </Grid>
         <div style={{ display: 'flex', alignItems: 'baseline' }}>
-          <Grid item sm={12} md={6} xs={12}>
+          <Grid item sm={12} md={9} xs={12}>
+          {!!scripDetails && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }} className={styles.listacyiso}>
+                                    {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px',display:'flex',alignItems:'center' }} sx={{ flexDirection: 'row' }}>
+                                    <Typography className={styles.typolistname}>   {router.query.namescoka}</Typography>
+                                      <Box style={{ display: 'flex',alignItems:'center' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                            {/* {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />} */}
+                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                        </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px',display:'flex',alignItems:'center' }}>
+                                        <Typography className={styles.typolistname}>   {router.query.namescoka}</Typography>
+                                       <Box style={{ display: 'flex',alignItems:'center' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
+                                       <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`${(parseFloat(scripDetails.open_price) - parseFloat(scripDetails.closing_price)).toFixed(2)}`}</Typography>
+                                            {/* {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />} */}
+                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
+                                        </Box>
+                                    </Box>}
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
 
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
+                                    {/* </Box> */}
+                                </Box>}
             <Box className={styles.flex}>
 
-              <Box className={styles.wid_1 + " " + styles.pad_12}>
-                {/* {value == 2 || value == 1 ? */}
-                {/* <Typography variant="h5" className={styles.typo}>
-
-                    {router.query.namescoka}
-                  </Typography>  */}
+              {/* <Box className={styles.wid_1 + " " + styles.pad_12}>
                 <Typography variant="h5" style={{ display: 'flex', alignItems: 'center' }} className={styles.typo}>
                   {router.query.namescoka}
-                  {/* <ArrowDropUpIcon
-                    fontSize={"large"}
-                    className={styles.dropup_icon}
-                  /> */}
                   {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowDropUpIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                  {/* <ArrowDropUpIcon */}
-                  {/* fontSize={"large"} */}
-                  {/* className={styles.dropup_icon} */}
-                  {/* /> */}
                   <span className={styles.span_1}>
                     {parseFloat(scripDetails.ltp).toFixed(2)}
                     {listless.ltp}
@@ -240,39 +249,16 @@ const ResponsiveAppBar = (props) => {
                     <Typography className={styles.difarandssa} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
 
                     {/* (0.66%) */}
-                  </span>
-                  {/* {((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />} */}
-                  {/* <span className={styles.span}> <Typography className={styles.listfonfl} sx={{ color: (((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography></span> */}
-                </Typography>
-                {/* { value == 2 ||value == 1 ? "ddd " : 'ddd' } */}
-                {/* { !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1, marginBottom: 3 }}>
-                                        <Box sx={{ flex: 1.3, flexDirection: 'row', display: 'flex' }}>
-                                            <Typography sx={{ color: '#524ddc' }}>Current: {parseFloat(scripDetails.ltp).toFixed(2)}</Typography>
-                                            {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />}
-                                            <Typography sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                        </Box>
-                                        <Typography sx={{ flex: 1, color: '#524ddc' }}>Open: {parseFloat(scripDetails.open_price).toFixed(2)}</Typography>
-                                        <Typography sx={{ flex: 1, color: '#524ddc' }}>High: {parseFloat(scripDetails.high_price).toFixed(2)}</Typography>
-                                        <Typography sx={{ flex: 1, color: '#524ddc' }}>Low: {parseFloat(scripDetails.low_price).toFixed(2)}</Typography>
-                                        <Typography sx={{ flex: 1, color: '#524ddc' }}>Prev. Close: {parseFloat(scripDetails.closing_price).toFixed(2)}</Typography>
-                                    </Box>} */}
-                {/* {value == 2 || value == 1 ? */}
-                {/* <Typography variant="h5" className={styles.typo}> */}
+                  {/* </span> */}
+                {/* </Typography> */}
+                {/* <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box> */}
 
-                {/* {router.query.namescoka} */}
-                {/* </Typography> : <Typography variant="h5" style={{ display: 'flex', alignItems: 'center' }} className={styles.typo}> */}
+{/* <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box> */}
 
-                {/* <ArrowDropUpIcon */}
-                {/* fontSize={"large"} */}
-                {/* className={styles.dropup_icon} */}
-                {/* /> */}
-                {/* <span className={styles.span_1}> */}
-                {/* {listless.ltp} */}
-                {/* </span> */}
-                {/* {((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price) > 0 ? <ArrowDropUpIcon sx={{ marginLeft: 0.5, color: '#00b8a6' }} /> : <ArrowDropDownIcon sx={{ marginLeft: 0.5, color: '#c21717' }} />} */}
-                {/* <span className={styles.span}> <Typography className={styles.listfonfl} sx={{ color: (((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)) > 0 ? '#00b8a6' : '#c21717' }}>{`(${(((parseFloat(listless.ltp) - parseFloat(listless.closing_price)) * 100) / parseFloat(listless.closing_price)).toFixed(2)}%)`}</Typography></span> */}
-                {/* </Typography>} */}
-              </Box>
+{/* <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box> */}
+{/* <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box> */}
+            
+              {/* </Box> */} 
 
               <Box
                 className={
@@ -289,7 +275,7 @@ const ResponsiveAppBar = (props) => {
             </Box>
             {/* </Box> */}
           </Grid>
-          <Grid item sm={12} md={6} xs={12} className={styles.listdatabox} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
+          <Grid item sm={12} md={3} xs={12} className={styles.listdatabox} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
 
             <Button onClick={() => {
               router.push({
