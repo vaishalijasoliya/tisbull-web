@@ -105,73 +105,28 @@ const AddCustomPattern = (props) => {
     const [listsummri, setLISTdatasumm] = useState("")
     const [selectedValue, setSelectedValue] = React.useState('a');
     console.log(selectedValue, 'selectedValue');
-    const [userJSON, setUserJSON] = useState()
+    const [userJSON, setUserJSON] = useState([])
     const [uploadedCSV, setUploadedCSV] = useState(null)
     const [currentPriceindex, setcurrentPriceindex] = useState(0)
-    console.log(userJSON, 'userJSON');
+    // console.log(result, 'userJSON');
+
     const handleCSVUpload = file => {
         Papa.parse(file, {
             header: true,
             complete: results => {
+                console.log(results.data, 'dfgfgfdg');
+                // var userJSON = userJSON.find(item => item.buyPrice === '');
+
+                // console.log(result,'dfrtfdtftfd');
+                // element.buyPrice
+                // if (results.data === '') {
+                //     break;
+                //   }
                 setUserJSON(results.data)
                 setListcsvdsts(results.data)
             },
         });
     };
-    // const handleCSVSubmit = (e) => {
-    //     e.preventDefault()
-
-    //     Papa.parse(uploadedCSV, {
-    //         header: true,
-    //         complete: (results) => {
-    //             console.log({ results })
-    //             setUserJSON(results.data)
-    //         },
-    //     })
-    // }
-    // const fileReader = new FileReader();
-
-    // const handleCSVUpload = file => {
-    //     Papa.parse(file, {
-    //         header: true,
-    //         complete: results => {
-    //             setUserJSON(results.data)
-    //         },
-    //     });
-    // };
-    // const csvFileToArray = string => {
-    //     const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
-    //     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-
-    //     const array = csvRows.map(i => {
-    //       const values = i.split(",");
-    //       const obj = csvHeader.reduce((object, header, index) => {
-    //         object[header] = values[index];
-    //         return object;
-    //       }, {});
-    //       return obj;
-    //     });
-
-    //     setUserJSON(array);
-    //   };
-    //   const handleOnSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     if (userJSON) {
-    //       fileReader.onload = function (event) {
-    //         const text = event.target.result;
-    //         csvFileToArray(text);
-    //       };
-
-    //       fileReader.readAsText(userJSON);
-    //     }
-    //   };
-    // const headerKeys = Object.keys(Object.assign({}, ...userJSON));
-
-    // const handleCSVUpload = (e) => {
-    //     // console.log(e.target.files[0])
-    //     setUploadedCSV(e)
-    // }
     const handleChangemejej = (event) => {
         setSelectedValue(event.target.value);
     };
@@ -208,8 +163,7 @@ const AddCustomPattern = (props) => {
 
     const handleSkip = () => {
         if (!isStepOptional(activeStep)) {
-            // You probably want to guard against something like this,
-            // it should never occur unless someone's actively trying to break something.
+        
             throw new Error("You can't skip a step that isn't optional.");
         }
 
@@ -255,14 +209,6 @@ const AddCustomPattern = (props) => {
             label: 'Basic Pattern',
             id: 'BasicPattern'
         },
-        /* {
-            label: 'Magic Pattern',
-            id: 'MagicPattern'
-        },
-        {
-            label: 'Pyramid Pattern',
-            id: 'PyramidPattern'
-        } */
     ]);
     const [listinnewdata, setLiatstgs] = useState('')
 
@@ -485,24 +431,29 @@ const AddCustomPattern = (props) => {
         const Current_price = [];
 
         if (selectedValue == 'CSV') {
-            // if (!!selectedValue) {
-            // const csvdata=''
-            // console.log(csvdata, 'rarrarrarra');
-            userJSON.forEach(function (value, i) {
-                if (value.enter == 1) {
-                    // console.log('listdatavakr', i, value);
-                }
-            });
+            // userJSON.forEach(function (value, i) {
+            //     if (value.enter == 1) {
+            //     }
+            // });
             for (let index = 0; index < userJSON.length; index++) {
                 const element = userJSON[index];
-                // csvdata.push(index)
-
-                //    PatternPreviewTable.push(obj)
-                // console.log('listdatavakr', index+formik.values.Initail, element);
+                // const object = {
+                //     buyPrice: element.buyPrice,
+               
                 // }
+                if(element.buyPrice == ''){
+                    break;
+                }
+                if(element.sellPrice == ''){
+                    break;
+                }
+                if(element.buy_qty == ''){
+                    break;
+                }
+                if(element.sell_qty == ''){
+                    break;
+                }
                 if (element.enter == 1) {
-                    // console.log(element, 'ELEMENT_________');
-
                     const obj = {
                         Price: element.buyPrice,
                     };
@@ -524,7 +475,6 @@ const AddCustomPattern = (props) => {
                 PatterObjectArray.push(PatternObject);
             }
 
-            // console.log(PatterObjectArray, 'PATTERN__OBJECT__ARRAY');
 
             console.log(PatternPreviewTable, 'PATTERN____PREVIEW');
             // }
@@ -534,7 +484,10 @@ const AddCustomPattern = (props) => {
                 if (!!patternDataArray.length > 0) {
                     for (let index = 0; index < patternDataArray.length; index++) {
                         const element = patternDataArray[index];
+                      
+                       if(element.buyPrice == ''){
                         console.log(element, 'ELEMENT>>>>>>');
+                       }
                         const bodyObject = {
                             buyPrice: parseFloat(element.buy),
                             sellPrice: parseFloat(element.sell),
@@ -557,10 +510,8 @@ const AddCustomPattern = (props) => {
                     }
                 }
             }
-            // console.log(PatternCreate, 'PATTERN__CREATE__DATA');
         }
 
-        // console.log(Current_price[0].Price, 'IS_____CURRENT____PRICE');
         const PatternPriceData = [];
 
         if (!!PatterObjectArray) {
@@ -630,13 +581,6 @@ const AddCustomPattern = (props) => {
                 totalStockWithCurrent += buy_qty;
                 stockQty += buy_qty;
 
-                // const lastItem = TotalinvestArray[TotalinvestArray.length - 1];
-
-                // console.log(
-                //   'TOTAL____INVEST',
-                //   lastItem,
-                //   // buy_qty,
-                // );
                 if(carantpirsh == 1){
                     greenrow++;
 

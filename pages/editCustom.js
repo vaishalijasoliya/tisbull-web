@@ -108,7 +108,6 @@ const AddCustomPattern = (props) => {
     console.log(selectedValue, 'selectedValue');
     const [userJSON, setUserJSON] = useState()
     const [uploadedCSV, setUploadedCSV] = useState(null)
-    console.log(userJSON, 'userJSON');
     const handleCSVUpload = file => {
         Papa.parse(file, {
             header: true,
@@ -440,6 +439,18 @@ const AddCustomPattern = (props) => {
                 const element = userJSON[index];
 
                 console.log(element, 'rarrarrarra');
+                if(element.buyPrice == ''){
+                    break;
+                }
+                if(element.sellPrice == ''){
+                    break;
+                }
+                if(element.buy_qty == ''){
+                    break;
+                }
+                if(element.sell_qty == ''){
+                    break;
+                }
                 if (element.enter == 1) {
                     console.log(element, 'ELEMENT_________');
 
