@@ -30,7 +30,7 @@ import * as Yup from 'yup';
 import { DatePicker, DesktopDatePicker } from '@mui/lab';
 import Newbar from '../componehts/newbar/newbarlist';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import React, { useState, useEffect } from 'react';
 import ApiServices from '../config/ApiServices';
 import ApiEndpoint from '../config/ApiEndpoint';
@@ -47,7 +47,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import moment from 'moment';
-
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 let stockInterval = null;
 
@@ -66,7 +66,7 @@ const AddPattern = (props) => {
     const [endDate, setEndDate] = useState('');
     const [filterScripList, setFilterScripList] = useState([]);
     const [defaultScripList, setDefaultScripList] = useState([]);
-    const [scripDetails, setScripDetails] = useState('');
+    const [scripDetails, setScripDetails] = useState([]);
     const [isLockPatternDialog, setLockPattern] = useState(false);
     const [levelError, setLevelError] = useState(false);
     const [currentPriceError, setCurrentPriceError] = useState(false)
@@ -74,9 +74,26 @@ const AddPattern = (props) => {
     const [listfiltar, setFilatlist] = useState('')
     const [listnone, setListnone] = useState('')
     const [tabaldatalist, setTebaldatalist] = useState('')
+    // const [patternError, setPatternError] = useState(false);
 
     const [listsummri, setLISTdatasumm] = useState("")
-    console.log(endDate, 'listfiltar');
+
+    const edituser = () => {
+        if(formik.values.maxRange == ''){
+
+        }else{
+            if (formik.values.minRange > formik.values.maxRange) {
+                setIsOutField(false)
+            }
+            else {
+                setIsOutField(true)
+                // onLoginPress()
+    
+            }
+        }
+        
+    }
+    console.log(scripDetails, 'scripDetails');
     const [level, setLevel] = useState({
         label: '3',
         id: '3'
@@ -140,6 +157,8 @@ const AddPattern = (props) => {
     const [patternError, setPatternError] = useState(false);
     const [listarrobj, setListidzero] = useState([])
     const router = useRouter();
+    const [isoutField, setIsOutField] = useState(true);
+
     console.log(listarrobj, 'listarrobSXSj');
     let isView = false;
     let serverData = {}
@@ -472,6 +491,7 @@ const AddPattern = (props) => {
         }
         var totalStep = buyArray.length;
         var patternArray = [];
+        let greenrow = 0;
         for (var i = parseFloat(formik.values.maxRange); i >= parseFloat(formik.values.minRange); tickSize == 'fix' ? i = parseFloat((i - parseFloat(formik.values.buyPrice)).toFixed(2)) : i = parseFloat((i - ((i * parseFloat(formik.values.buyPrice)) / 100)).toFixed(2))) {
             var buyValue = 0;
             var quantity = 0;
@@ -505,6 +525,18 @@ const AddPattern = (props) => {
             var sDisc = i - parseFloat(formik.values.currentPrice);
             var totalStockWithCurrent = totalStock + quantity;
             var avgPrice = investmentWithCurrent / totalStockWithCurrent
+            if(formik.values.currentPrice == i){
+                greenrow++;
+                // console.log(greenrow,'greenrowgreenrow');
+            }
+            let greenclass =styles.listcolonone;
+            console.log(patternArray.buyValue, '(formik.values.Initail')
+            if(greenrow >=1 && greenrow <= (parseInt(formik.values.Initail) ) ){
+                greenclass =styles.listcolorhovar;
+                greenrow++;
+            }else{
+                styles.listcolonone;
+            }
             var patternStep = {
                 'step': patternArray.length + 1,
                 'buyPrice': parseFloat(i.toFixed(2)),
@@ -516,7 +548,8 @@ const AddPattern = (props) => {
                 'stock': totalStockWithCurrent.toFixed(2),
                 'investment': parseFloat(investmentWithCurrent.toFixed(2)),
                 'sDisc': sDisc > 0 ? sDisc.toFixed(2) : 0,
-                'avg': (avgPrice / lotsize).toFixed(2)
+                'avg': (avgPrice / lotsize).toFixed(2),
+                'greenclass': greenclass
             }
             if (patternStep.qty !== 0) {
                 patternArray.push(JSON.parse(JSON.stringify(patternStep)));
@@ -687,10 +720,13 @@ const AddPattern = (props) => {
         }
         console.log(body, 'ajhha');
         var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
-        console.log(stockPrice, 'stockPrice');
-        if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0) {
-            console.log('stockPrice', stockPrice)
-            setScripDetails(stockPrice.success[0])
+        // console.log(stockPrice, 'stockPrice');
+        console.log('stockPrice', stockPrice)
+        if (stockPrice == false) {
+          
+            
+        }else{
+            setScripDetails(stockPrice)
         }
     }
 
@@ -713,1039 +749,1011 @@ const AddPattern = (props) => {
                 </Grid>
                 <Grid item md={12} className={styles.listgrifmaen}>
                
-                <Container maxWidth={false} className={styles.conterdata}>
-                <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
-            onClick={() => {
-              router.push({
-                pathname: './pattanlist',
-                // query: { emailID: row.id,namescoka:row.script }
-              });
-            }}
+                <Container maxWidth={false}  className={styles.conterdata}>
 
-          ><KeyboardReturnIcon />Patterns</Button>
-                    <Box sx={{ }}>
-                        <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
-                            <CardContent className={styles.listcocntenatdata}>
-                                {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-                                    {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
-                                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                            {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                        </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
-                                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                            {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                            <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                        </Box>
-                                    </Box>}
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
+<Box sx={{ mt: 3, mb: 3 }}>
+    <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
+        <CardContent>
+            {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                {scripDetails.perc >= 0 ?
+                    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                        <div className={styles.listprish}>
+                            <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                            <ArrowDropUpIcon sx={{ color: '#009947' }} />
+                            <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                            <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                        </div>
+                    </Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+                    :
+                    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                        <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                        <div className={styles.listprishred}>
+                            <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                            <ArrowDropDownIcon sx={{ color: '#E31E24' }} />
+                            <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                            <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                        </div>
+                    </Box>}
+                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
-                                    {/* </Box> */}
-                                </Box>}
-                                <div className={styles.listtypogst}>
-                                    <Typography>GENERAL</Typography>
-                                </div>
-                                {/* <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
-                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
-                                        {!router.query.scripType && <Box sx={{ flex: 1 }}>
-                                            <Autocomplete
-                                                sx={{ flex: 1, paddingRight: 1 }}
-                                                fullWidth
-                                                disablePortal={false}
-                                                options={scripType}
-                                                name="scriptype"
-                                                value={scripItem}
-                                                onChange={(event, value, reason, details) => {
-                                                    console.log(value.id, 'valuevalue',);
-                                                    // setLotSize(1)
-                                                    setScripItemError(false)
-                                                    if (value.id != 'none' || value.id != '') {
-                                                        setScripItem(value)
-                                                    }
-                                                    //setScripItem(value)
-                                                    if (!!value && !!value.id) {
-                                                        console.log(value.id, 'script is here')
-                                                        setScript('')
-                                                        getScirp(value.id)
+                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
 
-                                                    }
-                                                    if (value == 'none' || value == '') {
-                                                        setScripItem('')
-                                                    }
-                                                }}
-                                                renderInput={(params) => <TextField {...params}
-                                                    onChange={(text) => {
-                                                        filterScrip(text)
-                                                    }}
-                                                    error={scripItemError}
-                                                    helperText={scripItemError ? 'Scrip type is required' : undefined}
-                                                    label={'Scrip type'} />}
-                                            />
-                                        </Box>}
-                                    </Box>
+                <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
+                <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
+                {/* </Box> */}
+            </Box>}
+            <form onSubmit={formik.handleSubmit}>
+                <div className={styles.listtypogst}>
+                    <Typography>GENERAL</Typography>
+                </div>
 
-                                </Box> */}
-                                <div style={{ display: "flex", width: "100%" }} >
-                                    {/* <div> */}
-                                    <Grid item md={4}>
-                                        <Box sx={{ flex: 2, padding: '10px 0px 0px 0px' }}>
-                                            <Typography className={styles.typofonty}>Script</Typography>
-                                            <Autocomplete
-                                                sx={{ flex: 1, }}
-                                                fullWidth
-                                                disablePortal={false}
-                                                options={filterScripList}
-                                                name="script"
-                                                value={script}
-                                                onChange={(event, value, reason, details) => {
-                                                    // filterScriplist()
-                                                    if (!!value) {
-                                                        if (!!stockInterval) {
-                                                            clearInterval(stockInterval)
-                                                        }
-                                                        var script = {
-                                                            id: value.id,
-                                                            script: value.label
-                                                        }
-                                                        getScripPrice(script)
-                                                        setLotSize(parseFloat(value.lotSize))
-                                                        stockInterval = setInterval(() => {
-                                                            getScripPrice(value.id)
-                                                        }, 3000);
-                                                    } else {
-                                                        if (!!stockInterval) {
-                                                            clearInterval(stockInterval)
-                                                        }
-                                                    }
-                                                    setScriptError(false)
-                                                    setScript(value)
-                                                }}
-                                                onClose={(event, reason) => {
-                                                    setFilterScripList(defaultScripList)
-                                                }}
-                                                renderInput={(params) => <TextField  {...params}
-                                                    onChange={(text) => {
-                                                        console.log(text.target.value, 'jjahhahha')
-                                                        setFilatlist(text.target.value)
-                                                        filterScrip(text.target.value)
-                                                        filterScriplist(text.target.value)
-
-
-
-
-                                                    }}
-                                                    className={styles.listtextfils22}
-                                                    error={scriptError}
-                                                    helperText={scriptError ? 'Scrip is required' : undefined}
-                                                // label={scripLable} 
-
-                                                />}
-                                            />
-                                        </Box>
-                                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', paddingLeft: 0 }}>
-                                            <Box sx={{ flex: 1, padding: '10px 0px 0px 0px' }}>
-                                                <Typography className={styles.typofonty}>Investment</Typography>
-                                                <TextField
-                                                    className={styles.listtextfils}
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.totalInvestment && formik.errors.totalInvestment)}
-                                                    fullWidth
-                                                    helperText={formik.touched.totalInvestment && formik.errors.totalInvestment}
-                                                    // label="Total Investment"
-                                                    margin="normal"
-                                                    type="number"
-                                                    name="totalInvestment"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.totalInvestment}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-
-                                        </Box>
-                                    </Grid>
-
-                                    <Grid item md={4} style={{ padding: "0px 0px 0px 20px" }}>
-                                        <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
-                                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
-                                                <Box sx={{ flex: 1, padding: '10px 20px 0px 0px' }}>
-                                                    <Typography className={styles.typofonty}>Entry Limit</Typography>
-                                                    <TextField
-                                                        sx={{ flex: 1 }}
-                                                        error={Boolean(formik.touched.minRange && formik.errors.minRange)}
-                                                        fullWidth
-                                                        helperText={formik.touched.minRange && formik.errors.minRange}
-                                                        // label="Min Range"
-                                                        className={styles.listtextfils}
-                                                        margin="normal"
-                                                        type="number"
-                                                        name="minRange"
-                                                        onBlur={formik.handleBlur}
-                                                        onChange={(value) => {
-                                                            let text = value.target.value;
-                                                            formik.setFieldValue('minRange', text)
-                                                            getBuyArray(text, formik.values.maxRange, formik.values.buyPrice)
-                                                        }}
-                                                        value={formik.values.minRange}
-                                                        variant="outlined"
-                                                    />
-                                                </Box>
-                                                <Box sx={{ flex: 1, padding: '10px 0px 0px 0px' }}>
-                                                    <Typography className={styles.typofonty}>Exit Limit</Typography>
-                                                    <TextField
-                                                        sx={{ flex: 1 }}
-                                                        error={Boolean(formik.touched.maxRange && formik.errors.maxRange)}
-                                                        fullWidth
-                                                        helperText={formik.touched.maxRange && formik.errors.maxRange}
-                                                        // label="Max Range"
-                                                        margin="normal"
-                                                        className={styles.listtextfils}
-                                                        type="number"
-                                                        name="maxRange"
-                                                        onChange={(value) => {
-                                                            let text = value.target.value;
-                                                            formik.setFieldValue('maxRange', text)
-                                                            getBuyArray(formik.values.minRange, text, formik.values.buyPrice)
-                                                        }}
-                                                        onBlur={formik.handleBlur}
-                                                        value={formik.values.maxRange}
-                                                        variant="outlined"
-                                                    />
-                                                </Box>
-                                            </Box>
-
-                                        </Box>
-                                        {/* </Grid> */}
-                                        {/* <Grid item md={4}> */}
-                                        <div style={{ display: 'flex', alignItems: 'center', padding: '17px 0px 0px 0px' }}>
-                                            {/* <Grid item md={2} > */}
-
-                                            <Typography className={styles.typofonty}>Tick Size</Typography>
-                                            {/* </Grid> */}
-                                            {/* <Grid item md={2} > */}
-                                            <Box sx={{ flex: 1, paddingLeft: 2, display: "flex", justifyContent: 'end' }}>
-
-                                                <RadioGroup
-                                                    sx={{ flexDirection: 'row', display: 'flex', }}
-                                                    name="use-radio-group"
-                                                    margin='none'
-                                                    onChange={async (event, value) => {
-                                                        setTickSize(value)
-                                                        getBuyArray(formik.values.minRange, formik.values.maxRange, formik.values.buyPrice, value)
-                                                    }}
-                                                    defaultValue={tickSize}>
-                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                        <FormControlLabel value="fix" style={{ marginRight: '0px' }} control={<Radio style={{ color: "#05315A" }} />} />
-                                                        <Typography className={styles.typofonty} style={{ padding: "0px 8px 0px 0px" }}>FIX</Typography>
-                                                    </div>
-                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                        <FormControlLabel style={{ marginRight: '0px', }} value="%" control={<Radio style={{ color: "#05315A" }} className={styles.radiyobtnlist} />} />
-                                                        <Typography className={styles.typofonty} >Pecentage</Typography>
-                                                    </div>
-
-                                                </RadioGroup>
-                                            </Box>
-                                            {/* </Grid> */}
-                                        </div>
-                                    </Grid>
-                                    {/* </div> */}
-                                    {/* <div> */}
-                                    <Grid item md={4} style={{ padding: "0px 0px 0px 20px" }}>
-                                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                            <Box sx={{ flex: 1, padding: "0px 20px 0px 0px" }}>
-                                                <Typography className={styles.typofonty}>Buy Difference</Typography>
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.buyPrice && formik.errors.buyPrice)}
-                                                    fullWidth
-                                                    helperText={formik.touched.buyPrice && formik.errors.buyPrice}
-                                                    // label="Buy"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    margin="normal"
-                                                    name="buyPrice"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={(value) => {
-                                                        let text = value.target.value;
-                                                        formik.setFieldValue('buyPrice', text)
-                                                        if (parseFloat(text) > 0) {
-                                                            getBuyArray(formik.values.minRange, formik.values.maxRange, text)
-                                                        } else {
-                                                            setBuyArray([])
-                                                        }
-                                                    }}
-                                                    value={formik.values.buyPrice}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-                                            <Box sx={{ flex: 1 }}>
-                                                <Typography className={styles.typofonty}>Sell Difference</Typography>
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    error={Boolean(formik.touched.sellPrice && formik.errors.sellPrice)}
-                                                    fullWidth
-                                                    helperText={formik.touched.sellPrice && formik.errors.sellPrice}
-                                                    // label="Sell"
-                                                    margin="normal"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    name="sellPrice"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.sellPrice}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-
-                                        </Box>
-
-                                        <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
-
-                                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
-                                                <Box sx={{ flex: 1 }}>
-                                                    <Typography className={styles.typofonty}>Select Current Price</Typography>
-                                                    <Autocomplete
-                                                        sx={{ flex: 1, }}
-                                                        fullWidth
-                                                        disablePortal={false}
-                                                        options={buyArray}
-                                                        className={styles.listtextfils22}
-                                                        name="currentPrice"
-                                                        value={formik.values.currentPrice}
-                                                        onChange={(event, value, reason, details) => {
-                                                            setCurrentPriceError(false)
-                                                            formik.setFieldValue('currentPrice', value)
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params}
-                                                            error={currentPriceError}
-                                                            onBlur={formik.handleBlur}
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.currentPrice}
-                                                            helperText={currentPriceError ? 'currentPrice is required' : undefined}
-                                                        />}
-                                                    />
-                                                </Box>
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-                                    {/* // </div> */}
-                                </div>
-                                {/* </Box> */}
-                                {/* </Grid> */}
-                                {/* <Grid item md={12}> */}
-                                {/* <div> */}
-
-                                {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                <Box sx={{ flex: 1, paddingRight: 0.5 }}> */}
-                                <Typography className={styles.hedindrop}>Advanced</Typography>
-
-
-                                <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
-                                    <Grid item md={4}>
-                                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                            <Box sx={{ flex: 1 }}>
-                                                <Typography className={styles.typofonty}>Stoploss</Typography>
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    // error={Boolean(formik.touched.Stoploss && formik.errors.Stoploss)}
-                                                    fullWidth
-                                                    // helperText={formik.touched.Stoploss && formik.errors.Stoploss}
-                                                    // label="Buy"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    margin="normal"
-                                                    name="Stoploss"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-
-                                                    value={formik.values.Stoploss}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-                                            <Box sx={{ flex: 1, paddingLeft: '20px' }}>
-
-                                                <Typography className={styles.typofonty}>Target</Typography>
-
-                                                <TextField
-                                                    sx={{ flex: 1 }}
-                                                    // error={Boolean(formik.touched.Target && formik.errors.Target)}
-                                                    fullWidth
-                                                    // helperText={formik.touched.Target && formik.errors.Target}
-                                                    // label="Sell"
-                                                    margin="normal"
-                                                    type="number"
-                                                    className={styles.listtextfils}
-                                                    name="Target"
-                                                    onBlur={formik.handleBlur}
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.Target}
-                                                    variant="outlined"
-                                                />
-                                            </Box>
-
-                                        </Box>
-                                    </Grid>
-                                    <Grid item md={8} >
-                                        <Box
-                                            style={{ display: 'flex', padding: '5px 0px 0px 20px' }}
-                                        >
-                                            <Box style={{ padding: '0px 16px 0px 0px', width: '50%' }}>
-                                                <Typography className={styles.typofonty}>Start date</Typography>
-
-
-                                                <DatePickerll
-                                                    fullWidth
-                                                    sx={{ flex: 1 }}
-                                                    className={styles.listdatepikar}
-                                                    selected={startDate}
-                                                    onChange={(date) => setStartDate(date)}
-                                                    selectsStart
-                                                    startDate={startDate}
-                                                    endDate={endDate}
-                                                    caretAs={calenderIcon}
-                                                />
-                                            </Box>
-                                            <Box style={{ padding: '0px 0px 0px 10px', width: '50%' }}>
-                                                <Typography className={styles.typofonty}>End date</Typography>
-                                                <DatePickerll
-                                                    className={styles.listdatepikar}
-                                                    selected={endDate}
-                                                    onChange={(date) => setEndDate(date)}
-                                                    selectsEnd
-                                                    startDate={startDate}
-                                                    endDate={endDate}
-                                                    minDate={startDate}
-                                                    caretAs={calenderIcon}
-                                                />
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-                                </div>
-                                <div>
-                                    <Accordion className={styles.acclistloddop}>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                            className={styles.listbackdda}
-                                        >
-                                            <Typography className={styles.hedindrop33}>Order</Typography>
-                                            <Typography className={styles.hedindrop33444}>{`If you don't have any idea? Please make it default !`}</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails className={styles.listaccsumahha}>
-                                            <div style={{ display: "flex", paddingTop: '10px' }}>
-                                                <Grid item md={4} >
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                        <Box sx={{ flex: 1 }}>
-                                                            <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.Initail && formik.errors.Initail)}
-                                                                fullWidth
-                                                                helperText={formik.touched.Initail && formik.errors.Initail}
-                                                                // label="Buy"
-                                                                type="number"
-                                                                className={styles.listtextfils2233}
-                                                                margin="normal"
-                                                                name="Initail"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-
-                                                                value={formik.values.Initail}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-
-
-                                                    </Box>
-                                                </Grid>
-                                                <Grid item md={4} style={{ padding: '0px 0px 0px 20px' }}>
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
-                                                        <Box sx={{ flex: 1, paddingRight: '20px' }}>
-                                                            <Typography className={styles.typofonty}>AMO Buy Down Steps</Typography>
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.BuySteps && formik.errors.BuySteps)}
-                                                                fullWidth
-                                                                helperText={formik.touched.BuySteps && formik.errors.BuySteps}
-                                                                // label="Buy"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                margin="normal"
-                                                                name="BuySteps"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-
-                                                                value={formik.values.BuySteps}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-                                                        <Box sx={{ flex: 1, }}>
-
-                                                            <Typography className={styles.typofonty}>AMO Sell UP Steps</Typography>
-
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.SellSteps && formik.errors.SellSteps)}
-                                                                fullWidth
-                                                                helperText={formik.touched.SellSteps && formik.errors.SellSteps}
-                                                                // label="Sell"
-                                                                margin="normal"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                name="SellSteps"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-                                                                value={formik.values.SellSteps}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-
-                                                    </Box>
-                                                </Grid>
-                                                <Grid item md={4} >
-                                                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 20px" }}>
-                                                        <Box sx={{ flex: 1, paddingRight: '20px' }}>
-                                                            <Typography className={styles.typofonty}>Normal Buy Down Steps</Typography>
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.NormalBuy && formik.errors.NormalBuy)}
-                                                                // fullWidth
-                                                                helperText={formik.touched.NormalBuy && formik.errors.NormalBuy}
-                                                                // label="Buy"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                margin="normal"
-                                                                name="NormalBuy"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-
-                                                                value={formik.values.NormalBuy}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-                                                        <Box sx={{ flex: 1, }}>
-
-                                                            <Typography className={styles.typofonty}>Normal Sell UP Steps</Typography>
-
-                                                            <TextField
-                                                                sx={{ flex: 1 }}
-                                                                error={Boolean(formik.touched.NormalSell && formik.errors.NormalSell)}
-                                                                // fullWidth
-                                                                helperText={formik.touched.NormalSell && formik.errors.NormalSell}
-                                                                // label="Sell"
-                                                                margin="normal"
-                                                                type="number"
-                                                                className={styles.listtextfils}
-                                                                name="NormalSell"
-                                                                onBlur={formik.handleBlur}
-                                                                onChange={formik.handleChange}
-                                                                value={formik.values.NormalSell}
-                                                                variant="outlined"
-                                                            />
-                                                        </Box>
-
-                                                    </Box>
-                                                </Grid>
-                                            </div>
-
-                                        </AccordionDetails>
-                                    </Accordion>
-                                </div>
-                            </CardContent>
-                        </Card>
-                        {/* < */}
-                        {listsummri == 'addsumari' ?
-                            <>
-                                <Card className={listinnewdata == 'gsdgfgdffd' ? styles.listcentenar : styles.bolkdatat} >
-                                    {/* <PerfectScrollbar> */}
-
-                                    <Grid item sm={12} md={12} xs={12}>
-
-                                        {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
-                                        <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
-                                            <div style={{ padding: '30px 0px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Summary</Typography>
-                                            </div>
-                                        </div>
-                                    </Grid>
-                                    <Box style={{ display: 'flex' }}>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
-
-                                            <div style={{ padding: '0px 40px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Script</Typography>
-                                                <div style={{ display: 'flex' }}>
-                                                    <Typography
-                                                        // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
-                                                        style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
-                                                        {scripDetails.stk_name}
-                                                        {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
-                                                    </Typography>
-                                                    <div style={{ padding: '0px 0px 0px 25px' }}>
-                                                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Type</Typography>
-                                                <Typography className={styles.peregarflist44} >{patternItem.id}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 30px' }}>
-
-                                            <div style={{ padding: '0px 40px 0px 40px' }}>
-                                                <Typography className={styles.peregarflist33} >Entry LIMIT</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.minRange}
-                                                    {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
-                                                </Typography>
-                                            </div>
-                                            <div style={{ padding: '0px 4px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Exit LIMIT</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.maxRange}
-                                                    {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
-                                                </Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 15px' }}>
-
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Buy Diffrerance</Typography>
-                                                <Typography 
-                                                style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}
-                                                // className={styles.peregarflist44}
-                                                 >
-                                                    {formik.values.buyPrice}
-                                                    {/* {props.data.stock == null ? '-':props.data.stock } */}
-                                                </Typography>
-                                            </div>
-                                            <div style={{ padding: '0px 40px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33}>Sell Diffrerance</Typography>
-                                                <Typography
-                                                    // className={props.data.profit >=0 ? styles.peregarflistlist:styles.redline}
-                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>
-                                                    {formik.values.sellPrice}
-                                                    {/* {props.data.profit == null ? '-' :props.data.profit} */}
-                                                </Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={2} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
-
-                                            <div style={{ padding: '0px 25px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33}>Enter Point</Typography>
-                                                <Typography className={styles.peregarflist44} >{formik.values.currentPrice}</Typography>
-                                            </div>
-                                            <div style={{ padding: '0px 40px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33}>Tick Type</Typography>
-                                                <Typography className={styles.peregarflist44} >{tickSize}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={1} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33}>Investment</Typography>
-                                                <Typography className={styles.peregarflist44} >{formik.values.totalInvestment}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
-                                    </Box>
-                                    <Grid item sm={12} md={12} xs={12}>
-
-                                        <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
-                                        <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
-                                            <div style={{ padding: '30px 0px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Advanced</Typography>
-                                            </div>
-                                        </div>
-                                    </Grid>
-                                    <Box style={{ display: 'flex' }}>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
-
-                                            <div style={{ padding: '0px 60px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Target</Typography>
-                                                {/* <div style={{display:'flex'}}> */}
-                                                <Typography
-                                                    // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
-                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
-                                                    {formik.values.Target == '' ? '-' : formik.values.Target}
-                                                    {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
-                                                </Typography>
-                                                {/* <div style={{ padding: '0px 0px 0px 25px' }}>
-                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
-                    </div> */}
-                                                {/* </div> */}
-                                            </div>
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >StopLoss</Typography>
-                                                <Typography className={styles.peregarflist44} >{formik.values.Stoploss == '' ? '-' : formik.values.Stoploss}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 30px' }}>
-
-                                            <div style={{ padding: '0px 40px 0px 40px' }}>
-                                                <Typography className={styles.peregarflist33} >Start Date</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {startDate == '' ? '-' : moment(startDate).format("DD/MM/YYYY")
-                                                    }                          {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
-                                                </Typography>
-                                            </div>
-                                            <div style={{ padding: '0px 4px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >End Date</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {endDate == '' ? '-' :
-                                                        moment(endDate).format("DD/MM/YYYY")
-                                                    }                         {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
-                                                </Typography>
-                                            </div>
-                                        </Grid>
-                                    </Box>
-                                    <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
-                                    <Grid item sm={12} md={12} xs={12}>
-
-                                        {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
-                                        <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
-                                            <div style={{ padding: '30px 0px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Order</Typography>
-                                            </div>
-                                        </div>
-                                    </Grid>
-                                    <Box style={{ display: 'flex' }}>
-                                        <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
-
-                                            <div style={{ padding: '0px 60px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Initail Buy Steps</Typography>
-                                                {/* <div style={{display:'flex'}}> */}
-                                                <Typography
-                                                    // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
-                                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
-                                                    {formik.values.Initail}
-                                                    {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
-                                                </Typography>
-                                                {/* <div style={{ padding: '0px 0px 0px 25px' }}>
-                        <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
-                    </div>
-                    </div> */}
-                                            </div>
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >AMO BUY Down Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >{formik.values.SellSteps}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
-
-                                            <div style={{ padding: '0px 40px 0px 40px' }}>
-                                                <Typography className={styles.peregarflist33} >AMO SELL UP Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.BuySteps}
-                                                    {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
-                                                </Typography>
-                                            </div>
-                                            <div style={{ padding: '0px 4px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Normal Buy Down Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.NormalBuy}
-                                                    {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
-                                                </Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 15px' }}>
-
-                                            <div style={{ padding: '0px 30px 0px 0px' }}>
-                                                <Typography className={styles.peregarflist33} >Normal SELL Down Steps</Typography>
-                                                <Typography className={styles.peregarflist44} >
-                                                    {formik.values.NormalSell}
-                                                    {/* {props.data.stock == null ? '-':props.data.stock } */}
-                                                </Typography>
-                                            </div>
-
-                                        </Grid>
-                                    </Box>
-                                    {/* </PerfectScrollbar> */}
-                                </Card>
-                            </> : ''}
-                        {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
-                            <Card className={tabaldatalist == 'virang' ? styles.listcentenar : styles.bolkdatat}>
-                                {/* <PerfectScrollbar> */}
-                                <Box sx={{ width: '100%' }}
-
-                                >
-                                    <Table>
-                                        <TableHead className={styles.hedarliath}>
-                                            <TableRow>
-                                                <TableCell>
-                                                    Step
-                                                </TableCell>
-                                                <TableCell>
-                                                    Buy
-                                                </TableCell>
-                                                <TableCell>
-                                                    Sell
-                                                </TableCell>
-                                                <TableCell>
-                                                    Qty
-                                                </TableCell>
-                                                {/* <TableCell>
-                  Sell Qty
-                </TableCell> */}
-                                                <TableCell>
-                                                    Buy  Value                                                     </TableCell>
-                                                <TableCell>
-                                                    Sell Value                                                    </TableCell>
-                                                <TableCell>
-                                                    Gross
-                                                </TableCell>
-                                                <TableCell>
-                                                    Stock
-                                                </TableCell>
-                                                <TableCell>
-                                                    Investment
-                                                </TableCell>
-                                                <TableCell>
-                                                    Discount                                                    </TableCell>
-                                                <TableCell>
-                                                    AVG.                                                    </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody className={styles.listrowdATA22}>
-                                            {patternList.map((pattern, index) => (
-                                                <TableRow
-                                                    key={index + 1}
-                                                    // hover
-                                                    className={formik.values.currentPrice == pattern.buyPrice ? styles.listbahovar : styles.listnormalta}
-                                                >
-
-                                                    <TableCell>
-                                                        <Box
-                                                            sx={{
-                                                                alignItems: 'center',
-                                                                display: 'flex'
-                                                            }}
-                                                        >
-                                                            <Typography
-                                                                color="textPrimary"
-                                                                variant="body1"
-                                                                style={{ color: '#858789' }}
-                                                            >
-                                                                {index + 1}
-                                                            </Typography>
-                                                        </Box>
-                                                    </TableCell>
-                                                    <TableCell className={styles.buyparatydata}>
-                                                        {pattern.buyPrice}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#858789' }}>
-                                                        {pattern.sellPrice}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#858789' }}>
-                                                        {pattern.qty}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#858789' }}>
-                                                        {pattern.buyValue}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#009947' }}>
-                                                        {pattern.sellValue}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#4285F4' }}>
-                                                        {pattern.gross}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#858789' }}>
-                                                        {pattern.stock}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#858789' }}>
-                                                        {pattern.investment}
-                                                    </TableCell>
-                                                    {/* <TableCell>
-                    {pattern.investment}
-                  </TableCell> */}
-                                                    <TableCell style={{ color: '#858789' }}>
-                                                        {pattern.sDisc}
-                                                    </TableCell>
-                                                    <TableCell style={{ color: '#858789' }}>
-                                                        {pattern.avg}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-                                {/* </PerfectScrollbar> */}
-                            </Card>
-
-
-                            {/* <PatternList
-                                patterns={patternList} /> */}
-                        </Box>}
-                        {listsummri == 'addsumari' ?
-                            <Grid item md={12} className={styles.listgridkex23}>
-                                <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
-                                    {listinnewdata == 'gsdgfgdffd' ?
-                                        <Button
-                                            style={{ backgroundColor: '#009947' }}
-                                            // component="a"
-                                            className={styles.batnpovedar22}
-                                            size="medium"
-                                            type="submit"
-                                            variant="contained"
-                                            onClick={() => {
-                                                // setLISTdatasumm('addsumari')
-                                                // setListnone('bloack')
-                                                if (!!patternList && patternList.length > 0) {
-                                                    setLockPattern(true)
-                                                } else {
-                                                    toast.error('Pattern preview first.')
-                                                }
-                                            }}
-                                        >
-                                            NEXT
-                                        </Button> :
-                                        <Button
-                                            className={styles.batnpovedar}
-                                            style={{ backgroundColor: '#009947' }}
-                                            sx={{ marginRight: '20px' }}
-                                            // component="a"
-                                            size="medium"
-                                            variant="contained"
-                                            type="submit"
-                                            onClick={() => {
-                                                // setListnone('bloack')
-                                                setLiatstgs('gsdgfgdffd')
-                                                onAddPattern()
-                                                setTebaldatalist('')
-                                                // onPreviewClick()
-                                            }}
-                                        >
-                                            NEXT
-                                        </Button>}
-                                    {console.log(tabaldatalist, 'tabaldatalist')}
-                                    {/* 
-                                {tabaldatalist == 'virang' ?  */}
-                                    {tabaldatalist == 'virang' ?
-                                        <Button
-                                            className={styles.batnpovedar}
-                                            style={{ backgroundColor: '#4285F4' }}
-                                            sx={{ marginRight: '20px' }}
-                                            // component="a"
-                                            size="medium"
-                                            variant="contained"
-                                            type="submit"
-                                            //             onClick={() => {
-                                            //                 tabaldatalist == '' ? {
-                                            //                     setTebaldatalist('virang')  ,                                              setLiatstgs('gsdgfgdffd')
-                                            // setLiatstgs('')
-                                            //                 } : ''
-
-
-                                            //                 // setLISTdatasumm('')
-
-                                            //                 // setListnone('')
-
-                                            //             }}
-                                            onClick={() => {
-                                                setLISTdatasumm('')
-                                                setListnone('')
-                                            }}
-                                        >
-                                            Previous
-                                        </Button> : <Button
-                                            className={styles.batnpovedar}
-                                            style={{ backgroundColor: '#4285F4' }}
-                                            sx={{ marginRight: '20px' }}
-                                            // component="a"
-                                            size="medium"
-                                            variant="contained"
-                                            type="submit"
-                                            onClick={() => {
-                                                setLiatstgs('')
-                                                setTebaldatalist('virang')
-
-                                                // setLiatstgs('')
-                                                // setTebaldatalist('virang')
-                                            }}
-                                        >  Previous
-                                        </Button>
+                <div style={{ display: "flex", width: "100%" }} >
+                    <Grid item md={4}>
+                        <Box sx={{ flex: 2, padding: '10px 0px 0px 0px' }}>
+                            <Typography className={styles.typofonty}>Script</Typography>
+                            <Autocomplete
+                                sx={{ flex: 1, }}
+                                fullWidth
+                                disablePortal={false}
+                                options={filterScripList}
+                                name="script"
+                                value={script}
+                                onChange={(event, value, reason, details) => {
+                                    // filterScriplist()
+                                    if (!!value) {
+                                        if (!!stockInterval) {
+                                            clearInterval(stockInterval)
+                                        }
+                                        getScripPrice(value)
+                                        setLotSize(parseFloat(value.lotSize))
+                                        stockInterval = setInterval(() => {
+                                            getScripPrice(value)
+                                        }, 3000);
+                                    } else {
+                                        if (!!stockInterval) {
+                                            clearInterval(stockInterval)
+                                        }
                                     }
+                                    setScriptError(false)
+                                    setScript(value)
+                                }}
+                                onClose={(event, reason) => {
+                                    setFilterScripList(defaultScripList)
+                                }}
+                                renderInput={(params) => <TextField  {...params}
+                                name='script'
+                                // error={Boolean(formik.touched.script && formik.errors.script)}
+                                    fullWidth
+                                    // helperText={formik.touched.script && formik.errors.script}
+                                    onBlur={formik.handleBlur}
+                                    // onChange={formik.handleChange}
+                                    onChange={(text) => {   
+                                        console.log(text.target.value, 'jjahhahha')
+                                        setFilatlist(text.target.value)
+                                        filterScrip(text.target.value)
+                                        filterScriplist(text.target.value)
+                                        // formik.handleChange()
+                                    }}
+                                    className={styles.listtextfils22}
+                                    // error={scriptError}
+                                    // helperText={scriptError ? 'Scrip is required' : undefined}
+                                // label={scripLable} 
+
+                                />}
+                            />
+                            {/* {isoutField == true ? <span className={styles.otperr}>Please select script</span> : ''} */}
+                        </Box>
+                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', paddingLeft: 0 }}>
+                            <Box sx={{ flex: 1, padding: '10px 0px 0px 0px' }}>
+                                <Typography className={styles.typofonty}>Investment</Typography>
+                                <TextField
+                                    className={styles.listtextfils}
+                                    sx={{ flex: 1 }}
+                                    error={Boolean(formik.touched.totalInvestment && formik.errors.totalInvestment)}
+                                    fullWidth
+                                    helperText={formik.touched.totalInvestment && formik.errors.totalInvestment}
+                                    // label="Total Investment"
+                                    margin="normal"
+                                    type="number"
+                                    name="totalInvestment"
+                                    onBlur={formik.handleBlur}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.totalInvestment}
+                                    variant="outlined"
+                                />
+                            </Box>
+
+                        </Box>
+                    </Grid>
+
+                    <Grid item md={4} style={{ padding: "0px 0px 0px 20px" }}>
+                        <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
+                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
+                                <Box sx={{ flex: 1, padding: '10px 20px 0px 0px' }}>
+                                    <Typography className={styles.typofonty}>Entry Limit</Typography>
+                                    <TextField
+                                        sx={{ flex: 1 }}
+                                        error={Boolean(formik.touched.minRange && formik.errors.minRange)}
+                                        fullWidth
+                                        helperText={formik.touched.minRange && formik.errors.minRange}
+                                        // label="Min Range"
+                                        className={styles.listtextfils}
+                                        margin="normal"
+                                        type="number"
+                                        name="minRange"
+                                        onBlur={formik.handleBlur}
+                                        onChange={(value) => {
+                                            let text = value.target.value;
+                                            formik.setFieldValue('minRange', text)
+                                            getBuyArray(text, formik.values.maxRange, formik.values.buyPrice)
+                                        }}
+                                        value={formik.values.minRange}
+                                        variant="outlined"
+                                    />
                                 </Box>
+                                <Box sx={{ flex: 1, padding: '10px 0px 0px 0px' }}>
+                                    <Typography className={styles.typofonty}>Exit Limit</Typography>
+                                    <TextField
+                                        sx={{ flex: 1 }}
+                                        error={Boolean(formik.touched.maxRange && formik.errors.maxRange)}
+                                        fullWidth
+                                        helperText={formik.touched.maxRange && formik.errors.maxRange}
+                                        // label="Max Range"
+                                        margin="normal"
+                                        className={styles.listtextfils}
+                                        type="number"
+                                        name="maxRange"
+                                        onChange={(value) => {
+                                            let text = value.target.value;
+                                            formik.setFieldValue('maxRange', text)
+                                            getBuyArray(formik.values.minRange, text, formik.values.buyPrice)
+                                        }}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.maxRange}
+                                        variant="outlined"
+                                    />
+                                    {isoutField == true ? '': <span className={styles.otperr}>Please Entry Limit not </span> }
+                                </Box>
+                            </Box>
 
+                        </Box>
+                        {/* </Grid> */}
+                        {/* <Grid item md={4}> */}
+                        <div style={{ display: 'flex', alignItems: 'center', padding: '17px 0px 0px 0px' }}>
+                            {/* <Grid item md={2} > */}
+
+                            <Typography className={styles.typofonty}>Tick Size</Typography>
+                            {/* </Grid> */}
+                            {/* <Grid item md={2} > */}
+                            <Box sx={{ flex: 1, paddingLeft: 2, display: "flex", justifyContent: 'end' }}>
+
+                                <RadioGroup
+                                    sx={{ flexDirection: 'row', display: 'flex', }}
+                                    name="use-radio-group"
+                                    margin='none'
+                                    onChange={async (event, value) => {
+                                        setTickSize(value)
+                                        getBuyArray(formik.values.minRange, formik.values.maxRange, formik.values.buyPrice, value)
+                                    }}
+                                    defaultValue={tickSize}>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <FormControlLabel value="fix" style={{ marginRight: '0px' }} control={<Radio style={{ color: "#05315A" }} />} />
+                                        <Typography className={styles.typofonty} style={{ padding: "0px 8px 0px 0px" }}>FIX</Typography>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <FormControlLabel style={{ marginRight: '0px', }} value="%" control={<Radio style={{ color: "#05315A" }} className={styles.radiyobtnlist} />} />
+                                        <Typography className={styles.typofonty} >Pecentage</Typography>
+                                    </div>
+
+                                </RadioGroup>
+                            </Box>
+                            {/* </Grid> */}
+                        </div>
+                    </Grid>
+                    {/* </div> */}
+                    {/* <div> */}
+                    <Grid item md={4} style={{ padding: "0px 0px 0px 20px" }}>
+                        <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                            <Box sx={{ flex: 1, padding: "0px 20px 0px 0px" }}>
+                                <Typography className={styles.typofonty}>Buy Difference</Typography>
+                                <TextField
+                                    sx={{ flex: 1 }}
+                                    error={Boolean(formik.touched.buyPrice && formik.errors.buyPrice)}
+                                    fullWidth
+                                    helperText={formik.touched.buyPrice && formik.errors.buyPrice}
+                                    // label="Buy"
+                                    type="number"
+                                    className={styles.listtextfils}
+                                    margin="normal"
+                                    name="buyPrice"
+                                    onBlur={formik.handleBlur}
+                                    onChange={(value) => {
+                                        let text = value.target.value;
+                                        formik.setFieldValue('buyPrice', text)
+                                        if (parseFloat(text) > 0) {
+                                            getBuyArray(formik.values.minRange, formik.values.maxRange, text)
+                                        } else {
+                                            setBuyArray([])
+                                        }
+                                    }}
+                                    value={formik.values.buyPrice}
+                                    variant="outlined"
+                                />
+                            </Box>
+                            <Box sx={{ flex: 1 }}>
+                                <Typography className={styles.typofonty}>Sell Difference</Typography>
+                                <TextField
+                                    sx={{ flex: 1 }}
+                                    error={Boolean(formik.touched.sellPrice && formik.errors.sellPrice)}
+                                    fullWidth
+                                    helperText={formik.touched.sellPrice && formik.errors.sellPrice}
+                                    // label="Sell"
+                                    margin="normal"
+                                    type="number"
+                                    className={styles.listtextfils}
+                                    name="sellPrice"
+                                    onBlur={formik.handleBlur}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.sellPrice}
+                                    variant="outlined"
+                                />
+                            </Box>
+
+                        </Box>
+
+                        <Box sx={{ flexDirection: 'row', display: 'flex', flex: 1 }}>
+
+                            <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex' }}>
+                                <Box sx={{ flex: 1 }}>
+                                    <Typography className={styles.typofonty}>Select Current Price</Typography>
+                                    <Autocomplete
+                                        sx={{ flex: 1, }}
+                                        fullWidth
+                                        disablePortal={false}
+                                        options={buyArray}
+                                        className={styles.listtextfils22}
+                                        name="currentPrice"
+                                        value={formik.values.currentPrice}
+                                        onChange={(event, value, reason, details) => {
+                                            setCurrentPriceError(false)
+                                            formik.setFieldValue('currentPrice', value)
+                                        }}
+                                        renderInput={(params) => <TextField {...params}
+                                            error={Boolean(formik.touched.currentPrice && formik.errors.currentPrice)}
+                                            fullWidth
+                                            name="currentPrice"
+                                            helperText={formik.touched.currentPrice && formik.errors.currentPrice}
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
+                                            // error={currentPriceError}
+                                            // onBlur={formik.handleBlur}
+                                            // onChange={formik.handleChange}
+                                            value={formik.values.currentPrice}
+                                            // helperText={currentPriceError ? 'currentPrice is required' : undefined}
+                                        />}
+                                    />
+                                    {/* {isoutField == true ? <span className={styles.otperr}>Please select value</span> : ''} */}
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Grid>
+                    {/* // </div> */}
+                </div>
+            </form>
+            {/* </Box> */}
+            {/* </Grid> */}
+            {/* <Grid item md={12}> */}
+            {/* <div> */}
+
+            {/* <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                            <Box sx={{ flex: 1, paddingRight: 0.5 }}> */}
+            <Typography className={styles.hedindrop}>Advanced</Typography>
+
+
+            <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
+                <Grid item md={4}>
+                    <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                        <Box sx={{ flex: 1 }}>
+                            <Typography className={styles.typofonty}>Stoploss</Typography>
+                            <TextField
+                                sx={{ flex: 1 }}
+                                // error={Boolean(formik.touched.Stoploss && formik.errors.Stoploss)}
+                                fullWidth
+                                // helperText={formik.touched.Stoploss && formik.errors.Stoploss}
+                                // label="Buy"
+                                type="number"
+                                className={styles.listtextfils}
+                                margin="normal"
+                                name="Stoploss"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+
+                                value={formik.values.Stoploss}
+                                variant="outlined"
+                            />
+                        </Box>
+                        <Box sx={{ flex: 1, paddingLeft: '20px' }}>
+
+                            <Typography className={styles.typofonty}>Target</Typography>
+
+                            <TextField
+                                sx={{ flex: 1 }}
+                                // error={Boolean(formik.touched.Target && formik.errors.Target)}
+                                fullWidth
+                                // helperText={formik.touched.Target && formik.errors.Target}
+                                // label="Sell"
+                                margin="normal"
+                                type="number"
+                                className={styles.listtextfils}
+                                name="Target"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                value={formik.values.Target}
+                                variant="outlined"
+                            />
+                        </Box>
+
+                    </Box>
+                </Grid>
+                <Grid item md={8} >
+                    <Box
+                        style={{ display: 'flex', padding: '5px 0px 0px 20px' }}
+                    >
+                        <Box style={{ padding: '0px 16px 0px 0px', width: '50%' }}>
+                            <Typography className={styles.typofonty}>Start date</Typography>
+
+
+                            <DatePickerll
+                                fullWidth
+                                sx={{ flex: 1 }}
+                                className={styles.listdatepikar}
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                selectsStart
+                                startDate={startDate}
+                                endDate={endDate}
+                                caretAs={calenderIcon}
+                            />
+                        </Box>
+                        <Box style={{ padding: '0px 0px 0px 10px', width: '50%' }}>
+                            <Typography className={styles.typofonty}>End date</Typography>
+                            <DatePickerll
+                                className={styles.listdatepikar}
+                                selected={endDate}
+                                onChange={(date) => setEndDate(date)}
+                                selectsEnd
+                                startDate={startDate}
+                                endDate={endDate}
+                                minDate={startDate}
+                                caretAs={calenderIcon}
+                            />
+                        </Box>
+                    </Box>
+                </Grid>
+            </div>
+            <div>
+                <Accordion className={styles.acclistloddop}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        className={styles.listbackdda}
+                    ><Typography className={styles.hedindrop33}>Order
+                        </Typography>
+                        <Typography className={styles.hedindrop33444}>
+                            {`If you don't have any idea? Please make it default !`}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails className={styles.listaccsumahha}>
+                        <div style={{ display: "flex", paddingTop: '10px' }}>
+                            <Grid item md={4} >
+                                <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                    <Box sx={{ flex: 1 }}>
+                                        <Typography className={styles.typofonty}>Initail Buy Steps</Typography>
+                                        <TextField
+                                            sx={{ flex: 1 }}
+                                            error={Boolean(formik.touched.Initail && formik.errors.Initail)}
+                                            fullWidth
+                                            helperText={formik.touched.Initail && formik.errors.Initail}
+                                            // label="Buy"
+                                            type="number"
+                                            className={styles.listtextfils2233}
+                                            margin="normal"
+                                            name="Initail"
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
+
+                                            value={formik.values.Initail}
+                                            variant="outlined"
+                                        />
+                                    </Box>
+
+
+                                </Box>
                             </Grid>
+                            <Grid item md={4} style={{ padding: '0px 0px 0px 20px' }}>
+                                <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 0px" }}>
+                                    <Box sx={{ flex: 1, paddingRight: '20px' }}>
+                                        <Typography className={styles.typofonty}>AMO Buy Down Steps</Typography>
+                                        <TextField
+                                            sx={{ flex: 1 }}
+                                            error={Boolean(formik.touched.BuySteps && formik.errors.BuySteps)}
+                                            fullWidth
+                                            helperText={formik.touched.BuySteps && formik.errors.BuySteps}
+                                            // label="Buy"
+                                            type="number"
+                                            className={styles.listtextfils}
+                                            margin="normal"
+                                            name="BuySteps"
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
 
-                            :
-                            <Grid item md={12} className={styles.listgridkex23}>
-                                <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1  }}>
-                                    {scripDetails.stk_name == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == ''  ?
-                                        <Button
-                                            style={{ backgroundColor: '#009947', color: '#fff' }}
-                                            // component="a"
-                                            disabled
-                                            className={styles.batnpovedar22}
-                                            size="medium"
-                                            type="submit"
-                                            variant="contained"
-                                            onClick={() => {
-                                                setLISTdatasumm('addsumari')
-                                                setListnone('bloack')
-                                                // setListnone('bloack')
-                                                // if (!!patternList && patternList.length > 0) {
-                                                //     setLockPattern(true)
-                                                // } else {
-                                                //     toast.error('Pattern preview first.')
-                                                // }
-                                            }}
-                                        >
-                                            NEXT
-                                        </Button> :
+                                            value={formik.values.BuySteps}
+                                            variant="outlined"
+                                        />
+                                    </Box>
+                                    <Box sx={{ flex: 1, }}>
 
-                                        <Button
-                                            style={{ backgroundColor: '#009947' }}
-                                            // style={{  }}
+                                        <Typography className={styles.typofonty}>AMO Sell UP Steps</Typography>
 
-                                            // component="a"
-                                            className={styles.batnpovedar22}
-                                            size="medium"
-                                            type="submit"
-                                            variant="contained"
-                                            onClick={() => {
-                                                setLISTdatasumm('addsumari')
-                                                setListnone('bloack')
-                                                // setListnone('')
-                                                // setListnone('bloack')
-                                                // if (!!patternList && patternList.length > 0) {
-                                                //     setLockPattern(true)
-                                                // } else {
-                                                //     toast.error('Pattern preview first.')
-                                                // }
-                                            }}
-                                        >
-                                            NEXT
-                                        </Button>}
-                                    <Button
-                                        className={styles.batnpovedar}
-                                        sx={{ marginRight: '20px' }}
-                                        // component="a"
-                                        disabled
-                                        size="medium"
-                                        variant="contained"
-                                        type="submit"
-                                        onClick={() => {
+                                        <TextField
+                                            sx={{ flex: 1 }}
+                                            error={Boolean(formik.touched.SellSteps && formik.errors.SellSteps)}
+                                            fullWidth
+                                            helperText={formik.touched.SellSteps && formik.errors.SellSteps}
+                                            // label="Sell"
+                                            margin="normal"
+                                            type="number"
+                                            className={styles.listtextfils}
+                                            name="SellSteps"
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
+                                            value={formik.values.SellSteps}
+                                            variant="outlined"
+                                        />
+                                    </Box>
 
+                                </Box>
+                            </Grid>
+                            <Grid item md={4} >
+                                <Box sx={{ flex: 1, flexDirection: 'row', display: 'flex', padding: "10px 0px 0px 20px" }}>
+                                    <Box sx={{ flex: 1, paddingRight: '20px' }}>
+                                        <Typography className={styles.typofonty}>Normal Buy Down Steps</Typography>
+                                        <TextField
+                                            sx={{ flex: 1 }}
+                                            error={Boolean(formik.touched.NormalBuy && formik.errors.NormalBuy)}
+                                            // fullWidth
+                                            helperText={formik.touched.NormalBuy && formik.errors.NormalBuy}
+                                            // label="Buy"
+                                            type="number"
+                                            className={styles.listtextfils}
+                                            margin="normal"
+                                            name="NormalBuy"
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
 
-                                            // onAddPattern()
-                                            // onPreviewClick()
+                                            value={formik.values.NormalBuy}
+                                            variant="outlined"
+                                        />
+                                    </Box>
+                                    <Box sx={{ flex: 1, }}>
+
+                                        <Typography className={styles.typofonty}>Normal Sell UP Steps</Typography>
+
+                                        <TextField
+                                            sx={{ flex: 1 }}
+                                            error={Boolean(formik.touched.NormalSell && formik.errors.NormalSell)}
+                                            // fullWidth
+                                            helperText={formik.touched.NormalSell && formik.errors.NormalSell}
+                                            // label="Sell"
+                                            margin="normal"
+                                            type="number"
+                                            className={styles.listtextfils}
+                                            name="NormalSell"
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
+                                            value={formik.values.NormalSell}
+                                            variant="outlined"
+                                        />
+                                    </Box>
+
+                                </Box>
+                            </Grid>
+                        </div>
+
+                    </AccordionDetails>
+                </Accordion>
+            </div>
+        </CardContent>
+    </Card>
+    {/* < */}
+    {listsummri == 'addsumari' ?
+        <>
+            <Card className={listinnewdata == 'gsdgfgdffd' ? styles.listcentenar : styles.bolkdatat} >
+                {/* <PerfectScrollbar> */}
+
+                <Grid item sm={12} md={12} xs={12}>
+
+                    {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
+                    <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
+                        <div style={{ padding: '30px 0px 0px 0px' }}>
+                            <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Summary</Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Box style={{ display: 'flex' }}>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
+
+                        <div style={{ padding: '0px 40px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Script</Typography>
+                            <div style={{ display: 'flex' }}>
+                                <Typography
+                                    // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                                    style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
+                                    {scripDetails.stk_name}
+                                    {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                                </Typography>
+                                <div style={{ padding: '0px 0px 0px 25px' }}>
+                                    <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Type</Typography>
+                            <Typography className={styles.peregarflist44} >{patternItem.id}</Typography>
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 30px' }}>
+
+                        <div style={{ padding: '0px 40px 0px 40px' }}>
+                            <Typography className={styles.peregarflist33} >Entry LIMIT</Typography>
+                            <Typography className={styles.peregarflist44} >
+                                {formik.values.minRange}
+                                {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                            </Typography>
+                        </div>
+                        <div style={{ padding: '0px 4px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Exit LIMIT</Typography>
+                            <Typography className={styles.peregarflist44} >
+                                {formik.values.maxRange}
+                                {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                            </Typography>
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 15px' }}>
+
+                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Buy Diffrerance</Typography>
+                            <Typography style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#009947' }}>
+                                {formik.values.buyPrice}
+                                {/* {props.data.stock == null ? '-':props.data.stock } */}
+                            </Typography>
+                        </div>
+                        <div style={{ padding: '0px 40px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33}>Sell Diffrerance</Typography>
+                            <Typography
+                                // className={props.data.profit >=0 ? styles.peregarflistlist:styles.redline}
+                                style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold", 'color': '#E31E24' }}>
+                                {formik.values.sellPrice}
+                                {/* {props.data.profit == null ? '-' :props.data.profit} */}
+                            </Typography>
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={2} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
+
+                        <div style={{ padding: '0px 25px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33}>Enter Point</Typography>
+                            <Typography className={styles.peregarflist44} >{formik.values.currentPrice}</Typography>
+                        </div>
+                        <div style={{ padding: '0px 40px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33}>Tick Type</Typography>
+                            <Typography className={styles.peregarflist44} >{tickSize}</Typography>
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={1} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
+                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33}>Investment</Typography>
+                            <Typography className={styles.peregarflist44} >{formik.values.totalInvestment}</Typography>
+                        </div>
+                    </Grid>
+                    <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
+                </Box>
+                <Grid item sm={12} md={12} xs={12}>
+
+                    <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
+                    <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
+                        <div style={{ padding: '30px 0px 0px 0px' }}>
+                            <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Advanced</Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Box style={{ display: 'flex' }}>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
+
+                        <div style={{ padding: '0px 60px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Target</Typography>
+                            {/* <div style={{display:'flex'}}> */}
+                            <Typography
+                                // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                                style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
+                                {formik.values.Target == '' ? '-' : formik.values.Target}
+                                {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                            </Typography>
+                            {/* <div style={{ padding: '0px 0px 0px 25px' }}>
+    <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
+</div> */}
+                            {/* </div> */}
+                        </div>
+                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >StopLoss</Typography>
+                            <Typography className={styles.peregarflist44} >{formik.values.Stoploss == '' ? '-' : formik.values.Stoploss}</Typography>
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 30px' }}>
+
+                        <div style={{ padding: '0px 40px 0px 40px' }}>
+                            <Typography className={styles.peregarflist33} >Start Date</Typography>
+                            <Typography className={styles.peregarflist44} >
+                                {startDate == '' ? '-' : moment(startDate).format("DD/MM/YYYY")
+                                }                          {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                            </Typography>
+                        </div>
+                        <div style={{ padding: '0px 4px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >End Date</Typography>
+                            <Typography className={styles.peregarflist44} >
+                                {endDate == '' ? '-' :
+                                    moment(endDate).format("DD/MM/YYYY")
+                                }                         {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                            </Typography>
+                        </div>
+                    </Grid>
+                </Box>
+                <Divider style={{ border: '1px solid #E4F4E9' }}></Divider>
+                <Grid item sm={12} md={12} xs={12}>
+
+                    {/* <Divider style={{border:'1px solid #E4F4E9'}}></Divider> */}
+                    <div className={styles.datadivcalla} style={{ display: 'flex', padding: '0px 0px 0px 60px' }}>
+                        <div style={{ padding: '30px 0px 0px 0px' }}>
+                            <Typography className={styles.peregarflist} style={{ 'font-size': '15px', 'color': '#333333', fontWeight: 'bold', borderBottom: '3px solid #009947', 'borderRadius': '2px', width: '80px' }}>Order</Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Box style={{ display: 'flex' }}>
+                    <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 60px' }}>
+
+                        <div style={{ padding: '0px 60px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Initail Buy Steps</Typography>
+                            {/* <div style={{display:'flex'}}> */}
+                            <Typography
+                                // className={props.data.todayprofit >=0 ? styles.peregarflistlist:styles.redline}
+                                style={{ 'font-size': '14px', 'textTransform': 'uppercase', fontWeight: "bold" }}>
+                                {formik.values.Initail}
+                                {/* {props.data.todayprofit == null ? '-':props.data.todayprofit } */}
+                            </Typography>
+                            {/* <div style={{ padding: '0px 0px 0px 25px' }}>
+    <Box style={{ 'background': 'rgba(240, 240, 240, 0.97)', 'borderRadius': '2px', padding: '1px 2px 1px 2px' }}><Typography style={{ 'font-size': '6px', 'color': '#858789' }}>{scripDetails.market_exchange}</Typography></Box>
+</div>
+</div> */}
+                        </div>
+                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >AMO BUY Down Steps</Typography>
+                            <Typography className={styles.peregarflist44} >{formik.values.SellSteps}</Typography>
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={4} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 0px' }}>
+
+                        <div style={{ padding: '0px 40px 0px 40px' }}>
+                            <Typography className={styles.peregarflist33} >AMO SELL UP Steps</Typography>
+                            <Typography className={styles.peregarflist44} >
+                                {formik.values.BuySteps}
+                                {/* {props.data.pendingOrder == null ? '-':props.data.pendingOrder} */}
+                            </Typography>
+                        </div>
+                        <div style={{ padding: '0px 4px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Normal Buy Down Steps</Typography>
+                            <Typography className={styles.peregarflist44} >
+                                {formik.values.NormalBuy}
+                                {/* {props.data.executedOrder == null ? '-' :props.data.executedOrder} */}
+                            </Typography>
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={3} xs={12} className={styles.listpading} style={{ display: 'flex', padding: '30px 0px 40px 15px' }}>
+
+                        <div style={{ padding: '0px 30px 0px 0px' }}>
+                            <Typography className={styles.peregarflist33} >Normal SELL Down Steps</Typography>
+                            <Typography className={styles.peregarflist44} >
+                                {formik.values.NormalSell}
+                                {/* {props.data.stock == null ? '-':props.data.stock } */}
+                            </Typography>
+                        </div>
+
+                    </Grid>
+                </Box>
+                {/* </PerfectScrollbar> */}
+            </Card>
+        </> : ''}
+    {!!patternList && patternList.length !== 0 && <Box sx={{ mt: 3 }}>
+        <Card className={tabaldatalist == 'virang' ? styles.listcentenar : styles.bolkdatat}>
+            {/* <PerfectScrollbar> */}
+            <Box sx={{ width: '100%' }}
+
+            >
+                <Table>
+                    <TableHead className={styles.hedarliath}>
+                        <TableRow>
+                            <TableCell>
+                                Step
+                            </TableCell>
+                            <TableCell>
+                                Buy
+                            </TableCell>
+                            <TableCell>
+                                Sell
+                            </TableCell>
+                            <TableCell>
+                                Qty
+                            </TableCell>
+
+                            <TableCell>
+                                Buy  Value                                                     </TableCell>
+                            <TableCell>
+                                Sell Value                                                    </TableCell>
+                            <TableCell>
+                                Gross
+                            </TableCell>
+                            <TableCell>
+                                Stock
+                            </TableCell>
+                            <TableCell>
+                                Investment
+                            </TableCell>
+                            <TableCell>
+                                Discount                                                    </TableCell>
+                            <TableCell>
+                                AVG.                                                    </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody className={styles.listrowdATA22}>
+                        {patternList.map((pattern, index) => (
+                            <TableRow
+                                key={index + 1}
+                                // hover 
+                                // step
+                                className={pattern.greenclass}
+                            // patternList.greenclass
+                            >
+                                {console.log(pattern.greenclass, 'pattern.greenclass')}
+                                <TableCell>
+                                    <Box
+                                        sx={{
+                                            alignItems: 'center',
+                                            display: 'flex'
                                         }}
                                     >
-                                        Previous
-                                    </Button>
-                                </Box>
+                                        <Typography
+                                            color="textPrimary"
+                                            variant="body1"
+                                            style={{ color: '#858789' }}
+                                        >
+                                            {index + 1}
+                                        </Typography>
+                                    </Box>
+                                </TableCell>
+                                <TableCell className={styles.buyparatydata}>
+                                    {pattern.buyPrice}
+                                </TableCell>
+                                <TableCell style={{ color: '#858789' }}>
+                                    {pattern.sellPrice}
+                                </TableCell>
+                                <TableCell style={{ color: '#858789' }}>
+                                    {pattern.qty}
+                                </TableCell>
+                                <TableCell style={{ color: '#858789' }}>
+                                    {pattern.buyValue}
+                                </TableCell>
+                                <TableCell style={{ color: '#009947' }}>
+                                    {pattern.sellValue}
+                                </TableCell>
+                                <TableCell style={{ color: '#4285F4' }}>
+                                    {pattern.gross}
+                                </TableCell>
+                                <TableCell style={{ color: '#858789' }}>
+                                    {pattern.stock}
+                                </TableCell>
+                                <TableCell style={{ color: '#858789' }}>
+                                    {pattern.investment}
+                                </TableCell>
+                                {/* <TableCell>
+{pattern.investment}
+</TableCell> */}
+                                <TableCell style={{ color: '#858789' }}>
+                                    {pattern.sDisc}
+                                </TableCell>
+                                <TableCell style={{ color: '#858789' }}>
+                                    {pattern.avg}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Box>
+            {/* </PerfectScrollbar> */}
+        </Card>
 
-                            </Grid>
+
+        {/* <PatternList
+            patterns={patternList} /> */}
+    </Box>}
+    {listsummri == 'addsumari' ?
+        <Grid item md={12} className={styles.listgridkex23}>
+            <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
+                {listinnewdata == 'gsdgfgdffd' ?
+                    <Button
+                        style={{ backgroundColor: '#009947' }}
+                        // component="a"
+                        className={styles.batnpovedar22}
+                        size="medium"
+                        // type="submit"
+                        variant="contained"
+                        onClick={() => {
+                            // setLISTdatasumm('addsumari')
+                            // setListnone('bloack')
+                            if (!!patternList && patternList.length > 0) {
+                                setLockPattern(true)
+                            } else {
+                                toast.error('Pattern preview first.')
+                            }
+                        }}
+                    >
+                        NEXT
+                    </Button> :
+                    <Button
+                        className={styles.batnpovedar}
+                        style={{ backgroundColor: '#009947' }}
+                        sx={{ marginRight: '20px' }}
+                        // component="a"
+                        size="medium"
+                        variant="contained"
+                        // type="submit"
+                        onClick={() => {
+                            // setListnone('bloack')
+                            setLiatstgs('gsdgfgdffd')
+                            onAddPattern()
+                            setTebaldatalist('')
+                            // onPreviewClick()
+                        }}
+                    >
+                        NEXT
+                    </Button>}
+                {console.log(tabaldatalist, 'tabaldatalist')}
+                {/* 
+            {tabaldatalist == 'virang' ?  */}
+                {tabaldatalist == 'virang' ?
+                    <Button
+                        className={styles.batnpovedar}
+                        style={{ backgroundColor: '#4285F4' }}
+                        sx={{ marginRight: '20px' }}
+                        // component="a"
+                        size="medium"
+                        variant="contained"
+                        // type="submit"
+                        //             onClick={() => {
+                        //                 tabaldatalist == '' ? {
+                        //                     setTebaldatalist('virang')  ,                                              setLiatstgs('gsdgfgdffd')
+                        // setLiatstgs('')
+                        //                 } : ''
 
 
-                        }
-                    </Box>
-                  
-                </Container>
+                        //                 // setLISTdatasumm('')
+
+                        //                 // setListnone('')
+
+                        //             }}
+                        onClick={() => {
+                            setLISTdatasumm('')
+                            setListnone('')
+                        }}
+                    >
+                        Previous
+                    </Button> : <Button
+                        className={styles.batnpovedar}
+                        style={{ backgroundColor: '#4285F4' }}
+                        sx={{ marginRight: '20px' }}
+                        // component="a"
+                        size="medium"
+                        variant="contained"
+                        // type="submit"
+                        onClick={() => {
+                            setLiatstgs('')
+                            setTebaldatalist('virang')
+
+                            // setLiatstgs('')
+                            // setTebaldatalist('virang')
+                        }}
+                    >  Previous
+                    </Button>
+                }
+            </Box>
+
+        </Grid>
+        :
+        <Grid item md={12} className={styles.listgridkex23}>
+            <Box sx={{ flexDirection: 'row-reverse', display: 'flex', flex: 1, mt: 3 }}>
+                {script == '' || formik.values.minRange == '' || formik.values.maxRange == '' || formik.values.buyPrice == '' || formik.values.sellPrice == '' || formik.values.currentPrice == '' || formik.values.totalInvestment == '' || tickSize == '' ?
+                    <Button
+                        style={{ backgroundColor: '#009947', color: '#fff' }}
+                        // component="a"
+                        // disabled
+                        className={styles.batnpovedar22}
+                        size="medium"
+                        type="submit"
+                        variant="contained"
+                        // onClick={}
+                        onClick={() => {
+                            // setLISTdatasumm('addsumari')
+                            // setListnone('bloack')
+                            formik.handleSubmit()
+                            edituser()
+                            // setListnone('bloack')
+                            // if (!!patternList && patternList.length > 0) {
+                            //     setLockPattern(true)
+                            // } else {
+                            //     toast.error('Pattern preview first.')
+                            // }
+                        }}
+                    >
+                        NEXT
+                    </Button> :
+
+                    <Button
+                        style={{ backgroundColor: '#009947' }}
+                        // style={{  }}
+
+                        // component="a"
+                        className={styles.batnpovedar22}
+                        size="medium"
+                        type="submit"
+                        variant="contained"
+                        onClick={() => {
+                            setLISTdatasumm('addsumari')
+                            setListnone('bloack')
+                            // setListnone('')
+                            // setListnone('bloack')
+                            // if (!!patternList && patternList.length > 0) {
+                            //     setLockPattern(true)
+                            // } else {
+                            //     toast.error('Pattern preview first.')
+                            // }
+                        }}
+                    >
+                        NEXT
+                    </Button>}
+                <Button
+                    className={styles.batnpovedar}
+                    sx={{ marginRight: '20px' }}
+                    // component="a"
+                    disabled
+                    size="medium"
+                    variant="contained"
+                    // type="submit"
+                    onClick={() => {
+
+
+                        // onAddPattern()
+                        // onPreviewClick()
+                    }}
+                >
+                    Previous
+                </Button>
+            </Box>
+
+        </Grid>
+
+
+    }
+</Box>
+</Container>
                 </Grid>
             </Box>
             <div>

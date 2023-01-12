@@ -392,7 +392,7 @@ console.log(props.props.profile.accountId,'listzorothatokan');
         props.props.loaderRef(false)
         console.log(accountdelete, 'accountdelete');
         if (accountdelete.status == true) {
-            toast.success("Successfully Updated Personal Information lisgg")
+            toast.success(accountdelete.message)
             accounttype()
         }
         else {

@@ -15,7 +15,40 @@
     src: url(../styles/Mulish/Mulish-Italic-VariableFont_wght.ttf);
 
 }
-
+.listprish{
+    p{
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+    font-weight: 600;
+    }
+    color: #009947;
+    display: flex;
+    align-items: center;
+}
+.listcerrntpish{
+    color: #333333 !important;
+}
+.otperr{
+    color: #E31E24;
+    font-family: Poppins-400;
+font-size: 12px;
+}
+.listprishred{
+    p{
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+    font-weight: 600;
+    }
+    color: #E31E24;
+    display: flex;
+    align-items: center;
+}
+.diffdatalist{
+    padding: 0px 5px 0px 0px;
+}
+.listcolorhovar{
+    background-color: #DDF9EA !important;
+}
 .listmaenstokdiv {
     padding: 30px 0px 0px 30px;
 }
@@ -48,8 +81,8 @@
     background: #FFFFFF;
     box-shadow: 0px 0px 22px rgb(0 0 0 / 10%);
     border-radius: 20px;
-    padding: 0px !important;
-    // padding: 30px !important;
+    // padding: 0px !important;
+    padding: 30px !important;
     margin: 60px;
 }
 .listcocntenatdata{
@@ -301,11 +334,16 @@
     font-size: 16px !important;
 
 }
+.listpsllow22 {
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
 
+}
 .listonepterd {
     font-family: Poppins-400 !important;
     font-size: 14px !important;
     color: #333333 !important;
+    font-weight: 600 !important;
 }
 
 .hedarliath th {

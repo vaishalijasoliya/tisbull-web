@@ -18,7 +18,10 @@ import Checkbox from '@mui/material/Checkbox';
 import React, { useState } from "react";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useRouter } from 'next/router';
-
+// import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import ApiEndpoint from '../../config/ApiEndpoint';
 const Root = styled('span')(
     ({ theme }) => `
@@ -104,7 +107,11 @@ const Home = (props) => {
     const [switchCheck, setSwitchcheck] = React.useState([])
     const [cekboxlist, setCekboxlist] = React.useState(false)
     const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
-
+    const [age, setAge] = React.useState('');
+    console.log(age, 'ageage');
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
     // const router = useRouter();
     const accountadd = async () => {
         var body = {
@@ -112,7 +119,7 @@ const Home = (props) => {
             'consumer_key': formik.values.consumer_key,
             'password': formik.values.password,
             'consumer_secret': formik.values.consumer_secret,
-            'type': accounttype,
+            'type': age,
             "env": 'production'
 
             // 'listemail':
@@ -179,23 +186,55 @@ const Home = (props) => {
     });
     return (
         <Grid container className={styles.contenat_listaddacc}>
-         <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
-            onClick={() => {
-              router.push({
-                pathname: './accountlist',
-                // query: { emailID: row.id,namescoka:row.script }
-              });
-            }}
+            <Button className={styles.listpattbek} style={{ color: 'black', testTransform: 'capitalize' }}
+                onClick={() => {
+                    router.push({
+                        pathname: './accountlist',
+                        // query: { emailID: row.id,namescoka:row.script }
+                    });
+                }}
 
-          ><KeyboardReturnIcon />Account</Button>
+            ><KeyboardReturnIcon />Account</Button>
             <Grid item sm={6} md={12} xs={6}>
                 <div className={styles.addaclist}><Typography>Add Accounts</Typography></div>
             </Grid>
-          
+
             <Grid item sm={12} md={6} xs={12} className={styles.listdiver}>
                 <InputLabel className={styles.leballist}>Account Type </InputLabel>
-                <Divider className={styles.divaydaravta}></Divider>
-                <div className={styles.listdataaaco}>
+                {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    className={styles.selectdatalistsd}
+                    //   label="Age"
+                    onChange={handleChange}
+                >
+                    <MenuItem value={'zerodha'}>       <div style={{display:'flex',alignItems:'center'}}>            <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group.svg'></Avatar></div>
+                        <Typography className={styles.listzerodha} >ZERODHA </Typography></div> </MenuItem>
+                    <MenuItem value={'kotak'}>           <div style={{display:'flex',alignItems:'center'}}>             <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group (1).svg'></Avatar></div>
+                        <Typography className={styles.listzerodha} >Kotak Securities  </Typography>
+                        </div>
+                    </MenuItem>
+                    <MenuItem value={30}>  <div style={{display:'flex',alignItems:'center'}}>    <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha22} src='../../angel logo 1.svg'></Avatar></div>
+                        <Typography className={styles.listzerodha} > Angel One</Typography>
+                        </div>
+                    </MenuItem>
+                    <MenuItem value={40}> <div style={{display:'flex',alignItems:'center'}}>     <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha22} src='../../upstox 1.svg'></Avatar></div>
+                        <Typography className={styles.listzerodha} >Upstox</Typography>
+                        </div>
+                    </MenuItem>
+                    <MenuItem value={40}> <div style={{display:'flex',alignItems:'center'}}>     <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha22} src='../../5 paisa logo 1.svg'></Avatar></div>
+                        <Typography className={styles.listzerodha} >5paisa</Typography>
+                        </div>
+                    </MenuItem>
+                </Select>
+                <div className={styles.listapichek}>
+                            <Typography>{age} can charge of API, please check it</Typography>
+                            <Link href="#">here</Link>
+                        </div>
+                {/* <Divider className={styles.divaydaravta}></Divider>5 paisa logo 1 */}
+                {/* <div className={styles.listdataaaco}>
                     <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group.svg'></Avatar></div>
                     <div className={styles.listhedingbnk22}>
                         <Typography >ZERODHA </Typography>
@@ -204,8 +243,9 @@ const Home = (props) => {
                             <Link href="#">here</Link>
                         </div>
                     </div>
-                    <div className={styles.switchadd}>
-                        {swishlist == true ? <SwitchUnstyled component={Root}
+                    <div className={styles.switchadd}> */}
+
+                {/* {swishlist == true ? <SwitchUnstyled component={Root}
                             {...label} id='switch'
                             disabled
                             onChange={((e) => {
@@ -218,13 +258,13 @@ const Home = (props) => {
                                 setChecked(e.target.checked)
                                 setAccounttype('zerodha')
                             })}
-                        />}
-                    </div>
-                </div>
-                <Divider className={styles.divaydaravta}></Divider>
+                        />} */}
+                {/* </div> */}
+                {/* </div> */}
+                {/* <Divider className={styles.divaydaravta}></Divider> */}
             </Grid>
             <Grid item sm={12} md={6} xs={12} className={styles.listdiver2}>
-                <Divider className={styles.divaydaravta}></Divider>
+                {/* <Divider className={styles.divaydaravta}></Divider>
                 <div className={styles.listdataaaco}>
                     <div className={styles.listofavtar}><Avatar className={styles.avatarzerotha} src='../../Mask Group (1).svg'></Avatar></div>
                     <div className={styles.listhedingbnk}>
@@ -249,7 +289,7 @@ const Home = (props) => {
                             />}
                     </div>
                 </div>
-                <Divider className={styles.divaydaravta}></Divider>
+                <Divider className={styles.divaydaravta}></Divider> */}
             </Grid>
             <Grid item sm={12} md={6} xs={12} className={styles.constomarlist}>
 
@@ -324,7 +364,7 @@ const Home = (props) => {
                     <div>
                         <Checkbox style={{ borderRadius: '15px' }}
                             onChange={((e) => {
-                            setCekboxlist(e.target.checked)        
+                                setCekboxlist(e.target.checked)
                             })}
                         />
                     </div>
@@ -337,10 +377,10 @@ const Home = (props) => {
                 </div>
             </Grid>
             <Grid item sm={6} md={3} xs={6} display={'flex'} alignItems={'center'} justifyContent={'end'}>
-                <div style={{padding:'30px 0px 0px 0px'}}>
-                    {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password  == '' || formik.values.consumer_secret == '' || formik.values.userId == ''||checked ==false &&swishlist ==false ? 
-                
-                    <Button  type="submit" disabled  className={styles.donebtn22} >SAVE</Button>:<Button  type="submit"  className={styles.donebtn} onClick={accountadd}>SAVE</Button>}
+                <div style={{ padding: '30px 0px 0px 0px' }}>
+                    {cekboxlist == false || formik.values.consumer_key == '' || formik.values.password == '' || formik.values.consumer_secret == '' || formik.values.userId == '' || age =='' ?
+
+                        <Button type="submit" disabled className={styles.donebtn22} >SAVE</Button> : <Button type="submit" className={styles.donebtn} onClick={accountadd}>SAVE</Button>}
                 </div>
             </Grid>
         </Grid>

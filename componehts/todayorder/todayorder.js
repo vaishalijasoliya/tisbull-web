@@ -385,7 +385,7 @@ const Home = (props) => {
   }
   const tabChange = (status) => {
     setReviewStatus(status);
-    if (status == "ALL") {
+    if (status == "pending") {
       setDatatebalpettan(pendingReviewList);
 
       // setUserSearch(pendingReviewList);
@@ -584,7 +584,7 @@ const Home = (props) => {
                 </Tooltip>
               ) : (
                 <Tooltip >
-                  <Grid item md={6} sm={12} xs={12} style={{ display: 'flex', justifyContent: 'end', padding: '0px 60px 0px 0px' }}>
+                  <Grid item md={6} sm={12} xs={12} style={{ display: 'flex', justifyContent: 'end', padding: '0px 32px 0px 0px' }}>
 
                     <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
 
@@ -660,7 +660,7 @@ const Home = (props) => {
 
                         <div className={styles.filatahedinh}><Typography>FILTER</Typography></div>
                         <div className={styles.listbtnsot}>
-                          <Button className={styles.censbatnsot22} onClick={() => { handleClose, tabChange("ALL"), setBtnlist('ALL') }}>RESET </Button>
+                          <Button className={styles.censbatnsot22} onClick={() => { handleClose, tabChange("pending"), setBtnlist('pending') }}>RESET </Button>
                           <Button className={styles.savebatnsot223} onClick={() => { tabChange(btnlistdatalist) }}>Save</Button></div>
                       </div>
                       <Divider className={styles.filtar_divaydar}></Divider>
@@ -670,9 +670,10 @@ const Home = (props) => {
 
                       </div>
                       <div style={{ padding: '0px 0px 0px 25px' }}>     <Button onClick={() => {
-                        setBtnlistlist('ALL')
+                        setBtnlistlist('pending')
+                        setBtnlist('pending')
 
-                      }} className={btnlistdatalist == 'ALL' ? styles.Customlistbtn : styles.nonelistbtn}>ALL</Button>      <Button
+                      }} className={btnlistdatalist == 'pending' ? styles.Customlistbtn : styles.nonelistbtn}>ALL</Button>      <Button
                         onClick={() => {
                           setBtnlistlist('SELL')
 

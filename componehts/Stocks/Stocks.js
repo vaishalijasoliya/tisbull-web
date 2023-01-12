@@ -9,35 +9,37 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
+// import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Switch from '@mui/material/Switch';
+// import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import Grid from '@mui/material/Grid';
 import styles from './Stocks.module.scss'
+import CloseIcon from '@mui/icons-material/Close';
+
 import { Button, TextField } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Menu from '@mui/material/Menu';
 import Divider from '@mui/material/Divider';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+// import InputLabel from '@mui/material/InputLabel';
+// import Select from '@mui/material/Select';
+// import MenuItem from '@mui/material/MenuItem';
 import { Types } from '../../constants/actionTypes'
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import ApiServices from '../../config/ApiServices';
 import ApiEndpoint from '../../config/ApiEndpoint';
 import Avatar from '@mui/material/Avatar';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import moment from 'moment'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dialog from '@mui/material/Dialog';
 import { CSVLink, CSVDownload } from 'react-csv';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
@@ -46,15 +48,18 @@ import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled'
 import { styled } from '@mui/material/styles';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { toast } from 'react-toastify';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'; import { useRouter } from 'next/router';
-import Collapse from '@mui/material/Collapse';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Radio from '@mui/material/Radio';
+// import HighlightOffIcon from '@mui/icons-material/HighlightOff'; 
+import { useRouter } from 'next/router';
+// import Collapse from '@mui/material/Collapse';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+// import Accordion from '@mui/material/Accordion';
+// import AccordionSummary from '@mui/material/AccordionSummary';
+// import AccordionDetails from '@mui/material/AccordionDetails';
+import DialogTitle from '@mui/material/DialogTitle';
 
+import Radio from '@mui/material/Radio';
+import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 function createData(name, calories, fat, carbs, protein) {
     return {
@@ -273,7 +278,44 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired,
 };
 
-
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+      padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+      padding: theme.spacing(1),
+    },
+  }));
+  
+  function BootstrapDialogTitle(props) {
+    const { children, onClose, ...other } = props;
+  
+    return (
+      <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+        {children}
+        {onClose ? (
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </DialogTitle>
+    );
+  }
+  
+  BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+  };
+  
 const Home = (props) => {
     const router = useRouter();
 
@@ -311,7 +353,7 @@ const Home = (props) => {
     const [listdarapush, setLlistdatapush] = useState('All');
     const [logvvmog, setLogvvmog] = useState('Stock')
     const [checked, setChecked] = React.useState(false);
-    const [openlist, setOpen] = React.useState(false);
+    // const [openlist, setOpen] = React.useState(false);
     const [isClear, setListscrip] = useState('');
     const [listmenudata, setListnse] = useState('')
     const [listscirip, setScripdata] = React.useState('')
@@ -328,6 +370,15 @@ const Home = (props) => {
 
     const [flagReviewList, setFlageReviewList] = React.useState([]);
     console.log(activesetsh, 'activesetsh');
+    const [openlistt, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleCloselist = () => {
+    setOpen(false);
+  };
+
     const menulist = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -1141,7 +1192,41 @@ const Home = (props) => {
                                                         </TableCell> */}
 
                                                                 <TableCell className={styles.tddatallistyy}>
-
+                                                                <div>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
+        Open dialog
+      </Button> */}
+      <BootstrapDialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openlistt}
+      >
+        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+          Modal title
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+            consectetur ac, vestibulum at eros.
+          </Typography>
+          <Typography gutterBottom>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+          </Typography>
+          <Typography gutterBottom>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
+            magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
+            ullamcorper nulla non metus auctor fringilla.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Save changes
+          </Button>
+        </DialogActions>
+      </BootstrapDialog>
+    </div>
                                                                     <div className={styles.listtebal}>
                                                                         {row.status == 'exit' ? <Box className={styles.viwebtnmm23}> <img height={18} src="../../edit_square.svg" />  </Box> :
                                                                             <Button className={styles.viwebtnmm}
@@ -1174,6 +1259,7 @@ const Home = (props) => {
                                                                         </Button>}
                                                                         {row.status == 'exit' ? <Box className={styles.viwebtnmm234}> <DeleteOutlineIcon /></Box> : <Button className={styles.viwebtnmm2} onClick={() => { setRowid(row.id), handleClickOpendeletbtnlog() }}><DeleteOutlineIcon /></Button>}
                                                                     </div>
+                                                                 
                                                                     <div>
                                                                         <Dialog open={deletbtn} onClose={handleCloseComdeletbtn}
                                                                             className={styles.borderredayasfor}

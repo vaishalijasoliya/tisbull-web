@@ -150,7 +150,7 @@ const main = (props) => {
                         <div className={styles.typoanfnull}>
                             <Typography className={styles.hedingdata}>START DATE
                             </Typography>
-                            <Typography className={styles.accodata}>-</Typography>
+                            <Typography className={styles.accodata}>{moment(props.data.start_date).format("D  MMM YYYY h:mm a")}</Typography>
                         </div>
 
                         <div className={styles.typoanfnull}>
@@ -163,7 +163,7 @@ const main = (props) => {
                         <div className={styles.listjastifay}>
                             <div className={styles.typoanfnull}>
                                 <Typography className={styles.hedingdata}>END DATE  At</Typography>
-                                <Typography className={styles.accodata}>-</Typography>
+                                <Typography className={styles.accodata}>{moment(props.data.end_date).format("D  MMM YYYY h:mm a")}</Typography>
                             </div>
 
                             <div className={styles.typoanfnull}>

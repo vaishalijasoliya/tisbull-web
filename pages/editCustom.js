@@ -61,7 +61,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Divider from '@mui/material/Divider';
 import Image from 'next/image';
 import Newbar from '../componehts/newbar/newbarlist';
-
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 let stockInterval = null;
 
 const FilePicker = dynamic(() => import('react-file-picker').then((module) => {
@@ -92,7 +93,7 @@ const AddCustomPattern = (props) => {
     const [listdataconmnone, setListdatanione] = useState('')
     const [filterScripList, setFilterScripList] = useState([]);
     const [defaultScripList, setDefaultScripList] = useState([]);
-    const [scripDetails, setScripDetails] = useState('');
+    const [scripDetails, setScripDetails] = useState([]);
     const [isLockPatternDialog, setLockPattern] = useState(false);
     const [levelError, setLevelError] = useState(false);
     const [currentPriceError, setCurrentPriceError] = useState(false)
@@ -108,22 +109,20 @@ const AddCustomPattern = (props) => {
     const [userJSON, setUserJSON] = useState()
     const [uploadedCSV, setUploadedCSV] = useState(null)
     console.log(userJSON, 'userJSON');
-    const handleCSVSubmit = (e) => {
-        e.preventDefault()
-
-        Papa.parse(uploadedCSV, {
+    const handleCSVUpload = file => {
+        Papa.parse(file, {
             header: true,
-            complete: (results) => {
-                console.log({ results })
+            complete: results => {
                 setUserJSON(results.data)
+                // setListcsvdsts(results.data)
             },
-        })
-    }
+        });
+    };
 
-    const handleCSVUpload = (e) => {
-        // console.log(e.target.files[0])
-        setUploadedCSV(e)
-    }
+    // const handleCSVUpload = (e) => {
+    //     // console.log(e.target.files[0])
+    //     setUploadedCSV(e)
+    // }
     const handleChangemejej = (event) => {
         setSelectedValue(event.target.value);
     };
@@ -457,6 +456,7 @@ const AddCustomPattern = (props) => {
                     sellPrice: parseFloat(element.sellPrice),
                     buy_qty: parseFloat(element.buy_qty),
                     sell_qty: parseFloat(element.sell_qty),
+                    listhovar: parseFloat(element.enter)
                     // enter_price: element.field5,
                 };
 
@@ -480,7 +480,8 @@ const AddCustomPattern = (props) => {
                             sellPrice: parseFloat(element.sell),
                             buy_qty: parseFloat(element.buyQty),
                             sell_qty: parseFloat(element.sellQty),
-                            // is_current_price: element.is_current_price,
+                            // listhovar: parseFloat(element.is_current_price)
+                            listhovar: element.is_current_price,
                         };
 
                         if (element.is_current_price == true) {
@@ -515,7 +516,7 @@ const AddCustomPattern = (props) => {
 
             console.log(totalStep, 'TOTAL____STEP');
             let invest = 0;
-
+            let greenrow = 0;
             for (let index = 0; index < PatternDataTable.length; index++) {
                 const element = PatternDataTable[index];
                 console.log(element.buyPrice, 'IS___ELEMENT___FROM___LOOP');
@@ -532,9 +533,9 @@ const AddCustomPattern = (props) => {
                 const sell_qty = parseFloat(element.sell_qty);
                 const Gross = parseFloat(sellValue) - parseFloat(buyValue);
                 const Sdisc = parseFloat(buyPrice) - parseFloat(Current_price[0].Price);
-
+                let carantpirsh = element.listhovar
                 var totalInvest = 0;
-
+console.log(carantpirsh,'carantpirsh');
                 // var total_Investment = buy_qty * Current_price[0].Price;
 
                 for (let index = 0; index < PatternDataTable.length; index++) {
@@ -570,7 +571,30 @@ const AddCustomPattern = (props) => {
                 //   lastItem,
                 //   // buy_qty,
                 // );
+                if(carantpirsh == 1){
+                    greenrow++;
+                   
+                }
+                let greenclass =  styles.listcolonone;
+             
 
+                console.log(parseInt(formik.values.Initail) - 1, formik.values.Initail, '(formik.values.Initail')
+                if(greenrow >= 1 && greenrow <= (parseInt(formik.values.Initail) ) ){
+                    greenclass = styles.listcolorhovar;
+                    console.log( greenclass,'greenrowgreenrow');
+                    greenrow++;
+                }
+                // if(carantpirsh == true){
+                //     greenrow++;
+
+                // }
+                // let greenclass =  styles.listcolonone;
+
+                console.log(parseInt(formik.values.Initail) - 1, formik.values.Initail, '(formik.values.Initail')
+                // if(greenrow >= true && greenrow <= (parseInt(formik.values.Initail) ) ){
+                //     greenclass = styles.listcolorhovar;
+                //     greenrow++;
+                // }
                 const obj = {
                     buyValue: parseFloat(buyValue.toFixed(2)),
                     investment: parseFloat(InvestPerCurrent.toFixed(2)),
@@ -586,6 +610,7 @@ const AddCustomPattern = (props) => {
                     stock: parseFloat(stockQty.toFixed(2)),
                     avg: parseFloat((InvestPerCurrent / stockQty).toFixed(2)),
                     isInitialBuy: '',
+                    greenclass: greenclass
                 };
 
                 // {}
@@ -704,10 +729,10 @@ const AddCustomPattern = (props) => {
             
             console.log(csvFile, 'formDataformData');
             if (!!startDate) {
-                formData.append = moment(startDate).format('YYYY-MM-DD')
+                formData.append.start_date = moment(startDate).format('YYYY-MM-DD')
     }
             else if (!!endDate) {
-                formData.append = moment(endDate).format('YYYY-MM-DD')
+                formData.append.end_date = moment(endDate).format('YYYY-MM-DD')
     }
             var headers = {
                 "x-access-token": props.profile.token
@@ -885,9 +910,11 @@ const AddCustomPattern = (props) => {
         }
    
         var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
-        if (!!stockPrice && !!stockPrice.success && stockPrice.success.length > 0) {
-            console.log('stockPrice', stockPrice)
-            setScripDetails(stockPrice.success[0])
+        if (stockPrice == false) {
+          
+            
+        }else{
+            setScripDetails(stockPrice)
         }
     }
 
@@ -1178,25 +1205,36 @@ const AddCustomPattern = (props) => {
 
                                 ><KeyboardReturnIcon />Patterns</Button>
                                 <CardContent className={styles.listcocntenatdata}>
-                                    {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-                                        {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
-                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                                {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                            </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
-                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                                {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                            </Box>
-                                        </Box>}
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
+                                {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+   {scripDetails.perc >= 0 ?
+    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+    <div className={styles.listprish}>
+    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+    <ArrowDropUpIcon sx={{  color: '#009947' }} />
+    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+    </div>
+    </Box>
+   
+   :
+   <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+    <div className={styles.listprishred}>
+    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+    <ArrowDropDownIcon sx={{  color: '#E31E24' }} />
+    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+    </div>
+    </Box> }
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
 
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
 
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
-                                        {/* </Box> */}
-                                    </Box>}
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
+                                    {/* </Box> */}
+                                </Box>}
                                     <div className={styles.listtypogst}>
                                         <Typography>GENERAL</Typography>
                                     </div>
@@ -1531,25 +1569,36 @@ const AddCustomPattern = (props) => {
                             }
                             {activeStep == 1 && <> {selectedValue == 'CSV' ?
                                 <div className={styles.listgridpin}>
-                                    {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-                                        {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
-                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                                {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                            </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
-                                            <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                                {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                                <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                            </Box>
-                                        </Box>}
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
+                                {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+   {scripDetails.perc >= 0 ?
+    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+    <div className={styles.listprish}>
+    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+    <ArrowDropUpIcon sx={{  color: '#009947' }} />
+    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+    </div>
+    </Box>
+   
+   :
+   <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+    <div className={styles.listprishred}>
+    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+    <ArrowDropDownIcon sx={{  color: '#E31E24' }} />
+    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+    </div>
+    </Box> }
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
 
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
 
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
-                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
-                                        {/* </Box> */}
-                                    </Box>}
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
+                                    {/* </Box> */}
+                                </Box>}
                                     <div className={styles.listtypogst}>
                                         <Typography>GENERAL</Typography>
                                     </div>
@@ -1609,8 +1658,8 @@ const AddCustomPattern = (props) => {
                                     <Grid item md={4} style={{ display: 'flex', justifyContent: 'space-between', padding: "15px 0px 0px 0px" }}>
                                         <div>
                                             <Typography className={styles.datatyplo}>Data Type </Typography></div><div>
-                                            <Button onClick={() => { setListdatop('CSV') }} className={listfigmaop == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
-                                            <Button onClick={() => { setListdatop('Manual') }} className={listfigmaop == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
+                                            <Button onClick={() => { setSelectedValue('CSV') }} className={selectedValue == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
+                                            <Button onClick={() => { setSelectedValue('Manual') }} className={selectedValue == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
                                         </div>
                                     </Grid>
                                     <Grid item md={4} display={'flex'} justifyContent={'end'}>
@@ -1656,12 +1705,12 @@ const AddCustomPattern = (props) => {
                                                         hidden
                                                         // className=
                                                         onChange={(file) => {
-                                                            handleCSVUpload(file.target.files[0])
-                                                            setFile(file.target.files[0]);
-                                                        }}
+                                                    handleCSVUpload(file.target.files[0])
+                                                    setFile(file.target.files[0]);
+                                                }}
                                                         accept=".csv" ></input>
                                                     Browse   </Button>
-                                                <Button onClick={handleCSVSubmit}>sub</Button>
+                                                {/* <Button onClick={handleCSVSubmit}>sub</Button> */}
                                             </div>
                                             <div className={styles.listcsvdata}>
                                                 <Typography>Supported formates: CSV</Typography>
@@ -1671,25 +1720,36 @@ const AddCustomPattern = (props) => {
                                     </Grid>
                                 </div> : <div>
                                     <div className={styles.listmaenstokdiv}>
-                                        {!!script && !!scripDetails && !!scripDetails.ltp && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-                                            {parseFloat(scripDetails.ltp) !== parseFloat(scripDetails.closing_price) ? <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }}>
-                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography><Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                                    {((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                                    <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#00b8a6' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.ltp) - parseFloat(scripDetails.closing_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                                </Box></Box> : <Box sx={{ flexDirection: 'row' }} style={{ padding: '0px 60px 0px 0px' }}>
-                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current</Typography> <Box style={{ display: 'flex' }}> {scripDetails.closing_price > 0 ? <Typography style={{ color: '#009947' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography> : <Typography style={{ color: '#E31E24' }} className={styles.listcereantlist}>{parseFloat(scripDetails.ltp).toFixed(2)}</Typography>}
-                                                    {((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price) > 0 ? <ArrowUpwardIcon sx={{ marginLeft: 0.5, color: '#009947' }} /> : <ArrowDownwardIcon sx={{ marginLeft: 0.5, color: '#E31E24' }} />}
-                                                    <Typography className={styles.listpsllow} sx={{ color: (((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)) > 0 ? '#009947' : '#E31E24' }}>{`(${(((parseFloat(scripDetails.closing_price) - parseFloat(scripDetails.open_price)) * 100) / parseFloat(scripDetails.closing_price)).toFixed(2)}%)`}</Typography>
-                                                </Box>
-                                            </Box>}
-                                            <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open_price).toFixed(2)}</Typography></Box>
+                                    {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+   {scripDetails.perc >= 0 ?
+    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+    <div className={styles.listprish}>
+    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+    <ArrowDropUpIcon sx={{  color: '#009947' }} />
+    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+    </div>
+    </Box>
+   
+   :
+   <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+    <div className={styles.listprishred}>
+    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+    <ArrowDropDownIcon sx={{  color: '#E31E24' }} />
+    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+    </div>
+    </Box> }
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
 
-                                            <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.closing_price).toFixed(2)}</Typography> </Box>
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
 
-                                            <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low_price).toFixed(2)}</Typography> </Box>
-                                            <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high_price).toFixed(2)}</Typography></Box>
-                                            {/* </Box> */}
-                                        </Box>}
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
+                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
+                                    {/* </Box> */}
+                                </Box>}
                                         <div className={styles.listtypogst}>
                                             <Typography>GENERAL</Typography>
                                         </div>
@@ -1750,8 +1810,8 @@ const AddCustomPattern = (props) => {
                                         <Grid item md={4} style={{ display: 'flex', justifyContent: 'space-between', padding: "15px 0px 0px 0px" }}>
                                             <div>
                                                 <Typography className={styles.datatyplo}>Data Type </Typography></div><div>
-                                                <Button onClick={() => { setListdatop('CSV') }} className={listfigmaop == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
-                                                <Button onClick={() => { setListdatop('Manual') }} className={listfigmaop == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
+                                                <Button onClick={() => { setSelectedValue('CSV') }} className={selectedValue == 'CSV' ? styles.list2data : styles.listdatlog}>CSV</Button>
+                                                <Button onClick={() => { setSelectedValue('Manual') }} className={selectedValue == 'Manual' ? styles.list2data : styles.listdatlog}>Manual</Button>
                                             </div>
                                         </Grid>
                                     </div>
@@ -2013,7 +2073,9 @@ const AddCustomPattern = (props) => {
                                                                 sx={{ display: 'flex', flex: 1 }}
                                                                 key={pattern.step}
                                                                 hover
+                                                                className={pattern.greenclass}
                                                             >
+                                                          
                                                                 <TableCell sx={{ display: 'flex', flex: 1 }}>
                                                                     {pattern.step}
                                                                 </TableCell>

@@ -9,7 +9,16 @@
     font-family: roboto-400;
     src: url(../../styles/Roboto/Roboto-Regular.ttf);
 }
-
+.selectdatalistsd{
+    width: 100%;
+    height: 50px;
+}
+.listzerodha{
+    font-family: Poppins-400 !important;
+    color: #333333 !important;
+font-size: 14px !important;
+padding-left: 10px;
+}
 .contenat_listaddacc{
     padding: 20px 80px 60px 80px;
     background: #FFFFFF;
@@ -129,6 +138,12 @@ font-size: 14px;
 .switchadd{
     // padding: 0px 0px 0px 30px;
 }
+.avatarzerotha22{
+    border:1.5px solid #009947;
+    img{
+       padding: 0px 0px 0px 0px;
+    }
+   }
 .avatarzerotha{
  border:1.5px solid #009947;
  img{

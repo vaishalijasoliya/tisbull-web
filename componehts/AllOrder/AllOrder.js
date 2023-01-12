@@ -527,7 +527,7 @@ console.log(datatebalpettan,'datatebalpettan');
         </Tooltip>
       ) : (
         <Tooltip >
-        <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 60px 20px 0px'}}>
+        <Grid item md={6} sm={12} xs={12}  style={{display:'flex',justifyContent:'end',padding:'0px 24px 20px 0px'}}>
 
           <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
             {/* {search ? */}
