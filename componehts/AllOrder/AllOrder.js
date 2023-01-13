@@ -223,7 +223,7 @@ const Home = (props) => {
   const [selected, setSelected] = React.useState('');
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const [search, setSearch] = React.useState(false);
   const [datatebalpettan, setDatatebalpettan] = React.useState([]);
   const [data, setData] = React.useState([]);

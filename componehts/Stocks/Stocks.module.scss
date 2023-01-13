@@ -14,7 +14,64 @@
     font-family: roboto-600;
     src: url(../../styles/Roboto/Roboto-Bold.ttf);
 }
+.listbtnsallopk{
+    font-family: Poppins-400 !important;
+    color: #333333 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    padding-top: 20PX;
+}
+.listbtnsallopk22{
+    font-family: Poppins-400 !important;
+    color: #333333 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    padding-top: 30PX;
+}
+.centenstpopudfg{
+    padding: 0px 30px 30px 30px!important;
+}
+.btn_all_buy55 {
+    padding: 10px 0px 0px 0px;
+    // text-align: center;
 
+    button {
+        margin: 0px 0px 0px 10px;
+        border: 1px solid #053159;
+        border-radius: 20px;
+        color: #053159;
+        width: 79px;
+        font-size: 11px;
+        font-family: roboto-400;
+        text-transform: capitalize;
+        height: 25px;
+
+    }
+
+}
+.listperegafyyy{
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+color: #000000 !important;
+padding-bottom: 18px;
+padding-top: 10px;
+}
+.listperegafyyy22{
+    font-family: Poppins-400 !important;
+    font-size: 14px !important;
+color: #000000 !important;
+font-weight: 600 !important; 
+}
+.listsavebtn{
+    padding: 10px 40px !important;
+    background: #009947 !important;
+border-radius: 5px !important;
+text-transform: capitalize !important;
+font-family: Poppins-400 !important;
+font-size: 12px !important ;
+color: #fff !important;
+margin: 6px 7px 0px 0px !important;
+}
 .listdatamenulog {
     text-align: center;
 
@@ -223,10 +280,6 @@
 
     }
 
-    // button:hover {
-    //     background: #053159;
-    //     color: white;
-    // }
 }
 
 .btn_all_buy22 {
@@ -400,7 +453,16 @@
         color: #333333;
     }
 }
+.delehedar22 {
+    padding-left: 12px !important;
+    p {
+        font-size: 24px;
+        font-family: roboto-400;
+        text-align: left;
 
+        color: #333333;
+    }
+}
 .delehedar {
     p {
         font-size: 24px;

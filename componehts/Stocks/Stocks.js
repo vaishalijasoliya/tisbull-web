@@ -295,6 +295,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
         {children}
         {onClose ? (
           <IconButton
+          className={styles.listsavebtn}
             aria-label="close"
             onClick={onClose}
             sx={{
@@ -304,7 +305,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
               color: (theme) => theme.palette.grey[500],
             }}
           >
-            <CloseIcon />
+          SAVE
           </IconButton>
         ) : null}
       </DialogTitle>
@@ -351,6 +352,7 @@ const Home = (props) => {
     const [play, setPlay] = React.useState(false);
     const [listdara, setLlistdata] = useState('All');
     const [listdarapush, setLlistdatapush] = useState('All');
+    const[playpush,setPlaypush] =useState('Play')
     const [logvvmog, setLogvvmog] = useState('Stock')
     const [checked, setChecked] = React.useState(false);
     // const [openlist, setOpen] = React.useState(false);
@@ -1197,34 +1199,50 @@ const Home = (props) => {
         Open dialog
       </Button> */}
       <BootstrapDialog
-        onClose={handleClose}
+      className={styles.borderredayasfor}
+        onClose={handleCloselist}
         aria-labelledby="customized-dialog-title"
         open={openlistt}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+        <div className={styles.delehedar22}>
+                                                                                            <Typography>Pattern  play & pause </Typography>
+                                                                                        </div>
         </BootstrapDialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
+        <DialogContent className={styles.centenstpopudfg}>
+          <Typography className={styles.listperegafyyy} gutterBottom>
+          Are you sure you want to do following operations for  
           </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+          <Typography className={styles.listperegafyyy22} gutterBottom>
+          AAPL ( NSE )
+
           </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-            magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-            ullamcorper nulla non metus auctor fringilla.
+          <Typography className={styles.listperegafyyy} gutterBottom>
+          from zerodha ?
+
           </Typography>
+          <Typography className={styles.listbtnsallopk}>Status</Typography>
+          <div className={styles.btn_all_buy55}>
+                                                                                            <Button onClick={() => { setPlaypush('Play') }} className={playpush == 'Play' ? styles.listdatlog : styles.list2data}>Play</Button>
+                                                                                            <Button onClick={() => { setPlaypush('Pause') }} className={playpush == 'Pause' ? styles.listdatlog : styles.list2data}>Pause</Button>
+                                                                                            {/* <Button onClick={() => { setLlistdatapush('Sell') }} className={listdarapush == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button> */}
+
+
+                                                                                        </div>
+          <Typography className={styles.listbtnsallopk22}>Order Type </Typography>
+          <div className={styles.btn_all_buy55}>
+                                                                                            <Button onClick={() => { setLlistdatapush('All') }} className={listdarapush == 'All' ? styles.listdatlog : styles.list2data}>All</Button>
+                                                                                            <Button onClick={() => { setLlistdatapush('Buy') }} className={listdarapush == 'Buy' ? styles.listdatlog : styles.list2data}>Buy</Button>
+                                                                                            <Button onClick={() => { setLlistdatapush('Sell') }} className={listdarapush == 'Sell' ? styles.listdatlog : styles.list2data}>Sell</Button>
+
+
+                                                                                        </div>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+        {/* <DialogActions>
+          <Button autoFocus onClick={handleCloselist}>
             Save changes
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </BootstrapDialog>
     </div>
                                                                     <div className={styles.listtebal}>
@@ -1424,55 +1442,7 @@ const Home = (props) => {
                                                                             </div>
                                                                         </Dialog>
                                                                     </div>
-                                                                    {/* <div>
-                                                                    <Dialog open={com} onClose={handleCloseCom}
-                                                                        className={styles.borderredayasfor}
-                                                                        style={{
-                                                                            // borderRadius: '30px'
-                                                                        }}
-                                                                        // fullWidth
-                                                                        maxWidth="sm"
-                                                                    >
-                                                                        <div className={styles.colosbatnlist}><Button onClick={handleCloseCom}><img height={30} width={20} src="../../Vector (13).svg" /></Button>  </div>
-                                                                        <div>
-                                                                            <DialogContent className={styles.popupcantenar}>
-                                                                                <Box className={styles.lisrmaenbox}>
-
-                                                                                    <div className={styles.delehedar}>
-                                                                                        <Typography>Delete Successful</Typography>
-                                                                                    </div>
-                                                                                    <div className={styles.listimgyes}>
-                                                                                        <img src="../../Group 47124.svg" />
-                                                                                    </div>
-                                                                                    <Box className={styles.listboxiduser}>
-                                                                                        <InputLabel className={styles.leballist}>ORDER ID </InputLabel>
-                                                                                        <div className={styles.maendividuser}>
-                                                                                            <div className={styles.odarlistop}>
-
-                                                                                                <Typography>jhgsadgds</Typography>
-
-                                                                                                <Typography>jhgsadgds</Typography>
-
-                                                                                                <Typography>jhgsadgds</Typography>
-
-                                                                                            </div>
-                                                                                            <div className={styles.odarlistop}>
-
-                                                                                                <Typography>jhgsadgds</Typography>
-
-                                                                                                <Typography>jhgsadgds</Typography>
-
-                                                                                                <Typography>jhgsadgds</Typography>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </Box>
-                                                                                    <div className={styles.cancelbtnlog}><Button >Cancel</Button></div>
-                                                                                </Box>
-                                                                            </DialogContent>
-                                                                        </div>
-                                                                    </Dialog>
-                                                                </div> */}
+                                                                  
                                                                     <div>
                                                                         <Dialog open={play} onClose={handleCloseComplay}
 

@@ -752,8 +752,17 @@ const AddPattern = (props) => {
                 <Grid item md={12} className={styles.listgrifmaen}>
                
                 <Container maxWidth={false}  className={styles.conterdata}>
+              
+<Box sx={{ }}>
+<Button className={styles.listpattbek22} style={{ color: 'black', testTransform: 'capitalize' }}
+                                    onClick={() => {
+                                        router.push({
+                                            pathname: './pattanlist',
+                                            // query: { emailID: row.id,namescoka:row.script }
+                                        });
+                                    }}
 
-<Box sx={{ mt: 3, mb: 3 }}>
+                                ><KeyboardReturnIcon />Patterns</Button>
     <Card className={listnone == 'bloack' ? styles.listcentenar : styles.bolkdatat} >
         <CardContent>
             {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
