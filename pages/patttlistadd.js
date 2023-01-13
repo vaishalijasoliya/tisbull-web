@@ -37,6 +37,8 @@ import Divider from '@mui/material/Divider';
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from 'react-toastify';
 import { useRouter, withRouter } from 'next/router';
+import ClearIcon from '@mui/icons-material/Clear';
+
 import { Grid } from 'material-ui-core';
 // import PerfectScrollbar from 'react-perfect-scrollbar';
 import styles from '../styles/addpatt.module.scss'
@@ -1065,40 +1067,47 @@ const AddPattern = (props) => {
                                         </Box>
                                     </Grid>
                                     <Grid item md={8} >
-                                        <Box
-                                            style={{ display: 'flex', padding: '5px 0px 0px 20px' }}
-                                        >
-                                            <Box style={{ padding: '0px 16px 0px 0px', width: '50%' }}>
-                                                <Typography className={styles.typofonty}>Start date</Typography>
+                                                            <Box
+                                                                style={{ display: 'flex', padding: '5px 0px 0px 20px' }}
+                                                            >
+                                                                <Box style={{ padding: '0px 16px 0px 0px', width: '50%' }}>
+                                                                    <Typography className={styles.typofonty}>Start date</Typography>
+<div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
 
-
-                                                <DatePickerll
-                                                    fullWidth
-                                                    sx={{ flex: 1 }}
-                                                    className={styles.listdatepikar}
-                                                    selected={startDate}
-                                                    onChange={(date) => setStartDate(date)}
-                                                    selectsStart
-                                                    startDate={startDate}
-                                                    endDate={endDate}
-                                                    caretAs={calenderIcon}
-                                                />
-                                            </Box>
-                                            <Box style={{ padding: '0px 0px 0px 10px', width: '50%' }}>
-                                                <Typography className={styles.typofonty}>End date</Typography>
-                                                <DatePickerll
-                                                    className={styles.listdatepikar}
-                                                    selected={endDate}
-                                                    onChange={(date) => setEndDate(date)}
-                                                    selectsEnd
-                                                    startDate={startDate}
-                                                    endDate={endDate}
-                                                    minDate={startDate}
-                                                    caretAs={calenderIcon}
-                                                />
-                                            </Box>
-                                        </Box>
-                                    </Grid>
+                                                                    <DatePickerll
+                                                                        fullWidth
+                                                                        // sx={{ flex: 1 }}
+                                                                        className={styles.listdatepikar}
+                                                                        selected={startDate}
+                                                                        onChange={(date) => setStartDate(date)}
+                                                                        selectsStart
+                                                                        startDate={startDate}
+                                                                        endDate={endDate}
+                                                                    // caretAs={calenderIcon}
+                                                                    />
+                                                                    {startDate == ''?'':
+                                                                    <Button className={styles.listdeteclosh} onClick={()=>{setStartDate('')}}><ClearIcon /></Button>}
+                                                                    </div>
+                                                                </Box>
+                                                                <Box style={{ padding: '0px 0px 0px 10px', width: '50%' }}>
+                                                                    <Typography className={styles.typofonty}>End date</Typography>
+                                                                    <div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
+                                                                    <DatePickerll
+                                                                        className={styles.listdatepikar}
+                                                                        selected={endDate}
+                                                                        onChange={(date) => setEndDate(date)}
+                                                                        selectsEnd
+                                                                        startDate={startDate}
+                                                                        endDate={endDate}
+                                                                        minDate={startDate}
+                                                                    // caretAs={calenderIcon}
+                                                                    />
+                                                                       {endDate == ''?'':
+                                                                    <Button className={styles.listdeteclosh} onClick={()=>{setEndDate('')}}><ClearIcon /></Button>}
+                                                                    </div>
+                                                                </Box>
+                                                            </Box>
+                                                        </Grid>
                                 </div>
                                 <div>
                                     <Accordion className={styles.acclistloddop}>

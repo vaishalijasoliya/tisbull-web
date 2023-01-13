@@ -63,6 +63,7 @@ import Image from 'next/image';
 import Newbar from '../componehts/newbar/newbarlist';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ClearIcon from '@mui/icons-material/Clear';
 let stockInterval = null;
 
 const FilePicker = dynamic(() => import('react-file-picker').then((module) => {
@@ -239,7 +240,7 @@ const AddCustomPattern = (props) => {
     const [patternError, setPatternError] = useState(false);
     const router = useRouter();
     const [rowCount, setRowCount] = useState('1')
-    console.log(listcsvdata, 'listcsvdata');
+    console.log(startDate, 'startDate');
     let isView = false;
     let serverData = {}
     const formik = useFormik({
@@ -439,16 +440,16 @@ const AddCustomPattern = (props) => {
                 const element = userJSON[index];
 
                 console.log(element, 'rarrarrarra');
-                if(element.buyPrice == ''){
+                if (element.buyPrice == '') {
                     break;
                 }
-                if(element.sellPrice == ''){
+                if (element.sellPrice == '') {
                     break;
                 }
-                if(element.buy_qty == ''){
+                if (element.buy_qty == '') {
                     break;
                 }
-                if(element.sell_qty == ''){
+                if (element.sell_qty == '') {
                     break;
                 }
                 if (element.enter == 1) {
@@ -546,7 +547,7 @@ const AddCustomPattern = (props) => {
                 const Sdisc = parseFloat(buyPrice) - parseFloat(Current_price[0].Price);
                 let carantpirsh = element.listhovar
                 var totalInvest = 0;
-console.log(carantpirsh,'carantpirsh');
+                console.log(carantpirsh, 'carantpirsh');
                 // var total_Investment = buy_qty * Current_price[0].Price;
 
                 for (let index = 0; index < PatternDataTable.length; index++) {
@@ -574,38 +575,20 @@ console.log(carantpirsh,'carantpirsh');
 
                 totalStockWithCurrent += buy_qty;
                 stockQty += buy_qty;
-
-                // const lastItem = TotalinvestArray[TotalinvestArray.length - 1];
-
-                // console.log(
-                //   'TOTAL____INVEST',
-                //   lastItem,
-                //   // buy_qty,
-                // );
-                if(carantpirsh == 1){
+                if (carantpirsh == 1) {
                     greenrow++;
-                   
+
                 }
-                let greenclass =  styles.listcolonone;
-             
+                let greenclass = styles.listcolonone;
+
 
                 console.log(parseInt(formik.values.Initail) - 1, formik.values.Initail, '(formik.values.Initail')
-                if(greenrow >= 1 && greenrow <= (parseInt(formik.values.Initail) ) ){
+                if (greenrow >= 1 && greenrow <= (parseInt(formik.values.Initail))) {
                     greenclass = styles.listcolorhovar;
-                    console.log( greenclass,'greenrowgreenrow');
+                    console.log(greenclass, 'greenrowgreenrow');
                     greenrow++;
                 }
-                // if(carantpirsh == true){
-                //     greenrow++;
-
-                // }
-                // let greenclass =  styles.listcolonone;
-
                 console.log(parseInt(formik.values.Initail) - 1, formik.values.Initail, '(formik.values.Initail')
-                // if(greenrow >= true && greenrow <= (parseInt(formik.values.Initail) ) ){
-                //     greenclass = styles.listcolorhovar;
-                //     greenrow++;
-                // }
                 const obj = {
                     buyValue: parseFloat(buyValue.toFixed(2)),
                     investment: parseFloat(InvestPerCurrent.toFixed(2)),
@@ -653,21 +636,21 @@ console.log(carantpirsh,'carantpirsh');
             }
             var currentPriceArray = patternDataArray.filter((item) => item.is_current_price);
             // if (script.id == '') {
-                var body = {
-                    "script": parseFloat(script.id),
-                    "currentPrice": parseFloat(currentPriceArray[0].buy),
-                    "pattern_data": patternDataList,
-                    "id_account": props.profile.userData.currentAccount.id,
-                    "initail_sell": 0,
-                    "amo_buy": parseFloat(formik.values.SellSteps),
-                    "amo_sell": parseFloat(formik.values.BuySteps),
-                    "normal_buy": parseFloat(formik.values.NormalBuy),
-                    "initail_buy": parseFloat(formik.values.Initail),
-                    'id_pattern': parseFloat(router.query.emailID),
-                    "normal_sell": parseFloat(formik.values.NormalSell),
-                    "status": patternData.pattern.status
-                    // "minRange": parseFloat(formik.values.minRange),
-                }
+            var body = {
+                "script": parseFloat(script.id),
+                "currentPrice": parseFloat(currentPriceArray[0].buy),
+                "pattern_data": patternDataList,
+                "id_account": props.profile.userData.currentAccount.id,
+                "initail_sell": 0,
+                "amo_buy": parseFloat(formik.values.SellSteps),
+                "amo_sell": parseFloat(formik.values.BuySteps),
+                "normal_buy": parseFloat(formik.values.NormalBuy),
+                "initail_buy": parseFloat(formik.values.Initail),
+                'id_pattern': parseFloat(router.query.emailID),
+                "normal_sell": parseFloat(formik.values.NormalSell),
+                "status": patternData.pattern.status
+                // "minRange": parseFloat(formik.values.minRange),
+            }
             // }
             //  else {
             //     var body = {
@@ -685,12 +668,12 @@ console.log(carantpirsh,'carantpirsh');
             //         "normal_sell": parseFloat(formik.values.NormalSell),
             //         // "minRange": parseFloat(formik.values.minRange),
             //     }
-                if (!!startDate) {
-                    body.start_date = moment(startDate).format('YYYY-MM-DD')
-                }
-                else if (!!endDate) {
-                    body.end_date = moment(endDate).format('YYYY-MM-DD')
-                }
+            if (!!startDate) {
+                body.start_date = moment(startDate).format('YYYY-MM-DD')
+            }
+            else if (!!endDate) {
+                body.end_date = moment(endDate).format('YYYY-MM-DD')
+            }
             // }
             console.log('patternDataList', body)
             var headers = {
@@ -730,21 +713,21 @@ console.log(carantpirsh,'carantpirsh');
                 formData.append('script', parseFloat(listhpdatao));
             }
             formData.append('id_account', props.profile.userData.currentAccount.id);
-            formData.append('initail_buy',parseFloat(formik.values.Initail)),
-            formData.append('normal_buy',parseFloat(formik.values.NormalBuy)),
-            formData.append('amo_sell',parseFloat(formik.values.BuySteps)),
-            formData.append('amo_buy',parseFloat(formik.values.SellSteps)),
-            formData.append('normal_sell',parseFloat(formik.values.NormalSell)),
-            formData.append("initail_sell",0),
-            formData.append('file', csvFile)
-            
+            formData.append('initail_buy', parseFloat(formik.values.Initail)),
+                formData.append('normal_buy', parseFloat(formik.values.NormalBuy)),
+                formData.append('amo_sell', parseFloat(formik.values.BuySteps)),
+                formData.append('amo_buy', parseFloat(formik.values.SellSteps)),
+                formData.append('normal_sell', parseFloat(formik.values.NormalSell)),
+                formData.append("initail_sell", 0),
+                formData.append('file', csvFile)
+
             console.log(csvFile, 'formDataformData');
             if (!!startDate) {
                 formData.append.start_date = moment(startDate).format('YYYY-MM-DD')
-    }
+            }
             else if (!!endDate) {
                 formData.append.end_date = moment(endDate).format('YYYY-MM-DD')
-    }
+            }
             var headers = {
                 "x-access-token": props.profile.token
             }
@@ -818,7 +801,7 @@ console.log(carantpirsh,'carantpirsh');
     }
     React.useEffect(() => {
         if (!!props.profile && !!props.profile.token) {
-     
+
             setDatalisypatt(router.query.emailID)
             getoardarlist()
         }
@@ -907,7 +890,7 @@ console.log(carantpirsh,'carantpirsh');
 
         // if (text.length >= 2) {
         console.log(text, 'shhhhssss');
-        
+
     }
     console.log(selectedValue, 'selectedValue');
     const getScripPrice = async (value) => {
@@ -919,12 +902,12 @@ console.log(carantpirsh,'carantpirsh');
         var body = {
             "instrumentToken": value
         }
-   
+
         var stockPrice = await ApiServices.PostApiCall(ApiEndpoint.GET_STOCK_PRICE, JSON.stringify(body), headers)
         if (stockPrice == false) {
-          
-            
-        }else{
+
+
+        } else {
             setScripDetails(stockPrice)
         }
     }
@@ -1187,7 +1170,7 @@ console.log(carantpirsh,'carantpirsh');
                         }
                         return (
                             <Step key={label} {...stepProps}>
-                    </Step>
+                            </Step>
 
                         );
                     })}
@@ -1216,36 +1199,36 @@ console.log(carantpirsh,'carantpirsh');
 
                                 ><KeyboardReturnIcon />Patterns</Button>
                                 <CardContent className={styles.listcocntenatdata}>
-                                {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-   {scripDetails.perc >= 0 ?
-    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
-    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
-    <div className={styles.listprish}>
-    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
-    <ArrowDropUpIcon sx={{  color: '#009947' }} />
-    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
-    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
-    </div>
-    </Box>
-   
-   :
-   <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
-    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
-    <div className={styles.listprishred}>
-    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
-    <ArrowDropDownIcon sx={{  color: '#E31E24' }} />
-    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
-    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
-    </div>
-    </Box> }
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
+                                    {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                                        {scripDetails.perc >= 0 ?
+                                            <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                                                <div className={styles.listprish}>
+                                                    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                                                    <ArrowDropUpIcon sx={{ color: '#009947' }} />
+                                                    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                                                    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                                                </div>
+                                            </Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
+                                            :
+                                            <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                                                <div className={styles.listprishred}>
+                                                    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                                                    <ArrowDropDownIcon sx={{ color: '#E31E24' }} />
+                                                    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                                                    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                                                </div>
+                                            </Box>}
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
-                                    {/* </Box> */}
-                                </Box>}
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
+
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
+                                        {/* </Box> */}
+                                    </Box>}
                                     <div className={styles.listtypogst}>
                                         <Typography>GENERAL</Typography>
                                     </div>
@@ -1317,16 +1300,16 @@ console.log(carantpirsh,'carantpirsh');
 
                                         </Box><div className={listdataconmnone == 'accodind' ? styles.listdatblok : styles.nnedatalist}>
 
-                                            <Accordion className={styles.acclistloddop}>
+                                            {/* <Accordion className={styles.acclistloddop}>
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMoreIcon />}
                                                     aria-controls="panel1a-content"
                                                     id="panel1a-header"
-                                                    className={styles.listbackdda}
-                                                >
+                                                    className={styles.listbackdda} */}
+                                                {/* > */}
                                                     <Typography className={styles.hedindrop}>Advanced</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={styles.listaccsumahha}>
+                                                {/* </AccordionSummary> */}
+                                                {/* <AccordionDetails className={styles.listaccsumahha}> */}
 
                                                     <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
                                                         <Grid item md={4}>
@@ -1379,11 +1362,11 @@ console.log(carantpirsh,'carantpirsh');
                                                             >
                                                                 <Box style={{ padding: '0px 16px 0px 0px', width: '50%' }}>
                                                                     <Typography className={styles.typofonty}>Start date</Typography>
-
+<div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
 
                                                                     <DatePickerll
                                                                         fullWidth
-                                                                        sx={{ flex: 1 }}
+                                                                        // sx={{ flex: 1 }}
                                                                         className={styles.listdatepikar}
                                                                         selected={startDate}
                                                                         onChange={(date) => setStartDate(date)}
@@ -1392,9 +1375,13 @@ console.log(carantpirsh,'carantpirsh');
                                                                         endDate={endDate}
                                                                     // caretAs={calenderIcon}
                                                                     />
+                                                                    {startDate == ''?'':
+                                                                    <Button className={styles.listdeteclosh} onClick={()=>{setStartDate('')}}><ClearIcon /></Button>}
+                                                                    </div>
                                                                 </Box>
                                                                 <Box style={{ padding: '0px 0px 0px 10px', width: '50%' }}>
                                                                     <Typography className={styles.typofonty}>End date</Typography>
+                                                                    <div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
                                                                     <DatePickerll
                                                                         className={styles.listdatepikar}
                                                                         selected={endDate}
@@ -1405,14 +1392,17 @@ console.log(carantpirsh,'carantpirsh');
                                                                         minDate={startDate}
                                                                     // caretAs={calenderIcon}
                                                                     />
+                                                                       {endDate == ''?'':
+                                                                    <Button className={styles.listdeteclosh} onClick={()=>{setEndDate('')}}><ClearIcon /></Button>}
+                                                                    </div>
                                                                 </Box>
                                                             </Box>
                                                         </Grid>
 
 
                                                     </div>
-                                                </AccordionDetails>
-                                            </Accordion>
+                                                {/* </AccordionDetails> */}
+                                            {/* </Accordion> */}
 
                                             <Accordion className={styles.acclistloddop}>
                                                 <AccordionSummary
@@ -1580,36 +1570,36 @@ console.log(carantpirsh,'carantpirsh');
                             }
                             {activeStep == 1 && <> {selectedValue == 'CSV' ?
                                 <div className={styles.listgridpin}>
-                                {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-   {scripDetails.perc >= 0 ?
-    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
-    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
-    <div className={styles.listprish}>
-    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
-    <ArrowDropUpIcon sx={{  color: '#009947' }} />
-    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
-    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
-    </div>
-    </Box>
-   
-   :
-   <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
-    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
-    <div className={styles.listprishred}>
-    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
-    <ArrowDropDownIcon sx={{  color: '#E31E24' }} />
-    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
-    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
-    </div>
-    </Box> }
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
+                                    {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                                        {scripDetails.perc >= 0 ?
+                                            <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                                                <div className={styles.listprish}>
+                                                    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                                                    <ArrowDropUpIcon sx={{ color: '#009947' }} />
+                                                    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                                                    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                                                </div>
+                                            </Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
+                                            :
+                                            <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                                                <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                                                <div className={styles.listprishred}>
+                                                    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                                                    <ArrowDropDownIcon sx={{ color: '#E31E24' }} />
+                                                    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                                                    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                                                </div>
+                                            </Box>}
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
-                                    {/* </Box> */}
-                                </Box>}
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
+
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
+                                        <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
+                                        {/* </Box> */}
+                                    </Box>}
                                     <div className={styles.listtypogst}>
                                         <Typography>GENERAL</Typography>
                                     </div>
@@ -1698,8 +1688,8 @@ console.log(carantpirsh,'carantpirsh');
                                             </Button>
                                         </Box>
                                     </Grid>
-                                    <Grid className={styles.boxupoad} item md={4} display={'flex'} justifyContent={'center'}>
-                                        <Box >
+                                    <Grid  item md={4} >
+                                        <Box className={styles.boxupoad}>
                                             <div className={styles.imgtebuplodl}>
                                                 <img src='./Upload icon.svg' alt='Upload icon' />
                                             </div>
@@ -1716,9 +1706,9 @@ console.log(carantpirsh,'carantpirsh');
                                                         hidden
                                                         // className=
                                                         onChange={(file) => {
-                                                    handleCSVUpload(file.target.files[0])
-                                                    setFile(file.target.files[0]);
-                                                }}
+                                                            handleCSVUpload(file.target.files[0])
+                                                            setFile(file.target.files[0]);
+                                                        }}
                                                         accept=".csv" ></input>
                                                     Browse   </Button>
                                                 {/* <Button onClick={handleCSVSubmit}>sub</Button> */}
@@ -1727,40 +1717,42 @@ console.log(carantpirsh,'carantpirsh');
                                                 <Typography>Supported formates: CSV</Typography>
                                             </div>
                                         </Box>
-
+                                        {userJSON == '' ? '':<div>
+                                        <Button onClick={()=>{setUserJSON('')}} className={styles.listdatacsv}>cancel</Button>
+                                    </div>}
                                     </Grid>
                                 </div> : <div>
                                     <div className={styles.listmaenstokdiv}>
-                                    {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
-   {scripDetails.perc >= 0 ?
-    <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
-    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
-    <div className={styles.listprish}>
-    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
-    <ArrowDropUpIcon sx={{  color: '#009947' }} />
-    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
-    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
-    </div>
-    </Box>
-   
-   :
-   <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
-    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
-    <div className={styles.listprishred}>
-    <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
-    <ArrowDropDownIcon sx={{  color: '#E31E24' }} />
-    <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
-    <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
-    </div>
-    </Box> }
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
+                                        {!!script && !!scripDetails && !!scripDetails.current && <Box sx={{ flexDirection: 'row', marginBottom: 3, display: 'flex' }}>
+                                            {scripDetails.perc >= 0 ?
+                                                <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                                                    <div className={styles.listprish}>
+                                                        <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                                                        <ArrowDropUpIcon sx={{ color: '#009947' }} />
+                                                        <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                                                        <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                                                    </div>
+                                                </Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
+                                                :
+                                                <Box style={{ padding: '0px 60px 0px 0px' }} sx={{ flexDirection: 'row' }} >
+                                                    <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Current </Typography>
+                                                    <div className={styles.listprishred}>
+                                                        <Typography className={styles.listcerrntpish}>{parseFloat(scripDetails.current).toFixed(2)}</Typography>
+                                                        <ArrowDropDownIcon sx={{ color: '#E31E24' }} />
+                                                        <Typography className={styles.diffdatalist}>{scripDetails.deff}</Typography>
+                                                        <Typography>{`(${(scripDetails.perc)}%)`}</Typography>
+                                                    </div>
+                                                </Box>}
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Open</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.open).toFixed(2)}</Typography></Box>
 
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
-                                    <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
-                                    {/* </Box> */}
-                                </Box>}
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Prev. Close</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.close).toFixed(2)}</Typography> </Box>
+
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>   <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>Low</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.low).toFixed(2)}</Typography> </Box>
+                                            <Box style={{ padding: '0px 60px 0px 0px' }}>  <Typography sx={{ color: '#524ddc' }} className={styles.cerrantlist}>High</Typography> <Typography className={styles.listonepterd}>{parseFloat(scripDetails.high).toFixed(2)}</Typography></Box>
+                                            {/* </Box> */}
+                                        </Box>}
                                         <div className={styles.listtypogst}>
                                             <Typography>GENERAL</Typography>
                                         </div>
@@ -2086,7 +2078,7 @@ console.log(carantpirsh,'carantpirsh');
                                                                 hover
                                                                 className={pattern.greenclass}
                                                             >
-                                                          
+
                                                                 <TableCell sx={{ display: 'flex', flex: 1 }}>
                                                                     {pattern.step}
                                                                 </TableCell>
@@ -2222,7 +2214,7 @@ console.log(carantpirsh,'carantpirsh');
                 </Dialog>
             </div>
 
-         
+
         </Grid>
     );
 }

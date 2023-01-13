@@ -278,7 +278,7 @@ font-size: 12px;
 
 .listdatepikar {
     height: 37px !important;
-    width: 100%;
+    width: 110%;
     // width: 200px;
     box-sizing: border-box;
     height: 30px;
@@ -293,13 +293,14 @@ font-size: 12px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
     cursor: text;
-    // box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.02);
-    // padding: 0px 7px 0px 0px !important;
     font-family: Poppins-400 !important;
     // width: 196px;
 
 }
-
+.listdeteclosh{
+    color: #333333 !important;
+    
+}
 .batnpovedar {
     font-family: Poppins-400 !important;
     color: #FFFFFF;
@@ -549,6 +550,8 @@ font-size: 12px;
     border-radius: 4px;
     height: 170px;
     width: 100%;
+    // display: flex;
+    // justify-content: center;
 }
 
 .imputafile {
@@ -562,10 +565,21 @@ font-size: 12px;
     background-color: #F8F8FF !important;
     text-decoration: underline !important;
 }
-
+.listdatacsv{
+    width: 100%;
+    border: 1px solid !important;
+    background-color: #E31E24 !important;
+    font-family: Poppins-400 !important;
+    color: #fff !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+    text-transform: capitalize !important;
+    margin-top: 10px !important;
+}
 .listmaendic {
     display: flex;
     align-items: center !important;
+    justify-content: center;
     padding-top: 15px;
 
     p {
